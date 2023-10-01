@@ -13,13 +13,13 @@ export default function ControleVariavel() {
     <div className="flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
       <div className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter lg:hidden">
         <h2 className="flex-1 text-4xl font-black tracking-tighter">
-          PG GOLIATH
+          PG OBSIDIAN
         </h2>
         <span className="text-base font-bold">
           a partir de <strong className="text-green-400">R$ 399,99</strong>
         </span>
       </div>
-      <div className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[900px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
+      <div className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
           src="reflex-pro-frente.png"

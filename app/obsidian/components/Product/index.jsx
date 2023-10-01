@@ -30,18 +30,18 @@ const product = {
   ],
 };
 
-export default function Form(props) {
+export default function Form() {
   const { state, actions } = useControleVariavelStore();
 
   return (
-    <div className="#personalizacao flex w-[100vw] flex-col items-start justify-start gap-4 rounded-xl border border-gray-200 bg-white px-4 shadow-lg max-lg:w-full lg:min-w-[520px] lg:max-w-[560px]">
+    <div className="#personalizacao flex w-[100vw] flex-col items-start justify-start gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-lg max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] xl:max-w-[660px]">
       <div className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter max-lg:hidden">
         <h2 className="flex-1 font-helvetica text-4xl font-black tracking-tighter">
-          PG GOLIATH
+          PG OBSIDIAN
         </h2>
         <span className="text-base font-bold">
           a partir de{" "}
-          <strong className="text-green-400">R$ {props.value}</strong>
+          <strong className="text-green-400">R$ 399,99</strong>
         </span>
       </div>
 
