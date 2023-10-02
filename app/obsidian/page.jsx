@@ -15,7 +15,7 @@ export default function ControleVariavel() {
         <h2 className="flex-1 text-4xl font-black tracking-tighter">
           PG OBSIDIAN
         </h2>
-        <span className="text-base font-bold">
+        <span className="text-base font-helvetica tracking-wide font-semibold">
           a partir de <strong className="text-green-400">R$ 399,99</strong>
         </span>
       </div>

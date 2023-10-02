@@ -39,9 +39,8 @@ export default function Form() {
         <h2 className="flex-1 font-helvetica text-4xl font-black tracking-tighter">
           PG OBSIDIAN
         </h2>
-        <span className="text-base font-bold">
-          a partir de{" "}
-          <strong className="text-green-400">R$ 399,99</strong>
+        <span className="text-base font-helvetica tracking-wide font-semibold">
+          a partir de <strong className="text-green-400">R$ 399,99</strong>
         </span>
       </div>
 
