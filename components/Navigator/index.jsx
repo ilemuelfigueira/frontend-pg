@@ -16,10 +16,10 @@ const iconItemTemplate = (item, options) => {
   return (
     <a
       onClick={() => goTo(item.url)}
-      data-isLink={Boolean(item.url)}
+      data-islink={Boolean(item.url)}
       className={twMerge(
         options.className,
-        "gap-2 data-[isLink=true]:cursor-pointer select-none",
+        "gap-2 data-[islink=true]:cursor-pointer select-none",
       )}
     >
       <span className={item.icon}></span>
