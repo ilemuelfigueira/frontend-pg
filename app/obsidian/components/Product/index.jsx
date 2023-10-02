@@ -1,37 +1,13 @@
 "use client";
-import ImageSelect from "@/components/ImageSelect";
-import { useControleVariavelStore } from "@/store/controle-variavel";
-import { Button } from "primereact/button";
-import { Divider } from "primereact/divider";
 
-const product = {
-  title: "",
-  controles: [
-    {
-      name: "",
-      description: "",
-      price: "",
-      image: "",
-    },
-  ],
-  paddles: [
-    {
-      name: "",
-      price: "",
-      image: "",
-    },
-  ],
-  paddleClicks: [
-    {
-      name: "",
-      strongName: "",
-      price: "",
-    },
-  ],
-};
+import ImageSelect from "@/components/ImageSelect";
+import { useProductForm } from "./form";
+import { Button } from "primereact/button";
 
 export default function Form() {
-  const { state, actions } = useControleVariavelStore();
+  const { formik } = useProductForm();
+
+  const { values } = formik;
 
   return (
     <div className="#personalizacao flex w-[100vw] flex-col items-start justify-start gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-lg max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] xl:max-w-[660px]">
@@ -39,15 +15,16 @@ export default function Form() {
         <h2 className="flex-1 font-helvetica text-4xl font-black tracking-tighter">
           PG OBSIDIAN
         </h2>
-        <span className="text-base font-helvetica tracking-wide font-semibold">
+        <span className="font-helvetica text-base font-semibold tracking-wide">
           a partir de <strong className="text-green-400">R$ 399,99</strong>
         </span>
       </div>
 
       <ImageSelect
-        onChange={actions.update}
+        onChange={formik.setFieldValue}
         name="shape"
-        value={state.shape}
+        value={values.shape}
+        error={formik.errors.shape}
         label=""
         items={[
           {
@@ -103,9 +80,10 @@ export default function Form() {
       </div>
 
       <ImageSelect
-        onChange={actions.update}
-        name="paddle"
-        value={state.paddle}
+        onChange={formik.setFieldValue}
+        name="paddles"
+        value={values.paddles}
+        error={formik.errors.paddles}
         label="PADDLES PG"
         carouselImageClassname={"data-[svg=true]:w-[90px]"}
         items={[
@@ -125,9 +103,10 @@ export default function Form() {
       />
 
       <ImageSelect
-        onChange={actions.update}
-        name="paddleClick"
-        value={state.paddleClick}
+        onChange={formik.setFieldValue}
+        name="paddlesClick"
+        value={values.paddlesClick}
+        error={formik.errors.paddlesClick}
         label="OPÇÕES DE CLICKS ( PADDLES )"
         items={[
           {
@@ -152,9 +131,10 @@ export default function Form() {
       />
 
       <ImageSelect
-        onChange={actions.update}
+        onChange={formik.setFieldValue}
         name="trigger"
-        value={state.trigger}
+        value={values.trigger}
+        error={formik.errors.trigger}
         label="OPÇÕES DE GATILHOS"
         items={[
           {
@@ -186,9 +166,10 @@ export default function Form() {
 
       <div className="flex max-sm:flex-col sm:w-fit sm:min-w-[494px] sm:items-center">
         <ImageSelect
-          onChange={actions.update}
-          name="gripPaint"
-          value={state.gripPaint}
+          onChange={formik.setFieldValue}
+          name="grip"
+          value={values.grip}
+          error={formik.errors.grip}
           label="PINTURA GRIP"
           carouselClassname="min-w-[240px] w-[240px]"
           carouselImageClassname="data-[svg=true]:w-[64px] data-[svg=true]:min-w-[64px] mb-2"
@@ -223,9 +204,10 @@ export default function Form() {
           <p className="pl-6"></p>
         </div>
         <ImageSelect
-          onChange={actions.update}
-          name="grip"
-          value={state.grip}
+          onChange={formik.setFieldValue}
+          name="faceplateGrip"
+          value={values.faceplateGrip}
+          error={formik.errors.faceplateGrip}
           label="Adicionar grip ao faceplate"
           className="max-sm:hidden"
           labelClassname="font-semibold text-base"
@@ -252,9 +234,10 @@ export default function Form() {
       </div>
 
       <ImageSelect
-        onChange={actions.update}
-        name="grip"
-        value={state.grip}
+        onChange={formik.setFieldValue}
+        name="faceplateGrip"
+        value={values.faceplateGrip}
+        error={formik.errors.faceplateGrip}
         label="Adicionar grip ao faceplate"
         className="sm:hidden"
         labelClassname="font-semibold text-base max-sm:uppercase"
@@ -280,9 +263,10 @@ export default function Form() {
       />
 
       <ImageSelect
-        onChange={actions.update}
+        onChange={formik.setFieldValue}
         name="vibration"
-        value={state.vibration}
+        value={values.vibration}
+        error={formik.errors.vibration}
         label="MOTORES DE VIBRAÇÃO"
         carouselImageClassname={"data-[svg=true]:w-[90px]"}
         items={[
@@ -300,6 +284,11 @@ export default function Form() {
           },
         ]}
       />
+
+      <Button type="submit" onClick={formik.handleSubmit}>
+        {" "}
+        Enviar{" "}
+      </Button>
     </div>
   );
 }

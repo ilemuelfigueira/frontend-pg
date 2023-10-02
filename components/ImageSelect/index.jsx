@@ -22,12 +22,15 @@ function ImageSelect(props) {
       <div className="flex flex-col">
         <span
           data-show={Boolean(props.label)}
-          className={twMerge("text-lg font-helveticaNeue font-black data-[show=false]:hidden", props.labelClassname)}
+          className={twMerge(
+            "font-helveticaNeue text-lg font-black data-[show=false]:hidden",
+            props.labelClassname,
+          )}
         >
           {props.label}
         </span>
         {props.label ? (
-          <RequiredField>
+          <RequiredField active={Boolean(props.error)}>
             <strong>*</strong> Este campo é obrigatório.
           </RequiredField>
         ) : (
@@ -51,6 +54,7 @@ function ImageSelect(props) {
             )}
             data-selected={props.value === item.value}
             data-svg={isSvg}
+            onClick={() => onChange(item.value)}
           >
             <img
               className={twMerge(
@@ -60,7 +64,6 @@ function ImageSelect(props) {
               src={item.src}
               alt={item.label}
               data-svg={isSvg}
-              onClick={() => onChange(item.value)}
             />
             <div
               className={twJoin(
@@ -83,7 +86,7 @@ function ImageSelect(props) {
       {props.label ? (
         ""
       ) : (
-        <RequiredField>
+        <RequiredField active={Boolean(props.error)}>
           <strong>*</strong> Este campo é obrigatório.
         </RequiredField>
       )}
