@@ -1,9 +1,6 @@
-import "primereact/resources/themes/tailwind-light/theme.css";
-import "./globals.css";
 import "primeicons/primeicons.css";
+import "./globals.css";
 
-import { PrimeReactProvider } from "primereact/api";
-import Tailwind from "primereact/passthrough/tailwind";
 import { Inter } from "next/font/google";
 
 import localFont from "next/font/local";
@@ -76,6 +73,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <html
       lang="pt-BR"
@@ -89,18 +87,9 @@ export default function RootLayout({ children }) {
         sizes="<generated>"
       />
 
-      <PrimeReactProvider
-        value={{
-          appendTo: "self",
-          hideOverlaysOnDocumentScrolling: true,
-          // unstyled: true,
-          pt: Tailwind,
-        }}
-      >
-        <body>
-          <Navigator>{children}</Navigator>
-        </body>
-      </PrimeReactProvider>
+      <body>
+        <Navigator>{children}</Navigator>
+      </body>
     </html>
   );
 }

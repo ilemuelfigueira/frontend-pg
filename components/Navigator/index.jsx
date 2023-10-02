@@ -3,28 +3,24 @@
 import React from "react";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { twMerge } from "tailwind-merge";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { PrimeReactProvider } from "primereact/api";
+import { usePassThrough } from "primereact/passthrough";
+import Tailwind from "primereact/passthrough/tailwind";
 
 const iconItemTemplate = (item, options) => {
-  const router = useRouter();
-
-  function goTo(url) {
-    if (!url) return;
-    router.push(url);
-  }
-
   return (
-    <a
-      onClick={() => goTo(item.url)}
+    <Link
+      href={item.url || "#"}
       data-islink={Boolean(item.url)}
       className={twMerge(
         options.className,
-        "gap-2 data-[islink=true]:cursor-pointer select-none",
+        "select-none data-[islink=true]:cursor-pointer",
       )}
     >
-      <span className={item.icon}></span>
-      <span className="p-menuitem-text">{item.label}</span>
-    </a>
+      <span className={twMerge(item.icon, 'mr-2')}></span>
+      <span className="p-menuitem-text text-black">{item.label}</span>
+    </Link>
   );
 };
 
@@ -38,15 +34,28 @@ export default function Navigator({ children, ...props }) {
       template: iconItemTemplate,
     },
   ];
-  const home = { icon: "pi pi-home", url: "/" };
+  const home = { icon: "pi pi-home", url: "/", template: iconItemTemplate };
+
+  const CustomTailwind = usePassThrough(
+    Tailwind,
+    { mergeSections: true, mergeProps: false },
+  );
 
   return (
-    <>
+    <PrimeReactProvider
+      value={{
+        unstyled: true,
+        pt: CustomTailwind,
+      }}
+      suppressHydrationWarning
+    >
       <header className="mb-4">{/* <nav>NAVIGATOR</nav> */}</header>
       <div className="flex w-full items-center justify-center">
-        <div className="flex flex-col justify-center items-center max-lg:w-[100vw] lg:w-[90vw] xl:w-[1400px]">
+        <div className="flex flex-col items-center justify-center max-lg:w-[100vw] lg:w-[90vw] xl:w-[1400px]">
           <BreadCrumb
-          className="w-full"
+            pt={{
+              root: 'w-full'
+            }}
             style={{
               background: "transparent !important",
               border: "none !important",
@@ -57,6 +66,6 @@ export default function Navigator({ children, ...props }) {
           {children}
         </div>
       </div>
-    </>
+    </PrimeReactProvider>
   );
 }
