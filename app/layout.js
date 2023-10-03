@@ -68,7 +68,7 @@ export const metadata = {
   title: "PG CUSTOM",
   description: "Loja de venda e personalização de controles de videogame",
   icons: {
-    icon: "/pg-logo1.png",
+    icon: "/logo-32x32.png",
   },
 };
 
@@ -79,14 +79,6 @@ export default function RootLayout({ children }) {
       lang="pt-BR"
       className={`${inter.variable} ${araboto.variable} ${helvetica.variable} ${helveticaNeue.variable}`}
     >
-      {/* git commit -m "[controle variavel] feat: recursos de imagem e svg" */}
-      <link
-        rel="icon"
-        href="/pg-logo.png?<generated>"
-        type="image/<generated>"
-        sizes="<generated>"
-      />
-
       <body>
         <Navigator>{children}</Navigator>
       </body>
