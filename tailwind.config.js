@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ['class', '[data-mode="dark"]'],
+  darkMode: ["class", '[data-mode="dark"]'],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -15,10 +15,10 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        araboto: ['var(--font-araboto)', 'sans-serif'],
-        helvetica: ['var(--font-helvetica)', 'sans-serif'],
-        helveticaNeue: ['var(--font-helvetica-neue)', 'sans-serif'],
-      }
+        araboto: ["var(--font-araboto)", "sans-serif"],
+        helvetica: ["var(--font-helvetica)", "sans-serif"],
+        helveticaNeue: ["var(--font-helvetica-neue)", "sans-serif"],
+      },
     },
   },
   plugins: [],

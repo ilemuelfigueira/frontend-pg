@@ -18,7 +18,7 @@ const iconItemTemplate = (item, options) => {
         "select-none data-[islink=true]:cursor-pointer",
       )}
     >
-      <span className={twMerge(item.icon, 'mr-2')}></span>
+      <span className={twMerge(item.icon, "mr-2")}></span>
       <span className="p-menuitem-text text-black">{item.label}</span>
     </Link>
   );
@@ -36,10 +36,10 @@ export default function Navigator({ children, ...props }) {
   ];
   const home = { icon: "pi pi-home", url: "/", template: iconItemTemplate };
 
-  const CustomTailwind = usePassThrough(
-    Tailwind,
-    { mergeSections: true, mergeProps: false },
-  );
+  const CustomTailwind = usePassThrough(Tailwind, {
+    mergeSections: true,
+    mergeProps: false,
+  });
 
   return (
     <PrimeReactProvider
@@ -51,10 +51,10 @@ export default function Navigator({ children, ...props }) {
     >
       <header className="mb-4">{/* <nav>NAVIGATOR</nav> */}</header>
       <div className="flex w-full items-center justify-center">
-        <div className="flex flex-col items-center justify-center max-lg:w-[100vw] lg:w-[90vw] xl:w-[1400px]">
+        <div className="flex flex-col items-center justify-center gap-2 max-lg:w-[100vw] lg:w-[90vw] xl:w-[1400px]">
           <BreadCrumb
             pt={{
-              root: 'w-full'
+              root: "w-full px-4",
             }}
             style={{
               background: "transparent !important",

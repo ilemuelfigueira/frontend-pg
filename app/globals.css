@@ -4,12 +4,14 @@
 
 @layer base {
   html {
-    font-family: var(--font-araboto), var(--font-helvetica-neue), var(--font-helvetica), system-ui, sans-serif;
+    font-family: var(--font-araboto), var(--font-helvetica-neue),
+      var(--font-helvetica), system-ui, sans-serif;
   }
 }
 
 * {
-  font-family: var(--font-araboto), var(--font-helvetica-neue), var(--font-helvetica), system-ui, sans-serif;
+  font-family: var(--font-araboto), var(--font-helvetica-neue),
+    var(--font-helvetica), system-ui, sans-serif;
 }
 
 :root {

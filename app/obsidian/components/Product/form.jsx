@@ -5,8 +5,8 @@ import * as Yup from "yup";
 
 export const useProductForm = ({ defaultValues, ...props } = {}) => {
   const searchParams = useSearchParams();
-  const pathName = usePathname()
-  const router = useRouter()
+  const pathName = usePathname();
+  const router = useRouter();
 
   const getDefaultValues = () => {
     let _defaultValues = {
@@ -19,7 +19,8 @@ export const useProductForm = ({ defaultValues, ...props } = {}) => {
       vibration: "",
     };
 
-    if (defaultValues) _defaultValues = Object.assign(_defaultValues, defaultValues);
+    if (defaultValues)
+      _defaultValues = Object.assign(_defaultValues, defaultValues);
 
     const keys = Object.keys(_defaultValues);
 
@@ -39,7 +40,7 @@ export const useProductForm = ({ defaultValues, ...props } = {}) => {
     });
 
     return queryString;
-  }
+  };
 
   const getValidationSchema = () => {};
   const formik = useFormik({
@@ -58,7 +59,7 @@ export const useProductForm = ({ defaultValues, ...props } = {}) => {
     onSubmit: (values) => {
       console.log(values);
 
-      router.push(`${pathName}?${valuesToQueryString(values)}`)
+      router.push(`${pathName}?${valuesToQueryString(values)}`);
     },
   });
 
