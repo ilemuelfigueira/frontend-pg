@@ -11,6 +11,18 @@ const nextConfig = {
         permanent: false,
         basePath: false
       },
+      {
+        source: '/',
+        destination: '/exclusivos/obsidian',
+        permanent: false,
+        basePath: false
+      },
+      {
+        source: '/obsidian',
+        destination: '/exclusivos/obsidian',
+        permanent: false,
+        basePath: false
+      }
     ]
   },
 };
