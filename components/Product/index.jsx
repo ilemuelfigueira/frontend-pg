@@ -26,10 +26,15 @@ export default function Form({ ...props }) {
         />
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
+          src="cliente/png/ps5/cereja.png"
+          alt=""
+        />
+        <img
+          className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
           src="cliente/png/ps5/camuflado.png"
           alt=""
         />
-        <video
+        {/* <video
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
           loop={true}
           controls={true}
@@ -38,7 +43,7 @@ export default function Form({ ...props }) {
           autoPlay={true}
           preload="metadata"
           src="reflex-pro-apresentacao.mp4"
-        ></video>
+        ></video> */}
       </div>
       <div className="#personalizacao flex flex-col items-start justify-start gap-4 rounded-xl px-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-gray-200 lg:shadow-lg xl:max-w-[660px]">
         <div className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
@@ -53,20 +58,25 @@ export default function Form({ ...props }) {
         <div className="flex snap-x snap-mandatory self-center overflow-x-auto scroll-smooth sm:w-[100%] md:w-[80%] lg:hidden">
           <img
             className="aspect-square w-full snap-center"
-            src="reflex-pro-frente.png"
+            src="cliente/png/ps5/azul_claro.png"
             alt=""
           />
           <img
             className="aspect-square w-full snap-center"
-            src="reflex-pro-costas.png"
+            src="cliente/png/ps5/azul_metalico.png"
             alt=""
           />
           <img
-            className="aspect-square w-full snap-center"
-            src="reflex-pro-combo.png"
+            className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
+            src="cliente/png/ps5/cereja.png"
             alt=""
           />
-          <video
+          <img
+            className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
+            src="cliente/png/ps5/camuflado.png"
+            alt=""
+          />
+          {/* <video
             className="aspect-square w-full snap-center"
             loop={true}
             controls={true}
@@ -75,7 +85,7 @@ export default function Form({ ...props }) {
             autoPlay={true}
             preload="metadata"
             src="reflex-pro-apresentacao.mp4"
-          ></video>
+          ></video> */}
         </div>
 
         <ImageSelect
@@ -359,7 +369,7 @@ export default function Form({ ...props }) {
         />
 
         <Button
-          className="gap-4 bg-green-500 border-green-400 focus:bg-green-600 focus:border-green-500"
+          className="gap-4 border-green-400 bg-green-500 focus:border-green-500 focus:bg-green-600"
           type="submit"
           onClick={sendFormToWhatsapp}
         >
