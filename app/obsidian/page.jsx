@@ -1,4 +1,4 @@
-import Product from "./components/Product";
+import Product from "@/components/Product";
 
 export const metadata = {
   title: "PG CUSTOM - Obsidian",
@@ -11,7 +11,7 @@ export const metadata = {
 export default function ControleVariavel() {
   return (
     <>
-      <Product />
+      <Product whatsappLoja={process.env.WHATSAPP_LOJA} />
     </>
   );
 }

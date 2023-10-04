@@ -1,11 +1,13 @@
 "use client";
 
 import ImageSelect from "@/components/ImageSelect";
-import { useProductForm } from "./form";
+import { useProductForm } from "./index.hook";
 import { Button } from "primereact/button";
 
-export default function Form() {
-  const { formik } = useProductForm();
+export default function Form({ ...props }) {
+  const { formik, sendFormToWhatsapp } = useProductForm({
+    WHATSAPP_LOJA: props.whatsappLoja 
+  });
 
   const { values } = formik;
 
@@ -14,17 +16,17 @@ export default function Form() {
       <div className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="reflex-pro-frente.png"
+          src="cliente/png/ps5/azul_claro.png"
           alt=""
         />
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="reflex-pro-costas.png"
+          src="cliente/png/ps5/azul_metalico.png"
           alt=""
         />
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="reflex-pro-combo.png"
+          src="cliente/png/ps5/camuflado.png"
           alt=""
         />
         <video
@@ -38,7 +40,7 @@ export default function Form() {
           src="reflex-pro-apresentacao.mp4"
         ></video>
       </div>
-      <div className="#personalizacao flex flex-col items-start justify-start gap-4 rounded-xl px-4 shadow-lg max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] xl:max-w-[660px]">
+      <div className="#personalizacao flex flex-col items-start justify-start gap-4 rounded-xl px-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-gray-200 lg:shadow-lg xl:max-w-[660px]">
         <div className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
           <h2 className="text-4xl font-black max-lg:tracking-tight lg:tracking-tighter">
             PG OBSIDIAN
@@ -84,39 +86,54 @@ export default function Form() {
           label=""
           items={[
             {
-              src: "reflex-pro-white-icon.png",
+              src: "cliente/png/ps5/branco.png",
               price: "00,00",
-              value: "reflex-pro-white",
+              value: "branco",
             },
             {
-              src: "reflex-pro-black-icon.png",
+              src: "cliente/png/ps5/prata_metalico.png",
               price: "00,00",
-              value: "reflex-pro-black",
+              value: "prata_metalico",
             },
             {
-              src: "reflex-pro-blue-icon.png",
+              src: "cliente/png/ps5/preto.png",
               price: "00,00",
-              value: "reflex-pro-blue",
+              value: "preto",
             },
             {
-              src: "reflex-pro-red-icon.png",
+              src: "cliente/png/ps5/red_metalico.png",
               price: "00,00",
-              value: "reflex-pro-red",
+              value: "red_metalico",
             },
             {
-              src: "reflex-pro-steelgray-icon.png",
+              src: "cliente/png/ps5/azul_metalico.png",
               price: "00,00",
-              value: "reflex-pro-steelgray",
+              value: "azul_metalico",
             },
             {
-              src: "reflex-pro-whitecherry2023-icon.png",
+              src: "cliente/png/ps5/roxo.png",
               price: "00,00",
-              value: "reflex-pro-whitecherry2023",
+              value: "roxo",
             },
             {
-              src: "reflex-pro-orange-icon.png",
+              src: "cliente/png/ps5/rosa.png",
               price: "00,00",
-              value: "reflex-pro-orange",
+              value: "rosa",
+            },
+            {
+              src: "cliente/png/ps5/azul_claro.png",
+              price: "00,00",
+              value: "azul_claro",
+            },
+            {
+              src: "cliente/png/ps5/cereja.png",
+              price: "00,00",
+              value: "cereja",
+            },
+            {
+              src: "cliente/png/ps5/camuflado.png",
+              price: "00,00",
+              value: "camuflado",
             },
           ]}
         />
@@ -341,9 +358,8 @@ export default function Form() {
           ]}
         />
 
-        <Button type="submit" onClick={formik.handleSubmit}>
-          {" "}
-          Enviar{" "}
+        <Button type="submit" onClick={sendFormToWhatsapp}>
+          Enviar
         </Button>
       </div>
     </div>

@@ -3,10 +3,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import * as Yup from "yup";
 
-export const useProductForm = ({ defaultValues, ...props } = {}) => {
+export const useProductForm = ({ ...props } = {}) => {
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const router = useRouter();
+
+  const { WHATSAPP_LOJA = "", defaultValues = null } = props;
 
   const getDefaultValues = () => {
     let _defaultValues = {
@@ -42,7 +44,35 @@ export const useProductForm = ({ defaultValues, ...props } = {}) => {
     return queryString;
   };
 
-  const getValidationSchema = () => {};
+  const sendFormToWhatsapp = async () => {
+    const validateResponse = await formik.validateForm();
+
+    // TODO: TOAST
+    console.log({ ...validateResponse });
+
+    const isValid = Object.keys(validateResponse).length === 0;
+
+    if (!isValid) return;
+
+    const urlEncodedMessage = encodeURIComponent(
+      `Olá, gostaria de um controle com as seguintes características: ${valuesToQueryString(
+        formik.values,
+      )}`,
+    );
+
+    const url = `https://wa.me/${WHATSAPP_LOJA}?text=${urlEncodedMessage}`;
+
+    // window.open(url, "_blank");
+  };
+
+  const sendMessageToWhatsapp = (message) => {
+    const urlEncodedMessage = encodeURIComponent(message);
+
+    window.open(
+      `https://wa.me/${WHATSAPP_LOJA}?text=${urlEncodedMessage}`,
+      "_blank",
+    );
+  };
   const formik = useFormik({
     initialValues: getDefaultValues(),
     validationSchema: Yup.object({
@@ -55,7 +85,7 @@ export const useProductForm = ({ defaultValues, ...props } = {}) => {
       vibration: Yup.string().required("Required"),
     }),
     validateOnBlur: false,
-    validateOnChange: true,
+    validateOnChange: false,
     onSubmit: (values) => {
       console.log(values);
 
@@ -65,5 +95,6 @@ export const useProductForm = ({ defaultValues, ...props } = {}) => {
 
   return {
     formik,
+    sendFormToWhatsapp,
   };
 };
