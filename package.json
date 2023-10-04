@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "canvas": "^2.11.2",
+    "@ant-design/cssinjs": "^1.17.0",
+    "antd": "^5.9.4",
     "formik": "^2.4.5",
     "next": "latest",
     "primeicons": "^6.0.1",
-    "primereact": "^10.0.2",
     "react": "latest",
     "react-dom": "latest",
     "tailwind-merge": "^1.14.0",
