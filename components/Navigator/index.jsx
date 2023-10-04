@@ -1,14 +1,12 @@
 "use client";
 
 import React from "react";
-import { BreadCrumb } from "primereact/breadcrumb";
+import { Breadcrumb } from "antd";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
-import { PrimeReactProvider } from "primereact/api";
-import { usePassThrough } from "primereact/passthrough";
-import Tailwind from "primereact/passthrough/tailwind";
+import { usePathname } from "next/navigation";
 
-const iconItemTemplate = (item, options) => {
+const ItemTemplate = (item, options) => {
   return (
     <Link
       href={item.url || "#"}
@@ -18,54 +16,85 @@ const iconItemTemplate = (item, options) => {
         "select-none data-[islink=true]:cursor-pointer",
       )}
     >
-      <span className={twMerge(item.icon, "mr-2")}></span>
-      <span className="p-menuitem-text text-black">{item.label}</span>
+      <span
+        className={twMerge(item.icon, item.icon && item.label ? "mr-2" : "")}
+      />
+      <span className="font-semibold">{item.label}</span>
     </Link>
   );
 };
 
+const exclusivosItems = [
+  {
+    key: "1",
+    label: <Link href="/exclusivos/obsidian">Obsidian</Link>,
+  },
+];
+
+const pathsConfig = [
+  {
+    path: "home",
+    items: [{ title: <ItemTemplate icon="pi pi-home" url="/" /> }],
+  },
+  {
+    path: "exclusivos",
+    items: [
+      {
+        title: <ItemTemplate label="Exclusivos" />,
+        menu: { items: exclusivosItems },
+      },
+    ],
+  },
+  {
+    path: "obsidian",
+    items: [
+      {
+        title: (
+          <ItemTemplate
+            icon="pi pi-sliders-v"
+            label="Obsidian"
+            url="/obsidian"
+          />
+        ),
+      },
+    ],
+  },
+];
+
+const getPathsItems = (_paths) => {
+  let pathsItems = [...pathsConfig[0].items]
+
+  for (const item of _paths) {
+    const path = pathsConfig.find((path) => path.path === item);
+
+    if(!path) continue;
+
+    pathsItems = pathsItems.concat(path.items);
+  }
+
+  return pathsItems
+};
+
 export default function Navigator({ children, ...props }) {
-  const items = [
-    { label: "PG Obsidian", template: iconItemTemplate },
-    {
-      label: "Ajustando",
-      icon: "pi pi-sliders-v",
-      url: "/obsidian",
-      template: iconItemTemplate,
-    },
-  ];
-  const home = { icon: "pi pi-home", url: "/", template: iconItemTemplate };
+  const pathName = usePathname();
 
-  const CustomTailwind = usePassThrough(Tailwind, {
-    mergeSections: true,
-    mergeProps: false,
-  });
-
+  const items = getPathsItems(pathName.split("/").filter((path) => path));
   return (
-    <PrimeReactProvider
-      value={{
-        unstyled: true,
-        pt: CustomTailwind,
-      }}
-      suppressHydrationWarning
-    >
+    <>
       <header className="mb-4">{/* <nav>NAVIGATOR</nav> */}</header>
       <div className="flex w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-2 max-lg:w-[100vw] lg:w-[90vw] xl:w-[1400px]">
-          <BreadCrumb
-            pt={{
-              root: "w-full px-4",
-            }}
+          <Breadcrumb
             style={{
               background: "transparent !important",
               border: "none !important",
             }}
-            model={items}
-            home={home}
+            className="flex w-full px-4"
+            items={items}
           />
           {children}
         </div>
       </div>
-    </PrimeReactProvider>
+    </>
   );
 }
