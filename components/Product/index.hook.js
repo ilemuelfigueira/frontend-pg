@@ -47,9 +47,6 @@ export const useProductForm = ({ ...props } = {}) => {
   const sendFormToWhatsapp = async () => {
     const validateResponse = await formik.validateForm();
 
-    // TODO: TOAST
-    console.log({ ...validateResponse });
-
     const isValid = Object.keys(validateResponse).length === 0;
 
     if (!isValid) return;
@@ -62,7 +59,7 @@ export const useProductForm = ({ ...props } = {}) => {
 
     const url = `https://wa.me/${WHATSAPP_LOJA}?text=${urlEncodedMessage}`;
 
-    // window.open(url, "_blank");
+    window.open(url, "_blank");
   };
 
   const sendMessageToWhatsapp = (message) => {
