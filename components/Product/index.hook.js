@@ -3,7 +3,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import * as Yup from "yup";
 
-export const useProductForm = ({ ...props } = {}) => {
+export const useProduct = ({ ...props } = {}) => {
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const router = useRouter();
@@ -15,6 +15,7 @@ export const useProductForm = ({ ...props } = {}) => {
       shape: "",
       paddles: "",
       paddlesClick: "",
+      paddlesColor: "",
       trigger: "",
       grip: "",
       faceplateGrip: "",
@@ -45,14 +46,16 @@ export const useProductForm = ({ ...props } = {}) => {
   };
 
   const getHostname = () => {
-    const hostname = `${window.location.hostname}${pathName}`
-    return hostname.includes('localhost') ? 'http://localhost:3000' : `https://${hostname}`
-  }
+    const hostname = `${window.location.hostname}${pathName}`;
+    return hostname.includes("localhost")
+      ? "http://localhost:3000"
+      : `https://${hostname}`;
+  };
 
   const getLabel = (items, value) => {
-    if (!items) return null
-    return items.find(item => item.value === value)?.label
-  }
+    if (!items) return null;
+    return items.find((item) => item.value === value)?.label;
+  };
 
   const sendFormToWhatsapp = async () => {
     const validateResponse = await formik.validateForm();
@@ -86,6 +89,7 @@ export const useProductForm = ({ ...props } = {}) => {
       shape: Yup.string().required("Required"),
       paddles: Yup.string().required("Required"),
       paddlesClick: Yup.string().required("Required"),
+      paddlesColor: Yup.string().required("Required"),
       trigger: Yup.string().required("Required"),
       grip: Yup.string().required("Required"),
       faceplateGrip: Yup.string().required("Required"),
@@ -103,6 +107,6 @@ export const useProductForm = ({ ...props } = {}) => {
   return {
     formik,
     sendFormToWhatsapp,
-    getLabel
+    getLabel,
   };
 };

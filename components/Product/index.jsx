@@ -1,11 +1,11 @@
 "use client";
 
 import ImageSelect from "@/components/ImageSelect";
-import { useProductForm } from "./index.hook";
+import { useProduct } from "./index.hook";
 import { Button } from "primereact/button";
 
 export default function Form({ ...props }) {
-  const { formik, getLabel, sendFormToWhatsapp } = useProductForm({
+  const { formik, getLabel, sendFormToWhatsapp } = useProduct({
     WHATSAPP_LOJA: props.whatsappLoja,
   });
 
@@ -67,12 +67,12 @@ export default function Form({ ...props }) {
             alt=""
           />
           <img
-            className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
+            className="aspect-square w-full snap-center"
             src="cliente/png/ps5/cereja.png"
             alt=""
           />
           <img
-            className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
+            className="aspect-square w-full snap-center"
             src="cliente/png/ps5/camuflado.png"
             alt=""
           />
@@ -157,6 +157,40 @@ export default function Form({ ...props }) {
               src: "cliente/svg/click_mouse.svg",
               price: "00,00",
               value: "mouse",
+            },
+          ]}
+        />
+
+        <ImageSelect
+          onChange={formik.setFieldValue}
+          name="paddlesColor"
+          value={values.paddlesColor}
+          error={formik.errors.paddlesColor}
+          label="COR DOS PADDLES"
+          items={[
+            {
+              label: "Preto",
+              src: "cliente/svg/circle_black.svg",
+              price: "00,00",
+              value: "preto",
+            },
+            {
+              label: "Branco",
+              src: "cliente/svg/click_digital.svg",
+              price: "00,00",
+              value: "branco",
+            },
+            {
+              label: "Vermelho",
+              src: "cliente/svg/click_mouse.svg",
+              price: "00,00",
+              value: "vermelho",
+            },
+            {
+              label: "Roxo",
+              src: "cliente/svg/click_mouse.svg",
+              price: "00,00",
+              value: "roxo",
             },
           ]}
         />
