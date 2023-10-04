@@ -1,10 +1,14 @@
-import "primeicons/primeicons.css";
-import "./globals.css";
-
 import { Inter } from "next/font/google";
 
 import localFont from "next/font/local";
 import Navigator from "@/components/Navigator";
+import StyledComponentsRegistry from "@/lib/AntdRegistry";
+
+import { ConfigProvider } from "antd";
+import theme from "@/lib/AntdTheme";
+
+import "primeicons/primeicons.css";
+import "./globals.css";
 
 const araboto = localFont({
   src: [
@@ -79,7 +83,11 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${araboto.variable} ${helvetica.variable} ${helveticaNeue.variable}`}
     >
       <body>
-        <Navigator>{children}</Navigator>
+        <StyledComponentsRegistry>
+          <ConfigProvider theme={theme}>
+            <Navigator>{children}</Navigator>
+          </ConfigProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
