@@ -9,6 +9,8 @@ function ImageSelect(props) {
 
   const isSvg = props.items.some((item) => item.src.endsWith(".svg"));
 
+  const noItemLabel = props.noItemLabel
+
   function onChange(value) {
     if (props.onChange) {
       props.onChange(props.name, value);
@@ -73,7 +75,7 @@ function ImageSelect(props) {
               )}
             >
               <span className="break-words text-center font-helvetica text-sm tracking-wide">
-                {item.label}
+                {noItemLabel ? '' : item.label}
               </span>
               <strong>{item.strongLabel}</strong>
             </div>

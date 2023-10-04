@@ -5,11 +5,13 @@ import { useProductForm } from "./index.hook";
 import { Button } from "primereact/button";
 
 export default function Form({ ...props }) {
-  const { formik, sendFormToWhatsapp } = useProductForm({
+  const { formik, getLabel, sendFormToWhatsapp } = useProductForm({
     WHATSAPP_LOJA: props.whatsappLoja,
   });
 
   const { values } = formik;
+
+  const { title, shapes } = props;
 
   return (
     <div className="flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
@@ -47,9 +49,7 @@ export default function Form({ ...props }) {
       </div>
       <div className="#personalizacao flex flex-col items-start justify-start gap-4 rounded-xl px-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-gray-200 lg:shadow-lg xl:max-w-[660px]">
         <div className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
-          <h2 className="text-4xl font-black max-lg:tracking-tight lg:tracking-tighter">
-            PG OBSIDIAN
-          </h2>
+          <h2 className="text-3xl font-black">{title}</h2>
           <span className="text-base font-semibold tracking-wide">
             a partir de <strong className="text-green-400">R$ 399,99</strong>
           </span>
@@ -92,73 +92,21 @@ export default function Form({ ...props }) {
           onChange={formik.setFieldValue}
           name="shape"
           value={values.shape}
+          noItemLabel
           error={formik.errors.shape}
-          label=""
-          items={[
-            {
-              src: "cliente/png/ps5/branco.png",
-              price: "00,00",
-              value: "branco",
-            },
-            {
-              src: "cliente/png/ps5/prata_metalico.png",
-              price: "00,00",
-              value: "prata_metalico",
-            },
-            {
-              src: "cliente/png/ps5/preto.png",
-              price: "00,00",
-              value: "preto",
-            },
-            {
-              src: "cliente/png/ps5/red_metalico.png",
-              price: "00,00",
-              value: "red_metalico",
-            },
-            {
-              src: "cliente/png/ps5/azul_metalico.png",
-              price: "00,00",
-              value: "azul_metalico",
-            },
-            {
-              src: "cliente/png/ps5/roxo.png",
-              price: "00,00",
-              value: "roxo",
-            },
-            {
-              src: "cliente/png/ps5/rosa.png",
-              price: "00,00",
-              value: "rosa",
-            },
-            {
-              src: "cliente/png/ps5/azul_claro.png",
-              price: "00,00",
-              value: "azul_claro",
-            },
-            {
-              src: "cliente/png/ps5/cereja.png",
-              price: "00,00",
-              value: "cereja",
-            },
-            {
-              src: "cliente/png/ps5/camuflado.png",
-              price: "00,00",
-              value: "camuflado",
-            },
-          ]}
+          items={shapes}
         />
 
         <div className="#description flex w-full flex-col items-start gap-3">
           <span className="#modelName w-full font-helveticaNeue font-semibold">
-            White
+            {getLabel(shapes, formik.values.shape)}
           </span>
           <p className="w-full font-helvetica text-sm font-light leading-6 tracking-[0.0125em]">
-            Introducing SCUF Reflex Pro, designed to live up to its name. With
-            four removable & remappable rear paddles, three on-board
-            configuration profiles, adaptive triggers, interchangable
-            thumbsticks, and non-slip performance grip. With Reflex Pro, be
-            unstoppable. The Reflex comes standard with a black universal
-            protection case, a 6-foot USB-C cable, 4 extra thumbsticks.
+            {formik.values.shape
+              ? `Apresentamos o Controle Obsidian da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. 
+              Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. 
+              O Controle Obsidian não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.`
+              : ""}
           </p>
         </div>
 

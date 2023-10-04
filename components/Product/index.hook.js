@@ -49,6 +49,11 @@ export const useProductForm = ({ ...props } = {}) => {
     return hostname.includes('localhost') ? 'http://localhost:3000' : `https://${hostname}`
   }
 
+  const getLabel = (items, value) => {
+    if (!items) return null
+    return items.find(item => item.value === value)?.label
+  }
+
   const sendFormToWhatsapp = async () => {
     const validateResponse = await formik.validateForm();
 
@@ -98,5 +103,6 @@ export const useProductForm = ({ ...props } = {}) => {
   return {
     formik,
     sendFormToWhatsapp,
+    getLabel
   };
 };
