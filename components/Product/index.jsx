@@ -3,15 +3,18 @@
 import ImageSelect from "@/components/ImageSelect";
 import { useProduct } from "./index.hook";
 import { Button } from "primereact/button";
+import { getYupSchema } from "@/Util/YupSchemas";
 
 export default function Form({ ...props }) {
+  const { title, shapes, validationSchema, whatsappLoja = '' } = props;
+
   const { formik, getLabel, sendFormToWhatsapp } = useProduct({
-    WHATSAPP_LOJA: props.whatsappLoja,
+    WHATSAPP_LOJA: whatsappLoja,
+    validationSchema: getYupSchema(validationSchema),
   });
 
   const { values } = formik;
 
-  const { title, shapes } = props;
 
   return (
     <div className="flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
@@ -176,19 +179,19 @@ export default function Form({ ...props }) {
             },
             {
               label: "Branco",
-              src: "cliente/svg/click_digital.svg",
+              src: "cliente/svg/circle_white.svg",
               price: "00,00",
               value: "branco",
             },
             {
               label: "Vermelho",
-              src: "cliente/svg/click_mouse.svg",
+              src: "cliente/svg/circle_red.svg",
               price: "00,00",
               value: "vermelho",
             },
             {
               label: "Roxo",
-              src: "cliente/svg/click_mouse.svg",
+              src: "cliente/svg/circle_purple.svg",
               price: "00,00",
               value: "roxo",
             },

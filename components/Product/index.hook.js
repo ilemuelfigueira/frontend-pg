@@ -8,7 +8,19 @@ export const useProduct = ({ ...props } = {}) => {
   const pathName = usePathname();
   const router = useRouter();
 
-  const { WHATSAPP_LOJA = "", defaultValues = null } = props;
+  const {
+    WHATSAPP_LOJA = "",
+    defaultValues = null,
+    validationSchema = Yup.object({
+      shape: Yup.string().required("Required"),
+      paddles: Yup.string().required("Required"),
+      paddlesClick: Yup.string().required("Required"),
+      paddlesColor: Yup.string().required("Required"),
+      trigger: Yup.string().required("Required"),
+      grip: Yup.string().required("Required"),
+      vibration: Yup.string().required("Required"),
+    }),
+  } = props;
 
   const getDefaultValues = () => {
     let _defaultValues = {
@@ -85,16 +97,7 @@ export const useProduct = ({ ...props } = {}) => {
   };
   const formik = useFormik({
     initialValues: getDefaultValues(),
-    validationSchema: Yup.object({
-      shape: Yup.string().required("Required"),
-      paddles: Yup.string().required("Required"),
-      paddlesClick: Yup.string().required("Required"),
-      paddlesColor: Yup.string().required("Required"),
-      trigger: Yup.string().required("Required"),
-      grip: Yup.string().required("Required"),
-      faceplateGrip: Yup.string().required("Required"),
-      vibration: Yup.string().required("Required"),
-    }),
+    validationSchema,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values) => {

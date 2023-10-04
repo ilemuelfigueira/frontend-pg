@@ -1,3 +1,4 @@
+import { YupSchemasEnum } from "@/Util/YupSchemas";
 import Product from "@/components/Product";
 
 export const metadata = {
@@ -14,6 +15,7 @@ export default function ControleVariavel() {
       <Product
         whatsappLoja={process.env.WHATSAPP_LOJA}
         title="PG OBSIDIAN PS5"
+        validationSchema={YupSchemasEnum.OBSIDIAN}
         shapes={[
           {
             src: "cliente/png/ps5/branco.png",
