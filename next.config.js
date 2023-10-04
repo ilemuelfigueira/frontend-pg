@@ -3,6 +3,16 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  redirects: async () => {
+    return [
+      {
+        source: '/whatsapp',
+        destination: 'https://wa.me/' + process.env.WHATSAPP_LOJA,
+        permanent: false,
+        basePath: false
+      },
+    ]
+  },
 };
 
 module.exports = nextConfig;
