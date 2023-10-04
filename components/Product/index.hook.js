@@ -44,6 +44,11 @@ export const useProductForm = ({ ...props } = {}) => {
     return queryString;
   };
 
+  const getHostname = () => {
+    const hostname = `${window.location.hostname}${pathName}`
+    return hostname.includes('localhost') ? 'http://localhost:3000' : `https://${hostname}`
+  }
+
   const sendFormToWhatsapp = async () => {
     const validateResponse = await formik.validateForm();
 
@@ -52,7 +57,7 @@ export const useProductForm = ({ ...props } = {}) => {
     if (!isValid) return;
 
     const urlEncodedMessage = encodeURIComponent(
-      `Olá, gostaria de um controle com as seguintes características: ${valuesToQueryString(
+      `Olá, gostaria de um controle com as seguintes características: ${getHostname()}?${valuesToQueryString(
         formik.values,
       )}`,
     );

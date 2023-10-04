@@ -359,7 +359,7 @@ export default function Form({ ...props }) {
         />
 
         <Button
-          className="gap-4 bg-green-500 border-green-200"
+          className="gap-4 bg-green-500 border-green-400 focus:bg-green-600 focus:border-green-500"
           type="submit"
           onClick={sendFormToWhatsapp}
         >
