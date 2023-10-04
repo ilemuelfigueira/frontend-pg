@@ -3,9 +3,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    serverActions: true,
-  },
   redirects: async () => {
     return [
       {
