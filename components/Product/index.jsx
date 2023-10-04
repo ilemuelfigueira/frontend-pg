@@ -6,7 +6,7 @@ import { Button } from "primereact/button";
 
 export default function Form({ ...props }) {
   const { formik, sendFormToWhatsapp } = useProductForm({
-    WHATSAPP_LOJA: props.whatsappLoja 
+    WHATSAPP_LOJA: props.whatsappLoja,
   });
 
   const { values } = formik;
@@ -358,8 +358,13 @@ export default function Form({ ...props }) {
           ]}
         />
 
-        <Button type="submit" onClick={sendFormToWhatsapp}>
-          Enviar
+        <Button
+          className="gap-4 bg-green-500 border-green-200"
+          type="submit"
+          onClick={sendFormToWhatsapp}
+        >
+          <span className="font-semibold tracking-wider">Enviar</span>
+          <span className="pi pi-whatsapp"></span>
         </Button>
       </div>
     </div>
