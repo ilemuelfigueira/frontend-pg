@@ -2,11 +2,11 @@
 
 import ImageSelect from "@/components/ImageSelect";
 import { useProduct } from "./index.hook";
-import { Button } from "primereact/button";
-import { getYupSchema } from "@/Util/YupSchemas";
+import { Button } from "antd";
+import { getYupSchema } from "@/lib/YupSchemas";
 
 export default function Form({ ...props }) {
-  const { title, shapes, validationSchema, whatsappLoja = '' } = props;
+  const { title, shapes, validationSchema, whatsappLoja = "" } = props;
 
   const { formik, getLabel, sendFormToWhatsapp } = useProduct({
     WHATSAPP_LOJA: whatsappLoja,
@@ -15,28 +15,27 @@ export default function Form({ ...props }) {
 
   const { values } = formik;
 
-
   return (
     <div className="flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
       <div className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="cliente/png/ps5/azul_claro.png"
+          src="/cliente/png/ps5/azul_claro.png"
           alt=""
         />
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="cliente/png/ps5/azul_metalico.png"
+          src="/cliente/png/ps5/azul_metalico.png"
           alt=""
         />
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="cliente/png/ps5/cereja.png"
+          src="/cliente/png/ps5/cereja.png"
           alt=""
         />
         <img
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="cliente/png/ps5/camuflado.png"
+          src="/cliente/png/ps5/camuflado.png"
           alt=""
         />
         {/* <video
@@ -50,7 +49,7 @@ export default function Form({ ...props }) {
           src="reflex-pro-apresentacao.mp4"
         ></video> */}
       </div>
-      <div className="#personalizacao flex flex-col items-start justify-start gap-4 rounded-xl px-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-gray-200 lg:shadow-lg xl:max-w-[660px]">
+      <div className="#personalizacao flex flex-col items-start justify-start gap-4 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-gray-200 lg:shadow-lg xl:max-w-[660px]">
         <div className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
           <h2 className="text-3xl font-black">{title}</h2>
           <span className="text-base font-semibold tracking-wide">
@@ -61,22 +60,22 @@ export default function Form({ ...props }) {
         <div className="flex snap-x snap-mandatory self-center overflow-x-auto scroll-smooth sm:w-[100%] md:w-[80%] lg:hidden">
           <img
             className="aspect-square w-full snap-center"
-            src="cliente/png/ps5/azul_claro.png"
+            src="/cliente/png/ps5/azul_claro.png"
             alt=""
           />
           <img
             className="aspect-square w-full snap-center"
-            src="cliente/png/ps5/azul_metalico.png"
+            src="/cliente/png/ps5/azul_metalico.png"
             alt=""
           />
           <img
             className="aspect-square w-full snap-center"
-            src="cliente/png/ps5/cereja.png"
+            src="/cliente/png/ps5/cereja.png"
             alt=""
           />
           <img
             className="aspect-square w-full snap-center"
-            src="cliente/png/ps5/camuflado.png"
+            src="/cliente/png/ps5/camuflado.png"
             alt=""
           />
           {/* <video
@@ -105,11 +104,14 @@ export default function Form({ ...props }) {
             {getLabel(shapes, formik.values.shape)}
           </span>
           <p className="w-full font-helvetica text-sm font-light leading-6 tracking-[0.0125em]">
-            {formik.values.shape
-              ? `Apresentamos o Controle Obsidian da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. 
-              Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. 
-              O Controle Obsidian não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.`
-              : ""}
+            Apresentamos o Controle Obsidian da PG Custom, uma obra-prima de
+            engenharia e design que redefine os padrões da experiência de jogos.
+            Este controle customizável é uma verdadeira expressão de tecnologia
+            avançada e ergonomia, cuidadosamente projetado para proporcionar
+            desempenho superior e conforto incomparável a cada jogador. O
+            Controle Obsidian não é apenas um dispositivo, é uma extensão do seu
+            estilo de jogo, oferecendo uma gama de recursos personalizáveis para
+            atender às suas necessidades específicas.
           </p>
         </div>
 
@@ -123,13 +125,13 @@ export default function Form({ ...props }) {
           items={[
             {
               label: "2 Paddles",
-              src: "cliente/svg/2_paddle_slim.svg",
+              src: "/cliente/svg/2_paddle_slim.svg",
               price: "00,00",
               value: "2paddles",
             },
             {
               label: "4 Paddles",
-              src: "cliente/svg/4_paddle_slim.svg",
+              src: "/cliente/svg/4_paddle_slim.svg",
               price: "00,00",
               value: "4paddles",
             },
@@ -145,19 +147,19 @@ export default function Form({ ...props }) {
           items={[
             {
               label: "Click tactil",
-              src: "cliente/svg/click_tactil_redondo.svg",
+              src: "/cliente/svg/click_tactil_redondo.svg",
               price: "00,00",
               value: "tactil",
             },
             {
               label: "Click digital",
-              src: "cliente/svg/click_digital.svg",
+              src: "/cliente/svg/click_digital.svg",
               price: "00,00",
               value: "digital",
             },
             {
               label: "Click mouse",
-              src: "cliente/svg/click_mouse.svg",
+              src: "/cliente/svg/click_mouse.svg",
               price: "00,00",
               value: "mouse",
             },
@@ -173,25 +175,25 @@ export default function Form({ ...props }) {
           items={[
             {
               label: "Preto",
-              src: "cliente/svg/circle_black.svg",
+              src: "/cliente/svg/circle_black.svg",
               price: "00,00",
               value: "preto",
             },
             {
               label: "Branco",
-              src: "cliente/svg/circle_white.svg",
+              src: "/cliente/svg/circle_white.svg",
               price: "00,00",
               value: "branco",
             },
             {
               label: "Vermelho",
-              src: "cliente/svg/circle_red.svg",
+              src: "/cliente/svg/circle_red.svg",
               price: "00,00",
               value: "vermelho",
             },
             {
               label: "Roxo",
-              src: "cliente/svg/circle_purple.svg",
+              src: "/cliente/svg/circle_purple.svg",
               price: "00,00",
               value: "roxo",
             },
@@ -207,25 +209,25 @@ export default function Form({ ...props }) {
           items={[
             {
               label: "Default",
-              src: "cliente/svg/default-trigger-ps5.svg",
+              src: "/cliente/svg/default-trigger-ps5.svg",
               price: "00,00",
               value: "default",
             },
             {
               label: "Stop",
-              src: "cliente/svg/pg-trigger-stop-ps5.svg",
+              src: "/cliente/svg/pg-trigger-stop-ps5.svg",
               price: "00,00",
               value: "stop",
             },
             {
               label: "Digital",
-              src: "cliente/svg/pg-trigger-clickdigital-ps5.svg",
+              src: "/cliente/svg/pg-trigger-clickdigital-ps5.svg",
               price: "00,00",
               value: "digital",
             },
             {
               label: "Mouse",
-              src: "cliente/svg/pg-trigger-clickmouse-ps5.svg",
+              src: "/cliente/svg/pg-trigger-clickmouse-ps5.svg",
               price: "00,00",
               value: "mouse",
             },
@@ -245,21 +247,21 @@ export default function Form({ ...props }) {
               {
                 label: "PG Grip",
                 strongLabel: "Militar",
-                src: "cliente/svg/pg-grip-exclusivo.svg",
+                src: "/cliente/svg/pg-grip-exclusivo.svg",
                 price: "00,00",
                 value: "militar",
               },
               {
                 label: "PG Grip",
                 strongLabel: "Tático",
-                src: "cliente/svg/pg-grip-militar.svg",
+                src: "/cliente/svg/pg-grip-militar.svg",
                 price: "00,00",
                 value: "tatico",
               },
               {
                 label: "PG Grip",
                 strongLabel: "Exclusivo",
-                src: "cliente/svg/pg-grip-tatico.svg",
+                src: "/cliente/svg/pg-grip-tatico.svg",
                 price: "00,00",
                 value: "exclusivo",
               },
@@ -287,13 +289,13 @@ export default function Form({ ...props }) {
             items={[
               {
                 label: "Com grip",
-                src: "cliente/svg/pg_faceplate_com_grip.svg",
+                src: "/cliente/svg/pg_faceplate_com_grip.svg",
                 price: "00,00",
                 value: "com_grip",
               },
               {
                 label: "Sem grip",
-                src: "cliente/svg/pg_faceplate_sem_grip.svg",
+                src: "/cliente/svg/pg_faceplate_sem_grip.svg",
                 price: "00,00",
                 value: "sem_grip",
               },
@@ -317,13 +319,13 @@ export default function Form({ ...props }) {
           items={[
             {
               label: "Com grip",
-              src: "cliente/svg/pg_faceplate_com_grip.svg",
+              src: "/cliente/svg/pg_faceplate_com_grip.svg",
               price: "00,00",
               value: "com_grip",
             },
             {
               label: "Sem grip",
-              src: "cliente/svg/pg_faceplate_sem_grip.svg",
+              src: "/cliente/svg/pg_faceplate_sem_grip.svg",
               price: "00,00",
               value: "sem_grip",
             },
@@ -339,13 +341,13 @@ export default function Form({ ...props }) {
           carouselImageClassname={"data-[svg=true]:w-[90px]"}
           items={[
             {
-              src: "cliente/svg/dualsense_com_vibracao.svg",
+              src: "/cliente/svg/dualsense_com_vibracao.svg",
               label: "Com vibração",
               price: "00,00",
               value: "com_vibracao",
             },
             {
-              src: "cliente/svg/dualsense_vibracao_removida.svg",
+              src: "/cliente/svg/dualsense_vibracao_removida.svg",
               label: "Sem vibração",
               price: "00,00",
               value: "sem_vibracao",
@@ -354,9 +356,10 @@ export default function Form({ ...props }) {
         />
 
         <Button
-          className="gap-4 border-green-400 bg-green-500 focus:border-green-500 focus:bg-green-600"
-          type="submit"
+          className="flex items-center gap-2"
+          type="primary"
           onClick={sendFormToWhatsapp}
+          size="large"
         >
           <span className="font-semibold tracking-wider">Enviar</span>
           <span className="pi pi-whatsapp"></span>
