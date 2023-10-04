@@ -122,13 +122,13 @@ export default function Form({ ...props }) {
           carouselImageClassname={"data-[svg=true]:w-[90px]"}
           items={[
             {
-              label: "2 Paddles Fat",
-              src: "cliente/svg/2_paddle_fat.svg",
+              label: "2 Paddles",
+              src: "cliente/svg/2_paddle_slim.svg",
               price: "00,00",
               value: "2paddles",
             },
             {
-              label: "4 Paddles Slim",
+              label: "4 Paddles",
               src: "cliente/svg/4_paddle_slim.svg",
               price: "00,00",
               value: "4paddles",
