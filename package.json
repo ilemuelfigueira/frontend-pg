@@ -12,6 +12,7 @@
     "@ant-design/cssinjs": "^1.17.0",
     "antd": "^5.9.4",
     "formik": "^2.4.5",
+    "moment": "^2.29.4",
     "next": "latest",
     "primeicons": "^6.0.1",
     "react": "latest",
