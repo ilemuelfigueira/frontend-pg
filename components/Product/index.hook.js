@@ -87,13 +87,8 @@ export const useProduct = ({ ...props } = {}) => {
     window.open(url, "_blank");
   };
 
-  const sendMessageToWhatsapp = (message) => {
-    const urlEncodedMessage = encodeURIComponent(message);
-
-    window.open(
-      `https://wa.me/${WHATSAPP_LOJA}?text=${urlEncodedMessage}`,
-      "_blank",
-    );
+  const goToDeliveryForm = () => {
+    router.push("/formulario-entrega");
   };
   const formik = useFormik({
     initialValues: getDefaultValues(),
@@ -111,5 +106,6 @@ export const useProduct = ({ ...props } = {}) => {
     formik,
     sendFormToWhatsapp,
     getLabel,
+    goToDeliveryForm
   };
 };
