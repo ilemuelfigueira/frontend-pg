@@ -16,10 +16,10 @@ const ItemTemplate = (item, options) => {
         "select-none data-[islink=true]:cursor-pointer",
       )}
     >
-      <span
-        className={twMerge(item.icon, item.icon && item.label ? "mr-2" : "")}
-      />
       <span className="font-semibold">{item.label}</span>
+      <span
+        className={twMerge(item.icon, item.icon && item.label ? "ml-2" : "")}
+      />
     </Link>
   );
 };
@@ -59,20 +59,34 @@ const pathsConfig = [
       },
     ],
   },
+  {
+    path: "formulario-entrega",
+    items: [
+      {
+        title: (
+          <ItemTemplate
+            icon="pi pi-book"
+            label="Formulário de Entrega"
+            url="/formulario-entrega"
+          />
+        ),
+      },
+    ],
+  },
 ];
 
 const getPathsItems = (_paths) => {
-  let pathsItems = [...pathsConfig[0].items]
+  let pathsItems = [...pathsConfig[0].items];
 
   for (const item of _paths) {
     const path = pathsConfig.find((path) => path.path === item);
 
-    if(!path) continue;
+    if (!path) continue;
 
     pathsItems = pathsItems.concat(path.items);
   }
 
-  return pathsItems
+  return pathsItems;
 };
 
 export default function Navigator({ children, ...props }) {
@@ -81,20 +95,18 @@ export default function Navigator({ children, ...props }) {
   const items = getPathsItems(pathName.split("/").filter((path) => path));
   return (
     <>
-      <header className="mb-4">{/* <nav>NAVIGATOR</nav> */}</header>
-      <div className="flex w-full items-center justify-center">
-        <div className="flex flex-col items-center justify-center gap-2 max-lg:w-[100vw] lg:w-[90vw] xl:w-[1400px]">
-          <Breadcrumb
-            style={{
-              background: "transparent !important",
-              border: "none !important",
-            }}
-            className="flex w-full px-4"
-            items={items}
-          />
-          {children}
-        </div>
-      </div>
+      <header className="">{/* TODO NAV */}</header>
+      <section className="flex flex-col items-center justify-start gap-2 min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]">
+        <Breadcrumb
+          style={{
+            background: "transparent !important",
+            border: "none !important",
+          }}
+          className="flex w-full px-4"
+          items={items}
+        />
+        {children}
+      </section>
     </>
   );
 }
