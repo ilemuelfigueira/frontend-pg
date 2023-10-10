@@ -2,42 +2,46 @@
 
 import ImageSelect from "@/components/ImageSelect";
 import { useProduct } from "./index.hook";
-import { Button } from "antd";
+import { Button, Carousel } from "antd";
 import { getYupSchema } from "@/lib/YupSchemas";
+import Image from "next/image";
+
+const BannerImage = ({ children, ...props }) => {
+  return (
+    <div className="relative aspect-square max-lg:w-full max-lg:snap-center lg:w-[48%] lg:flex-[0,0,48%] lg:rounded-xl lg:shadow-md lg:duration-300 lg:hover:shadow-xl">
+      <Image {...props} fill />
+    </div>
+  );
+};
+
+const contentStyle = {
+  margin: 0,
+  height: "160px",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+};
 
 export default function Form({ ...props }) {
   const { title, shapes, validationSchema, whatsappLoja = "" } = props;
 
-  const { formik, getLabel, sendFormToWhatsapp } = useProduct({
-    WHATSAPP_LOJA: whatsappLoja,
-    validationSchema: getYupSchema(validationSchema),
-  });
+  const { formik, getLabel, sendFormToWhatsapp, goToDeliveryForm } = useProduct(
+    {
+      WHATSAPP_LOJA: whatsappLoja,
+      validationSchema: getYupSchema(validationSchema),
+    },
+  );
 
   const { values } = formik;
 
   return (
-    <div className="flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
+    <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
       <div className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
-        <img
-          className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="/cliente/png/ps5/azul_claro.png"
-          alt=""
-        />
-        <img
-          className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="/cliente/png/ps5/azul_metalico.png"
-          alt=""
-        />
-        <img
-          className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="/cliente/png/ps5/cereja.png"
-          alt=""
-        />
-        <img
-          className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          src="/cliente/png/ps5/camuflado.png"
-          alt=""
-        />
+        <BannerImage src="/cliente/png/ps5/azul_claro.png" alt="" />
+        <BannerImage src="/cliente/png/ps5/azul_metalico.png" alt="" />
+        <BannerImage src="/cliente/png/ps5/cereja.png" alt="" />
+        <BannerImage src="/cliente/png/ps5/camuflado.png" alt="" />
         {/* <video
           className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
           loop={true}
@@ -56,38 +60,13 @@ export default function Form({ ...props }) {
             a partir de <strong className="text-green-400">R$ 399,99</strong>
           </span>
         </div>
-
-        <div className="flex snap-x snap-mandatory self-center overflow-x-auto scroll-smooth sm:w-[100%] md:w-[80%] lg:hidden">
-          <img
-            className="aspect-square w-full snap-center"
-            src="/cliente/png/ps5/azul_claro.png"
-            alt=""
-          />
-          <img
-            className="aspect-square w-full snap-center"
-            src="/cliente/png/ps5/azul_metalico.png"
-            alt=""
-          />
-          <img
-            className="aspect-square w-full snap-center"
-            src="/cliente/png/ps5/cereja.png"
-            alt=""
-          />
-          <img
-            className="aspect-square w-full snap-center"
-            src="/cliente/png/ps5/camuflado.png"
-            alt=""
-          />
-          {/* <video
-            className="aspect-square w-full snap-center"
-            loop={true}
-            controls={true}
-            muted={true}
-            playsInline={true}
-            autoPlay={true}
-            preload="metadata"
-            src="reflex-pro-apresentacao.mp4"
-          ></video> */}
+        <div className="w-full md:px-8 lg:hidden">
+          <Carousel effect="scrollx" className="relative aspect-square w-full">
+            <BannerImage src="/cliente/png/ps5/azul_claro.png" alt="" />
+            <BannerImage src="/cliente/png/ps5/azul_metalico.png" alt="" />
+            <BannerImage src="/cliente/png/ps5/cereja.png" alt="" />
+            <BannerImage src="/cliente/png/ps5/camuflado.png" alt="" />
+          </Carousel>
         </div>
 
         <ImageSelect
@@ -267,7 +246,6 @@ export default function Form({ ...props }) {
               },
             ]}
           />
-          {/* <hr className="my-2 h-0.5 border-t-0 bg-gray-700 opacity-100 dark:opacity-50 sm:hidden" /> */}
           <div className="flex max-sm:hidden">
             <p className="pr-6"></p>
             <div className="inline-block h-[100px] min-h-[1em] w-0.5 self-stretch bg-gray-700 opacity-100 dark:opacity-50"></div>
@@ -355,15 +333,26 @@ export default function Form({ ...props }) {
           ]}
         />
 
-        <Button
-          className="flex items-center gap-2"
-          type="primary"
-          onClick={sendFormToWhatsapp}
-          size="large"
-        >
-          <span className="font-semibold tracking-wider">Enviar</span>
-          <span className="pi pi-whatsapp"></span>
-        </Button>
+        <div className="flex w-full">
+          <Button
+            className="flex items-center gap-2"
+            type="primary"
+            onClick={sendFormToWhatsapp}
+            size="large"
+          >
+            <span className="font-semibold tracking-wider">Enviar</span>
+            <span className="pi pi-whatsapp"></span>
+          </Button>
+          <Button
+            className="flex items-center gap-2"
+            type="link"
+            onClick={goToDeliveryForm}
+            size="large"
+          >
+            <span className="font-semibold tracking-wider">Próxima etapa</span>
+            <span className="pi pi-send"></span>
+          </Button>
+        </div>
       </div>
     </div>
   );

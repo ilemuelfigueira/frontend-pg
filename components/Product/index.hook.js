@@ -96,8 +96,6 @@ export const useProduct = ({ ...props } = {}) => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values) => {
-      console.log(values);
-
       router.push(`${pathName}?${valuesToQueryString(values)}`);
     },
   });
