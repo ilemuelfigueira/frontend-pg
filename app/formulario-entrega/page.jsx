@@ -1,14 +1,15 @@
 import { FormularioEntrega } from "@/components/FormularioEntrega";
 
-export default () => {
-  
+export default function FormularioEntregaPage() {
   return (
-    <FormularioEntrega
-      title="Formulário de Entrega"
-      description="Formulário de Entrega"
-      icons={{
-        icon: "/logo-32x32.png",
-      }}
-    />
+    <>
+      <FormularioEntrega
+        title="Formulário de Entrega"
+        description="Formulário de Entrega"
+        icons={{
+          icon: "/logo-32x32.png",
+        }}
+      />
+    </>
   );
-};
+}

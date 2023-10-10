@@ -1,4 +1,5 @@
 import { useFormik } from "formik";
+import { Form } from "antd";
 import moment from "moment";
 
 import * as Yup from "yup";
@@ -6,7 +7,7 @@ import * as Yup from "yup";
 export const useFormularioEntrega = (props) => {
   const toDate = (_, value) => {
     return moment(value, "DD/MM/YYYY").toDate();
-  }
+  };
 
   const validationSchema = Yup.object({
     nome: Yup.string().required("* Este campo é obrigatório."),
@@ -16,9 +17,10 @@ export const useFormularioEntrega = (props) => {
     telefone: Yup.string()
       .matches(/\(\d{2}\)\s\d{4,5}\-\d{4}/g, "* Atenção no formato do telefone")
       .required("* Este campo é obrigatório."),
-    nascimento: Yup.date("* Digite uma data válida").transform(toDate).max(new Date()).required(
-      "* Este campo é obrigatório.",
-    ),
+    nascimento: Yup.date("* Digite uma data válida")
+      .transform(toDate)
+      .max(new Date(), "* A data não pode ser maior que hoje")
+      .required("* Este campo é obrigatório."),
     cep: Yup.string()
       .max(9)
       .matches(/^[0-9]{5}-[0-9]{3}$/, "* Digite um CEP válido")
@@ -28,14 +30,15 @@ export const useFormularioEntrega = (props) => {
     semNumero: Yup.boolean().optional(),
     estado: Yup.string().required("* Este campo é obrigatório."),
     cidade: Yup.string().required("* Este campo é obrigatório."),
+    complemento: Yup.string().optional(),
     observacoes: Yup.string().optional(),
   });
 
   function IsError(key, returnType = "boolean") {
-    // const condition =
-    //   (formik.touched[key] && formik.errors[key]) || !formik.values[key];
-
     const condition = formik.touched[key] && formik.errors[key];
+
+    if (!condition) return;
+
     switch (returnType) {
       case "boolean":
         return condition;
@@ -47,6 +50,30 @@ export const useFormularioEntrega = (props) => {
         return condition;
     }
   }
+
+  function onFillCep(data) {
+    const isError = Boolean(data.erro);
+
+    if (isError) {
+      formik.setTouched({ cep: true });
+      formik.setFieldError("cep", "* CEP não encontrado");
+      return;
+    }
+
+    const endereco = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+
+    handleFormikAndAntdFormChange("endereco", endereco);
+    handleFormikAndAntdFormChange("cidade", data.localidade);
+    handleFormikAndAntdFormChange("estado", data.estado);
+  }
+
+  function handleFormikAndAntdFormChange(key, value) {
+    formik.setFieldValue(key, value);
+    antdForm.setFieldsValue({ [key]: value });
+  }
+
+  const [antdForm] = Form.useForm();
+
   const formik = useFormik({
     initialValues: {
       nome: "",
@@ -55,24 +82,25 @@ export const useFormularioEntrega = (props) => {
       nascimento: "",
       cep: "",
       endereco: "",
-      numero: "",
+      numero: undefined,
       semNumero: false,
       estado: "",
       cidade: "",
+      complemento: "",
       observacoes: "",
     },
     validateOnBlur: false,
     validateOnChange: true,
     validationSchema,
     onSubmit(values) {
-      values = validationSchema.cast(values);
-
-      console.log(values);
+      console.log("@onSubmit -> values", values);
     },
   });
 
   return {
     formik,
+    antdForm,
     IsError,
+    onFillCep,
   };
 };
