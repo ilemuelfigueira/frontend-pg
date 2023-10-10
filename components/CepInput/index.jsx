@@ -1,21 +1,17 @@
 "use client";
 
-import { aplicarMascara } from "@/lib/util";
 import { Input } from "antd";
+import { useCepInput } from "./index.hook";
 
-export const CepInput = (props) => {
+export const CepInput = ({ onFill = undefined, ...props }) => {
+  const { handleChange } = useCepInput({onFill, ...props});
   return (
     <Input
       placeholder="XXXXX-XXX"
       {...props}
       type="text"
       maxLength={9}
-      onChange={(e) => {
-        if (!props.onChange) return;
-        e.target.value = aplicarMascara(e.target.value, "cep");
-
-        props.onChange(e);
-      }}
+      onChange={handleChange}
     />
   );
 };
