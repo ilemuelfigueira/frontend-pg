@@ -96,7 +96,7 @@ export default function Navigator({ children, ...props }) {
   return (
     <>
       <header className="">{/* TODO NAV */}</header>
-      <section className="flex flex-col items-center justify-start gap-2 min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]">
+      <section className="flex flex-col items-center justify-start gap-8 min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]">
         <Breadcrumb
           style={{
             background: "transparent !important",
