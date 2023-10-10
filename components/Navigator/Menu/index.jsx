@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { InputText } from "primereact/inputtext";
 import { MegaMenu } from "primereact/megamenu";
 
@@ -122,12 +123,12 @@ export const Menu = () => {
   ];
 
   const start = (
-    <img
+    <Image
       alt="logo"
       src="https://primefaces.org/cdn/primereact/images/logo.png"
       height="10px"
       className="mr-2 h-[30px]"
-    ></img>
+    />
   );
   return (
     <div className="mb-10 w-full">
