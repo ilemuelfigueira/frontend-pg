@@ -12,11 +12,9 @@ export function useCepInput(props) {
     if (isFilled && props.onFill) {
       getCepDetails(event.target.value)
         .then((data) => {
-          console.log(data)
           props.onFill(data)
         })
         .catch((err) => {
-          console.error(err.message)
           props.onFill({ erro: err.message })
         });
     }
