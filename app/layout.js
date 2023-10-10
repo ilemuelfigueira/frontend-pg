@@ -82,7 +82,7 @@ export default function RootLayout({ children }) {
       lang="pt-BR"
       className={`${inter.variable} ${araboto.variable} ${helvetica.variable} ${helveticaNeue.variable}`}
     >
-      <body>
+      <body className="flex w-full items-center justify-center">
         <StyledComponentsRegistry>
           <ConfigProvider theme={theme}>
             <Navigator>{children}</Navigator>
