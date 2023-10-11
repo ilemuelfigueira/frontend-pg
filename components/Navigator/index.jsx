@@ -7,6 +7,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ItemTemplate = (item, options) => {
+  const pathName = usePathname();
+
+  const isActive = pathName.includes(item.url);
   return (
     <Link
       href={item.url || "#"}
@@ -16,7 +19,12 @@ const ItemTemplate = (item, options) => {
         "select-none data-[islink=true]:cursor-pointer",
       )}
     >
-      <span className="font-semibold">{item.label}</span>
+      <span
+        data-active={isActive}
+        className="font-helvetica data-[active=true]:font-semibold data-[active=true]:text-black"
+      >
+        {item.label}
+      </span>
       <span
         className={twMerge(item.icon, item.icon && item.label ? "ml-2" : "")}
       />
@@ -96,7 +104,7 @@ export default function Navigator({ children, ...props }) {
   return (
     <>
       <header className="">{/* TODO NAV */}</header>
-      <section className="flex flex-col items-center justify-start gap-8 min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]">
+      <section className="flex min-h-screen flex-col items-center justify-start gap-8 max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]">
         <Breadcrumb
           style={{
             background: "transparent !important",
