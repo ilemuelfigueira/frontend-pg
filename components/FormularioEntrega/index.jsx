@@ -10,7 +10,7 @@ const ItemContainer = ({ children }) => (
 );
 
 const Container = ({ children }) => (
-  <div className="flex w-full flex-col gap-4 bg-gray-200 max-lg:p-4 lg:rounded-xl lg:p-4 lg:shadow-lg">
+  <div className="flex w-full flex-col gap-4 lg:bg-white max-lg:p-4 lg:rounded-xl lg:p-4 lg:shadow-lg">
     {children}
   </div>
 );
