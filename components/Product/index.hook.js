@@ -60,7 +60,7 @@ export const useProduct = ({ ...props } = {}) => {
   const getHostname = () => {
     const hostname = `${window.location.hostname}${pathName}`;
     return hostname.includes("localhost")
-      ? "http://localhost:3000"
+      ? `http://localhost:3000${pathName}`
       : `https://${hostname}`;
   };
 
