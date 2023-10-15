@@ -77,7 +77,7 @@ export const useProduct = ({ ...props } = {}) => {
     if (!isValid) return;
 
     const urlEncodedMessage = encodeURIComponent(
-      `Olá, gostaria de um controle com as seguintes características: ${getHostname()}${pathName}?${valuesToQueryString(
+      `Olá, gostaria de um controle com as seguintes características: ${getHostname()}?${valuesToQueryString(
         formik.values,
       )}`,
     );
