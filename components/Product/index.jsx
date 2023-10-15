@@ -344,7 +344,7 @@ export default function Form({ ...props }) {
             <span className="pi pi-whatsapp"></span>
           </Button>
           <Button
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 hidden"
             type="link"
             onClick={goToDeliveryForm}
             size="large"
