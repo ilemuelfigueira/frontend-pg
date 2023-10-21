@@ -7,7 +7,9 @@ import { twJoin, twMerge } from "tailwind-merge";
 function ImageSelect(props) {
   const items = props.items;
 
-  const isSvg = props.items.some((item) => item.src.endsWith(".svg"));
+  if(!items) throw new Error(`A propriedade 'items' não é uma lista`)
+
+  const isSvg = props.items?.some((item) => item.src.endsWith(".svg"));
 
   const noItemLabel = props.noItemLabel
 
@@ -47,7 +49,7 @@ function ImageSelect(props) {
         data-error={props.error}
         data-svg={isSvg}
       >
-        {items?.map((item) => (
+        {items?.filter(item => !item.disabled).map((item) => (
           <div
             key={item.value}
             className={twMerge(
@@ -56,7 +58,7 @@ function ImageSelect(props) {
             )}
             data-selected={props.value === item.value}
             data-svg={isSvg}
-            onClick={() => onChange(item.value)}
+            onClick={() => !item.disabled && onChange(item.value)}
           >
             <img
               className={twMerge(
