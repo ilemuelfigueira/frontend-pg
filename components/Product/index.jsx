@@ -4,60 +4,111 @@ import ImageSelect from "@/components/ImageSelect";
 import { useProduct } from "./index.hook";
 import { Button, Carousel } from "antd";
 import { getYupSchema } from "@/lib/YupSchemas";
-import Image from "next/image";
+import { twMerge } from "tailwind-merge";
 
 const BannerImage = ({ children, ...props }) => {
   return (
-    <div className="relative aspect-square max-lg:w-full max-lg:snap-center lg:w-[48%] lg:flex-[0,0,48%] lg:rounded-xl lg:shadow-md lg:duration-300 lg:hover:shadow-xl">
-      <Image {...props} fill />
-    </div>
+    <img
+      {...props}
+      loading="lazy"
+      className="relative aspect-square max-lg:w-full max-lg:snap-center lg:w-[48%] lg:flex-[0,0,48%] lg:rounded-xl lg:shadow-md lg:duration-300 lg:hover:shadow-xl"
+    />
   );
 };
 
-const contentStyle = {
-  margin: 0,
-  height: "160px",
-  color: "#fff",
-  lineHeight: "160px",
-  textAlign: "center",
-  background: "#364d79",
+const BannerVideo = ({ children, ...props }) => {
+  return (
+    <video
+      className={twMerge(
+        "aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl",
+        props?.className,
+      )}
+      loop={true}
+      controls={true}
+      muted={true}
+      playsInline={true}
+      autoPlay={true}
+      preload="metadata"
+      {...props}
+      src="reflex-pro-apresentacao.mp4"
+    />
+  );
 };
 
 export default function Form({ ...props }) {
-  const { title, shapes, validationSchema, whatsappLoja = "" } = props;
+  const { validationSchema, whatsappLoja = "" } = props;
 
-  const { formik, getLabel, sendFormToWhatsapp, goToDeliveryForm } = useProduct(
-    {
-      WHATSAPP_LOJA: whatsappLoja,
-      validationSchema: getYupSchema(validationSchema),
-    },
-  );
+  const {
+    formik,
+    getLabel,
+    sendFormToWhatsapp,
+    goToDeliveryForm,
+  } = useProduct({
+    WHATSAPP_LOJA: whatsappLoja,
+    defaultValues: props.defaultValues,
+    validationSchema: getYupSchema(validationSchema),
+  });
 
   const { values } = formik;
+
+  const bannerShape = props.shapes?.find(
+    (item) => item.value === values.shape,
+  ).items;
+  const bannerPaddle = values.paddles
+    ? props.banners[values.paddles]
+    : props.banners["2paddles"];
+
+  const calcularTotal = () => {
+    const formatter = new Intl.NumberFormat("pt-BR");
+
+    function buscarPreco(lista, value) {
+      if (!lista || !value) return 0;
+      return parseFloat(
+        lista.find((item) => item.value == value)?.price.replace(",", "."),
+      );
+    }
+
+    const prices = {
+      shape: buscarPreco(props.shapes, values.shape),
+      paddles: buscarPreco(props.paddles, values.paddles),
+      paddlesClick: buscarPreco(props.paddlesClicks, values.paddlesClick),
+      paddlesColor: buscarPreco(props.paddlesColors, values.paddlesColor),
+      trigger: buscarPreco(props.triggers, values.trigger),
+      grip: buscarPreco(props.grips, values.grip),
+      faceplateGrip: buscarPreco(props.faceplateGrips, values.faceplateGrip),
+      vibration: buscarPreco(props.vibrations, values.vibration),
+    };
+
+    return formatter.format(
+      prices.shape +
+        prices.paddles +
+        prices.paddlesClick +
+        prices.paddlesColor +
+        prices.trigger +
+        prices.grip +
+        prices.faceplateGrip +
+        prices.vibration,
+    );
+  };
 
   return (
     <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
       <div className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
-        <BannerImage src="/cliente/png/ps5/azul_claro.png" alt="" />
-        <BannerImage src="/cliente/png/ps5/azul_metalico.png" alt="" />
-        <BannerImage src="/cliente/png/ps5/cereja.png" alt="" />
-        <BannerImage src="/cliente/png/ps5/camuflado.png" alt="" />
-        {/* <video
-          className="aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl"
-          loop={true}
-          controls={true}
-          muted={true}
-          playsInline={true}
-          autoPlay={true}
-          preload="metadata"
-          src="reflex-pro-apresentacao.mp4"
-        ></video> */}
+        {bannerShape?.map((item) => (
+          <BannerImage key={item.label} src={item.src} alt={item.label} />
+        ))}
+        <BannerImage
+          key={values.paddles}
+          src={bannerPaddle}
+          alt={values.paddles}
+        />
       </div>
       <div className="#personalizacao flex flex-col items-start justify-start gap-4 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-gray-200 lg:shadow-lg xl:max-w-[660px]">
         <div className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
-          <h2 className="text-3xl font-black">{title}</h2>
+          <h2 className="text-3xl font-black">{props.title}</h2>
           <span className="text-base font-semibold tracking-wide">
-            a partir de <strong className="text-green-400">R$ 399,99</strong>
+            a partir de
+            <strong className="ml-2 text-xl text-green-400">R$ {calcularTotal()}</strong>
           </span>
         </div>
         <div className="w-full md:px-8 lg:hidden">
@@ -75,12 +126,12 @@ export default function Form({ ...props }) {
           value={values.shape}
           noItemLabel
           error={formik.errors.shape}
-          items={shapes}
+          items={props.shapes}
         />
 
         <div className="#description flex w-full flex-col items-start gap-3">
           <span className="#modelName w-full font-helveticaNeue font-semibold">
-            {getLabel(shapes, formik.values.shape)}
+            {getLabel(props.shapes, formik.values.shape)}
           </span>
           <p className="w-full font-helvetica text-sm font-light leading-6 tracking-[0.0125em]">
             Apresentamos o Controle Obsidian da PG Custom, uma obra-prima de
@@ -101,20 +152,7 @@ export default function Form({ ...props }) {
           error={formik.errors.paddles}
           label="PADDLES PG"
           carouselImageClassname={"data-[svg=true]:w-[90px]"}
-          items={[
-            {
-              label: "2 Paddles",
-              src: "/cliente/svg/2_paddle_slim.svg",
-              price: "00,00",
-              value: "2paddles",
-            },
-            {
-              label: "4 Paddles",
-              src: "/cliente/svg/4_paddle_slim.svg",
-              price: "00,00",
-              value: "4paddles",
-            },
-          ]}
+          items={props.paddles}
         />
 
         <ImageSelect
@@ -123,26 +161,7 @@ export default function Form({ ...props }) {
           value={values.paddlesClick}
           error={formik.errors.paddlesClick}
           label="OPÇÕES DE CLICKS ( PADDLES )"
-          items={[
-            {
-              label: "Click tactil",
-              src: "/cliente/svg/click_tactil_redondo.svg",
-              price: "00,00",
-              value: "tactil",
-            },
-            {
-              label: "Click digital",
-              src: "/cliente/svg/click_digital.svg",
-              price: "00,00",
-              value: "digital",
-            },
-            {
-              label: "Click mouse",
-              src: "/cliente/svg/click_mouse.svg",
-              price: "00,00",
-              value: "mouse",
-            },
-          ]}
+          items={props.paddlesClicks}
         />
 
         <ImageSelect
@@ -151,32 +170,7 @@ export default function Form({ ...props }) {
           value={values.paddlesColor}
           error={formik.errors.paddlesColor}
           label="COR DOS PADDLES"
-          items={[
-            {
-              label: "Preto",
-              src: "/cliente/svg/circle_black.svg",
-              price: "00,00",
-              value: "preto",
-            },
-            {
-              label: "Branco",
-              src: "/cliente/svg/circle_white.svg",
-              price: "00,00",
-              value: "branco",
-            },
-            {
-              label: "Vermelho",
-              src: "/cliente/svg/circle_red.svg",
-              price: "00,00",
-              value: "vermelho",
-            },
-            {
-              label: "Roxo",
-              src: "/cliente/svg/circle_purple.svg",
-              price: "00,00",
-              value: "roxo",
-            },
-          ]}
+          items={props.paddlesColors}
         />
 
         <ImageSelect
@@ -185,32 +179,7 @@ export default function Form({ ...props }) {
           value={values.trigger}
           error={formik.errors.trigger}
           label="OPÇÕES DE GATILHOS"
-          items={[
-            {
-              label: "Default",
-              src: "/cliente/svg/default-trigger-ps5.svg",
-              price: "00,00",
-              value: "default",
-            },
-            {
-              label: "Stop",
-              src: "/cliente/svg/pg-trigger-stop-ps5.svg",
-              price: "00,00",
-              value: "stop",
-            },
-            {
-              label: "Digital",
-              src: "/cliente/svg/pg-trigger-clickdigital-ps5.svg",
-              price: "00,00",
-              value: "digital",
-            },
-            {
-              label: "Mouse",
-              src: "/cliente/svg/pg-trigger-clickmouse-ps5.svg",
-              price: "00,00",
-              value: "mouse",
-            },
-          ]}
+          items={props.triggers}
         />
 
         <div className="flex max-sm:flex-col sm:w-fit sm:min-w-[494px] sm:items-center">
@@ -220,31 +189,9 @@ export default function Form({ ...props }) {
             value={values.grip}
             error={formik.errors.grip}
             label="PINTURA GRIP"
-            carouselClassname="min-w-[240px] w-[240px]"
+            carouselClassname="min-w-[240px] w-fit data-[svg=true]:gap-4 lg:flex-nowrap"
             carouselImageClassname="data-[svg=true]:w-[64px] data-[svg=true]:min-w-[64px] mb-2"
-            items={[
-              {
-                label: "PG Grip",
-                strongLabel: "Militar",
-                src: "/cliente/svg/pg-grip-exclusivo.svg",
-                price: "00,00",
-                value: "militar",
-              },
-              {
-                label: "PG Grip",
-                strongLabel: "Tático",
-                src: "/cliente/svg/pg-grip-militar.svg",
-                price: "00,00",
-                value: "tatico",
-              },
-              {
-                label: "PG Grip",
-                strongLabel: "Exclusivo",
-                src: "/cliente/svg/pg-grip-tatico.svg",
-                price: "00,00",
-                value: "exclusivo",
-              },
-            ]}
+            items={props.grips}
           />
           <div className="flex max-sm:hidden">
             <p className="pr-6"></p>
@@ -264,20 +211,7 @@ export default function Form({ ...props }) {
               "data-[svg=true]:w-[80px] data-[svg=true]:min-w-[80px]"
             }
             carouselClassname="data-[svg=true]:min-w-[200px] data-[svg=true]:w-[200px] data-[svg=true]:gap-2"
-            items={[
-              {
-                label: "Com grip",
-                src: "/cliente/svg/pg_faceplate_com_grip.svg",
-                price: "00,00",
-                value: "com_grip",
-              },
-              {
-                label: "Sem grip",
-                src: "/cliente/svg/pg_faceplate_sem_grip.svg",
-                price: "00,00",
-                value: "sem_grip",
-              },
-            ]}
+            items={props.faceplateGrips}
           />
         </div>
 
@@ -294,20 +228,7 @@ export default function Form({ ...props }) {
             "data-[svg=true]:w-[80px] data-[svg=true]:min-w-[80px]"
           }
           carouselClassname="data-[svg=true]:min-w-[200px] data-[svg=true]:w-[200px] data-[svg=true]:gap-2"
-          items={[
-            {
-              label: "Com grip",
-              src: "/cliente/svg/pg_faceplate_com_grip.svg",
-              price: "00,00",
-              value: "com_grip",
-            },
-            {
-              label: "Sem grip",
-              src: "/cliente/svg/pg_faceplate_sem_grip.svg",
-              price: "00,00",
-              value: "sem_grip",
-            },
-          ]}
+          items={props.faceplateGrips}
         />
 
         <ImageSelect
@@ -317,20 +238,7 @@ export default function Form({ ...props }) {
           error={formik.errors.vibration}
           label="MOTORES DE VIBRAÇÃO"
           carouselImageClassname={"data-[svg=true]:w-[90px]"}
-          items={[
-            {
-              src: "/cliente/svg/dualsense_com_vibracao.svg",
-              label: "Com vibração",
-              price: "00,00",
-              value: "com_vibracao",
-            },
-            {
-              src: "/cliente/svg/dualsense_vibracao_removida.svg",
-              label: "Sem vibração",
-              price: "00,00",
-              value: "sem_vibracao",
-            },
-          ]}
+          items={props.vibrations}
         />
 
         <div className="flex w-full">
@@ -344,7 +252,7 @@ export default function Form({ ...props }) {
             <span className="pi pi-whatsapp"></span>
           </Button>
           <Button
-            className="flex items-center gap-2 hidden"
+            className="hidden items-center gap-2"
             type="link"
             onClick={goToDeliveryForm}
             size="large"
