@@ -36,22 +36,22 @@
     {
       "label": "PG Grip",
       "strongLabel": "Militar",
-      "src": "/cliente/svg/pg-grip-exclusivo.svg",
+      "src": "/cliente/svg/pg-grip-militar.svg",
       "price": "149,99",
       "value": "militar"
     },
     {
       "label": "PG Grip",
       "strongLabel": "Tático",
-      "src": "/cliente/svg/pg-grip-militar.svg",
+      "src": "/cliente/svg/pg-grip-tatico.svg",
       "price": "119,99",
       "value": "tatico"
     },
     {
       "label": "PG Grip",
-      "strongLabel": "Exclusivo",
+      "strongLabel": "Exclusive",
       "tooltip": "Envie uma mensagem ao nosso time, informando a logo ou texto que deseja registrar no seu controle.",
-      "src": "/cliente/svg/pg-grip-tatico.svg",
+      "src": "/cliente/svg/pg-grip-exclusivo.svg",
       "price": "199,99",
       "value": "exclusivo"
     }
@@ -148,16 +148,16 @@
       "src": "/cliente/png/ps5/branco.png",
       "items": [
         {
-          "label": "Controle obsidian branco",
-          "src": "/cliente/png/ps5/branco.png"
+          "label": "Controle obsidian branco 1",
+          "src": "/dualsense/branco/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian branco 2",
+          "src": "/dualsense/branco/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian branco 3",
+          "src": "/dualsense/branco/3.png"
         }
       ],
       "price": "424,99",
@@ -169,16 +169,16 @@
       "src": "/cliente/png/ps5/prata_metalico.png",
       "items": [
         {
-          "label": "Controle obsidian prata metalico",
-          "src": "/cliente/png/ps5/prata_metalico.png"
+          "label": "Controle obsidian prata 1",
+          "src": "/dualsense/prata/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian prata 2",
+          "src": "/dualsense/prata/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian prata 3",
+          "src": "/dualsense/prata/3.png"
         }
       ],
       "price": "00,00",
@@ -189,16 +189,16 @@
       "src": "/cliente/png/ps5/preto.png",
       "items": [
         {
-          "label": "Controle obsidian azul claro",
-          "src": "/cliente/png/ps5/preto.png"
+          "label": "Controle obsidian preto 1",
+          "src": "/dualsense/preto/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian preto 2",
+          "src": "/dualsense/preto/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian preto 3",
+          "src": "/dualsense/preto/3.png"
         }
       ],
       "price": "449,99",
@@ -210,16 +210,16 @@
       "src": "/cliente/png/ps5/red_metalico.png",
       "items": [
         {
-          "label": "Controle obsidian red metalico",
-          "src": "/cliente/png/ps5/red_metalico.png"
+          "label": "Controle obsidian vermelho metalico 1",
+          "src": "/dualsense/vermelho_metalico/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian vermelho metalico 2",
+          "src": "/dualsense/vermelho_metalico/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian vermelho metalico 3",
+          "src": "/dualsense/vermelho_metalico/3.png"
         }
       ],
       "price": "00,00",
@@ -231,16 +231,16 @@
       "src": "/cliente/png/ps5/azul_metalico.png",
       "items": [
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian azul metalico 1",
+          "src": "/dualsense/azul_metalico/1.png"
         },
         {
-          "label": "Controle obsidian red metalico",
-          "src": "/cliente/png/ps5/red_metalico.png"
+          "label": "Controle obsidian azul metalico 2",
+          "src": "/dualsense/azul_metalico/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian azul metalico 3",
+          "src": "/dualsense/azul_metalico/3.png"
         }
       ],
       "price": "00,00",
@@ -251,16 +251,16 @@
       "src": "/cliente/png/ps5/roxo.png",
       "items": [
         {
-          "label": "Controle obsidian roxo",
-          "src": "/cliente/png/ps5/roxo.png"
+          "label": "Controle obsidian roxo 1",
+          "src": "/dualsense/roxo/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian roxo 2",
+          "src": "/dualsense/roxo/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian roxo 3",
+          "src": "/dualsense/roxo/3.png"
         }
       ],
       "price": "469,99",
@@ -271,16 +271,16 @@
       "src": "/cliente/png/ps5/rosa.png",
       "items": [
         {
-          "label": "Controle obsidian rosa",
-          "src": "/cliente/png/ps5/rosa.png"
+          "label": "Controle obsidian rosa 1",
+          "src": "/dualsense/rosa/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian rosa 2",
+          "src": "/dualsense/rosa/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian rosa 3",
+          "src": "/dualsense/rosa/3.png"
         }
       ],
       "price": "459,99",
@@ -291,16 +291,16 @@
       "src": "/cliente/png/ps5/azul_claro.png",
       "items": [
         {
-          "label": "Controle obsidian azul claro",
-          "src": "/cliente/png/ps5/azul_claro.png"
+          "label": "Controle obsidian azul claro 1",
+          "src": "/dualsense/azul_claro/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian azul claro 2",
+          "src": "/dualsense/azul_claro/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian azul claro 3",
+          "src": "/dualsense/azul_claro/3.png"
         }
       ],
       "price": "479,99",
@@ -311,16 +311,16 @@
       "src": "/cliente/png/ps5/cereja.png",
       "items": [
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian cereja 1",
+          "src": "/dualsense/cereja/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian cereja 2",
+          "src": "/dualsense/cereja/2.png"
         },
         {
-          "label": "Controle obsidian roxo",
-          "src": "/cliente/png/ps5/roxo.png"
+          "label": "Controle obsidian cereja 3",
+          "src": "/dualsense/cereja/3.png"
         }
       ],
       "price": "459,99",
@@ -331,16 +331,16 @@
       "src": "/cliente/png/ps5/camuflado.png",
       "items": [
         {
-          "label": "Controle obsidian camuflado",
-          "src": "/cliente/png/ps5/camuflado.png"
+          "label": "Controle obsidian camuflado 1",
+          "src": "/dualsense/camuflado/1.png"
         },
         {
-          "label": "Controle obsidian azul metalico",
-          "src": "/cliente/png/ps5/azul_metalico.png"
+          "label": "Controle obsidian camuflado 2",
+          "src": "/dualsense/camuflado/2.png"
         },
         {
-          "label": "Controle obsidian cereja",
-          "src": "/cliente/png/ps5/cereja.png"
+          "label": "Controle obsidian camuflado 3",
+          "src": "/dualsense/camuflado/3.png"
         }
       ],
       "price": "439,99",
