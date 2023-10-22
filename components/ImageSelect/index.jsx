@@ -26,7 +26,10 @@ function ImageSelect(props) {
 
   return (
     <div
-      className={twMerge(`flex h-full w-full flex-col gap-2 rounded-xl`, props.className)}
+      className={twMerge(
+        `flex h-full w-full flex-col gap-2 rounded-xl`,
+        props.className,
+      )}
     >
       <div className="flex flex-col">
         <span
@@ -45,7 +48,7 @@ function ImageSelect(props) {
                   label: (
                     <>
                       <strong>
-                        {item.label} - {item.strongLabel}: 
+                        {item.label} - {item.strongLabel}:
                       </strong>
                       <span> {item.tooltip}</span>
                     </>
@@ -68,7 +71,7 @@ function ImageSelect(props) {
       </div>
       <div
         className={twMerge(
-          "flex w-full items-center justify-start gap-2 whitespace-nowrap border border-transparent data-[svg=true]:gap-4 data-[error=true]:border-red-500 max-lg:overflow-x-auto lg:flex-wrap",
+          "hide-scrollbar flex w-full items-center justify-start gap-2 whitespace-nowrap border border-transparent data-[svg=true]:gap-4 data-[error=true]:border-red-500 max-lg:overflow-x-auto lg:flex-wrap",
           props.carouselClassname,
         )}
         data-error={props.error}

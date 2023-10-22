@@ -38,16 +38,13 @@ const BannerVideo = ({ children, ...props }) => {
 export default function Form({ ...props }) {
   const { validationSchema, whatsappLoja = "" } = props;
 
-  const {
-    formik,
-    getLabel,
-    sendFormToWhatsapp,
-    goToDeliveryForm,
-  } = useProduct({
-    WHATSAPP_LOJA: whatsappLoja,
-    defaultValues: props.defaultValues,
-    validationSchema: getYupSchema(validationSchema),
-  });
+  const { formik, getLabel, sendFormToWhatsapp, goToDeliveryForm } = useProduct(
+    {
+      WHATSAPP_LOJA: whatsappLoja,
+      defaultValues: props.defaultValues,
+      validationSchema: getYupSchema(validationSchema),
+    },
+  );
 
   const { values } = formik;
 
@@ -58,26 +55,26 @@ export default function Form({ ...props }) {
     ? props.banners[values.paddles]
     : props.banners["2paddles"];
 
+  function buscarPreco(lista, value) {
+    if (!lista || !value) return 0;
+    return parseFloat(
+      lista.find((item) => item.value == value)?.price.replace(",", "."),
+    );
+  }
+
+  const prices = {
+    shape: buscarPreco(props.shapes, values.shape),
+    paddles: buscarPreco(props.paddles, values.paddles),
+    paddlesClick: buscarPreco(props.paddlesClicks, values.paddlesClick),
+    paddlesColor: buscarPreco(props.paddlesColors, values.paddlesColor),
+    trigger: buscarPreco(props.triggers, values.trigger),
+    grip: buscarPreco(props.grips, values.grip),
+    faceplateGrip: buscarPreco(props.faceplateGrips, values.faceplateGrip),
+    vibration: buscarPreco(props.vibrations, values.vibration),
+  };
+
   const calcularTotal = () => {
     const formatter = new Intl.NumberFormat("pt-BR");
-
-    function buscarPreco(lista, value) {
-      if (!lista || !value) return 0;
-      return parseFloat(
-        lista.find((item) => item.value == value)?.price.replace(",", "."),
-      );
-    }
-
-    const prices = {
-      shape: buscarPreco(props.shapes, values.shape),
-      paddles: buscarPreco(props.paddles, values.paddles),
-      paddlesClick: buscarPreco(props.paddlesClicks, values.paddlesClick),
-      paddlesColor: buscarPreco(props.paddlesColors, values.paddlesColor),
-      trigger: buscarPreco(props.triggers, values.trigger),
-      grip: buscarPreco(props.grips, values.grip),
-      faceplateGrip: buscarPreco(props.faceplateGrips, values.faceplateGrip),
-      vibration: buscarPreco(props.vibrations, values.vibration),
-    };
 
     return formatter.format(
       prices.shape +
@@ -104,11 +101,13 @@ export default function Form({ ...props }) {
         />
       </section>
       <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-slate-50 lg:shadow-lg xl:max-w-[660px]">
-        <header className="#header lg:top-0 max-lg:top-0 sticky z-50 flex w-full flex-col items-start whitespace-nowrap tracking-tighter lg:bg-slate-50 max-lg:bg-slate-100">
+        <header className="#header sticky z-50 flex w-full flex-col items-start whitespace-nowrap tracking-tighter max-lg:top-0 max-lg:bg-slate-100 lg:top-0 lg:bg-slate-50">
           <h2 className="text-3xl font-black">{props.title}</h2>
           <span className="text-base font-semibold tracking-wide">
             a partir de
-            <strong className="ml-2 text-xl text-green-400">R$ {calcularTotal()}</strong>
+            <strong className="ml-2 text-xl text-green-400">
+              R$ {calcularTotal()}
+            </strong>
           </span>
         </header>
         <div className="w-full md:px-8 lg:hidden">
@@ -182,14 +181,14 @@ export default function Form({ ...props }) {
           items={props.triggers}
         />
 
-        <div className="flex max-sm:flex-col w-full sm:min-w-[494px] sm:items-center rounded-xl">
+        <div className="flex w-full rounded-xl max-sm:flex-col sm:min-w-[494px] sm:items-center">
           <ImageSelect
             onChange={formik.setFieldValue}
             name="grip"
             value={values.grip}
             error={formik.errors.grip}
             label="PINTURA GRIP"
-            className="lg:w-[fit-content] p-0 bg-transparent"
+            className="bg-transparent p-0 lg:w-[fit-content]"
             carouselClassname="min-w-[240px] w-fit data-[svg=true]:gap-4 lg:flex-nowrap"
             carouselImageClassname="data-[svg=true]:w-[64px] data-[svg=true]:min-w-[64px] mb-2"
             items={props.grips}
@@ -205,7 +204,7 @@ export default function Form({ ...props }) {
             value={values.faceplateGrip}
             error={formik.errors.faceplateGrip}
             label="Adicionar grip ao faceplate"
-            className="max-sm:hidden p-0 bg-transparent"
+            className="bg-transparent p-0 max-sm:hidden"
             labelClassname="font-semibold text-base"
             carouselLabelClassname="data-[svg=true]:text-lg font-helveticaNeue"
             carouselImageClassname={
