@@ -88,6 +88,8 @@ export default function Form({ ...props }) {
     );
   };
 
+  const priceDescription = prices.shape != parseFloat(calcularTotal().replace(',', '.')) ? 'Total' : 'A partir de';
+
   return (
     <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
       <section className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
@@ -104,7 +106,7 @@ export default function Form({ ...props }) {
         <header className="#header sticky z-50 flex w-full flex-col items-start whitespace-nowrap tracking-tighter max-lg:top-0 max-lg:bg-slate-100 lg:top-0 lg:bg-slate-50">
           <h2 className="text-3xl font-black">{props.title}</h2>
           <span className="text-base font-semibold tracking-wide">
-            a partir de
+            {priceDescription}
             <strong className="ml-2 text-xl text-green-400">
               R$ {calcularTotal()}
             </strong>
