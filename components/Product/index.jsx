@@ -103,7 +103,7 @@ export default function Form({ ...props }) {
           alt={values.paddles}
         />
       </section>
-      <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-slate-50 lg:shadow-lg xl:max-w-[660px]">
+      <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-slate-50 lg:shadow-lg xl:max-w-[660px]">
         <header className="#header lg:top-0 max-lg:top-0 sticky z-50 flex w-full flex-col items-start whitespace-nowrap tracking-tighter lg:bg-slate-50 max-lg:bg-slate-100">
           <h2 className="text-3xl font-black">{props.title}</h2>
           <span className="text-base font-semibold tracking-wide">
@@ -182,22 +182,22 @@ export default function Form({ ...props }) {
           items={props.triggers}
         />
 
-        <div className="flex max-sm:flex-col w-fit lg:w-full sm:min-w-[494px] sm:items-center">
+        <div className="flex max-sm:flex-col w-full sm:min-w-[494px] sm:items-center bg-slate-200 p-4 rounded-xl">
           <ImageSelect
             onChange={formik.setFieldValue}
             name="grip"
             value={values.grip}
             error={formik.errors.grip}
             label="PINTURA GRIP"
-            className="w-[fit-content]"
+            className="lg:w-[fit-content] p-0 bg-transparent"
             carouselClassname="min-w-[240px] w-fit data-[svg=true]:gap-4 lg:flex-nowrap"
             carouselImageClassname="data-[svg=true]:w-[64px] data-[svg=true]:min-w-[64px] mb-2"
             items={props.grips}
           />
           <div className="flex max-sm:hidden">
-            <p className="pr-6"></p>
+            <p className="pr-5"></p>
             <div className="inline-block h-[100px] min-h-[1em] w-0.5 self-stretch bg-gray-700 opacity-100 dark:opacity-50"></div>
-            <p className="pl-6"></p>
+            <p className="pl-5"></p>
           </div>
           <ImageSelect
             onChange={formik.setFieldValue}
@@ -205,7 +205,7 @@ export default function Form({ ...props }) {
             value={values.faceplateGrip}
             error={formik.errors.faceplateGrip}
             label="Adicionar grip ao faceplate"
-            className="max-sm:hidden"
+            className="max-sm:hidden p-0 bg-transparent"
             labelClassname="font-semibold text-base"
             carouselLabelClassname="data-[svg=true]:text-lg font-helveticaNeue"
             carouselImageClassname={
