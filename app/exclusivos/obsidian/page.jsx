@@ -19,6 +19,7 @@ export default function ControleVariavel() {
         defaultValues={{
           shape: obsidianData.shapes[0].value
         }}
+        description={obsidianData.description}
         faceplateGrips={obsidianData.faceplateGrips}
         vibrations={obsidianData.vibrations}
         grips={obsidianData.grips}

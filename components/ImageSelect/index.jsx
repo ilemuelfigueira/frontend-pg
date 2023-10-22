@@ -106,7 +106,7 @@ function ImageSelect(props) {
                   item.strongLabel ? "mb-2" : "",
                 )}
               >
-                <span className="break-words text-center font-helvetica text-sm tracking-wide">
+                <span className="break-words whitespace-pre-line text-center font-helvetica text-sm tracking-wide">
                   {noItemLabel ? "" : item.label}
                 </span>
                 <strong>{item.strongLabel}</strong>

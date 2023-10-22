@@ -37,6 +37,10 @@ const exclusivosItems = [
     key: "1",
     label: <Link href="/exclusivos/obsidian">Obsidian</Link>,
   },
+  {
+    key: "2",
+    label: <Link href="/exclusivos/speakeasy">Speakeasy</Link>
+  }
 ];
 
 const pathsConfig = [
@@ -59,9 +63,21 @@ const pathsConfig = [
       {
         title: (
           <ItemTemplate
-            icon="pi pi-sliders-v"
             label="Obsidian"
             url="/obsidian"
+          />
+        ),
+      },
+    ],
+  },
+  {
+    path: "speakeasy",
+    items: [
+      {
+        title: (
+          <ItemTemplate
+            label="Speakeasy"
+            url="/speakeasy"
           />
         ),
       },
