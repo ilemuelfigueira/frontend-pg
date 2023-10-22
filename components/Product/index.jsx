@@ -93,7 +93,7 @@ export default function Form({ ...props }) {
 
   return (
     <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
-      <div className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
+      <section className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
         {bannerShape?.map((item) => (
           <BannerImage key={item.label} src={item.src} alt={item.label} />
         ))}
@@ -102,15 +102,15 @@ export default function Form({ ...props }) {
           src={bannerPaddle}
           alt={values.paddles}
         />
-      </div>
-      <div className="#personalizacao flex flex-col items-start justify-start gap-4 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-gray-200 lg:shadow-lg xl:max-w-[660px]">
-        <div className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
+      </section>
+      <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-slate-50 lg:shadow-lg xl:max-w-[660px]">
+        <header className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
           <h2 className="text-3xl font-black">{props.title}</h2>
           <span className="text-base font-semibold tracking-wide">
             a partir de
             <strong className="ml-2 text-xl text-green-400">R$ {calcularTotal()}</strong>
           </span>
-        </div>
+        </header>
         <div className="w-full md:px-8 lg:hidden">
           <Carousel effect="scrollx" className="relative aspect-square w-full">
             <BannerImage src="/cliente/png/ps5/azul_claro.png" alt="" />
@@ -151,7 +151,7 @@ export default function Form({ ...props }) {
           value={values.paddles}
           error={formik.errors.paddles}
           label="PADDLES PG"
-          carouselImageClassname={"data-[svg=true]:w-[90px]"}
+          carouselImageClassname={"data-[svg=true]:w-[94px]"}
           items={props.paddles}
         />
 
@@ -182,13 +182,14 @@ export default function Form({ ...props }) {
           items={props.triggers}
         />
 
-        <div className="flex max-sm:flex-col sm:w-fit sm:min-w-[494px] sm:items-center">
+        <div className="flex max-sm:flex-col w-fit lg:w-full sm:min-w-[494px] sm:items-center">
           <ImageSelect
             onChange={formik.setFieldValue}
             name="grip"
             value={values.grip}
             error={formik.errors.grip}
             label="PINTURA GRIP"
+            className="w-[fit-content]"
             carouselClassname="min-w-[240px] w-fit data-[svg=true]:gap-4 lg:flex-nowrap"
             carouselImageClassname="data-[svg=true]:w-[64px] data-[svg=true]:min-w-[64px] mb-2"
             items={props.grips}
@@ -208,9 +209,9 @@ export default function Form({ ...props }) {
             labelClassname="font-semibold text-base"
             carouselLabelClassname="data-[svg=true]:text-lg font-helveticaNeue"
             carouselImageClassname={
-              "data-[svg=true]:w-[80px] data-[svg=true]:min-w-[80px]"
+              "data-[svg=true]:w-[100px] data-[svg=true]:min-w-[100px]"
             }
-            carouselClassname="data-[svg=true]:min-w-[200px] data-[svg=true]:w-[200px] data-[svg=true]:gap-2"
+            carouselClassname="data-[svg=true]:min-w-[200px] data-[svg=true]:gap-4 lg:flex-nowrap"
             items={props.faceplateGrips}
           />
         </div>
@@ -225,9 +226,9 @@ export default function Form({ ...props }) {
           labelClassname="font-semibold text-base max-sm:uppercase"
           carouselLabelClassname="data-[svg=true]:text-lg font-helveticaNeue"
           carouselImageClassname={
-            "data-[svg=true]:w-[80px] data-[svg=true]:min-w-[80px]"
+            "data-[svg=true]:w-[100px] data-[svg=true]:min-w-[100px]"
           }
-          carouselClassname="data-[svg=true]:min-w-[200px] data-[svg=true]:w-[200px] data-[svg=true]:gap-2"
+          carouselClassname="data-[svg=true]:min-w-[200px] data-[svg=true]:gap-4"
           items={props.faceplateGrips}
         />
 
@@ -237,11 +238,11 @@ export default function Form({ ...props }) {
           value={values.vibration}
           error={formik.errors.vibration}
           label="MOTORES DE VIBRAÇÃO"
-          carouselImageClassname={"data-[svg=true]:w-[90px]"}
+          carouselImageClassname={"data-[svg=true]:w-[150px]"}
           items={props.vibrations}
         />
 
-        <div className="flex w-full">
+        <footer className="flex w-full">
           <Button
             className="flex items-center gap-2"
             type="primary"
@@ -260,8 +261,8 @@ export default function Form({ ...props }) {
             <span className="font-semibold tracking-wider">Próxima etapa</span>
             <span className="pi pi-send"></span>
           </Button>
-        </div>
-      </div>
+        </footer>
+      </section>
     </div>
   );
 }

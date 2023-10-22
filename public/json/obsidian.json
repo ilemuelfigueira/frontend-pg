@@ -6,30 +6,30 @@
   },
   "vibrations": [
     {
-      "src": "/cliente/svg/dualsense_com_vibracao.svg",
-      "label": "Com vibração",
-      "price": "00,00",
-      "value": "com_vibracao"
-    },
-    {
       "src": "/cliente/svg/dualsense_vibracao_removida.svg",
-      "label": "Sem vibração",
+      "label": "Remover",
       "price": "00,00",
       "value": "sem_vibracao"
+    },
+    {
+      "src": "/cliente/svg/dualsense_com_vibracao.svg",
+      "label": "Manter",
+      "price": "00,00",
+      "value": "com_vibracao"
     }
   ],
   "faceplateGrips": [
-    {
-      "label": "Com grip",
-      "src": "/cliente/svg/pg_faceplate_com_grip.svg",
-      "price": "99,99",
-      "value": "com_grip"
-    },
     {
       "label": "Sem grip",
       "src": "/cliente/svg/pg_faceplate_sem_grip.svg",
       "price": "00,00",
       "value": "sem_grip"
+    },
+    {
+      "label": "Com grip",
+      "src": "/cliente/svg/pg_faceplate_com_grip.svg",
+      "price": "99,99",
+      "value": "com_grip"
     }
   ],
   "grips": [
@@ -37,14 +37,14 @@
       "label": "PG Grip",
       "strongLabel": "Militar",
       "src": "/cliente/svg/pg-grip-militar.svg",
-      "price": "149,99",
+      "price": "119,99",
       "value": "militar"
     },
     {
       "label": "PG Grip",
       "strongLabel": "Tático",
       "src": "/cliente/svg/pg-grip-tatico.svg",
-      "price": "119,99",
+      "price": "149,99",
       "value": "tatico"
     },
     {
@@ -227,7 +227,7 @@
       "value": "vermelho_metalico"
     },
     {
-      "disabled": true,
+      "disabled": false,
       "src": "/cliente/png/ps5/azul_metalico.png",
       "items": [
         {
