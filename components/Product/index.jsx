@@ -238,7 +238,7 @@ export default function Form({ ...props }) {
           value={values.vibration}
           error={formik.errors.vibration}
           label="MOTORES DE VIBRAÇÃO"
-          carouselImageClassname={"data-[svg=true]:w-[150px]"}
+          carouselImageClassname={"data-[svg=true]:w-[150px] aspect-[16/9]"}
           items={props.vibrations}
         />
 
