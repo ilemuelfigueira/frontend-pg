@@ -20,6 +20,15 @@
   --background-end-rgb: 234, 239, 240;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
