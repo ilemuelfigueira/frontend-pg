@@ -1,10 +1,10 @@
 {
-  "title": "PG OBSIDIAN PS5",
+  "title": "PG SPEAKEASY PS5",
   "banners": {
-    "2paddles": "/cliente/png/ps5/2paddles.png",
-    "4paddles": "/cliente/png/ps5/4paddles.png"
+    "2paddles_2_botoes": "/dualsense/traseira_paddle_3.png",
+    "2paddles_1_botao": "/dualsense/traseira_paddle_4.png"
   },
-  "description": "Apresentamos o Controle Obsidian da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. O Controle Obsidian não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.",
+  "description": "Apresentamos o Controle Speakeasy da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. O Controle Obsidian não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.",
   "vibrations": [
     {
       "src": "/cliente/svg/dualsense_sem_vibracao.svg",
@@ -86,16 +86,16 @@
   ],
   "paddles": [
     {
-      "label": "2 Paddles",
-      "src": "/cliente/svg/2_paddle_slim.svg",
-      "price": "99,99",
-      "value": "2paddles"
+      "label": "2 Paddles +\n 2 Botões",
+      "src": "/cliente/svg/2_paddle_2_botoes.svg",
+      "price": "00,00",
+      "value": "2paddles_2_botoes"
     },
     {
-      "label": "4 Paddles",
-      "src": "/cliente/svg/4_paddle_slim.svg",
-      "price": "249,99",
-      "value": "4paddles"
+      "label": "2 Paddles +\n 1 Botão",
+      "src": "/cliente/svg/2_paddle_1_botao.svg",
+      "price": "00,00",
+      "value": "2paddles_1_botao"
     }
   ],
   "paddlesClicks": [

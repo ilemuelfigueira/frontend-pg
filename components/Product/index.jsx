@@ -53,7 +53,7 @@ export default function Form({ ...props }) {
   ).items;
   const bannerPaddle = values.paddles
     ? props.banners[values.paddles]
-    : props.banners["2paddles"];
+    : props.banners[Object.keys(props.banners)[0]];
 
   function buscarPreco(lista, value) {
     if (!lista || !value) return 0;
@@ -133,14 +133,7 @@ export default function Form({ ...props }) {
             {getLabel(props.shapes, formik.values.shape)}
           </span>
           <p className="w-full font-helvetica text-sm font-light leading-6 tracking-[0.0125em]">
-            Apresentamos o Controle Obsidian da PG Custom, uma obra-prima de
-            engenharia e design que redefine os padrões da experiência de jogos.
-            Este controle customizável é uma verdadeira expressão de tecnologia
-            avançada e ergonomia, cuidadosamente projetado para proporcionar
-            desempenho superior e conforto incomparável a cada jogador. O
-            Controle Obsidian não é apenas um dispositivo, é uma extensão do seu
-            estilo de jogo, oferecendo uma gama de recursos personalizáveis para
-            atender às suas necessidades específicas.
+            {props.description}
           </p>
         </div>
 
