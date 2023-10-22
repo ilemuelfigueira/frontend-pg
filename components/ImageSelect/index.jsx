@@ -26,7 +26,7 @@ function ImageSelect(props) {
 
   return (
     <div
-      className={twMerge(`flex h-full w-full flex-col gap-2`, props.className)}
+      className={twMerge(`flex h-full w-full flex-col gap-2 bg-slate-200 rounded-xl p-4`, props.className)}
     >
       <div className="flex flex-col">
         <span
