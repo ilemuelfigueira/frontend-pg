@@ -104,7 +104,7 @@ export default function Form({ ...props }) {
         />
       </section>
       <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[560px] lg:bg-slate-50 lg:shadow-lg xl:max-w-[660px]">
-        <header className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
+        <header className="#header lg:top-0 max-lg:top-0 sticky z-50 flex w-full flex-col items-start whitespace-nowrap tracking-tighter lg:bg-slate-50 max-lg:bg-slate-100">
           <h2 className="text-3xl font-black">{props.title}</h2>
           <span className="text-base font-semibold tracking-wide">
             a partir de
