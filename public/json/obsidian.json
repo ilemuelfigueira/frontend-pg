@@ -227,7 +227,7 @@
       "value": "vermelho_metalico"
     },
     {
-      "disabled": false,
+      "disabled": true,
       "src": "/cliente/png/ps5/azul_metalico.png",
       "items": [
         {
