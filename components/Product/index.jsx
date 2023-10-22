@@ -112,10 +112,14 @@ export default function Form({ ...props }) {
         </header>
         <div className="w-full md:px-8 lg:hidden">
           <Carousel effect="scrollx" className="relative aspect-square w-full">
-            <BannerImage src="/cliente/png/ps5/azul_claro.png" alt="" />
-            <BannerImage src="/cliente/png/ps5/azul_metalico.png" alt="" />
-            <BannerImage src="/cliente/png/ps5/cereja.png" alt="" />
-            <BannerImage src="/cliente/png/ps5/camuflado.png" alt="" />
+            {bannerShape?.map((item) => (
+              <BannerImage key={item.label} src={item.src} alt={item.label} />
+            ))}
+            <BannerImage
+              key={values.paddles}
+              src={bannerPaddle}
+              alt={values.paddles}
+            />
           </Carousel>
         </div>
 
