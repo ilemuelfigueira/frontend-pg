@@ -182,7 +182,7 @@ export default function Form({ ...props }) {
           items={props.triggers}
         />
 
-        <div className="flex max-sm:flex-col w-full sm:min-w-[494px] sm:items-center bg-slate-200 p-4 rounded-xl">
+        <div className="flex max-sm:flex-col w-full sm:min-w-[494px] sm:items-center rounded-xl">
           <ImageSelect
             onChange={formik.setFieldValue}
             name="grip"
