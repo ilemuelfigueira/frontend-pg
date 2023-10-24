@@ -56,7 +56,7 @@ export default function Form({ ...props }) {
     : props.banners[Object.keys(props.banners)[0]];
 
   function buscarPreco(lista, value) {
-    if (!lista || !value) return 0;
+    if (!lista || !lista.length || !value) return 0;
     return parseFloat(
       lista.find((item) => item.value == value)?.price.replace(",", "."),
     );
@@ -88,8 +88,11 @@ export default function Form({ ...props }) {
     );
   };
 
+  const showFaceplateGrips =
+    props.faceplateGrips && props.faceplateGrips.length > 0;
+
   return (
-    <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4 max-lg:bg-white">
+    <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 max-lg:bg-white lg:items-start lg:justify-center lg:gap-4">
       <section className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
         {bannerShape?.map((item) => (
           <BannerImage key={item.label} src={item.src} alt={item.label} />
@@ -152,23 +155,27 @@ export default function Form({ ...props }) {
           items={props.paddles}
         />
 
-        <ImageSelect
-          onChange={formik.setFieldValue}
-          name="paddlesClick"
-          value={values.paddlesClick}
-          error={formik.errors.paddlesClick}
-          label="OPÇÕES DE CLICKS ( PADDLES )"
-          items={props.paddlesClicks}
-        />
+        {values.paddles != "sem" && (
+          <ImageSelect
+            onChange={formik.setFieldValue}
+            name="paddlesClick"
+            value={values.paddlesClick}
+            error={formik.errors.paddlesClick}
+            label="OPÇÕES DE CLICKS ( PADDLES )"
+            items={props.paddlesClicks}
+          />
+        )}
 
-        <ImageSelect
-          onChange={formik.setFieldValue}
-          name="paddlesColor"
-          value={values.paddlesColor}
-          error={formik.errors.paddlesColor}
-          label="COR DOS PADDLES"
-          items={props.paddlesColors}
-        />
+        {values.paddles != "sem" && (
+          <ImageSelect
+            onChange={formik.setFieldValue}
+            name="paddlesColor"
+            value={values.paddlesColor}
+            error={formik.errors.paddlesColor}
+            label="COR DOS PADDLES"
+            items={props.paddlesColors}
+          />
+        )}
 
         <ImageSelect
           onChange={formik.setFieldValue}
@@ -179,7 +186,7 @@ export default function Form({ ...props }) {
           items={props.triggers}
         />
 
-        <div className="grid xl:grid-flow-col xl:auto-cols-max items-center gap-2">
+        <div className="grid items-center gap-2 xl:auto-cols-max xl:grid-flow-col">
           <ImageSelect
             onChange={formik.setFieldValue}
             name="grip"
@@ -188,18 +195,22 @@ export default function Form({ ...props }) {
             label="PINTURA GRIP"
             items={props.grips}
           />
-          <div className="flex max-xl:hidden">
-            <div className="inline-block mx-2 h-[100px] min-h-[1em] w-0.5 self-stretch bg-gray-700 opacity-100 dark:opacity-50"></div>
-          </div>
-          <ImageSelect
-            onChange={formik.setFieldValue}
-            name="faceplateGrip"
-            value={values.faceplateGrip}
-            error={formik.errors.faceplateGrip}
-            className="lg:h-4/5"
-            label="Adicionar grip ao faceplate"
-            items={props.faceplateGrips}
-          />
+          {showFaceplateGrips && (
+            <>
+              <div className="flex max-xl:hidden">
+                <div className="mx-2 inline-block h-[100px] min-h-[1em] w-0.5 self-stretch bg-gray-700 opacity-100 dark:opacity-50"></div>
+              </div>
+              <ImageSelect
+                onChange={formik.setFieldValue}
+                name="faceplateGrip"
+                value={values.faceplateGrip}
+                error={formik.errors.faceplateGrip}
+                className="lg:h-4/5"
+                label="Adicionar grip ao faceplate"
+                items={props.faceplateGrips}
+              />
+            </>
+          )}
         </div>
 
         {/* <ImageSelect
