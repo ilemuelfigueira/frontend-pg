@@ -12,6 +12,7 @@ const BannerImage = ({ children, ...props }) => {
     <Image
       {...props}
       loading="lazy"
+      imageClassname="lg:rounded-xl"
       className={twMerge(
         "relative aspect-square max-lg:w-full max-lg:snap-center lg:w-[48%] lg:flex-[0,0,48%] lg:rounded-xl lg:shadow-md lg:duration-300 lg:hover:shadow-xl",
         props.className,
@@ -158,7 +159,7 @@ export default function Form({ ...props }) {
           items={props.triggers}
         />
 
-        <div className="max-xl:w-full max-xl:gap-8 xl:gap-2 max-xl:flex max-xl:flex-col max-xl:items-start xl:grid xl:auto-cols-max xl:grid-flow-col xl:items-center">
+        <div className="max-xl:flex max-xl:w-full max-xl:flex-col max-xl:items-start max-xl:gap-8 xl:grid xl:auto-cols-max xl:grid-flow-col xl:items-center xl:gap-2">
           <ImageSelect
             onChange={onChange}
             name="grip"
