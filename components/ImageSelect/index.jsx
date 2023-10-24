@@ -18,7 +18,10 @@ function ImageSelect(props) {
 
   const noItemLabel = props.noItemLabel;
 
+  const disabled = props.disabled
+
   function onChange(value) {
+    if(disabled) return props.onChange(props.name, null)
     if (props.onChange) {
       props.onChange(props.name, value);
     }

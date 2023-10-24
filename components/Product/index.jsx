@@ -11,7 +11,7 @@ const BannerImage = ({ children, ...props }) => {
     <img
       {...props}
       loading="lazy"
-      className="relative aspect-square max-lg:w-full max-lg:snap-center lg:w-[48%] lg:flex-[0,0,48%] lg:rounded-xl lg:shadow-md lg:duration-300 lg:hover:shadow-xl"
+      className={twMerge("relative aspect-square max-lg:w-full max-lg:snap-center lg:w-[48%] lg:flex-[0,0,48%] lg:rounded-xl lg:shadow-md lg:duration-300 lg:hover:shadow-xl", props.className)}
     />
   );
 };
@@ -38,58 +38,25 @@ const BannerVideo = ({ children, ...props }) => {
 export default function Form({ ...props }) {
   const { validationSchema, whatsappLoja = "" } = props;
 
-  const { formik, getLabel, sendFormToWhatsapp, goToDeliveryForm } = useProduct(
-    {
-      WHATSAPP_LOJA: whatsappLoja,
-      defaultValues: props.defaultValues,
-      validationSchema: getYupSchema(validationSchema),
-    },
-  );
+  const {
+    formik,
+    getLabel,
+    sendFormToWhatsapp,
+    goToDeliveryForm,
+    bannerShape,
+    bannerPaddle,
+    prices,
+    calcularTotal,
+    showFaceplateGrips,
+    onChange
+  } = useProduct({
+    ...props,
+    WHATSAPP_LOJA: whatsappLoja,
+    defaultValues: props.defaultValues,
+    validationSchema: getYupSchema(validationSchema),
+  });
 
   const { values } = formik;
-
-  const bannerShape = props.shapes?.find(
-    (item) => item.value === values.shape,
-  ).items;
-  const bannerPaddle = values.paddles
-    ? props.banners[values.paddles]
-    : props.banners[Object.keys(props.banners)[0]];
-
-  function buscarPreco(lista, value) {
-    if (!lista || !lista.length || !value) return 0;
-    return parseFloat(
-      lista.find((item) => item.value == value)?.price.replace(",", "."),
-    );
-  }
-
-  const prices = {
-    shape: buscarPreco(props.shapes, values.shape),
-    paddles: buscarPreco(props.paddles, values.paddles),
-    paddlesClick: buscarPreco(props.paddlesClicks, values.paddlesClick),
-    paddlesColor: buscarPreco(props.paddlesColors, values.paddlesColor),
-    trigger: buscarPreco(props.triggers, values.trigger),
-    grip: buscarPreco(props.grips, values.grip),
-    faceplateGrip: buscarPreco(props.faceplateGrips, values.faceplateGrip),
-    vibration: buscarPreco(props.vibrations, values.vibration),
-  };
-
-  const calcularTotal = () => {
-    const formatter = new Intl.NumberFormat("pt-BR");
-
-    return formatter.format(
-      prices.shape +
-        prices.paddles +
-        prices.paddlesClick +
-        prices.paddlesColor +
-        prices.trigger +
-        prices.grip +
-        prices.faceplateGrip +
-        prices.vibration,
-    );
-  };
-
-  const showFaceplateGrips =
-    props.faceplateGrips && props.faceplateGrips.length > 0;
 
   return (
     <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 max-lg:bg-white lg:items-start lg:justify-center lg:gap-4">
@@ -98,6 +65,7 @@ export default function Form({ ...props }) {
           <BannerImage key={item.label} src={item.src} alt={item.label} />
         ))}
         <BannerImage
+          className="bg-white"
           key={values.paddles}
           src={bannerPaddle}
           alt={values.paddles}
@@ -127,7 +95,7 @@ export default function Form({ ...props }) {
         </div>
 
         <ImageSelect
-          onChange={formik.setFieldValue}
+          onChange={onChange}
           name="shape"
           isBanner
           value={values.shape}
@@ -146,7 +114,7 @@ export default function Form({ ...props }) {
         </div>
 
         <ImageSelect
-          onChange={formik.setFieldValue}
+          onChange={onChange}
           name="paddles"
           value={values.paddles}
           error={formik.errors.paddles}
@@ -157,7 +125,7 @@ export default function Form({ ...props }) {
 
         {values.paddles != "sem" && (
           <ImageSelect
-            onChange={formik.setFieldValue}
+            onChange={onChange}
             name="paddlesClick"
             value={values.paddlesClick}
             error={formik.errors.paddlesClick}
@@ -168,7 +136,7 @@ export default function Form({ ...props }) {
 
         {values.paddles != "sem" && (
           <ImageSelect
-            onChange={formik.setFieldValue}
+            onChange={onChange}
             name="paddlesColor"
             value={values.paddlesColor}
             error={formik.errors.paddlesColor}
@@ -178,7 +146,7 @@ export default function Form({ ...props }) {
         )}
 
         <ImageSelect
-          onChange={formik.setFieldValue}
+          onChange={onChange}
           name="trigger"
           value={values.trigger}
           error={formik.errors.trigger}
@@ -188,7 +156,7 @@ export default function Form({ ...props }) {
 
         <div className="grid items-center gap-2 xl:auto-cols-max xl:grid-flow-col">
           <ImageSelect
-            onChange={formik.setFieldValue}
+            onChange={onChange}
             name="grip"
             value={values.grip}
             error={formik.errors.grip}
@@ -201,7 +169,7 @@ export default function Form({ ...props }) {
                 <div className="mx-2 inline-block h-[100px] min-h-[1em] w-0.5 self-stretch bg-gray-700 opacity-100 dark:opacity-50"></div>
               </div>
               <ImageSelect
-                onChange={formik.setFieldValue}
+                onChange={onChange}
                 name="faceplateGrip"
                 value={values.faceplateGrip}
                 error={formik.errors.faceplateGrip}
@@ -214,7 +182,7 @@ export default function Form({ ...props }) {
         </div>
 
         {/* <ImageSelect
-          onChange={formik.setFieldValue}
+          onChange={onChange}
           name="faceplateGrip"
           value={values.faceplateGrip}
           error={formik.errors.faceplateGrip}
@@ -226,7 +194,7 @@ export default function Form({ ...props }) {
         /> */}
 
         <ImageSelect
-          onChange={formik.setFieldValue}
+          onChange={onChange}
           name="vibration"
           value={values.vibration}
           error={formik.errors.vibration}
