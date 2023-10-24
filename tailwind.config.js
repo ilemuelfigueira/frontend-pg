@@ -15,9 +15,7 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        araboto: ["var(--font-araboto)", "sans-serif"],
-        helvetica: ["var(--font-helvetica)", "sans-serif"],
-        helveticaNeue: ["var(--font-helvetica-neue)", "sans-serif"],
+        poppins: ["var(--font-poppins", "sans-serif"],
       },
     },
   },
