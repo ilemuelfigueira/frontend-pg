@@ -96,6 +96,8 @@ export const useProduct = ({ ...props } = {}) => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values) => {
+      const hasPaddles = values.paddles != 'sem'
+      
       router.push(`${pathName}?${valuesToQueryString(values)}`);
     },
   });
