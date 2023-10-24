@@ -88,10 +88,8 @@ export default function Form({ ...props }) {
     );
   };
 
-  const priceDescription = prices.shape != parseFloat(calcularTotal().replace(',', '.')) ? 'Total' : 'A partir de';
-
   return (
-    <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
+    <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4 max-lg:bg-white">
       <section className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
         {bannerShape?.map((item) => (
           <BannerImage key={item.label} src={item.src} alt={item.label} />
@@ -102,13 +100,13 @@ export default function Form({ ...props }) {
           alt={values.paddles}
         />
       </section>
-      <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl px-4 pb-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-slate-50 lg:shadow-lg xl:max-w-[660px]">
-        <header className="#header sticky z-50 flex w-full flex-col items-start whitespace-nowrap tracking-tighter max-lg:top-0 max-lg:bg-slate-100 lg:top-0 lg:bg-slate-50">
-          <h2 className="text-3xl font-black">{props.title}</h2>
+      <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl p-4 opacity-100 brightness-100 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-white lg:shadow-lg xl:max-w-[660px]">
+        <header className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
+          <h2 className="text-3xl font-bold">{props.title}</h2>
           <span className="text-base font-semibold tracking-wide">
-            {priceDescription}
+            A partir de
             <strong className="ml-2 text-xl text-green-400">
-              R$ {calcularTotal()}
+              R$ {prices.shape}
             </strong>
           </span>
         </header>
@@ -128,6 +126,7 @@ export default function Form({ ...props }) {
         <ImageSelect
           onChange={formik.setFieldValue}
           name="shape"
+          isBanner
           value={values.shape}
           noItemLabel
           error={formik.errors.shape}
@@ -180,41 +179,30 @@ export default function Form({ ...props }) {
           items={props.triggers}
         />
 
-        <div className="flex w-full rounded-xl max-sm:flex-col sm:min-w-[494px] sm:items-center">
+        <div className="grid xl:grid-flow-col xl:auto-cols-max items-center gap-2">
           <ImageSelect
             onChange={formik.setFieldValue}
             name="grip"
             value={values.grip}
             error={formik.errors.grip}
             label="PINTURA GRIP"
-            className="bg-transparent p-0 lg:w-[fit-content]"
-            carouselClassname="min-w-[240px] w-fit data-[svg=true]:gap-4 lg:flex-nowrap"
-            carouselImageClassname="data-[svg=true]:w-[64px] data-[svg=true]:min-w-[64px] mb-2"
             items={props.grips}
           />
-          <div className="flex max-sm:hidden">
-            <p className="pr-5"></p>
-            <div className="inline-block h-[100px] min-h-[1em] w-0.5 self-stretch bg-gray-700 opacity-100 dark:opacity-50"></div>
-            <p className="pl-5"></p>
+          <div className="flex max-xl:hidden">
+            <div className="inline-block mx-2 h-[100px] min-h-[1em] w-0.5 self-stretch bg-gray-700 opacity-100 dark:opacity-50"></div>
           </div>
           <ImageSelect
             onChange={formik.setFieldValue}
             name="faceplateGrip"
             value={values.faceplateGrip}
             error={formik.errors.faceplateGrip}
+            className="lg:h-4/5"
             label="Adicionar grip ao faceplate"
-            className="bg-transparent p-0 max-sm:hidden"
-            labelClassname="font-semibold text-base"
-            carouselLabelClassname="data-[svg=true]:text-lg font-helveticaNeue"
-            carouselImageClassname={
-              "data-[svg=true]:w-[100px] data-[svg=true]:min-w-[100px]"
-            }
-            carouselClassname="data-[svg=true]:min-w-[200px] data-[svg=true]:gap-4 lg:flex-nowrap"
             items={props.faceplateGrips}
           />
         </div>
 
-        <ImageSelect
+        {/* <ImageSelect
           onChange={formik.setFieldValue}
           name="faceplateGrip"
           value={values.faceplateGrip}
@@ -223,12 +211,8 @@ export default function Form({ ...props }) {
           className="sm:hidden"
           labelClassname="font-semibold text-base max-sm:uppercase"
           carouselLabelClassname="data-[svg=true]:text-lg font-helveticaNeue"
-          carouselImageClassname={
-            "data-[svg=true]:w-[100px] data-[svg=true]:min-w-[100px]"
-          }
-          carouselClassname="data-[svg=true]:min-w-[200px] data-[svg=true]:gap-4"
           items={props.faceplateGrips}
-        />
+        /> */}
 
         <ImageSelect
           onChange={formik.setFieldValue}
@@ -236,13 +220,19 @@ export default function Form({ ...props }) {
           value={values.vibration}
           error={formik.errors.vibration}
           label="MOTORES DE VIBRAÇÃO"
-          carouselImageClassname={"data-[svg=true]:w-[150px] aspect-[16/9]"}
           items={props.vibrations}
         />
 
+        <span className="sticky bottom-0 z-50 w-full bg-white text-2xl font-bold uppercase">
+          Total:
+          <strong className="ml-2 text-3xl font-extrabold text-green-400">
+            {calcularTotal()}
+          </strong>
+        </span>
+
         <footer className="flex w-full">
           <Button
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 rounded-full"
             type="primary"
             onClick={sendFormToWhatsapp}
             size="large"

@@ -35,7 +35,7 @@ function ImageSelect(props) {
         <span
           data-show={Boolean(props.label)}
           className={twMerge(
-            "font-helveticaNeue text-lg font-black data-[show=false]:hidden",
+            "text-lg font-bold data-[show=false]:hidden",
             props.labelClassname,
           )}
         >
@@ -46,12 +46,15 @@ function ImageSelect(props) {
                 items: tooltips.map((item) => ({
                   key: item.label + item.strongLabel,
                   label: (
-                    <>
+                    <span>
                       <strong>
                         {item.label} - {item.strongLabel}:
                       </strong>
-                      <span> {item.tooltip}</span>
-                    </>
+                      <span className="whitespace-pre-line">
+                        {" "}
+                        {item.tooltip}
+                      </span>
+                    </span>
                   ),
                 })),
               }}
@@ -71,9 +74,10 @@ function ImageSelect(props) {
       </div>
       <div
         className={twMerge(
-          "hide-scrollbar flex w-full items-center justify-start gap-2 whitespace-nowrap border border-transparent data-[svg=true]:gap-4 data-[error=true]:border-red-500 max-lg:overflow-x-auto lg:flex-wrap",
+          "hide-scrollbar flex h-full w-auto items-start justify-start gap-4 whitespace-nowrap border border-transparent data-[banner=true]:flex-wrap data-[banner=false]:flex-nowrap data-[error=true]:border-red-500 max-lg:overflow-x-auto lg:flex-wrap",
           props.carouselClassname,
         )}
+        data-banner={props.isBanner}
         data-error={props.error}
         data-svg={isSvg}
       >
@@ -83,21 +87,21 @@ function ImageSelect(props) {
             <div
               key={item.value}
               className={twMerge(
-                "flex flex-col items-center opacity-30 hover:opacity-100 data-[selected=true]:opacity-100",
+                "flex flex-col items-center opacity-30 hover:cursor-pointer hover:opacity-100 data-[selected=true]:opacity-100",
                 props.carouselContainerClassname,
               )}
               data-selected={props.value === item.value}
-              data-svg={isSvg}
               onClick={() => !item.disabled && onChange(item.value)}
             >
               <img
                 className={twMerge(
-                  "aspect-square bg-cover bg-no-repeat p-0 hover:cursor-pointer hover:duration-75 data-[svg=false]:w-[94px] data-[svg=true]:w-[74px] data-[svg=false]:min-w-[94px] data-[svg=true]:min-w-[74px] data-[svg=false]:hover:scale-125 data-[svg=false]:active:scale-110",
+                  `mb-2 select-none bg-cover bg-no-repeat p-0 hover:duration-75 data-[banner=true]:m-0 data-[aspect='1/1']:w-[64px] data-[aspect='16/9']:w-[94px] data-[banner=true]:w-[94px] data-[banner=true]:hover:scale-125 data-[banner=true]:active:scale-110`,
                   props.carouselImageClassname,
                 )}
+                data-banner={props.isBanner}
+                data-aspect={item.aspect || "1/1"}
                 src={item.src}
                 alt={item.label}
-                data-svg={isSvg}
               />
               <div
                 className={twJoin(
@@ -106,12 +110,12 @@ function ImageSelect(props) {
                   item.strongLabel ? "mb-2" : "",
                 )}
               >
-                <span className="break-words whitespace-pre-line text-center font-helvetica text-sm tracking-wide">
+                <span className="whitespace-pre-line break-words text-center font-helvetica text-base tracking-wide">
                   {noItemLabel ? "" : item.label}
                 </span>
                 <strong>{item.strongLabel}</strong>
               </div>
-              <span className="text-center text-base font-light">
+              <span className="mt-auto text-center text-sm font-light">
                 R$ {item.price}
               </span>
             </div>
