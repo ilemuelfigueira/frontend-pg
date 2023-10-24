@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 import * as Yup from "yup";
 
@@ -7,6 +8,14 @@ export const useProduct = ({ ...props } = {}) => {
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const router = useRouter();
+
+
+  const [isModalOpen, triggerModal] = useState(false)
+
+  const confirmModal = {
+    open: isModalOpen,
+    trigger: triggerModal
+  }
 
   const {
     WHATSAPP_LOJA = "",
@@ -102,7 +111,7 @@ export const useProduct = ({ ...props } = {}) => {
       if (!hasPaddles) {
         values.paddlesClick = undefined
         values.paddlesColor = undefined
-      } 
+      }
 
       console.log(values)
 
@@ -111,7 +120,7 @@ export const useProduct = ({ ...props } = {}) => {
   });
 
   function buscarPreco(lista, value) {
-    if (!lista || !lista.length || !value) return 0;
+    if (!lista || !lista.length || !value || value == undefined) return null;
     return parseFloat(
       lista.find((item) => item.value == value)?.price.replace(",", "."),
     );
@@ -126,14 +135,14 @@ export const useProduct = ({ ...props } = {}) => {
     : props.banners[Object.keys(props.banners)[0]];
 
   const prices = {
-    shape: buscarPreco(props.shapes, formik.values.shape),
-    paddles: buscarPreco(props.paddles, formik.values.paddles),
-    paddlesClick: buscarPreco(props.paddlesClicks, formik.values.paddlesClick),
-    paddlesColor: buscarPreco(props.paddlesColors, formik.values.paddlesColor),
-    trigger: buscarPreco(props.triggers, formik.values.trigger),
-    grip: buscarPreco(props.grips, formik.values.grip),
-    faceplateGrip: buscarPreco(props.faceplateGrips, formik.values.faceplateGrip),
-    vibration: buscarPreco(props.vibrations, formik.values.vibration),
+    shape: buscarPreco(props.shapes, formik.values.shape) || 0,
+    paddles: buscarPreco(props.paddles, formik.values.paddles) || 0,
+    paddlesClick: buscarPreco(props.paddlesClicks, formik.values.paddlesClick) || 0,
+    paddlesColor: buscarPreco(props.paddlesColors, formik.values.paddlesColor) || 0,
+    trigger: buscarPreco(props.triggers, formik.values.trigger) || 0,
+    grip: buscarPreco(props.grips, formik.values.grip) || 0,
+    faceplateGrip: buscarPreco(props.faceplateGrips, formik.values.faceplateGrip) || 0,
+    vibration: buscarPreco(props.vibrations, formik.values.vibration) || 0,
   };
 
   const calcularTotal = () => {
@@ -153,7 +162,7 @@ export const useProduct = ({ ...props } = {}) => {
 
   const showFaceplateGrips =
     props.faceplateGrips && props.faceplateGrips.length > 0;
-  
+
   function onChange(key, value) {
     if (key == 'paddles' && value == 'sem') {
       formik.setFieldValue("paddlesClick", undefined)
@@ -173,6 +182,7 @@ export const useProduct = ({ ...props } = {}) => {
     prices,
     calcularTotal,
     showFaceplateGrips,
-    onChange
+    onChange,
+    confirmModal
   };
 };
