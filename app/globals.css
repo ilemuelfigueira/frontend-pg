@@ -4,20 +4,12 @@
 
 @layer base {
   html {
-    font-family: var(--font-araboto), var(--font-helvetica-neue),
-      var(--font-helvetica), system-ui, sans-serif;
+    font-family: var(--font-poppins), system-ui, sans-serif;
   }
 }
 
 * {
-  font-family: var(--font-araboto), var(--font-helvetica-neue),
-    var(--font-helvetica), system-ui, sans-serif;
-}
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 234, 239, 240;
+  font-family: var(--font-poppins), system-ui, sans-serif;
 }
 
 .hide-scrollbar {
