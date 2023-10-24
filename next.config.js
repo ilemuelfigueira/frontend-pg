@@ -3,6 +3,16 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ljgdfxvbwvrxsltyjutg.supabase.co',
+        port: '',
+        pathname: '/storage/**'
+      }
+    ]
+  },
   redirects: async () => {
     return [
       {
