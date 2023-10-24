@@ -1,19 +1,21 @@
 {
   "title": "PG OBSIDIAN PS5",
   "banners": {
-    "2paddles": "/cliente/png/ps5/2paddles.png",
-    "4paddles": "/cliente/png/ps5/4paddles.png"
+    "2paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/traseira_paddle_1.png",
+    "4paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/traseira_paddle_2.png"
   },
   "description": "Apresentamos o Controle Obsidian da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. O Controle Obsidian não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.",
   "vibrations": [
     {
-      "src": "/cliente/svg/dualsense_sem_vibracao.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/dualsense_sem_vibracao.svg",
+      "aspect": "16/9",
       "label": "Remover",
       "price": "00,00",
       "value": "sem_vibracao"
     },
     {
-      "src": "/cliente/svg/dualsense_com_vibracao.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/dualsense_com_vibracao.svg",
+      "aspect": "16/9",
       "label": "Manter",
       "price": "00,00",
       "value": "com_vibracao"
@@ -22,37 +24,45 @@
   "faceplateGrips": [
     {
       "label": "Sem grip",
-      "src": "/cliente/svg/pg_faceplate_sem_grip.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/faceplate_sem_grip.svg",
+      "aspect": "16/9",
       "price": "00,00",
       "value": "sem_grip"
     },
     {
       "label": "Com grip",
-      "src": "/cliente/svg/pg_faceplate_com_grip.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/faceplate_com_grip.svg",
+      "aspect": "16/9",
       "price": "99,99",
       "value": "com_grip"
     }
   ],
   "grips": [
     {
+      "label": "Sem grip",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_grip_icon.svg",
+      "price": "00,00",
+      "value": "sem"
+    },
+    {
       "label": "PG Grip",
       "strongLabel": "Militar",
-      "src": "/cliente/svg/pg-grip-militar.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_militar_icon.svg",
       "price": "119,99",
       "value": "militar"
     },
     {
       "label": "PG Grip",
       "strongLabel": "Tático",
-      "src": "/cliente/svg/pg-grip-tatico.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_tatico_icon.svg",
       "price": "149,99",
       "value": "tatico"
     },
     {
       "label": "PG Grip",
       "strongLabel": "Exclusive",
-      "tooltip": "Envie uma mensagem ao nosso time, informando a logo ou texto que deseja registrar no seu controle.",
-      "src": "/cliente/svg/pg-grip-exclusivo.svg",
+      "tooltip": "Envie uma mensagem ao nosso time, \ninformando a logo ou texto que deseja registrar no seu controle.",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_exclusive_icon.svg",
       "price": "199,99",
       "value": "exclusivo"
     }
@@ -60,26 +70,26 @@
   "triggers": [
     {
       "label": "Default",
-      "src": "/cliente/svg/default-trigger-ps5.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_default_sony.svg",
       "price": "00,00",
       "value": "default"
     },
     {
       "label": "Stop",
-      "src": "/cliente/svg/pg-trigger-stop-ps5.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_stop_sony.svg",
       "price": "9,99",
       "value": "stop"
     },
     {
       "disabled": true,
       "label": "Digital",
-      "src": "/cliente/svg/pg-trigger-clickdigital-ps5.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_digital_sony.svg",
       "price": "00,00",
       "value": "digital"
     },
     {
       "label": "Mouse",
-      "src": "/cliente/svg/pg-trigger-clickmouse-ps5.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_mouse_sony.svg",
       "price": "249,99",
       "value": "mouse"
     }
@@ -87,13 +97,15 @@
   "paddles": [
     {
       "label": "2 Paddles",
-      "src": "/cliente/svg/2_paddle_slim.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/2_paddles_slim.svg",
+      "aspect": "16/9",
       "price": "99,99",
       "value": "2paddles"
     },
     {
       "label": "4 Paddles",
-      "src": "/cliente/svg/4_paddle_slim.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/4_paddles_slim.svg",
+      "aspect": "16/9",
       "price": "249,99",
       "value": "4paddles"
     }
@@ -101,19 +113,22 @@
   "paddlesClicks": [
     {
       "label": "Click tactil",
-      "src": "/cliente/svg/click_tactil_redondo.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_tactil.svg",
+      "aspect": "16/9",
       "price": "74,99",
       "value": "tactil"
     },
     {
       "label": "Click digital",
-      "src": "/cliente/svg/click_digital.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_digital.svg",
+      "aspect": "16/9",
       "price": "99,99",
       "value": "digital"
     },
     {
       "label": "Click mouse",
-      "src": "/cliente/svg/click_mouse.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_mouse.svg",
+      "aspect": "16/9",
       "price": "149,99",
       "value": "mouse"
     }
@@ -121,231 +136,231 @@
   "paddlesColors": [
     {
       "label": "Preto",
-      "src": "/cliente/svg/circle_black.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_black.svg",
       "price": "00,00",
       "value": "preto"
     },
     {
       "label": "Branco",
-      "src": "/cliente/svg/circle_white.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_white.svg",
       "price": "00,00",
       "value": "branco"
     },
     {
       "label": "Vermelho",
-      "src": "/cliente/svg/circle_red.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_red.svg",
       "price": "00,00",
       "value": "vermelho"
     },
     {
       "label": "Roxo",
-      "src": "/cliente/svg/circle_purple.svg",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_purple.svg",
       "price": "00,00",
       "value": "roxo"
     }
   ],
   "shapes": [
     {
-      "src": "/cliente/png/ps5/branco.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/branco.png",
       "items": [
         {
           "label": "Controle obsidian branco 1",
-          "src": "/dualsense/branco/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/branco/1.png"
         },
         {
           "label": "Controle obsidian branco 2",
-          "src": "/dualsense/branco/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/branco/2.png"
         },
         {
           "label": "Controle obsidian branco 3",
-          "src": "/dualsense/branco/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/branco/3.png"
         }
       ],
       "price": "424,99",
-      "label": "Branco",
+      "label": "White",
       "value": "branco"
     },
     {
       "disabled": true,
-      "src": "/cliente/png/ps5/prata_metalico.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/prata_metalico.png",
       "items": [
         {
           "label": "Controle obsidian prata 1",
-          "src": "/dualsense/prata/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/prata/1.png"
         },
         {
           "label": "Controle obsidian prata 2",
-          "src": "/dualsense/prata/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/prata/2.png"
         },
         {
           "label": "Controle obsidian prata 3",
-          "src": "/dualsense/prata/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/prata/3.png"
         }
       ],
       "price": "00,00",
-      "label": "Prata",
+      "label": "Sterling Silver",
       "value": "prata"
     },
     {
-      "src": "/cliente/png/ps5/preto.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/preto.png",
       "items": [
         {
           "label": "Controle obsidian preto 1",
-          "src": "/dualsense/preto/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/preto/1.png"
         },
         {
           "label": "Controle obsidian preto 2",
-          "src": "/dualsense/preto/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/preto/2.png"
         },
         {
           "label": "Controle obsidian preto 3",
-          "src": "/dualsense/preto/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/preto/3.png"
         }
       ],
       "price": "449,99",
-      "label": "Preto",
+      "label": "Midnight Black",
       "value": "preto"
     },
     {
       "disabled": true,
-      "src": "/cliente/png/ps5/red_metalico.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/red_metalico.png",
       "items": [
         {
           "label": "Controle obsidian vermelho metalico 1",
-          "src": "/dualsense/vermelho_metalico/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/vermelho_metalico/1.png"
         },
         {
           "label": "Controle obsidian vermelho metalico 2",
-          "src": "/dualsense/vermelho_metalico/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/vermelho_metalico/2.png"
         },
         {
           "label": "Controle obsidian vermelho metalico 3",
-          "src": "/dualsense/vermelho_metalico/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/vermelho_metalico/3.png"
         }
       ],
       "price": "00,00",
-      "label": "Vermelho Metálico",
+      "label": "Volcanic red",
       "value": "vermelho_metalico"
     },
     {
       "disabled": true,
-      "src": "/cliente/png/ps5/azul_metalico.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/azul_metalico.png",
       "items": [
         {
           "label": "Controle obsidian azul metalico 1",
-          "src": "/dualsense/azul_metalico/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/azul_metalico/1.png"
         },
         {
           "label": "Controle obsidian azul metalico 2",
-          "src": "/dualsense/azul_metalico/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/azul_metalico/2.png"
         },
         {
           "label": "Controle obsidian azul metalico 3",
-          "src": "/dualsense/azul_metalico/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/azul_metalico/3.png"
         }
       ],
       "price": "00,00",
-      "label": "Azul Metálico",
+      "label": "Cobalt Blue",
       "value": "azul_metalico"
     },
     {
-      "src": "/cliente/png/ps5/roxo.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/roxo.png",
       "items": [
         {
           "label": "Controle obsidian roxo 1",
-          "src": "/dualsense/roxo/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/roxo/1.png"
         },
         {
           "label": "Controle obsidian roxo 2",
-          "src": "/dualsense/roxo/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/roxo/2.png"
         },
         {
           "label": "Controle obsidian roxo 3",
-          "src": "/dualsense/roxo/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/roxo/3.png"
         }
       ],
       "price": "469,99",
-      "label": "Roxo",
+      "label": "Galactic Purple",
       "value": "roxo"
     },
     {
-      "src": "/cliente/png/ps5/rosa.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/rosa.png",
       "items": [
         {
           "label": "Controle obsidian rosa 1",
-          "src": "/dualsense/rosa/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/rosa/1.png"
         },
         {
           "label": "Controle obsidian rosa 2",
-          "src": "/dualsense/rosa/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/rosa/2.png"
         },
         {
           "label": "Controle obsidian rosa 3",
-          "src": "/dualsense/rosa/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/rosa/3.png"
         }
       ],
       "price": "459,99",
-      "label": "Rosa",
+      "label": "Nova Pink",
       "value": "rosa"
     },
     {
-      "src": "/cliente/png/ps5/azul_claro.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/azul_claro.png",
       "items": [
         {
           "label": "Controle obsidian azul claro 1",
-          "src": "/dualsense/azul_claro/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/azul_claro/1.png"
         },
         {
           "label": "Controle obsidian azul claro 2",
-          "src": "/dualsense/azul_claro/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/azul_claro/2.png"
         },
         {
           "label": "Controle obsidian azul claro 3",
-          "src": "/dualsense/azul_claro/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/azul_claro/3.png"
         }
       ],
       "price": "479,99",
-      "label": "Azul Claro",
+      "label": "Starlight Blue",
       "value": "azul_claro"
     },
     {
-      "src": "/cliente/png/ps5/cereja.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/cereja.png",
       "items": [
         {
           "label": "Controle obsidian cereja 1",
-          "src": "/dualsense/cereja/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/cereja/1.png"
         },
         {
           "label": "Controle obsidian cereja 2",
-          "src": "/dualsense/cereja/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/cereja/2.png"
         },
         {
           "label": "Controle obsidian cereja 3",
-          "src": "/dualsense/cereja/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/cereja/3.png"
         }
       ],
       "price": "459,99",
-      "label": "Cereja",
+      "label": "Cosmic Red",
       "value": "cereja"
     },
     {
-      "src": "/cliente/png/ps5/camuflado.png",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/botoes/camuflado.png",
       "items": [
         {
           "label": "Controle obsidian camuflado 1",
-          "src": "/dualsense/camuflado/1.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/camuflado/1.png"
         },
         {
           "label": "Controle obsidian camuflado 2",
-          "src": "/dualsense/camuflado/2.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/camuflado/2.png"
         },
         {
           "label": "Controle obsidian camuflado 3",
-          "src": "/dualsense/camuflado/3.png"
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/camuflado/3.png"
         }
       ],
       "price": "439,99",
-      "label": "Camuflado",
+      "label": "Gray Camouflage",
       "value": "camuflado"
     }
   ]
