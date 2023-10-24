@@ -90,6 +90,7 @@ export const useProduct = ({ ...props } = {}) => {
   const goToDeliveryForm = () => {
     router.push("/formulario-entrega");
   };
+
   const formik = useFormik({
     initialValues: getDefaultValues(),
     validationSchema,
@@ -97,15 +98,81 @@ export const useProduct = ({ ...props } = {}) => {
     validateOnChange: false,
     onSubmit: (values) => {
       const hasPaddles = values.paddles != 'sem'
-      
+
+      if (!hasPaddles) {
+        values.paddlesClick = undefined
+        values.paddlesColor = undefined
+      } 
+
+      console.log(values)
+
       router.push(`${pathName}?${valuesToQueryString(values)}`);
     },
   });
+
+  function buscarPreco(lista, value) {
+    if (!lista || !lista.length || !value) return 0;
+    return parseFloat(
+      lista.find((item) => item.value == value)?.price.replace(",", "."),
+    );
+  }
+
+  const bannerShape = props.shapes?.find(
+    (item) => item.value === formik.values.shape,
+  ).items;
+
+  const bannerPaddle = formik.values.paddles
+    ? props.banners[formik.values.paddles]
+    : props.banners[Object.keys(props.banners)[0]];
+
+  const prices = {
+    shape: buscarPreco(props.shapes, formik.values.shape),
+    paddles: buscarPreco(props.paddles, formik.values.paddles),
+    paddlesClick: buscarPreco(props.paddlesClicks, formik.values.paddlesClick),
+    paddlesColor: buscarPreco(props.paddlesColors, formik.values.paddlesColor),
+    trigger: buscarPreco(props.triggers, formik.values.trigger),
+    grip: buscarPreco(props.grips, formik.values.grip),
+    faceplateGrip: buscarPreco(props.faceplateGrips, formik.values.faceplateGrip),
+    vibration: buscarPreco(props.vibrations, formik.values.vibration),
+  };
+
+  const calcularTotal = () => {
+    const formatter = new Intl.NumberFormat("pt-BR");
+
+    return formatter.format(
+      prices.shape +
+      prices.paddles +
+      prices.paddlesClick +
+      prices.paddlesColor +
+      prices.trigger +
+      prices.grip +
+      prices.faceplateGrip +
+      prices.vibration,
+    );
+  };
+
+  const showFaceplateGrips =
+    props.faceplateGrips && props.faceplateGrips.length > 0;
+  
+  function onChange(key, value) {
+    if (key == 'paddles' && value == 'sem') {
+      formik.setFieldValue("paddlesClick", undefined)
+      formik.setFieldValue('paddlesColor', undefined)
+    }
+
+    formik.setFieldValue(key, value)
+  }
 
   return {
     formik,
     sendFormToWhatsapp,
     getLabel,
-    goToDeliveryForm
+    goToDeliveryForm,
+    bannerShape,
+    bannerPaddle,
+    prices,
+    calcularTotal,
+    showFaceplateGrips,
+    onChange
   };
 };

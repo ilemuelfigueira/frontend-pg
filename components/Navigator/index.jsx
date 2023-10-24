@@ -40,6 +40,10 @@ const exclusivosItems = [
   {
     key: "2",
     label: <Link href="/exclusivos/speakeasy">Speakeasy</Link>
+  },
+  {
+    key: "3",
+    label: <Link href="/exclusivos/grandmaster">Grandmaster</Link>
   }
 ];
 
@@ -78,6 +82,19 @@ const pathsConfig = [
           <ItemTemplate
             label="Speakeasy"
             url="/speakeasy"
+          />
+        ),
+      },
+    ],
+  },
+  {
+    path: "grandmaster",
+    items: [
+      {
+        title: (
+          <ItemTemplate
+            label="Grandmaster"
+            url="/grandmaster"
           />
         ),
       },
