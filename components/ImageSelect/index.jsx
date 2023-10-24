@@ -98,7 +98,7 @@ function ImageSelect(props) {
             >
               <img
                 className={twMerge(
-                  `mb-2 select-none bg-cover bg-no-repeat p-0 hover:duration-75 data-[banner=true]:m-0 data-[aspect='1/1']:w-[64px] data-[aspect='16/9']:w-[94px] data-[banner=true]:w-[94px] data-[banner=true]:hover:scale-125 data-[banner=true]:active:scale-110`,
+                  `mb-2 select-none bg-cover bg-no-repeat p-0 hover:duration-75 data-[banner=true]:m-0 data-[aspect='1/1']:w-[64px] data-[aspect='16/9']:w-[94px] data-[banner=true]:w-[94px] data-[banner=true]:lg:hover:scale-125 data-[banner=true]:lg:active:scale-110`,
                   props.carouselImageClassname,
                 )}
                 data-banner={props.isBanner}
