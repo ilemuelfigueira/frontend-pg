@@ -11,7 +11,10 @@ const BannerImage = ({ children, ...props }) => {
     <img
       {...props}
       loading="lazy"
-      className={twMerge("relative aspect-square max-lg:w-full max-lg:snap-center lg:w-[48%] lg:flex-[0,0,48%] lg:rounded-xl lg:shadow-md lg:duration-300 lg:hover:shadow-xl", props.className)}
+      className={twMerge(
+        "relative aspect-square max-lg:w-full max-lg:snap-center lg:w-[48%] lg:flex-[0,0,48%] lg:rounded-xl lg:shadow-md lg:duration-300 lg:hover:shadow-xl",
+        props.className,
+      )}
     />
   );
 };
@@ -48,7 +51,7 @@ export default function Form({ ...props }) {
     prices,
     calcularTotal,
     showFaceplateGrips,
-    onChange
+    onChange,
   } = useProduct({
     ...props,
     WHATSAPP_LOJA: whatsappLoja,
@@ -105,10 +108,10 @@ export default function Form({ ...props }) {
         />
 
         <div className="#description flex w-full flex-col items-start gap-3">
-          <span className="#modelName w-full font-helveticaNeue font-semibold">
+          <span className="#modelName font-helveticaNeue w-full font-semibold">
             {getLabel(props.shapes, formik.values.shape)}
           </span>
-          <p className="w-full font-helvetica text-sm font-light leading-6 tracking-[0.0125em]">
+          <p className="font-helvetica w-full text-sm font-light leading-6 tracking-[0.0125em]">
             {props.description}
           </p>
         </div>
@@ -154,7 +157,7 @@ export default function Form({ ...props }) {
           items={props.triggers}
         />
 
-        <div className="grid items-center gap-2 xl:auto-cols-max xl:grid-flow-col">
+        <div className="w-full gap-2 max-xl:flex max-xl:flex-col max-xl:items-start xl:grid xl:auto-cols-max xl:grid-flow-col xl:items-center">
           <ImageSelect
             onChange={onChange}
             name="grip"
