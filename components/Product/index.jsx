@@ -202,7 +202,7 @@ export default function Form({ ...props }) {
           items={props.vibrations}
         />
 
-        <span className="sticky bottom-0 z-50 w-full bg-white text-2xl font-bold uppercase">
+        <span className="sticky bottom-2 z-50 w-full bg-white text-2xl font-bold uppercase">
           Total:
           <strong className="ml-2 text-3xl font-extrabold text-green-400">
             {calcularTotal()}
