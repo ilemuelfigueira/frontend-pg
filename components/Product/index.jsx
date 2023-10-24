@@ -5,10 +5,11 @@ import { useProduct } from "./index.hook";
 import { Button, Carousel } from "antd";
 import { getYupSchema } from "@/lib/YupSchemas";
 import { twMerge } from "tailwind-merge";
+import Image from "@/components/Image";
 
 const BannerImage = ({ children, ...props }) => {
   return (
-    <img
+    <Image
       {...props}
       loading="lazy"
       className={twMerge(

@@ -4,6 +4,7 @@ import React from "react";
 import { RequiredField } from "../RequiredField";
 import { twJoin, twMerge } from "tailwind-merge";
 import { Dropdown } from "antd";
+import Image from "@/components/Image";
 
 function ImageSelect(props) {
   const items = props.items;
@@ -18,10 +19,10 @@ function ImageSelect(props) {
 
   const noItemLabel = props.noItemLabel;
 
-  const disabled = props.disabled
+  const disabled = props.disabled;
 
   function onChange(value) {
-    if(disabled) return props.onChange(props.name, null)
+    if (disabled) return props.onChange(props.name, null);
     if (props.onChange) {
       props.onChange(props.name, value);
     }
@@ -96,9 +97,9 @@ function ImageSelect(props) {
               data-selected={props.value === item.value}
               onClick={() => !item.disabled && onChange(item.value)}
             >
-              <img
+              <Image
                 className={twMerge(
-                  `mb-2 select-none bg-cover bg-no-repeat p-0 hover:duration-75 data-[banner=true]:m-0 data-[aspect='1/1']:w-[64px] data-[aspect='16/9']:w-[94px] data-[banner=true]:w-[94px] data-[banner=true]:lg:hover:scale-125 data-[banner=true]:lg:active:scale-110`,
+                  `mb-2 select-none bg-cover bg-no-repeat p-0 hover:duration-75 data-[banner=true]:m-0 data-[aspect='1/1']:aspect-square data-[aspect='16/9']:aspect-video data-[aspect='1/1']:w-[64px] data-[aspect='16/9']:w-[94px] data-[banner=true]:w-[94px] data-[banner=true]:lg:hover:scale-125 data-[banner=true]:lg:active:scale-110`,
                   props.carouselImageClassname,
                 )}
                 data-banner={props.isBanner}
@@ -113,7 +114,7 @@ function ImageSelect(props) {
                   item.strongLabel ? "mb-2" : "",
                 )}
               >
-                <span className="whitespace-pre-line break-words text-center font-helvetica text-base tracking-wide">
+                <span className="font-helvetica whitespace-pre-line break-words text-center text-base tracking-wide">
                   {noItemLabel ? "" : item.label}
                 </span>
                 <strong>{item.strongLabel}</strong>
