@@ -1,0 +1,356 @@
+{
+  "title": "PG GRANDMASTER XBOX",
+  "banners": {
+    "2paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/traseira_paddle_1.png",
+    "4paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/traseira_paddle_2.png",
+    "sem": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_paddles_slim.svg"
+  },
+  "description": "Apresentamos o Controle Speakeasy da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. O Controle grandmaster não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.",
+  "vibrations": [
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/xbox_sem_vibracao.svg",
+      "aspect": "16/9",
+      "label": "Remover",
+      "price": "00,00",
+      "value": "sem"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/xbox_com_vibracao.svg",
+      "aspect": "16/9",
+      "label": "Manter",
+      "price": "00,00",
+      "value": "com_vibracao"
+    }
+  ],
+  "grips": [
+    {
+      "label": "Sem grip",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_grip_icon.svg",
+      "price": "00,00",
+      "value": "sem"
+    },
+    {
+      "label": "PG Grip",
+      "strongLabel": "Militar",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_militar_icon.svg",
+      "price": "119,99",
+      "value": "militar"
+    },
+    {
+      "label": "PG Grip",
+      "strongLabel": "Tático",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_tatico_icon.svg",
+      "price": "149,99",
+      "value": "tatico"
+    },
+    {
+      "label": "PG Grip",
+      "strongLabel": "Exclusive",
+      "tooltip": "Envie uma mensagem ao nosso time, \ninformando a logo ou texto que deseja registrar no seu controle.",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_exclusive_icon.svg",
+      "price": "199,99",
+      "value": "exclusivo"
+    }
+  ],
+  "triggers": [
+    {
+      "label": "Default",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_default_xbox.svg",
+      "price": "00,00",
+      "value": "default"
+    },
+    {
+      "label": "Stop",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_stop_xbox.svg",
+      "price": "9,99",
+      "value": "stop"
+    },
+    {
+      "disabled": true,
+      "label": "Digital",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_digital_xbox.svg",
+      "price": "00,00",
+      "value": "digital"
+    },
+    {
+      "label": "Mouse",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_mouse_xbox.svg",
+      "price": "249,99",
+      "value": "mouse"
+    }
+  ],
+  "paddles": [
+    {
+      "label": "Sem paddles",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_paddles_slim.svg",
+      "aspect": "16/9",
+      "price": "00,00",
+      "value": "sem"
+    },
+    {
+      "label": "2 Paddles",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/2_paddles_slim.svg",
+      "aspect": "16/9",
+      "price": "99,99",
+      "value": "2paddles"
+    },
+    {
+      "label": "4 Paddles",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/4_paddles_slim.svg",
+      "aspect": "16/9",
+      "price": "249,99",
+      "value": "4paddles"
+    }
+  ],
+  "paddlesClicks": [
+    {
+      "label": "Click tactil",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_tactil.svg",
+      "aspect": "16/9",
+      "price": "74,99",
+      "value": "tactil"
+    },
+    {
+      "label": "Click digital",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_digital.svg",
+      "aspect": "16/9",
+      "price": "99,99",
+      "value": "digital"
+    },
+    {
+      "label": "Click mouse",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_mouse.svg",
+      "aspect": "16/9",
+      "price": "149,99",
+      "value": "mouse"
+    }
+  ],
+  "paddlesColors": [
+    {
+      "label": "Preto",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_black.svg",
+      "price": "00,00",
+      "value": "preto"
+    },
+    {
+      "label": "Branco",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_white.svg",
+      "price": "00,00",
+      "value": "branco"
+    },
+    {
+      "label": "Vermelho",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_red.svg",
+      "price": "00,00",
+      "value": "vermelho"
+    },
+    {
+      "label": "Roxo",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_purple.svg",
+      "price": "00,00",
+      "value": "roxo"
+    }
+  ],
+  "shapes": [
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/branco.png",
+      "items": [
+        {
+          "label": "Controle grandmaster branco 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/branco/1.png"
+        },
+        {
+          "label": "Controle grandmaster branco 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/branco/2.png"
+        },
+        {
+          "label": "Controle grandmaster branco 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/branco/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "White",
+      "value": "white"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/preto.png",
+      "items": [
+        {
+          "label": "Controle grandmaster preto 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/preto/1.png"
+        },
+        {
+          "label": "Controle grandmaster preto 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/preto/2.png"
+        },
+        {
+          "label": "Controle grandmaster preto 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/preto/3.png"
+        }
+      ],
+      "price": "449,99",
+      "label": "Black",
+      "value": "black"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/azul.png",
+      "items": [
+        {
+          "label": "Controle grandmaster azul 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/azul/1.png"
+        },
+        {
+          "label": "Controle grandmaster azul 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/azul/2.png"
+        },
+        {
+          "label": "Controle grandmaster azul 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/azul/3.png"
+        }
+      ],
+      "price": "459,99",
+      "label": "Azul",
+      "value": "azul"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/vermelho.png",
+      "items": [
+        {
+          "label": "Controle grandmaster vermelho 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/vermelho/1.png"
+        },
+        {
+          "label": "Controle grandmaster vermelho 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/vermelho/2.png"
+        },
+        {
+          "label": "Controle grandmaster vermelho 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/vermelho/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "Red",
+      "value": "red"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/volt.png",
+      "items": [
+        {
+          "label": "Controle grandmaster volt 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/volt/1.png"
+        },
+        {
+          "label": "Controle grandmaster volt 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/volt/2.png"
+        },
+        {
+          "label": "Controle grandmaster volt 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/volt/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "Volt",
+      "value": "volt"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/verde.png",
+      "items": [
+        {
+          "label": "Controle grandmaster verde 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/verde/1.png"
+        },
+        {
+          "label": "Controle grandmaster verde 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/verde/2.png"
+        },
+        {
+          "label": "Controle grandmaster verde 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/verde/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "Verde",
+      "value": "verde"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/roxo.png",
+      "items": [
+        {
+          "label": "Controle grandmaster roxo 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/roxo/1.png"
+        },
+        {
+          "label": "Controle grandmaster roxo 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/roxo/2.png"
+        },
+        {
+          "label": "Controle grandmaster roxo 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/roxo/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "Roxo",
+      "value": "roxo"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/rosa.png",
+      "items": [
+        {
+          "label": "Controle grandmaster rosa 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/rosa/1.png"
+        },
+        {
+          "label": "Controle grandmaster rosa 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/rosa/2.png"
+        },
+        {
+          "label": "Controle grandmaster rosa 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/rosa/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "Rosa",
+      "value": "rosa"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/blue_camo.png",
+      "items": [
+        {
+          "label": "Controle grandmaster mineral camo 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/mineral camo/1.png"
+        },
+        {
+          "label": "Controle grandmaster mineral camo 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/mineral camo/2.png"
+        },
+        {
+          "label": "Controle grandmaster mineral camo 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/mineral camo/3.png"
+        }
+      ],
+      "price": "459,99",
+      "label": "Mineral Camo",
+      "value": "mineral_camo"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/botoes/stellar_shift.png",
+      "items": [
+        {
+          "label": "Controle grandmaster stellar shift 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/stellar shift/1.png"
+        },
+        {
+          "label": "Controle grandmaster stellar shift 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/stellar shift/2.png"
+        },
+        {
+          "label": "Controle grandmaster stellar shift 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/stellar shift/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "Stellar Shift",
+      "value": "stellar_shift"
+    }
+  ]
+}

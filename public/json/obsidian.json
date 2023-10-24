@@ -2,7 +2,8 @@
   "title": "PG OBSIDIAN PS5",
   "banners": {
     "2paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/traseira_paddle_1.png",
-    "4paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/traseira_paddle_2.png"
+    "4paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualsense/traseira_paddle_2.png",
+    "sem": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_paddles_slim.svg"
   },
   "description": "Apresentamos o Controle Obsidian da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. O Controle Obsidian não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.",
   "vibrations": [
@@ -11,7 +12,7 @@
       "aspect": "16/9",
       "label": "Remover",
       "price": "00,00",
-      "value": "sem_vibracao"
+      "value": "sem"
     },
     {
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/dualsense_com_vibracao.svg",
@@ -27,7 +28,7 @@
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/faceplate_sem_grip.svg",
       "aspect": "16/9",
       "price": "00,00",
-      "value": "sem_grip"
+      "value": "sem"
     },
     {
       "label": "Com grip",
@@ -95,6 +96,13 @@
     }
   ],
   "paddles": [
+    {
+      "label": "Sem paddles",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_paddles_slim.svg",
+      "aspect": "16/9",
+      "price": "00,00",
+      "value": "sem"
+    },
     {
       "label": "2 Paddles",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/2_paddles_slim.svg",
