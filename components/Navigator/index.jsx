@@ -44,6 +44,10 @@ const exclusivosItems = [
   {
     key: "3",
     label: <Link href="/exclusivos/grandmaster">Grandmaster</Link>
+  },
+  {
+    key: "4",
+    label: <Link href="/exclusivos/goliath">Goliath</Link>
   }
 ];
 
@@ -88,13 +92,26 @@ const pathsConfig = [
     ],
   },
   {
+    path: "goliath",
+    items: [
+      {
+        title: (
+          <ItemTemplate
+            label="Goliath"
+            url="/exclusivos/goliath"
+          />
+        )
+      }
+    ]
+  },
+  {
     path: "grandmaster",
     items: [
       {
         title: (
           <ItemTemplate
             label="Grandmaster"
-            url="/grandmaster"
+            url="/exclusivos/grandmaster"
           />
         ),
       },

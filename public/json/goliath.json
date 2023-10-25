@@ -1,0 +1,256 @@
+{
+  "title": "PG GOLIATH PS4",
+  "banners": {
+    "2paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/traseira_paddle_1.png",
+    "4paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/traseira_paddle_2.png",
+    "sem": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_paddles_slim.svg"
+  },
+  "description": "Apresentamos o Controle Goliath da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. O Controle goliath não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.",
+  "vibrations": [
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/dualshock4_sem_vibracao.svg",
+      "aspect": "16/9",
+      "label": "Remover",
+      "price": "00,00",
+      "value": "sem"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/dualshock4_com_vibracao.svg",
+      "aspect": "16/9",
+      "label": "Manter",
+      "price": "00,00",
+      "value": "com_vibracao"
+    }
+  ],
+  "grips": [
+    {
+      "label": "Sem grip",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_grip_icon.svg",
+      "price": "00,00",
+      "value": "sem"
+    },
+    {
+      "label": "PG Grip",
+      "strongLabel": "Militar",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_militar_icon.svg",
+      "price": "119,99",
+      "value": "militar"
+    },
+    {
+      "label": "PG Grip",
+      "strongLabel": "Tático",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_tatico_icon.svg",
+      "price": "149,99",
+      "value": "tatico"
+    },
+    {
+      "label": "PG Grip",
+      "strongLabel": "Exclusive",
+      "tooltip": "Envie uma mensagem ao nosso time, \ninformando a logo ou texto que deseja registrar no seu controle.",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_exclusive_icon.svg",
+      "price": "199,99",
+      "value": "exclusivo"
+    }
+  ],
+  "triggers": [
+    {
+      "label": "Default",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_default_sony.svg",
+      "price": "00,00",
+      "value": "default"
+    },
+    {
+      "label": "Stop",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_stop_sony.svg",
+      "price": "9,99",
+      "value": "stop"
+    },
+    {
+      "disabled": true,
+      "label": "Digital",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_digital_sony.svg",
+      "price": "00,00",
+      "value": "digital"
+    },
+    {
+      "label": "Mouse",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_mouse_sony.svg",
+      "price": "249,99",
+      "value": "mouse"
+    }
+  ],
+  "paddles": [
+    {
+      "label": "Sem paddles",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_paddles_slim.svg",
+      "aspect": "16/9",
+      "price": "00,00",
+      "value": "sem"
+    },
+    {
+      "label": "2 Paddles",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/2_paddles_fat.svg",
+      "aspect": "16/9",
+      "price": "99,99",
+      "value": "2paddles"
+    },
+    {
+      "label": "4 Paddles",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/4_paddles_slim.svg",
+      "aspect": "16/9",
+      "price": "249,99",
+      "value": "4paddles"
+    }
+  ],
+  "paddlesClicks": [
+    {
+      "label": "Click tactil",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_tactil.svg",
+      "aspect": "16/9",
+      "price": "74,99",
+      "value": "tactil"
+    },
+    {
+      "label": "Click digital",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_digital.svg",
+      "aspect": "16/9",
+      "price": "99,99",
+      "value": "digital"
+    },
+    {
+      "label": "Click mouse",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_mouse.svg",
+      "aspect": "16/9",
+      "price": "149,99",
+      "value": "mouse"
+    }
+  ],
+  "paddlesColors": [
+    {
+      "label": "Preto",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_black.svg",
+      "price": "00,00",
+      "value": "preto"
+    },
+    {
+      "label": "Branco",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_white.svg",
+      "price": "00,00",
+      "value": "branco"
+    },
+    {
+      "label": "Vermelho",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_red.svg",
+      "price": "00,00",
+      "value": "vermelho"
+    },
+    {
+      "label": "Roxo",
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/circle_purple.svg",
+      "price": "00,00",
+      "value": "roxo"
+    }
+  ],
+  "shapes": [
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/botoes/branco.png",
+      "items": [
+        {
+          "label": "Controle goliath branco 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/branco/1.png"
+        },
+        {
+          "label": "Controle goliath branco 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/branco/2.png"
+        },
+        {
+          "label": "Controle goliath branco 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/branco/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "White",
+      "value": "white"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/botoes/preto.png",
+      "items": [
+        {
+          "label": "Controle goliath preto 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/preto/1.png"
+        },
+        {
+          "label": "Controle goliath preto 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/preto/2.png"
+        },
+        {
+          "label": "Controle goliath preto 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/preto/3.png"
+        }
+      ],
+      "price": "449,99",
+      "label": "Black",
+      "value": "black"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/botoes/azul.png",
+      "items": [
+        {
+          "label": "Controle goliath azul 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/azul/1.png"
+        },
+        {
+          "label": "Controle goliath azul 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/azul/2.png"
+        },
+        {
+          "label": "Controle goliath azul 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/azul/3.png"
+        }
+      ],
+      "price": "459,99",
+      "label": "Azul",
+      "value": "azul"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/botoes/vermelho.png",
+      "items": [
+        {
+          "label": "Controle goliath vermelho 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/vermelho/1.png"
+        },
+        {
+          "label": "Controle goliath vermelho 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/vermelho/2.png"
+        },
+        {
+          "label": "Controle goliath vermelho 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/vermelho/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "Red",
+      "value": "red"
+    },
+    {
+      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/botoes/camuflado.png",
+      "items": [
+        {
+          "label": "Controle goliath camuflado 1",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/camuflado/1.png"
+        },
+        {
+          "label": "Controle goliath camuflado 2",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/camuflado/2.png"
+        },
+        {
+          "label": "Controle goliath camuflado 3",
+          "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/camuflado/3.png"
+        }
+      ],
+      "price": "424,99",
+      "label": "Camuflado",
+      "value": "camuflado"
+    }
+  ]
+}
