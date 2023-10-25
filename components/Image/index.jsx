@@ -20,7 +20,7 @@ export default function Image(props) {
         fill
         src={props.src}
       />
-      {!reveal && <Skeleton.Image className="h-full w-full rounded-xl" />}
+      {!reveal && <Skeleton.Image active className="h-full w-full rounded-xl" />}
     </div>
   );
 }
