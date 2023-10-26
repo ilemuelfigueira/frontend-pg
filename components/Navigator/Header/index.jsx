@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "@/components/Image";
 
 const Container = ({ children }) => (
@@ -12,14 +14,14 @@ export function HeaderNavigator() {
       <Container>
         <div className="flex items-center gap-2">
           <Image
-            href={`${location.origin}/`}
+            href={`/`}
             src={
               process.env.NEXT_PUBLIC_STORAGE_PRODUTOS +
               "/produtos/png/logo/logo-192x192.png"
             }
             className="aspect-square w-16"
           />
-          <span className="text-2xl font-bold text-fonts-$cinza">PG CUSTOM STORE</span>
+          <span className="text-2xl font-semibold text-slate-600">PG CUSTOM STORE</span>
         </div>
       </Container>
     </header>
