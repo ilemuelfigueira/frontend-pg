@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "@/components/Image";
 
@@ -10,7 +10,7 @@ const Container = ({ children }) => (
 
 export function HeaderNavigator() {
   return (
-    <header className="mb-6 flex w-screen justify-center rounded-md bg-white shadow-md">
+    <header className="sticky top-0 z-[1000] mb-6 flex w-screen justify-center rounded-md bg-white shadow-lg">
       <Container>
         <div className="flex items-center gap-2">
           <Image
@@ -21,7 +21,9 @@ export function HeaderNavigator() {
             }
             className="aspect-square w-16"
           />
-          <span className="text-2xl font-semibold text-slate-600">PG CUSTOM STORE</span>
+          <span className="text-2xl font-semibold text-slate-600">
+            PG CUSTOM STORE
+          </span>
         </div>
       </Container>
     </header>

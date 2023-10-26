@@ -1,16 +1,26 @@
 "use client";
 
-import { Button, Checkbox, DatePicker, Form, Input, Space } from "antd";
+import {
+  Button,
+  Checkbox,
+  DatePicker,
+  FloatButton,
+  Form,
+  Input,
+  Popconfirm,
+  Space,
+} from "antd";
 import { useFormularioEntrega } from "./index.hook";
 import { PhoneInput } from "../PhoneInput";
 import { CepInput } from "../CepInput";
+import { Envelope, WhatsappLogo } from "@phosphor-icons/react";
 
 const ItemContainer = ({ children }) => (
   <div className="md:flex md:gap-4">{children}</div>
 );
 
 const Container = ({ children }) => (
-  <div className="flex w-full flex-col gap-4 lg:bg-white max-lg:p-4 lg:rounded-xl lg:p-4 lg:shadow-lg">
+  <div className="flex w-full flex-col gap-4 max-lg:p-4 lg:rounded-xl lg:bg-white lg:p-4 lg:shadow-lg">
     {children}
   </div>
 );
@@ -200,10 +210,31 @@ export function FormularioEntrega() {
           />
         </Form.Item>
 
-        <Button type="primary" size="large" className="w-full hidden" htmlType="submit">
-          <span className="font-black font-helvetica tracking-wider">Finalizar</span>
-          <i className="pi pi-right-arrow" />
-        </Button>
+        <Popconfirm
+          title="Finalizar o pedido"
+          description="Tem certeza que quer finalizar o pedido?"
+          onConfirm={formik.handleSubmit}
+          okText="Sim"
+          cancelText="Não"
+        >
+          <Button
+            type="primary"
+            size="large"
+            className="flex w-full items-center justify-center"
+            icon={<Envelope size={24} />}
+            loading={formik.isSubmitting}
+          >
+            <span className="font-black uppercase tracking-wider">
+              Finalizar
+            </span>
+          </Button>
+        </Popconfirm>
+
+        <FloatButton href="https://web.whatsapp.com/send?text=textToshare" target="_blank" icon={<WhatsappLogo />} />
+        {/* <Button type="primary" size="large" className="w-full" htmlType="submit"> */}
+        {/* <span className="font-black font-helvetica tracking-wider">Finalizar</span> */}
+        {/* <i className="pi pi-right-arrow" /> */}
+        {/* </Button> */}
       </Form>
     </Container>
   );

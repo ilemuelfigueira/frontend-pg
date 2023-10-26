@@ -17,6 +17,11 @@ module.exports = {
       fontFamily: {
         poppins: ["var(--font-poppins", "sans-serif"],
       },
+      colors: {
+        fonts: {
+          $cinza: "#6F6F6F",
+        },
+      },
     },
   },
   plugins: [],

@@ -1,3 +1,4 @@
+import { useCarrinhoStore } from "@/store/carrinho";
 import { useFormik } from "formik";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -9,13 +10,12 @@ export const useProduct = ({ ...props } = {}) => {
   const pathName = usePathname();
   const router = useRouter();
 
-
-  const [isModalOpen, triggerModal] = useState(false)
+  const [isModalOpen, triggerModal] = useState(false);
 
   const confirmModal = {
     open: isModalOpen,
-    trigger: triggerModal
-  }
+    trigger: triggerModal,
+  };
 
   const {
     WHATSAPP_LOJA = "",
@@ -78,6 +78,9 @@ export const useProduct = ({ ...props } = {}) => {
     return items.find((item) => item.value === value)?.label;
   };
 
+  const productSource = () =>
+    `${getHostname()}?${valuesToQueryString(formik.values)}`;
+
   const sendFormToWhatsapp = async () => {
     const validateResponse = await formik.validateForm();
 
@@ -86,9 +89,7 @@ export const useProduct = ({ ...props } = {}) => {
     if (!isValid) return;
 
     const urlEncodedMessage = encodeURIComponent(
-      `Olá, gostaria de um controle com as seguintes características: ${getHostname()}?${valuesToQueryString(
-        formik.values,
-      )}`,
+      `Olá, gostaria de um controle com as seguintes características: ${productSource()}`,
     );
 
     const url = `https://wa.me/${WHATSAPP_LOJA}?text=${urlEncodedMessage}`;
@@ -100,22 +101,76 @@ export const useProduct = ({ ...props } = {}) => {
     router.push("/formulario-entrega");
   };
 
+  const { state, actions } = useCarrinhoStore();
+
   const formik = useFormik({
     initialValues: getDefaultValues(),
     validationSchema,
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: (values) => {
-      const hasPaddles = values.paddles != 'sem'
+      const hasPaddles = values.paddles != "sem";
 
       if (!hasPaddles) {
-        values.paddlesClick = undefined
-        values.paddlesColor = undefined
+        values.paddlesClick = undefined;
+        values.paddlesColor = undefined;
       }
 
-      console.log(values)
+      // const produtos = Array.from(state.produtos);
+      const produtos = []
+
+      const getItemFromData = (key, value) =>
+        value ? props[key].find((item) => item.value == value) : undefined;
+
+      const shape = getItemFromData("shapes", values.shape);
+      const paddles = getItemFromData("paddles", values.paddles);
+      const paddlesClick = getItemFromData(
+        "paddlesClicks",
+        values.paddlesClick,
+      );
+      const paddlesColor = getItemFromData(
+        "paddlesColors",
+        values.paddlesColor,
+      );
+      const trigger = getItemFromData("triggers", values.trigger);
+      const grip = getItemFromData("grips", values.grip);
+      const faceplateGrip = getItemFromData(
+        "faceplateGrips",
+        values.faceplateGrip,
+      );
+      const vibration = getItemFromData("vibrations", values.vibration);
+
+      const fields = {
+        shape,
+        paddles,
+        paddlesClick,
+        paddlesColor,
+        trigger,
+        grip,
+        faceplateGrip,
+        vibration,
+      };
+
+      for (const key of Object.keys(fields)) {
+        const item = fields[key];
+        console.log(JSON.stringify(item));
+        if (!item) continue;
+
+        produtos.push({
+          label: `${key} (${item.label}${
+            item.strongLabel ? ` - ${item.strongLabel}` : ""
+          })`,
+          value: `${item.price}`,
+        });
+      }
+
+      actions.update('produtos', [{
+        title: props.title,
+        items: produtos
+      }])
 
       router.push(`${pathName}?${valuesToQueryString(values)}`);
+      router.push(`/formulario-entrega`)
     },
   });
 
@@ -137,11 +192,14 @@ export const useProduct = ({ ...props } = {}) => {
   const prices = {
     shape: buscarPreco(props.shapes, formik.values.shape) || 0,
     paddles: buscarPreco(props.paddles, formik.values.paddles) || 0,
-    paddlesClick: buscarPreco(props.paddlesClicks, formik.values.paddlesClick) || 0,
-    paddlesColor: buscarPreco(props.paddlesColors, formik.values.paddlesColor) || 0,
+    paddlesClick:
+      buscarPreco(props.paddlesClicks, formik.values.paddlesClick) || 0,
+    paddlesColor:
+      buscarPreco(props.paddlesColors, formik.values.paddlesColor) || 0,
     trigger: buscarPreco(props.triggers, formik.values.trigger) || 0,
     grip: buscarPreco(props.grips, formik.values.grip) || 0,
-    faceplateGrip: buscarPreco(props.faceplateGrips, formik.values.faceplateGrip) || 0,
+    faceplateGrip:
+      buscarPreco(props.faceplateGrips, formik.values.faceplateGrip) || 0,
     vibration: buscarPreco(props.vibrations, formik.values.vibration) || 0,
   };
 
@@ -150,13 +208,13 @@ export const useProduct = ({ ...props } = {}) => {
 
     return formatter.format(
       prices.shape +
-      prices.paddles +
-      prices.paddlesClick +
-      prices.paddlesColor +
-      prices.trigger +
-      prices.grip +
-      prices.faceplateGrip +
-      prices.vibration,
+        prices.paddles +
+        prices.paddlesClick +
+        prices.paddlesColor +
+        prices.trigger +
+        prices.grip +
+        prices.faceplateGrip +
+        prices.vibration,
     );
   };
 
@@ -164,12 +222,12 @@ export const useProduct = ({ ...props } = {}) => {
     props.faceplateGrips && props.faceplateGrips.length > 0;
 
   function onChange(key, value) {
-    if (key == 'paddles' && value == 'sem') {
-      formik.setFieldValue("paddlesClick", undefined)
-      formik.setFieldValue('paddlesColor', undefined)
+    if (key == "paddles" && value == "sem") {
+      formik.setFieldValue("paddlesClick", undefined);
+      formik.setFieldValue("paddlesColor", undefined);
     }
 
-    formik.setFieldValue(key, value)
+    formik.setFieldValue(key, value);
   }
 
   return {
@@ -183,6 +241,6 @@ export const useProduct = ({ ...props } = {}) => {
     calcularTotal,
     showFaceplateGrips,
     onChange,
-    confirmModal
+    confirmModal,
   };
 };

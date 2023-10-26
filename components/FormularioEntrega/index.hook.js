@@ -1,8 +1,10 @@
 import { useFormik } from "formik";
-import { Form } from "antd";
+import { Form, message } from "antd";
 import moment from "moment";
 
 import * as Yup from "yup";
+import { criarPedido } from "@/services/email";
+import { useCarrinhoStore } from "@/store/carrinho";
 
 export const useFormularioEntrega = (props) => {
   const toDate = (_, value) => {
@@ -72,7 +74,19 @@ export const useFormularioEntrega = (props) => {
     antdForm.setFieldsValue({ [key]: value });
   }
 
+  function getTotalProducts(produtos) {
+    let total = 0;
+    for (const produto of produtos) {
+      for (const item of produto.items) {
+        total += parseFloat(item.value.replace(",", "."));
+      }
+    }
+    return total;
+  }
+
   const [antdForm] = Form.useForm();
+
+  const { state, actions } = useCarrinhoStore();
 
   const formik = useFormik({
     initialValues: {
@@ -92,8 +106,31 @@ export const useFormularioEntrega = (props) => {
     validateOnBlur: false,
     validateOnChange: true,
     validationSchema,
-    onSubmit(values) {
+    async onSubmit(values) {
       console.log("@onSubmit -> values", values);
+
+      actions.update("nmCliente", values.nome);
+      actions.update("nmTelefone", values.telefone);
+      actions.update("nmCEP", values.cep);
+      actions.update("nmEndereco", values.endereco);
+      actions.update("nmCidade", values.cidade);
+      actions.update("nmEstado", values.estado);
+      actions.update("nmComplemento", values.complemento);
+
+      const total = getTotalProducts(state.produtos);
+
+      actions.update("nmTotal", total);
+      actions.update("nmObservacoes", values.observacoes);
+      actions.update("nmEmailCliente", values.email);
+
+      console.log(JSON.stringify(state));
+
+      try {
+        await criarPedido(state)
+        message.success('Pedido realizado')
+      } catch (error) {
+        message.error(error.message)
+      }
     },
   });
 

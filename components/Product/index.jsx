@@ -2,7 +2,7 @@
 
 import ImageSelect from "@/components/ImageSelect";
 import { useProduct } from "./index.hook";
-import { Button, Carousel } from "antd";
+import { Button, Carousel, Popconfirm } from "antd";
 import { getYupSchema } from "@/lib/YupSchemas";
 import { twMerge } from "tailwind-merge";
 import Image from "@/components/Image";
@@ -40,7 +40,7 @@ const BannerVideo = ({ children, ...props }) => {
   );
 };
 
-export default function Form({ ...props }) {
+export default function Product({ ...props }) {
   const { validationSchema, whatsappLoja = "" } = props;
 
   const {
@@ -54,6 +54,7 @@ export default function Form({ ...props }) {
     calcularTotal,
     showFaceplateGrips,
     onChange,
+    confirmModal,
   } = useProduct({
     ...props,
     WHATSAPP_LOJA: whatsappLoja,
@@ -64,7 +65,7 @@ export default function Form({ ...props }) {
   const { values } = formik;
 
   return (
-    <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 max-lg:bg-white lg:items-start lg:justify-center lg:gap-4">
+    <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 max-lg:bg-slate-50 lg:items-start lg:justify-center lg:gap-4">
       <section className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
         {bannerShape?.map((item) => (
           <BannerImage key={item.label} src={item.src} alt={item.label} />
@@ -81,7 +82,7 @@ export default function Form({ ...props }) {
           <h2 className="text-3xl font-bold">{props.title}</h2>
           <span className="text-base font-semibold tracking-wide">
             A partir de
-            <strong className="ml-2 text-xl text-green-400">
+            <strong className="ml-2 text-xl font-bold text-green-400">
               R$ {prices.shape}
             </strong>
           </span>
@@ -213,26 +214,37 @@ export default function Form({ ...props }) {
             {calcularTotal()}
           </strong>
         </span>
+        <footer className="flex justify-end gap-4 w-full">
+          <div>
+            <Button
+              className="flex items-center rounded-[50%]"
+              type="primary"
+              onClick={sendFormToWhatsapp}
+              size="large"
+            >
+              <span className="pi pi-whatsapp"></span>
+            </Button>
+          </div>
 
-        <footer className="flex w-full">
-          <Button
-            className="flex items-center gap-2 rounded-full"
-            type="primary"
-            onClick={sendFormToWhatsapp}
-            size="large"
+          <Popconfirm
+            title="Finalizar o pedido"
+            description="Tem certeza que quer finalizar o pedido?"
+            onConfirm={formik.handleSubmit}
+            okText="Sim"
+            cancelText="Não"
           >
-            <span className="font-semibold tracking-wider">Enviar</span>
-            <span className="pi pi-whatsapp"></span>
-          </Button>
-          <Button
-            className="hidden items-center gap-2"
-            type="link"
-            onClick={goToDeliveryForm}
-            size="large"
-          >
-            <span className="font-semibold tracking-wider">Próxima etapa</span>
-            <span className="pi pi-send"></span>
-          </Button>
+            <Button
+              className="flex items-center gap-2 rounded-full"
+              type="default"
+              onClick={() => confirmModal.trigger(true)}
+              size="large"
+            >
+              <span className="font-semibold uppercase tracking-wider">
+                Continuar
+              </span>
+              <span className="pi pi-right-arrow"></span>
+            </Button>
+          </Popconfirm>
         </footer>
       </section>
     </div>
