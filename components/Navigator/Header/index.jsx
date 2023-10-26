@@ -19,7 +19,7 @@ export function HeaderNavigator() {
             }
             className="aspect-square w-16"
           />
-          <span className="text-2xl font-bold text-fonts-$cinza">PG CUSTOM STORE</span>
+          <span className="text-2xl font-semibold text-slate-600">PG CUSTOM STORE</span>
         </div>
       </Container>
     </header>
