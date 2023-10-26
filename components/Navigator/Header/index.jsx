@@ -14,7 +14,7 @@ export function HeaderNavigator() {
       <Container>
         <div className="flex items-center gap-2">
           <Image
-            href={`${location.origin}/`}
+            href={`/`}
             src={
               process.env.NEXT_PUBLIC_STORAGE_PRODUTOS +
               "/produtos/png/logo/logo-192x192.png"
