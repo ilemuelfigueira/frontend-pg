@@ -5,6 +5,7 @@ import { Breadcrumb } from "antd";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { HeaderNavigator } from "./Header";
 
 const ItemTemplate = (item, options) => {
   const pathName = usePathname();
@@ -39,16 +40,16 @@ const exclusivosItems = [
   },
   {
     key: "2",
-    label: <Link href="/exclusivos/speakeasy">Speakeasy</Link>
+    label: <Link href="/exclusivos/speakeasy">Speakeasy</Link>,
   },
   {
     key: "3",
-    label: <Link href="/exclusivos/grandmaster">Grandmaster</Link>
+    label: <Link href="/exclusivos/grandmaster">Grandmaster</Link>,
   },
   {
     key: "4",
-    label: <Link href="/exclusivos/goliath">Goliath</Link>
-  }
+    label: <Link href="/exclusivos/goliath">Goliath</Link>,
+  },
 ];
 
 const pathsConfig = [
@@ -69,12 +70,7 @@ const pathsConfig = [
     path: "obsidian",
     items: [
       {
-        title: (
-          <ItemTemplate
-            label="Obsidian"
-            url="/obsidian"
-          />
-        ),
+        title: <ItemTemplate label="Obsidian" url="/obsidian" />,
       },
     ],
   },
@@ -82,12 +78,7 @@ const pathsConfig = [
     path: "speakeasy",
     items: [
       {
-        title: (
-          <ItemTemplate
-            label="Speakeasy"
-            url="/speakeasy"
-          />
-        ),
+        title: <ItemTemplate label="Speakeasy" url="/speakeasy" />,
       },
     ],
   },
@@ -95,24 +86,16 @@ const pathsConfig = [
     path: "goliath",
     items: [
       {
-        title: (
-          <ItemTemplate
-            label="Goliath"
-            url="/exclusivos/goliath"
-          />
-        )
-      }
-    ]
+        title: <ItemTemplate label="Goliath" url="/exclusivos/goliath" />,
+      },
+    ],
   },
   {
     path: "grandmaster",
     items: [
       {
         title: (
-          <ItemTemplate
-            label="Grandmaster"
-            url="/exclusivos/grandmaster"
-          />
+          <ItemTemplate label="Grandmaster" url="/exclusivos/grandmaster" />
         ),
       },
     ],
@@ -150,17 +133,24 @@ const getPathsItems = (_paths) => {
 export default function Navigator({ children, ...props }) {
   const pathName = usePathname();
 
+  const hide = () => {
+    if (pathName.includes("/login")) return true;
+
+    return false;
+  };
+
   const items = getPathsItems(pathName.split("/").filter((path) => path));
   return (
     <>
-      <header className="">{/* TODO NAV */}</header>
+      <HeaderNavigator />
       <section className="flex min-h-screen flex-col items-center justify-start gap-8 max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]">
         <Breadcrumb
+          data-hide={hide()}
           style={{
             background: "transparent !important",
             border: "none !important",
           }}
-          className="flex w-full px-4"
+          className="flex w-full px-4 data-[hide=true]:hidden"
           items={items}
         />
         {children}
