@@ -168,8 +168,8 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/branco/3.png"
         }
       ],
-      "price": "424,99",
-      "label": "White",
+      "price": "324,99",
+      "label": "Glacial White",
       "value": "white"
     },
     {
@@ -188,7 +188,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/preto/3.png"
         }
       ],
-      "price": "449,99",
+      "price": "284,99",
       "label": "Black",
       "value": "black"
     },
@@ -208,8 +208,8 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/azul/3.png"
         }
       ],
-      "price": "459,99",
-      "label": "Azul",
+      "price": "324,99",
+      "label": "Midnight Blue",
       "value": "azul"
     },
     {
@@ -228,8 +228,8 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/vermelho/3.png"
         }
       ],
-      "price": "424,99",
-      "label": "Red",
+      "price": "299,99",
+      "label": "Magma Red",
       "value": "red"
     },
     {
@@ -248,7 +248,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/camuflado/3.png"
         }
       ],
-      "price": "424,99",
+      "price": "349,99",
       "label": "Camuflado",
       "value": "camuflado"
     }
