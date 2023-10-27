@@ -29,7 +29,7 @@ export default function ControleVariavel() {
         paddlesColors={goliathData.paddlesColors}
         banners={goliathData.banners}
         title={goliathData.title}
-        validationSchema={YupSchemasEnum.goliath}
+        validationSchema={YupSchemasEnum.GOLIATH}
         shapes={goliathData.shapes}
       />
     </>

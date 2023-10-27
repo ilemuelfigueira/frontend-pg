@@ -234,7 +234,7 @@ export default function Product({ ...props }) {
             cancelText="Não"
           >
             <Button
-              className="flex items-center gap-2 rounded-full"
+              className="flex items-center gap-2 rounded-full hidden"
               type="default"
               onClick={() => confirmModal.trigger(true)}
               size="large"
