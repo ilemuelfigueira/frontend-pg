@@ -168,7 +168,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/branco/3.png"
         }
       ],
-      "price": "424,99",
+      "price": "419,99",
       "label": "White",
       "value": "white"
     },
@@ -188,7 +188,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/preto/3.png"
         }
       ],
-      "price": "449,99",
+      "price": "424,99",
       "label": "Black",
       "value": "black"
     },
@@ -208,7 +208,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/azul/3.png"
         }
       ],
-      "price": "459,99",
+      "price": "434,99",
       "label": "Azul",
       "value": "azul"
     },
@@ -228,7 +228,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/vermelho/3.png"
         }
       ],
-      "price": "424,99",
+      "price": "449,99",
       "label": "Red",
       "value": "red"
     },
@@ -248,7 +248,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/volt/3.png"
         }
       ],
-      "price": "424,99",
+      "price": "399,99",
       "label": "Volt",
       "value": "volt"
     },
@@ -268,7 +268,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/verde/3.png"
         }
       ],
-      "price": "424,99",
+      "price": "429,99",
       "label": "Verde",
       "value": "verde"
     },
@@ -308,7 +308,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/rosa/3.png"
         }
       ],
-      "price": "424,99",
+      "price": "429,99",
       "label": "Rosa",
       "value": "rosa"
     },
@@ -328,7 +328,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/mineral camo/3.png"
         }
       ],
-      "price": "459,99",
+      "price": "579,99",
       "label": "Mineral Camo",
       "value": "mineral_camo"
     },
@@ -348,7 +348,7 @@
           "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/xbox/stellar shift/3.png"
         }
       ],
-      "price": "424,99",
+      "price": "549,99",
       "label": "Stellar Shift",
       "value": "stellar_shift"
     }
