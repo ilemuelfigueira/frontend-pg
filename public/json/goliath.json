@@ -66,17 +66,10 @@
       "value": "stop"
     },
     {
-      "disabled": true,
       "label": "Digital",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_digital_sony.svg",
       "price": "00,00",
       "value": "digital"
-    },
-    {
-      "label": "Mouse",
-      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_mouse_sony.svg",
-      "price": "249,99",
-      "value": "mouse"
     }
   ],
   "paddles": [
