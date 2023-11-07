@@ -1,10 +1,11 @@
 import { useFormik } from "formik";
-import { Form, message } from "antd";
+import { Form } from "antd";
 import moment from "moment";
 
 import * as Yup from "yup";
 import { criarPedido } from "@/services/email";
 import { useCarrinhoStore } from "@/store/carrinho";
+import toast from "react-hot-toast";
 
 export const useFormularioEntrega = (props) => {
   const toDate = (_, value) => {
@@ -127,9 +128,9 @@ export const useFormularioEntrega = (props) => {
 
       try {
         await criarPedido(state)
-        message.success('Pedido realizado')
+        toast.success('Pedido realizado')
       } catch (error) {
-        message.error(error.message)
+        toast.error(error.message)
       }
     },
   });

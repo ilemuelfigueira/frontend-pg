@@ -1,11 +1,17 @@
 "use client";
 
-import ImageSelect from "@/components/ImageSelect";
+import ImageSelect, { ImageSelectLoading } from "@/components/ImageSelect";
 import { useProduct } from "./index.hook";
 import { Button, Carousel, Popconfirm } from "antd";
 import { getYupSchema } from "@/lib/YupSchemas";
 import { twMerge } from "tailwind-merge";
 import Image from "@/components/Image";
+import { down } from "@/hooks/loader";
+import { serializeLabel, serializeStrongLabel } from "@/lib/util/string";
+import { getFirstItem } from "@/lib/util/array";
+import If from "@/components/If";
+import { floatToBRL } from "@/lib/util/intl";
+import { ShoppingCart } from "@phosphor-icons/react";
 
 const BannerImage = ({ children, ...props }) => {
   return (
@@ -21,156 +27,341 @@ const BannerImage = ({ children, ...props }) => {
   );
 };
 
-const BannerVideo = ({ children, ...props }) => {
-  return (
-    <video
-      className={twMerge(
-        "aspect-square w-[48%] flex-[0,0,48%] rounded-xl shadow-md duration-300 hover:shadow-xl",
-        props?.className,
-      )}
-      loop={true}
-      controls={true}
-      muted={true}
-      playsInline={true}
-      autoPlay={true}
-      preload="metadata"
-      {...props}
-      src="reflex-pro-apresentacao.mp4"
+const BannerSubProduto = ({ items = [] }) => {
+  if (items.length == 0)
+    return (
+      <span className="text-2xl font-bold">
+        Erro ao carregar fotos do subproduto.
+      </span>
+    );
+
+  return items.map((foto) => (
+    <BannerImage
+      className="bg-white"
+      key={foto?.nmpath}
+      src={foto?.nmpath}
+      alt={foto?.nmsubproduto}
     />
+  ));
+};
+
+const subProdutosToSelect = (
+  subproduto,
+  subprodutosFotos,
+  subprodutosPrecos,
+) => {
+  const foto = subprodutosFotos.find(
+    (item) => item.cdsubproduto == subproduto.cdsubproduto,
+  );
+
+  const preco = subprodutosPrecos.find(
+    (item) => item.cdsubproduto == subproduto.cdsubproduto,
+  );
+
+  return {
+    label: serializeLabel(subproduto.nmsubproduto),
+    strongLabel: serializeStrongLabel(subproduto.nmsubproduto),
+    value: subproduto.cdsubproduto,
+    src: foto?.nmpath || "/logo-192x192.png",
+    aspect: foto?.nmaspect,
+    price: preco?.vlsubproduto,
+  };
+};
+
+const mapSubProdutosToSelect = (
+  subprodutos = [],
+  subprodutosFotos = [],
+  subprodutosPrecos = [],
+) => {
+  return subprodutos.map((item) =>
+    subProdutosToSelect(item, subprodutosFotos, subprodutosPrecos),
   );
 };
 
 export default function Product({ ...props }) {
-  const { validationSchema, whatsappLoja = "" } = props;
-
   const {
-    formik,
-    getLabel,
-    sendFormToWhatsapp,
-    goToDeliveryForm,
-    bannerShape,
-    bannerPaddle,
-    prices,
-    calcularTotal,
-    showFaceplateGrips,
-    onChange,
-    confirmModal,
-  } = useProduct({
+    validationSchema,
+    whatsappLoja = "",
+    produto,
+    subprodutos,
+    subprodutosFotos,
+    subprodutosPrecos,
+  } = props;
+
+  const { formik, sendFormToWhatsapp, onChange } = useProduct({
     ...props,
     WHATSAPP_LOJA: whatsappLoja,
     defaultValues: props.defaultValues,
     validationSchema: getYupSchema(validationSchema),
   });
 
+  if (!produto) throw new Error("O campo produto é obrigatório");
+
   const { values } = formik;
 
+  const valorSubProduto = (arr = [], cdsubproduto) => {
+    const preco = arr.find((item) => item.cdsubproduto == cdsubproduto);
+
+    return floatToBRL(preco?.vlsubproduto);
+  };
+
+  const getNmSubProduto = (arr = [], cdsubproduto) => {
+    const result = arr.find((item) => item.cdsubproduto == cdsubproduto);
+
+    return result?.nmsubproduto;
+  };
+
+  const total = (subprodutosPrecos, subprodutosIds) => {
+    const arr = subprodutosPrecos.filter((item) =>
+      subprodutosIds.includes(item.cdsubproduto),
+    );
+
+    return floatToBRL(
+      arr.reduce((acc, curr) => acc + Number(curr.vlsubproduto), 0),
+    );
+  };
+
+  const getSubProdutosFotosPorTipo = (fotos = [], tipo = "") => {
+    return fotos.filter(
+      (item) =>
+        item.nmsubprodutofototipo == tipo ||
+        item.nmsubprodutofototipo == "BANNER/AVATAR",
+    );
+  };
+
+  const getSubProdutosPorTipo = (subprodutos = [], tipo = "") => {
+    return subprodutos.filter(
+      (item) =>
+        item.nmsubprodutotipo == tipo ||
+        item.nmsubprodutofototipo == "BANNER/AVATAR",
+    );
+  };
+
+  const getSubProdutosFotosPorCdSubProduto = (
+    subprodutosFotos = [],
+    cdsubproduto = "",
+  ) => {
+    return subprodutosFotos.filter((item) => item.cdsubproduto == cdsubproduto);
+  };
+
+  const getSemPaddlesId = (paddles) =>
+    paddles?.find((paddle) =>
+      paddle?.nmsubproduto?.toLowerCase()?.includes("sem"),
+    )?.cdsubproduto;
+
+  const server = {
+    shapes: getSubProdutosPorTipo(subprodutos, "SHAPE"),
+    paddles: getSubProdutosPorTipo(subprodutos, "PADDLE"),
+    paddlesClicks: getSubProdutosPorTipo(subprodutos, "PADDLE_CLICK"),
+    paddlesColors: getSubProdutosPorTipo(subprodutos, "PADDLE_COLOR"),
+    triggerClicks: getSubProdutosPorTipo(subprodutos, "TRIGGER_CLICK"),
+    grips: getSubProdutosPorTipo(subprodutos, "GRIP"),
+    faceplateGrips: getSubProdutosPorTipo(subprodutos, "FACEPLATE_GRIP"),
+    vibrations: getSubProdutosPorTipo(subprodutos, "VIBRATION"),
+  };
+
+  const semPaddlesId = getSemPaddlesId(server.paddles);
+
   return (
-    <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 max-lg:bg-slate-50 lg:items-start lg:justify-center lg:gap-4">
-      <section className="#banners m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
-        {bannerShape?.map((item) => (
-          <BannerImage key={item.label} src={item.src} alt={item.label} />
-        ))}
-        <BannerImage
-          className="bg-white"
-          key={values.paddles}
-          src={bannerPaddle}
-          alt={values.paddles}
-        />
-      </section>
-      <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl p-4 opacity-100 brightness-100 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-white lg:shadow-lg xl:max-w-[660px]">
-        <header className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
-          <h2 className="text-3xl font-bold">{props.title}</h2>
-          <span className="text-base font-semibold tracking-wide">
-            A partir de
-            <strong className="ml-2 text-xl font-bold text-green-400">
-              R$ {prices.shape}
-            </strong>
-          </span>
-        </header>
-        <div className="w-full md:px-8 lg:hidden">
-          <Carousel effect="scrollx" className="relative aspect-square w-full">
-            {bannerShape?.map((item) => (
-              <BannerImage key={item.label} src={item.src} alt={item.label} />
-            ))}
-            <BannerImage
-              key={values.paddles}
-              src={bannerPaddle}
-              alt={values.paddles}
+    <>
+      <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
+        <section className="#banners sticky top-20 m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
+          <If
+            condition={server.shapes.length > 0}
+            fallback={"Nenhum shape encontrado."}
+          >
+            <BannerSubProduto
+              items={getSubProdutosFotosPorTipo(
+                getSubProdutosFotosPorCdSubProduto(
+                  subprodutosFotos,
+                  values.shape || server.shapes[0].cdsubproduto,
+                ),
+                "BANNER",
+              )}
             />
-          </Carousel>
-        </div>
+          </If>
 
-        <ImageSelect
-          onChange={onChange}
-          name="shape"
-          isBanner
-          value={values.shape}
-          noItemLabel
-          error={formik.errors.shape}
-          items={props.shapes}
-        />
+          <If
+            condition={server.paddles.length > 0}
+            fallback={<span>Erro ao carregar paddles.</span>}
+          >
+            <BannerSubProduto
+              items={getSubProdutosFotosPorTipo(
+                getSubProdutosFotosPorCdSubProduto(
+                  subprodutosFotos,
+                  values.paddles || server.paddles[0].cdsubproduto,
+                ),
+                "BANNER",
+              ).slice(0, 1)}
+            />
+          </If>
+        </section>
+        <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl p-4 opacity-100 brightness-100 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-white lg:shadow-lg xl:max-w-[660px]">
+          <header className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
+            <h2 className="text-3xl font-bold">{props.title}</h2>
+            <span className="text-base font-semibold tracking-wide">
+              A partir de
+              <strong className="ml-2 text-xl font-bold text-green-400">
+                <If
+                  condition={server.shapes.length > 0}
+                  fallback={<span>Erro carregando preço inicial</span>}
+                >
+                  {valorSubProduto(
+                    subprodutosPrecos,
+                    values.shape || getFirstItem(server.shapes)?.cdsubproduto,
+                  )}
+                </If>
+              </strong>
+            </span>
+          </header>
+          <div className="w-full md:px-8 lg:hidden">
+            <Carousel
+              effect="scrollx"
+              className="relative aspect-square w-full"
+            >
+              <If
+                condition={server.paddles.length > 0}
+                fallback={<span>Erro carregando paddles.</span>}
+              >
+                <BannerSubProduto
+                  items={getSubProdutosFotosPorCdSubProduto(
+                    subprodutosFotos,
+                    values.shape || server.shapes[0].cdsubproduto,
+                    "BANNER",
+                  )}
+                />
+              </If>
+            </Carousel>
+          </div>
 
-        <div className="#description flex w-full flex-col items-start gap-3">
-          <span className="#modelName font-helveticaNeue w-full font-semibold">
-            {getLabel(props.shapes, formik.values.shape)}
-          </span>
-          <p className="font-helvetica w-full text-sm font-light leading-6 tracking-[0.0125em]">
-            {props.description}
-          </p>
-        </div>
+          <If
+            condition={server.shapes.length > 0}
+            fallback={<span>Erro ao carregar shapes</span>}
+          >
+            <ImageSelect
+              onChange={onChange}
+              name="shape"
+              isBanner
+              value={values.shape}
+              noItemLabel
+              error={formik.errors.shape}
+              items={mapSubProdutosToSelect(
+                server.shapes,
+                getSubProdutosFotosPorTipo(subprodutosFotos, "AVATAR"),
+                subprodutosPrecos,
+              )}
+            />
+          </If>
 
-        <ImageSelect
-          onChange={onChange}
-          name="paddles"
-          value={values.paddles}
-          error={formik.errors.paddles}
-          label="PADDLES PG"
-          carouselImageClassname={"data-[svg=true]:w-[94px]"}
-          items={props.paddles}
-        />
+          <div className="#description flex w-full flex-col items-start gap-3">
+            <span className="#modelName font-helveticaNeue w-full font-semibold">
+              <If
+                condition={server.shapes.length > 0}
+                fallback={<span>...</span>}
+              >
+                {getNmSubProduto(
+                  server.shapes,
+                  values.shape ||
+                    getFirstItem(server.shapes.filter)?.cdsubproduto,
+                )}
+              </If>
+            </span>
+            <p className="font-helvetica w-full text-sm font-light leading-6 tracking-[0.0125em]">
+              {produto.deproduto}
+            </p>
+          </div>
 
-        {values.paddles != "sem" && (
-          <ImageSelect
-            onChange={onChange}
-            name="paddlesClick"
-            value={values.paddlesClick}
-            error={formik.errors.paddlesClick}
-            label="OPÇÕES DE CLICKS ( PADDLES )"
-            items={props.paddlesClicks}
-          />
-        )}
+          <If
+            condition={server.paddles.length > 0}
+            fallback={<span>Erro ao carregar paddles</span>}
+          >
+            <ImageSelect
+              onChange={(key, value) => {
+                if (value == semPaddlesId) {
+                  formik.setFieldValue("hidePaddles", "S");
+                } else {
+                  formik.setFieldValue("hidePaddles", "N");
+                }
+                return onChange(key, value);
+              }}
+              name="paddles"
+              value={values.paddles}
+              error={formik.errors.paddles}
+              label="PADDLES PG"
+              carouselImageClassname={"data-[svg=true]:w-[94px]"}
+              items={mapSubProdutosToSelect(
+                server.paddles,
+                getSubProdutosFotosPorTipo(subprodutosFotos, "AVATAR"),
+                subprodutosPrecos,
+              )}
+            />
+          </If>
 
-        {values.paddles != "sem" && (
-          <ImageSelect
-            onChange={onChange}
-            name="paddlesColor"
-            value={values.paddlesColor}
-            error={formik.errors.paddlesColor}
-            label="COR DOS PADDLES"
-            items={props.paddlesColors}
-          />
-        )}
+          <If condition={server.paddlesClicks.length > 0}>
+            {values.hidePaddles != "S" && (
+              <ImageSelect
+                onChange={onChange}
+                name="paddlesClick"
+                value={values.paddlesClick}
+                error={formik.errors.paddlesClick}
+                label="OPÇÕES DE CLICKS ( PADDLES )"
+                items={mapSubProdutosToSelect(
+                  server.paddlesClicks,
+                  getSubProdutosFotosPorTipo(subprodutosFotos, "AVATAR"),
+                  subprodutosPrecos,
+                )}
+              />
+            )}
+          </If>
 
-        <ImageSelect
-          onChange={onChange}
-          name="trigger"
-          value={values.trigger}
-          error={formik.errors.trigger}
-          label="OPÇÕES DE GATILHOS"
-          items={props.triggers}
-        />
+          <If condition={server.paddlesClicks.length > 0}>
+            {values.hidePaddles != "S" && (
+              <ImageSelect
+                onChange={onChange}
+                name="paddlesColor"
+                value={values.paddlesColor}
+                error={formik.errors.paddlesColor}
+                label="COR DOS PADDLES"
+                items={mapSubProdutosToSelect(
+                  server.paddlesColors,
+                  getSubProdutosFotosPorTipo(subprodutosFotos, "AVATAR"),
+                  subprodutosPrecos,
+                )}
+              />
+            )}
+          </If>
 
-        <div className="max-xl:flex max-xl:w-full max-xl:flex-col max-xl:items-start max-xl:gap-8 xl:grid xl:auto-cols-max xl:grid-flow-col xl:items-center xl:gap-2">
-          <ImageSelect
-            onChange={onChange}
-            name="grip"
-            value={values.grip}
-            error={formik.errors.grip}
-            label="PINTURA GRIP"
-            items={props.grips}
-          />
-          {showFaceplateGrips && (
-            <>
+          <If condition={server.triggerClicks.length > 0}>
+            <ImageSelect
+              onChange={onChange}
+              name="trigger"
+              value={values.trigger}
+              error={formik.errors.trigger}
+              label="OPÇÕES DE GATILHOS"
+              items={mapSubProdutosToSelect(
+                server.triggerClicks,
+                getSubProdutosFotosPorTipo(subprodutosFotos, "AVATAR"),
+                subprodutosPrecos,
+              )}
+            />
+          </If>
+
+          <div className="max-xl:flex max-xl:w-full max-xl:flex-col max-xl:items-start max-xl:gap-8 xl:grid xl:auto-cols-max xl:grid-flow-col xl:items-center xl:gap-2">
+            <If condition={server.grips.length > 0}>
+              <ImageSelect
+                onChange={onChange}
+                name="grip"
+                value={values.grip}
+                error={formik.errors.grip}
+                label="PINTURA GRIP"
+                items={mapSubProdutosToSelect(
+                  server.grips,
+                  getSubProdutosFotosPorTipo(subprodutosFotos, "AVATAR"),
+                  subprodutosPrecos,
+                )}
+              />
+            </If>
+            <If condition={server.faceplateGrips.length > 0}>
               <div className="flex max-xl:hidden">
                 <div className="mx-2 inline-block h-[100px] min-h-[1em] w-0.5 self-stretch bg-gray-700 opacity-100 dark:opacity-50"></div>
               </div>
@@ -181,72 +372,79 @@ export default function Product({ ...props }) {
                 error={formik.errors.faceplateGrip}
                 className="lg:h-4/5"
                 label="Adicionar grip ao faceplate"
-                items={props.faceplateGrips}
+                items={mapSubProdutosToSelect(
+                  server.faceplateGrips,
+                  getSubProdutosFotosPorTipo(subprodutosFotos, "AVATAR"),
+                  subprodutosPrecos,
+                )}
               />
-            </>
-          )}
-        </div>
-
-        {/* <ImageSelect
-          onChange={onChange}
-          name="faceplateGrip"
-          value={values.faceplateGrip}
-          error={formik.errors.faceplateGrip}
-          label="Adicionar grip ao faceplate"
-          className="sm:hidden"
-          labelClassname="font-semibold text-base max-sm:uppercase"
-          carouselLabelClassname="data-[svg=true]:text-lg font-helveticaNeue"
-          items={props.faceplateGrips}
-        /> */}
-
-        <ImageSelect
-          onChange={onChange}
-          name="vibration"
-          value={values.vibration}
-          error={formik.errors.vibration}
-          label="MOTORES DE VIBRAÇÃO"
-          items={props.vibrations}
-        />
-
-        <span className="sticky bottom-2 z-50 w-full bg-white text-2xl font-bold uppercase">
-          Total:
-          <strong className="ml-2 text-3xl font-extrabold text-green-400">
-            {calcularTotal()}
-          </strong>
-        </span>
-        <footer className="flex justify-end gap-4 w-full">
-          <div>
-            <Button
-              className="flex items-center rounded-[50%]"
-              type="primary"
-              onClick={sendFormToWhatsapp}
-              size="large"
-            >
-              <span className="pi pi-whatsapp"></span>
-            </Button>
+            </If>
           </div>
 
-          <Popconfirm
-            title="Finalizar o pedido"
-            description="Tem certeza que quer finalizar o pedido?"
-            onConfirm={formik.handleSubmit}
-            okText="Sim"
-            cancelText="Não"
-          >
-            <Button
-              className="flex items-center gap-2 rounded-full hidden"
-              type="default"
-              onClick={() => confirmModal.trigger(true)}
-              size="large"
+          <If condition={server.vibrations.length > 0}>
+            <ImageSelect
+              onChange={onChange}
+              name="vibration"
+              value={values.vibration}
+              error={formik.errors.vibration}
+              label="MOTORES DE VIBRAÇÃO"
+              items={mapSubProdutosToSelect(
+                server.vibrations,
+                getSubProdutosFotosPorTipo(subprodutosFotos, "AVATAR"),
+                subprodutosPrecos,
+              )}
+            />
+          </If>
+
+          <span className="sticky bottom-2 z-50 w-full bg-white text-2xl font-bold uppercase">
+            Total:
+            <strong className="ml-2 text-3xl font-extrabold text-green-400">
+              {total(subprodutosPrecos, [
+                values.shape,
+                values.paddles,
+                values.paddlesClick,
+                values.paddlesColor,
+                values.trigger,
+                values.grip,
+                values.faceplateGrip,
+                values.vibration,
+              ])}
+            </strong>
+          </span>
+          {JSON.stringify(formik.errors)}
+          <footer className="flex w-full justify-end gap-4">
+            <div>
+              <Button
+                className="flex items-center rounded-[50%]"
+                type="primary"
+                onClick={sendFormToWhatsapp}
+                size="large"
+              >
+                <span className="pi pi-whatsapp"></span>
+              </Button>
+            </div>
+
+            <Popconfirm
+              title="Finalizar o pedido"
+              description="Tem certeza que quer finalizar o pedido?"
+              onConfirm={formik.handleSubmit}
+              okText="Sim"
+              cancelText="Não"
             >
-              <span className="font-semibold uppercase tracking-wider">
-                Continuar
-              </span>
-              <span className="pi pi-right-arrow"></span>
-            </Button>
-          </Popconfirm>
-        </footer>
-      </section>
-    </div>
+              <Button
+                className="flex items-center gap-2 rounded-full"
+                type="default"
+                size="large"
+              >
+                <span className="font-semibold uppercase tracking-wider">
+                  Adicionar
+                </span>
+                <ShoppingCart size={32} />
+              </Button>
+            </Popconfirm>
+          </footer>
+        </section>
+      </div>
+    </>
   );
 }

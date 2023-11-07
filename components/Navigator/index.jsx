@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Breadcrumb } from "antd";
+import { Breadcrumb, Layout } from "antd";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -36,19 +36,19 @@ const ItemTemplate = (item, options) => {
 const exclusivosItems = [
   {
     key: "1",
-    label: <Link href="/exclusivos/obsidian">Obsidian</Link>,
+    label: <Link href="/exclusivos/obsidian">PG Obsidian PS5</Link>,
   },
   {
     key: "2",
-    label: <Link href="/exclusivos/speakeasy">Speakeasy</Link>,
+    label: <Link href="/exclusivos/speakeasy">PG Speakeasy PS5</Link>,
   },
   {
     key: "3",
-    label: <Link href="/exclusivos/grandmaster">Grandmaster</Link>,
+    label: <Link href="/exclusivos/grandmaster">PG Grandmaster XBOX</Link>,
   },
   {
     key: "4",
-    label: <Link href="/exclusivos/goliath">Goliath</Link>,
+    label: <Link href="/exclusivos/goliath">PG Goliath PS4</Link>,
   },
 ];
 
@@ -56,6 +56,20 @@ const pathsConfig = [
   {
     path: "home",
     items: [{ title: <ItemTemplate icon="pi pi-home" url="/" /> }],
+  },
+  {
+    path: "carrinho",
+    items: [
+      {
+        title: (
+          <ItemTemplate
+            label="Carrinho"
+            icon="pi pi-shopping-cart"
+            url="/carrinho"
+          />
+        ),
+      },
+    ],
   },
   {
     path: "exclusivos",
@@ -70,7 +84,9 @@ const pathsConfig = [
     path: "obsidian",
     items: [
       {
-        title: <ItemTemplate label="Obsidian" url="/obsidian" />,
+        title: (
+          <ItemTemplate label="PG Obsidian PS5" url="/exclusivos/obsidian" />
+        ),
       },
     ],
   },
@@ -78,7 +94,9 @@ const pathsConfig = [
     path: "speakeasy",
     items: [
       {
-        title: <ItemTemplate label="Speakeasy" url="/speakeasy" />,
+        title: (
+          <ItemTemplate label="PG Speakeasy PS5" url="/exclusivos/speakeasy" />
+        ),
       },
     ],
   },
@@ -86,7 +104,9 @@ const pathsConfig = [
     path: "goliath",
     items: [
       {
-        title: <ItemTemplate label="Goliath" url="/exclusivos/goliath" />,
+        title: (
+          <ItemTemplate label="PG Goliath XBOX" url="/exclusivos/goliath" />
+        ),
       },
     ],
   },
@@ -95,7 +115,10 @@ const pathsConfig = [
     items: [
       {
         title: (
-          <ItemTemplate label="Grandmaster" url="/exclusivos/grandmaster" />
+          <ItemTemplate
+            label="PG Grandmaster PS4"
+            url="/exclusivos/grandmaster"
+          />
         ),
       },
     ],
@@ -130,31 +153,43 @@ const getPathsItems = (_paths) => {
   return pathsItems;
 };
 
-export default function Navigator({ children, ...props }) {
+export default function Navigator({ children, carrinho = {}, ...props }) {
   const pathName = usePathname();
 
-  const hide = () => {
-    if (pathName.includes("/login")) return true;
+  // const hide = () => {
+  //   if (pathName.includes("/login")) return true;
 
-    return false;
-  };
+  //   return false;
+  // };
 
   const items = getPathsItems(pathName.split("/").filter((path) => path));
   return (
     <>
-      <HeaderNavigator />
-      <section className="flex min-h-screen flex-col items-center justify-start gap-8 max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]">
-        <Breadcrumb
-          data-hide={hide()}
+      <Layout className="flex w-screen max-w-full items-center">
+        <Layout.Header
           style={{
-            background: "transparent !important",
-            border: "none !important",
+            position: "sticky",
+            top: 0,
+            zIndex: 1,
+            width: "100%",
           }}
-          className="flex w-full px-4 data-[hide=true]:hidden"
-          items={items}
-        />
-        {children}
-      </section>
+          className="bg-white shadow-md"
+        >
+          <HeaderNavigator />
+        </Layout.Header>
+        <Layout.Content className="flex min-h-screen flex-col items-center justify-start gap-8 py-6 max-lg:w-[100vw] max-lg:bg-slate-50 lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]">
+          <Breadcrumb
+            // data-hide={hide()}
+            style={{
+              background: "transparent !important",
+              border: "none !important",
+            }}
+            className="flex w-full px-4 data-[hide=true]:hidden"
+            items={items}
+          />
+          {children}
+        </Layout.Content>
+      </Layout>
     </>
   );
 }

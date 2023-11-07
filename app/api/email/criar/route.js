@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import { Email } from "@/components/email/criar-pedido";
 import { NextResponse } from "next/server";
 
-import {writeFileSync} from 'fs'
+import { writeFileSync } from "fs";
 
 export async function POST(req, res) {
   // const body = await req.json();
@@ -20,7 +20,7 @@ export async function POST(req, res) {
 
   const emailHtml = render(Email());
 
-  writeFileSync('criar-pedido.html', emailHtml)
+  writeFileSync("criar-pedido.html", emailHtml);
 
   // const options = {
   //   from: process.env.ENVELOPE_FROM,
@@ -31,5 +31,5 @@ export async function POST(req, res) {
 
   // await transporter.sendMail(options);
 
-  return NextResponse.json("OK", { status: 200 });
+  return NextResponse.json(emailHtml, { status: 200 });
 }

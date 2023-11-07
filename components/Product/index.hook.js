@@ -1,7 +1,7 @@
+import { cadastrarPacoteComItens } from "@/actions/cadastrar-pacote-carrinho";
 import { useCarrinhoStore } from "@/store/carrinho";
 import { useFormik } from "formik";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 import * as Yup from "yup";
 
@@ -9,13 +9,6 @@ export const useProduct = ({ ...props } = {}) => {
   const searchParams = useSearchParams();
   const pathName = usePathname();
   const router = useRouter();
-
-  const [isModalOpen, triggerModal] = useState(false);
-
-  const confirmModal = {
-    open: isModalOpen,
-    trigger: triggerModal,
-  };
 
   const {
     WHATSAPP_LOJA = "",
@@ -28,19 +21,20 @@ export const useProduct = ({ ...props } = {}) => {
       trigger: Yup.string().required("Required"),
       grip: Yup.string().required("Required"),
       vibration: Yup.string().required("Required"),
+      hidePaddles: Yup.string().max(1).optional(),
     }),
   } = props;
 
   const getDefaultValues = () => {
     let _defaultValues = {
-      shape: "",
-      paddles: "",
-      paddlesClick: "",
-      paddlesColor: "",
-      trigger: "",
-      grip: "",
-      faceplateGrip: "",
-      vibration: "",
+      shape: null,
+      paddles: null,
+      paddlesClick: null,
+      paddlesColor: null,
+      trigger: null,
+      grip: null,
+      faceplateGrip: null,
+      vibration: null,
     };
 
     if (defaultValues)
@@ -73,9 +67,9 @@ export const useProduct = ({ ...props } = {}) => {
       : `https://${hostname}`;
   };
 
-  const getLabel = (items, value) => {
-    if (!items) return null;
-    return items.find((item) => item.value === value)?.label;
+  const getProductUrl = (values) => {
+    if (!values) return "";
+    return `${pathName}?${valuesToQueryString(values)}`;
   };
 
   const productSource = () =>
@@ -108,118 +102,76 @@ export const useProduct = ({ ...props } = {}) => {
     validationSchema,
     validateOnBlur: false,
     validateOnChange: false,
-    onSubmit: (values) => {
-      const hasPaddles = values.paddles != "sem";
-
-      if (!hasPaddles) {
-        values.paddlesClick = undefined;
-        values.paddlesColor = undefined;
+    onSubmit: async (values) => {
+      if (values.hidePaddles == "S") {
+        delete values.paddlesClick;
+        delete values.paddlesColor;
       }
 
-      // const produtos = Array.from(state.produtos);
-      const produtos = []
+      const productUrl = getProductUrl(values);
 
-      const getItemFromData = (key, value) =>
-        value ? props[key].find((item) => item.value == value) : undefined;
-
-      const shape = getItemFromData("shapes", values.shape);
-      const paddles = getItemFromData("paddles", values.paddles);
-      const paddlesClick = getItemFromData(
-        "paddlesClicks",
-        values.paddlesClick,
-      );
-      const paddlesColor = getItemFromData(
-        "paddlesColors",
-        values.paddlesColor,
-      );
-      const trigger = getItemFromData("triggers", values.trigger);
-      const grip = getItemFromData("grips", values.grip);
-      const faceplateGrip = getItemFromData(
-        "faceplateGrips",
-        values.faceplateGrip,
-      );
-      const vibration = getItemFromData("vibrations", values.vibration);
-
-      const fields = {
-        shape,
-        paddles,
-        paddlesClick,
-        paddlesColor,
-        trigger,
-        grip,
-        faceplateGrip,
-        vibration,
+      const pacote = {
+        ...props.produto,
+        subprodutos: [],
       };
 
-      for (const key of Object.keys(fields)) {
-        const item = fields[key];
-        console.log(JSON.stringify(item));
-        if (!item) continue;
+      delete values.hidePaddles;
 
-        produtos.push({
-          label: `${key} (${item.label}${
-            item.strongLabel ? ` - ${item.strongLabel}` : ""
-          })`,
-          value: `${item.price}`,
-        });
+      for (const key of Object.keys(values)) {
+        const value = values[key];
+
+        if (
+          !value ||
+          value == undefined ||
+          value.includes("null") ||
+          value.includes("undefined")
+        )
+          continue;
+
+        const subproduto = props.subprodutos.find(
+          (subproduto) => subproduto.cdsubproduto == value,
+        );
+
+        pacote.subprodutos.push(subproduto);
+        // pacote.subprodutos.push(value);
       }
 
-      actions.update('produtos', [{
-        title: props.title,
-        items: produtos
-      }])
+      // cadastrarPacoteComItens({
+      //   cdproduto: pacote.cdproduto,
+      //   cdsubprodutos: pacote.subprodutos.map((subproduto) => subproduto.cdsubproduto),
+      //   foto:
+      // })
 
-      router.push(`${pathName}?${valuesToQueryString(values)}`);
-      router.push(`/formulario-entrega`)
+      const bannerPacote = props.subprodutosFotos.filter(
+        (foto) => foto.cdsubproduto == values.shape && foto.nmsubprodutofototipo == 'BANNER',
+      )[0]
+
+      
+      // console.log({ values, productUrl });
+
+      await cadastrarPacoteComItens({
+        cdproduto: pacote.cdproduto,
+        pathname: productUrl,
+        cdsubprodutos: pacote.subprodutos.map(
+          (subproduto) => subproduto.cdsubproduto,
+        ),
+        foto: {
+          nmpath: bannerPacote.nmpath.replace(process.env.NEXT_PUBLIC_STORAGE_PUBLIC, ''),
+          nmaspect: bannerPacote.nmaspect,
+          nmmimetype: bannerPacote.nmmimetype,
+        }
+      })
+
+
+      // return;
+
+      // actions.update("produtos", produtos);
+
+      // console.log("producturl \n", productUrl);
+
+      router.push(productUrl);
     },
   });
-
-  function buscarPreco(lista, value) {
-    if (!lista || !lista.length || !value || value == undefined) return null;
-    return parseFloat(
-      lista.find((item) => item.value == value)?.price.replace(",", "."),
-    );
-  }
-
-  const bannerShape = props.shapes?.find(
-    (item) => item.value === formik.values.shape,
-  ).items;
-
-  const bannerPaddle = formik.values.paddles
-    ? props.banners[formik.values.paddles]
-    : props.banners[Object.keys(props.banners)[0]];
-
-  const prices = {
-    shape: buscarPreco(props.shapes, formik.values.shape) || 0,
-    paddles: buscarPreco(props.paddles, formik.values.paddles) || 0,
-    paddlesClick:
-      buscarPreco(props.paddlesClicks, formik.values.paddlesClick) || 0,
-    paddlesColor:
-      buscarPreco(props.paddlesColors, formik.values.paddlesColor) || 0,
-    trigger: buscarPreco(props.triggers, formik.values.trigger) || 0,
-    grip: buscarPreco(props.grips, formik.values.grip) || 0,
-    faceplateGrip:
-      buscarPreco(props.faceplateGrips, formik.values.faceplateGrip) || 0,
-    vibration: buscarPreco(props.vibrations, formik.values.vibration) || 0,
-  };
-
-  const calcularTotal = () => {
-    const formatter = new Intl.NumberFormat("pt-BR");
-
-    return formatter.format(
-      prices.shape +
-        prices.paddles +
-        prices.paddlesClick +
-        prices.paddlesColor +
-        prices.trigger +
-        prices.grip +
-        prices.faceplateGrip +
-        prices.vibration,
-    );
-  };
-
-  const showFaceplateGrips =
-    props.faceplateGrips && props.faceplateGrips.length > 0;
 
   function onChange(key, value) {
     if (key == "paddles" && value == "sem") {
@@ -233,14 +185,7 @@ export const useProduct = ({ ...props } = {}) => {
   return {
     formik,
     sendFormToWhatsapp,
-    getLabel,
     goToDeliveryForm,
-    bannerShape,
-    bannerPaddle,
-    prices,
-    calcularTotal,
-    showFaceplateGrips,
     onChange,
-    confirmModal,
   };
 };
