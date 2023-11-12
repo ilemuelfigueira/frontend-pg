@@ -22,6 +22,17 @@ module.exports = {
           $cinza: "#6F6F6F",
         },
       },
+      keyframes: {
+        slideInLeft: {
+          "0%": { transform: "translateX(-100%)", opacity: 0 },
+          "100%": { transform: "translateX(0)", opacity: 1 },
+        },
+      },
+      animation: {
+        slideInLeftFast: "slideInLeft 0.5s ease-in-out",
+        slideInLeft: "slideInLeft 1s ease-in-out",
+        slideInLeftSlow: "slideInLeft 1.5s ease-in-out",
+      },
     },
   },
   plugins: [],
