@@ -2,16 +2,21 @@
 
 import ImageSelect, { ImageSelectLoading } from "@/components/ImageSelect";
 import { useProduct } from "./index.hook";
-import { Button, Carousel, Popconfirm } from "antd";
+import { Button, Popconfirm } from "antd";
 import { getYupSchema } from "@/lib/YupSchemas";
 import { twMerge } from "tailwind-merge";
 import Image from "@/components/Image";
-import { down } from "@/hooks/loader";
 import { serializeLabel, serializeStrongLabel } from "@/lib/util/string";
 import { getFirstItem } from "@/lib/util/array";
 import If from "@/components/If";
 import { floatToBRL } from "@/lib/util/intl";
 import { ShoppingCart } from "@phosphor-icons/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { Autoplay, Mousewheel, Pagination } from "swiper/modules";
+
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 const BannerImage = ({ children, ...props }) => {
   return (
@@ -165,7 +170,7 @@ export default function Product({ ...props }) {
   return (
     <>
       <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
-        <section className="#banners animate-slideInLeftSlow sticky top-20 m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
+        <section className="#banners sticky top-20 m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] animate-slideInLeftSlow flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
           <If
             condition={server.shapes.length > 0}
             fallback={"Nenhum shape encontrado."}
@@ -196,7 +201,7 @@ export default function Product({ ...props }) {
             />
           </If>
         </section>
-        <section className="#personalizacao animate-appearSlow flex flex-col items-start justify-start gap-8 rounded-xl p-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-white lg:shadow-lg xl:max-w-[660px]">
+        <section className="#personalizacao flex animate-appearSlow flex-col items-start justify-start gap-8 rounded-xl p-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-white lg:shadow-lg xl:max-w-[660px]">
           <header className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
             <h2 className="text-3xl font-bold">{props.title}</h2>
             <span className="text-base font-semibold tracking-wide">
@@ -218,10 +223,21 @@ export default function Product({ ...props }) {
             <If
               condition={server.shapes.length > 0 && server.paddles.length > 0}
             >
-              <Carousel
-                effect="scrollx"
-                // effect="scrollx"
-                // className="relative aspect-square w-full"
+              <Swiper
+                direction="horizontal"
+                autoplay={{
+                  delay: 5000,
+                  stopOnLastSlide: false,
+                }}
+                pagination={{
+                  clickable: true,
+                }}
+                scrollbar={{
+                  enabled: true,
+                }}
+                rewind={true}
+                className="aspect-square h-[530px]"
+                modules={[Pagination, Autoplay, Mousewheel]}
               >
                 {getSubProdutosFotosPorTipo(
                   getSubProdutosFotosPorCdSubProduto(
@@ -230,29 +246,38 @@ export default function Product({ ...props }) {
                   ),
                   "BANNER",
                 ).map((foto) => (
-                  <BannerImage
-                    className="bg-white"
-                    key={foto?.nmpath}
-                    src={foto?.nmpath}
-                    alt={foto?.nmsubproduto}
-                  />
+                  <SwiperSlide key={foto?.nmpath}>
+                    <BannerImage
+                      className="bg-white"
+                      src={foto?.nmpath}
+                      alt={foto?.nmsubproduto}
+                    />
+                  </SwiperSlide>
                 ))}
 
                 <If
                   condition={server.paddles.length > 0}
                   fallback={<span>Erro ao carregar paddles.</span>}
                 >
-                  <BannerSubProduto
-                    items={getSubProdutosFotosPorTipo(
-                      getSubProdutosFotosPorCdSubProduto(
-                        subprodutosFotos,
-                        values.paddles || server.paddles[0].cdsubproduto,
-                      ),
-                      "BANNER",
-                    ).slice(0, 1)}
-                  />
+                  {getSubProdutosFotosPorTipo(
+                    getSubProdutosFotosPorCdSubProduto(
+                      subprodutosFotos,
+                      values.paddles || server.paddles[0].cdsubproduto,
+                    ),
+                    "BANNER",
+                  )
+                    .slice(0, 1)
+                    .map((foto) => (
+                      <SwiperSlide key={foto?.nmpath}>
+                        <BannerImage
+                          className="bg-white"
+                          src={foto?.nmpath}
+                          alt={foto?.nmsubproduto}
+                        />
+                      </SwiperSlide>
+                    ))}
                 </If>
-              </Carousel>
+              </Swiper>
             </If>
           </div>
 
