@@ -27,11 +27,19 @@ module.exports = {
           "0%": { transform: "translateX(-100%)", opacity: 0 },
           "100%": { transform: "translateX(0)", opacity: 1 },
         },
+        appear: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
       },
       animation: {
         slideInLeftFast: "slideInLeft 0.5s ease-in-out",
         slideInLeft: "slideInLeft 1s ease-in-out",
         slideInLeftSlow: "slideInLeft 1.5s ease-in-out",
+
+        appear: "appear 1s ease-in-out",
+        appearFast: "appear 0.5s ease-in-out",
+        appearSlow: "appear 1.5s ease-in-out",
       },
     },
   },
