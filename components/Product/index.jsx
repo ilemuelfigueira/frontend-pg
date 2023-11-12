@@ -164,7 +164,7 @@ export default function Product({ ...props }) {
 
   return (
     <>
-      <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
+      <div className="animate-slideInLeft relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
         <section className="#banners sticky top-20 m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
           <If
             condition={server.shapes.length > 0}
