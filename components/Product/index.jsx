@@ -164,8 +164,8 @@ export default function Product({ ...props }) {
 
   return (
     <>
-      <div className="animate-slideInLeft relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
-        <section className="#banners sticky top-20 m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
+      <div className="relative flex w-full max-lg:flex-col max-lg:items-center max-lg:gap-4 lg:items-start lg:justify-center lg:gap-4">
+        <section className="#banners animate-slideInLeftSlow sticky top-20 m-0 flex h-fit w-full min-w-[380px] max-w-[1000px] flex-wrap justify-evenly gap-3 p-0 max-lg:hidden">
           <If
             condition={server.shapes.length > 0}
             fallback={"Nenhum shape encontrado."}
@@ -196,7 +196,7 @@ export default function Product({ ...props }) {
             />
           </If>
         </section>
-        <section className="#personalizacao flex flex-col items-start justify-start gap-8 rounded-xl p-4 opacity-100 brightness-100 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-white lg:shadow-lg xl:max-w-[660px]">
+        <section className="#personalizacao animate-appearSlow flex flex-col items-start justify-start gap-8 rounded-xl p-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-white lg:shadow-lg xl:max-w-[660px]">
           <header className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
             <h2 className="text-3xl font-bold">{props.title}</h2>
             <span className="text-base font-semibold tracking-wide">
@@ -215,23 +215,45 @@ export default function Product({ ...props }) {
             </span>
           </header>
           <div className="w-full md:px-8 lg:hidden">
-            <Carousel
-              effect="scrollx"
-              className="relative aspect-square w-full"
+            <If
+              condition={server.shapes.length > 0 && server.paddles.length > 0}
             >
-              <If
-                condition={server.paddles.length > 0}
-                fallback={<span>Erro carregando paddles.</span>}
+              <Carousel
+                effect="scrollx"
+                // effect="scrollx"
+                // className="relative aspect-square w-full"
               >
-                <BannerSubProduto
-                  items={getSubProdutosFotosPorCdSubProduto(
+                {getSubProdutosFotosPorTipo(
+                  getSubProdutosFotosPorCdSubProduto(
                     subprodutosFotos,
                     values.shape || server.shapes[0].cdsubproduto,
-                    "BANNER",
-                  )}
-                />
-              </If>
-            </Carousel>
+                  ),
+                  "BANNER",
+                ).map((foto) => (
+                  <BannerImage
+                    className="bg-white"
+                    key={foto?.nmpath}
+                    src={foto?.nmpath}
+                    alt={foto?.nmsubproduto}
+                  />
+                ))}
+
+                <If
+                  condition={server.paddles.length > 0}
+                  fallback={<span>Erro ao carregar paddles.</span>}
+                >
+                  <BannerSubProduto
+                    items={getSubProdutosFotosPorTipo(
+                      getSubProdutosFotosPorCdSubProduto(
+                        subprodutosFotos,
+                        values.paddles || server.paddles[0].cdsubproduto,
+                      ),
+                      "BANNER",
+                    ).slice(0, 1)}
+                  />
+                </If>
+              </Carousel>
+            </If>
           </div>
 
           <If
