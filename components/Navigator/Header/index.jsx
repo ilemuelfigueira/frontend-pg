@@ -58,8 +58,9 @@ export function HeaderNavigator({ ...props }) {
           }
           className="aspect-square w-16"
         />
-        <span className="text-2xl font-semibold text-slate-600">
-          PGCUSTOM <span className="font-normal">|</span>{" "}
+        <span className="max-lg:xl font-semibold text-slate-600 lg:text-2xl flex gap-2">
+          <span>PGCUSTOM</span>
+          <span className="font-normal">|</span>
           <span className="font-normal">STORE</span>
         </span>
       </LogoContainer>
