@@ -2,8 +2,8 @@ import { Pacotes } from "@/components/Pacotes";
 import { floatToBRL } from "@/lib/util/intl";
 import { serverFetcher } from "@/lib/util/server-fetcher";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { redirect } from "next/dist/server/api-utils";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 async function loadData() {
   const cookieStore = cookies();
