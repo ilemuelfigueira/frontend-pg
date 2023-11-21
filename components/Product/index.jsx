@@ -237,7 +237,7 @@ export default function Product({ ...props }) {
                   enabled: true,
                 }}
                 rewind={true}
-                className="aspect-square h-[530px]"
+                className="aspect-square w-full"
                 modules={[Pagination, Autoplay, Mousewheel]}
               >
                 {getSubProdutosFotosPorTipo(
