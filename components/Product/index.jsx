@@ -15,8 +15,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Autoplay, Mousewheel, Pagination } from "swiper/modules";
 
-import 'swiper/css'
-import 'swiper/css/pagination'
+import "swiper/css";
+import "swiper/css/pagination";
+import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 
 const BannerImage = ({ children, ...props }) => {
   return (
@@ -458,16 +459,18 @@ export default function Product({ ...props }) {
               ])}
             </strong>
           </span>
-          {JSON.stringify(formik.errors)}
-          <footer className="flex w-full justify-end gap-4">
+          <footer className="flex w-full flex-col items-center gap-4">
             <div>
               <Button
-                className="flex items-center rounded-[50%]"
-                type="primary"
+                className="flex min-w-[250px] bg-lime-500 text-white items-center justify-center gap-2 rounded-full shadow-lg"
+                type="text"
                 onClick={sendFormToWhatsapp}
                 size="large"
               >
-                <span className="pi pi-whatsapp"></span>
+                <span className="flex items-center gap-1 font-semibold uppercase tracking-wider">
+                  COMPARTILHAR
+                </span>
+                <WhatsappLogo size={32} />
               </Button>
             </div>
 
@@ -479,8 +482,8 @@ export default function Product({ ...props }) {
               cancelText="Não"
             >
               <Button
-                className="flex items-center gap-2 rounded-full"
-                type="default"
+                className="flex min-w-[250px] items-center justify-center gap-2 rounded-full shadow-lg"
+                type="text"
                 size="large"
               >
                 <span className="font-semibold uppercase tracking-wider">
