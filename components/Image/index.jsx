@@ -37,7 +37,7 @@ export default function Image({
             )}
             priority={priority}
             data-visible={reveal}
-            alt={src}
+            alt={props.alt || "Imagem sem descrição"}
             onLoad={() => setReveal(true)}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
