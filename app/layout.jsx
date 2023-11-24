@@ -47,7 +47,7 @@ export default function RootLayout({ children, ...props }) {
   // const data = await loadData();
   return (
     <html lang="pt-BR" className={`${poppins.variable}`}>
-      <body className="mx-auto my-0 bg-slate-50 sm:w-[500px] md:w-[650px] lg:w-[800px] xl:w-[1100px] 2xl:w-[1400px]">
+      <body className="mx-auto my-0 bg-slate-50 sm:w-[500px] md:w-[700px] lg:w-[800px] xl:w-[1100px] 2xl:w-[1400px]">
         <StyledComponentsRegistry>
           <ConfigProvider theme={theme}>
             <Toaster />
