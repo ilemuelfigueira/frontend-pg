@@ -3,12 +3,12 @@ import "./globals.css";
 
 import { Poppins } from "next/font/google";
 
-import Navigator from "@/components/Navigator";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
 
 import { ConfigProvider } from "antd";
 import theme from "@/lib/AntdTheme";
 import { Toaster } from "react-hot-toast";
+import { HeaderNavigator } from "@/components/Header";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -47,13 +47,12 @@ export default function RootLayout({ children, ...props }) {
   // const data = await loadData();
   return (
     <html lang="pt-BR" className={`${poppins.variable}`}>
-      <body className="flex w-full flex-col items-center justify-center bg-slate-50 ">
+      <body className="mx-auto my-0 bg-slate-50 sm:w-[500px] md:w-[650px] lg:w-[800px] xl:w-[1100px] 2xl:w-[1400px]">
         <StyledComponentsRegistry>
           <ConfigProvider theme={theme}>
             <Toaster />
-            <Navigator>
-              {children}
-            </Navigator>
+            <HeaderNavigator />
+            {children}
           </ConfigProvider>
         </StyledComponentsRegistry>
       </body>
