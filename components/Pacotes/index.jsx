@@ -76,7 +76,7 @@ const Quantidade = ({ nuqtdpacote, cdpacote, maxMdHide = true }) => {
   return (
     <div
       data-maxMdHide={maxMdHide}
-      className="flex flex-col items-center data-[maxMdHide=false]:md:hidden data-[maxMdHide=true]:max-md:hidden"
+      className="flex flex-col items-center data-[maxMdHide=true]:max-md:hidden data-[maxMdHide=false]:md:hidden"
     >
       <span className="text-sm text-slate-500 lg:text-2xl">Quantidade</span>
       <div className="flex items-center justify-center gap-4">
@@ -146,9 +146,9 @@ const ValorPacote = ({ vlpacote, maxMdHide = true }) => {
   return (
     <div
       data-maxMdHide={maxMdHide}
-      className="flex flex-col items-center data-[maxMdHide=false]:md:hidden data-[maxMdHide=true]:max-md:hidden"
+      className="flex flex-col items-center data-[maxMdHide=true]:max-md:hidden data-[maxMdHide=false]:md:hidden"
     >
-      <span className="text-sm text-center text-slate-500 lg:text-2xl">
+      <span className="text-center text-sm text-slate-500 lg:text-2xl">
         Preço à vista
         <br /> no pix:
       </span>
@@ -162,9 +162,21 @@ const ValorPacote = ({ vlpacote, maxMdHide = true }) => {
 };
 
 const RemoverPacote = ({ cdpacote }) => {
+  const router = useRouter();
+
+  const remover = async ({ cdpacote }) => {
+    toast.loading("Removendo produto do carrinho", {
+      id: "remover-produto",
+    });
+
+    removerPacoteDoCarrinho(cdpacote, router.refresh()).then(() => {
+      toast.dismiss("remover-produto");
+      toast.success("Produto removido com sucesso");
+    });
+  };
   return (
     <span
-      onClick={() => removerPacoteDoCarrinho(cdpacote, router.refresh())}
+      onClick={() => remover({ cdpacote })}
       title="Excluir produto"
       className="flex h-fit cursor-pointer items-center justify-start text-xl font-bold text-red-500"
     >
