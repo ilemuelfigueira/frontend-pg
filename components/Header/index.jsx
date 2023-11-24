@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 const Container = ({ children, ...props }) => (
   <div
     {...props}
-    className="sticky top-0 z-40 flex h-20 w-screen max-w-full justify-between overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]"
+    className="sticky top-0 z-40 flex h-20 mb-10 w-screen max-w-full justify-between overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]"
   >
     {children}
   </div>
