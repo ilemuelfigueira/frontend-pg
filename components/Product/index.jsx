@@ -204,7 +204,7 @@ export default function Product({ ...props }) {
         </section>
         <section className="#personalizacao flex animate-appearSlow flex-col items-start justify-start gap-8 rounded-xl p-4 max-lg:w-full lg:min-w-[520px] lg:max-w-[570px] lg:bg-white lg:shadow-lg xl:max-w-[660px]">
           <header className="#header flex w-full flex-col items-start whitespace-nowrap tracking-tighter">
-            <h2 className="text-3xl font-bold">{props.title}</h2>
+            <span className="text-3xl font-bold">{props.title}</span>
             <span className="text-base font-semibold tracking-wide">
               A partir de
               <strong className="ml-2 text-xl font-bold text-green-400">
@@ -444,7 +444,7 @@ export default function Product({ ...props }) {
             />
           </If>
 
-          <span className="sticky bottom-2 z-50 w-full bg-white text-2xl font-bold uppercase">
+          <span className="sticky bottom-2 z-20 w-full bg-white text-2xl font-bold uppercase">
             Total:
             <strong className="ml-2 text-3xl font-extrabold text-green-400">
               {total(subprodutosPrecos, [
