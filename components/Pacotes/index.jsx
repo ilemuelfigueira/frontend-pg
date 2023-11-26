@@ -186,7 +186,15 @@ const RemoverPacote = ({ cdpacote }) => {
 };
 
 export function Pacotes({ pacotes = [] }) {
-  const router = useRouter();
+  if (pacotes.length === 0) {
+    return (
+      <div className="flex w-full items-center justify-center">
+        <span className="text-lg font-medium text-slate-600 md:text-xl">
+          Não há produtos no carrinho
+        </span>
+      </div>
+    );
+  }
   return (
     <>
       {pacotes.map((pacote) => (

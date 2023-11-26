@@ -43,19 +43,21 @@ export default async function Carrinho() {
   return (
     <div className="flex w-full max-w-full flex-col gap-8">
       <div className="flex w-full max-w-full justify-between border-b border-slate-600 px-4">
-        <span className="text-base md:text-2xl font-bold text-slate-800">
+        <span className="text-base font-bold text-slate-800 md:text-2xl">
           <i className="pi pi-shopping-bag"></i> PRODUTO E SERVIÇO
         </span>
         <span
           data-situacao={carrinho.sgcarrinhosituacao}
-          className="text-base md:text-2xl font-bold data-[situacao='PEN']:text-yellow-400"
+          className="text-base font-bold data-[situacao='PEN']:text-yellow-400 md:text-2xl"
         >
           {carrinho.carrinho_situacao.nmcarrinhosituacao}
         </span>
       </div>
       <Pacotes pacotes={carrinho.pacotes} />
-      <ResumoCarrinho somapacotes={somapacotes} />
-
+      <ResumoCarrinho
+        carrinhoVazio={carrinho.pacotes.length == 0}
+        somapacotes={somapacotes}
+      />
     </div>
   );
 }

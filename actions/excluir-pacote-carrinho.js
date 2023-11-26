@@ -42,7 +42,6 @@ export async function removerPacoteDoCarrinho(cdpacote, cb) {
         cdpacote,
       },
     });
+    cb;
   });
-
-  cb;
 }

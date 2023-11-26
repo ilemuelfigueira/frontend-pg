@@ -503,13 +503,17 @@ model carrinho_situacao {
 model endereco {
   cdendereco    String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   cdusuario     String   @db.Uuid
-  nmrua         String   @db.VarChar(100)
-  nurua         Int?
+  nmendereco    String   @db.VarChar(100)
+  nuendereco    Int?
   nmestado      String   @db.VarChar(50)
   nmcidade      String   @db.VarChar(100)
-  nucep         Int
-  nutelefone    Int
+  nucep         String   @db.VarChar(9)
+  nutelefone    String   @db.VarChar(15)
   deobservacoes String?  @db.VarChar(150)
+  dtnascimento  DateTime @db.Date
+  nmresponsavel String   @db.VarChar
+  nmemail       String   @db.VarChar
+  nmcomplemento String   @db.VarChar
   users         users    @relation(fields: [cdusuario], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pedido        pedido[]
 
