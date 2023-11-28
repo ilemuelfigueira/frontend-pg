@@ -1,6 +1,27 @@
 import { FormularioEntrega } from "@/components/FormularioEntrega";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function FormularioEntregaPage() {
+async function loadData() {
+  const cookiesStore = cookies();
+
+  const supabase = createServerComponentClient({
+    cookies: () => cookiesStore,
+  });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    redirect("/");
+  }
+  
+}
+
+export default async function FormularioEntregaPage() {
+  await loadData();
   return (
     <>
       <FormularioEntrega

@@ -514,6 +514,8 @@ model endereco {
   nmresponsavel String   @db.VarChar
   nmemail       String   @db.VarChar
   nmcomplemento String   @db.VarChar
+  nmuf          String?  @db.VarChar(2)
+  flpadrao      String   @default("N") @db.VarChar(1)
   users         users    @relation(fields: [cdusuario], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pedido        pedido[]
 

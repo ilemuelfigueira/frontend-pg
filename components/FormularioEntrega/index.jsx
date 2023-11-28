@@ -4,7 +4,6 @@ import {
   Button,
   Checkbox,
   DatePicker,
-  FloatButton,
   Form,
   Input,
   Popconfirm,
@@ -13,7 +12,7 @@ import {
 import { useFormularioEntrega } from "./index.hook";
 import { PhoneInput } from "../PhoneInput";
 import { CepInput } from "../CepInput";
-import { Envelope, WhatsappLogo } from "@phosphor-icons/react";
+import { Envelope } from "@phosphor-icons/react";
 
 const ItemContainer = ({ children }) => (
   <div className="md:flex md:gap-4">{children}</div>
@@ -26,7 +25,8 @@ const Container = ({ children }) => (
 );
 
 export function FormularioEntrega() {
-  const { formik, IsError, onFillCep, antdForm } = useFormularioEntrega();
+  const { formik, IsError, onFillCep, antdForm, dayjsParse } =
+    useFormularioEntrega();
 
   return (
     <Container>
@@ -40,18 +40,24 @@ export function FormularioEntrega() {
         <ItemContainer className="md:flex">
           <Form.Item
             label="Nome Completo *"
-            name="nome"
-            validateStatus={IsError("nome", "type")}
-            help={IsError("nome", "message")}
+            name="nmresponsavel"
+            validateStatus={IsError("nmresponsavel", "type")}
+            help={IsError("nmresponsavel", "message")}
+            initialValue={formik.values.nmresponsavel}
             className="md:flex-[3]"
           >
             <Input size="large" type="text" onChange={formik.handleChange} />
           </Form.Item>
           <Form.Item
             label="Data de nascimento *"
-            name="nascimento"
-            validateStatus={IsError("nascimento", "type")}
-            help={IsError("nascimento", "message")}
+            name="dtnascimento"
+            validateStatus={IsError("dtnascimento", "type")}
+            help={IsError("dtnascimento", "message")}
+            initialValue={
+              formik.values.dtnascimento
+                ? dayjsParse(formik.values.dtnascimento)
+                : undefined
+            }
             className="md:flex-[1]"
           >
             <DatePicker
@@ -59,7 +65,7 @@ export function FormularioEntrega() {
               placeholder="DD/MM/AAAA"
               format={["DD/MM/YYYY", "DD/MM/YY"]}
               onChange={(_, dateString) => {
-                formik.setFieldValue("nascimento", dateString);
+                formik.setFieldValue("dtnascimento", dateString);
               }}
             />
           </Form.Item>
@@ -68,9 +74,10 @@ export function FormularioEntrega() {
         <ItemContainer className="md:flex">
           <Form.Item
             label="Telefone *"
-            name="telefone"
-            validateStatus={IsError("telefone", "type")}
-            help={IsError("telefone", "message")}
+            name="nutelefone"
+            validateStatus={IsError("nutelefone", "type")}
+            help={IsError("nutelefone", "message")}
+            initialValue={formik.values.nutelefone}
             className="md:flex-[1]"
           >
             <PhoneInput
@@ -83,9 +90,10 @@ export function FormularioEntrega() {
           </Form.Item>
           <Form.Item
             label="Email *"
-            name="email"
-            validateStatus={IsError("email", "type")}
-            help={IsError("email", "message")}
+            name="nmemail"
+            validateStatus={IsError("nmemail", "type")}
+            help={IsError("nmemail", "message")}
+            initialValue={formik.values.nmemail}
             className="md:flex-[3]"
           >
             <Input
@@ -99,9 +107,10 @@ export function FormularioEntrega() {
         <ItemContainer className="md:flex">
           <Form.Item
             label="CEP *"
-            name="cep"
-            validateStatus={IsError("cep", "type")}
-            help={IsError("cep", "message")}
+            name="nucep"
+            validateStatus={IsError("nucep", "type")}
+            help={IsError("nucep", "message")}
+            initialValue={formik.values.nucep}
             className="md:flex-[1]"
           >
             <CepInput
@@ -116,13 +125,14 @@ export function FormularioEntrega() {
 
           <Form.Item
             label="Endereço *"
-            name="endereco"
-            validateStatus={IsError("endereco", "type")}
-            help={IsError("endereco", "message")}
+            name="nmendereco"
+            validateStatus={IsError("nmendereco", "type")}
+            help={IsError("nmendereco", "message")}
+            initialValue={formik.values.nmendereco}
             className="md:flex-[3]"
           >
             <Input
-              disabled={!IsError("cep", "type")}
+              disabled={!IsError("nucep", "type")}
               size="large"
               type="text"
               onChange={formik.handleChange}
@@ -131,15 +141,17 @@ export function FormularioEntrega() {
 
           <Form.Item
             label="Nº"
-            validateStatus={IsError("numero", "type")}
-            help={IsError("numero", "message")}
+            validateStatus={IsError("nuendereco", "type")}
+            help={IsError("nuendereco", "message")}
+            initialValue={formik.values.nuendereco}
             className="md:flex-[1]"
           >
             <Space size={1}>
               <Input
                 size="large"
                 type="number"
-                name="numero"
+                name="nuendereco"
+                defaultValue={formik.values.nuendereco}
                 disabled={formik.values.semNumero}
                 onChange={formik.handleChange}
               />
@@ -157,9 +169,10 @@ export function FormularioEntrega() {
         <ItemContainer>
           <Form.Item
             label="Estado *"
-            name="estado"
-            validateStatus={IsError("estado", "type")}
-            help={IsError("estado", "message")}
+            name="nmestado"
+            validateStatus={IsError("nmestado", "type")}
+            help={IsError("nmestado", "message")}
+            initialValue={formik.values.nmestado}
             className="md:flex-[1]"
           >
             <Input
@@ -172,9 +185,10 @@ export function FormularioEntrega() {
 
           <Form.Item
             label="Município/Cidade *"
-            name="cidade"
-            validateStatus={IsError("cidade", "type")}
-            help={IsError("cidade", "message")}
+            name="nmcidade"
+            validateStatus={IsError("nmcidade", "type")}
+            help={IsError("nmcidade", "message")}
+            initialValue={formik.values.nmcidade}
             className="md:flex-[1]"
           >
             <Input
@@ -188,24 +202,26 @@ export function FormularioEntrega() {
 
         <Form.Item
           label="Complemento *"
-          name="complemento"
-          validateStatus={IsError("complemento", "type")}
-          help={IsError("complemento", "message")}
+          name="nmcomplemento"
+          validateStatus={IsError("nmcomplemento", "type")}
+          help={IsError("nmcomplemento", "message")}
+          initialValue={formik.values.nmcomplemento}
         >
           <Input size="large" type="text" onChange={formik.handleChange} />
         </Form.Item>
 
         <Form.Item
           label="Observações"
-          name="observacoes"
-          validateStatus={IsError("observacoes", "type")}
-          help={IsError("observacoes", "message")}
+          name="deobservacoes"
+          validateStatus={IsError("deobservacoes", "type")}
+          help={IsError("deobservacoes", "message")}
+          initialValue={formik.values.deobservacoes}
         >
           <Input.TextArea
             size="large"
             type="text"
             className="h-32 resize-none"
-            placeholder="Ex: Não gosto do controle do jeito x, etc..."
+            placeholder="Rua próxima ao mercado, casa com portão azul, etc."
             onChange={formik.handleChange}
           />
         </Form.Item>
@@ -220,7 +236,7 @@ export function FormularioEntrega() {
           <Button
             type="primary"
             size="large"
-            className="flex w-full items-center justify-center"
+            className="flex w-full max-w-[400px] mx-auto items-center justify-center"
             icon={<Envelope size={24} />}
             loading={formik.isSubmitting}
           >
@@ -229,12 +245,6 @@ export function FormularioEntrega() {
             </span>
           </Button>
         </Popconfirm>
-
-        <FloatButton href="https://web.whatsapp.com/send?text=textToshare" target="_blank" icon={<WhatsappLogo />} />
-        {/* <Button type="primary" size="large" className="w-full" htmlType="submit"> */}
-        {/* <span className="font-black font-helvetica tracking-wider">Finalizar</span> */}
-        {/* <i className="pi pi-right-arrow" /> */}
-        {/* </Button> */}
       </Form>
     </Container>
   );

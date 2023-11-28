@@ -3,39 +3,75 @@ import { Form } from "antd";
 import moment from "moment";
 
 import * as Yup from "yup";
-import { criarPedido } from "@/services/email";
-import { useCarrinhoStore } from "@/store/carrinho";
 import toast from "react-hot-toast";
+import { cadastrarEndereco, upsertEndereco } from "@/actions/enderecos";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import estados from "@/public/json/estados.json";
+
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
 
 export const useFormularioEntrega = (props) => {
+  const searchParams = useSearchParams();
+  const pathName = usePathname();
+  const router = useRouter();
+
+  const getRedirectUrl = () => {
+    if (searchParams.has("redirect_url")) {
+      return searchParams.get("redirect_url");
+    }
+
+    return null;
+  };
+
   const toDate = (_, value) => {
     return moment(value, "DD/MM/YYYY").toDate();
   };
 
   const validationSchema = Yup.object({
-    nome: Yup.string().required("* Este campo é obrigatório."),
-    email: Yup.string()
+    nmresponsavel: Yup.string().required("* Este campo é obrigatório."),
+    nmemail: Yup.string()
       .email("* Digite um email válido")
       .required("* Este campo é obrigatório."),
-    telefone: Yup.string()
+    nutelefone: Yup.string()
       .matches(/\(\d{2}\)\s\d{4,5}\-\d{4}/g, "* Atenção no formato do telefone")
       .required("* Este campo é obrigatório."),
-    nascimento: Yup.date("* Digite uma data válida")
+    dtnascimento: Yup.date("* Digite uma data válida")
       .transform(toDate)
       .max(new Date(), "* A data não pode ser maior que hoje")
       .required("* Este campo é obrigatório."),
-    cep: Yup.string()
+    nucep: Yup.string()
       .max(9)
       .matches(/^[0-9]{5}-[0-9]{3}$/, "* Digite um CEP válido")
       .required("* Este campo é obrigatório."),
-    endereco: Yup.string().required("* Este campo é obrigatório."),
+    nmendereco: Yup.string().required("* Este campo é obrigatório."),
     numero: Yup.number().optional(),
     semNumero: Yup.boolean().optional(),
-    estado: Yup.string().required("* Este campo é obrigatório."),
-    cidade: Yup.string().required("* Este campo é obrigatório."),
-    complemento: Yup.string().optional(),
-    observacoes: Yup.string().optional(),
+    nmestado: Yup.string().required("* Este campo é obrigatório."),
+    nmcidade: Yup.string().required("* Este campo é obrigatório."),
+    nmcomplemento: Yup.string().optional(),
+    deobservacoes: Yup.string().optional(),
   });
+
+  const valuesToQueryString = (values) => {
+    const keys = Object.keys(values);
+    let queryString = "";
+
+    keys.forEach((key) => {
+      queryString += `${key}=${values[key]}&`;
+    });
+
+    return queryString;
+  };
+
+  const getFormUrl = (values) => {
+    if (!values) return "";
+    return `${pathName}?${valuesToQueryString(values)}`;
+  };
 
   function IsError(key, returnType = "boolean") {
     const condition = formik.touched[key] && formik.errors[key];
@@ -58,16 +94,16 @@ export const useFormularioEntrega = (props) => {
     const isError = Boolean(data.erro);
 
     if (isError) {
-      formik.setTouched({ cep: true });
-      formik.setFieldError("cep", "* CEP não encontrado");
+      formik.setTouched({ nucep: true });
+      formik.setFieldError("nucep", "* CEP não encontrado");
       return;
     }
 
-    const endereco = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+    const nmendereco = `${data.logradouro}, ${data.bairro}`;
 
-    handleFormikAndAntdFormChange("endereco", endereco);
-    handleFormikAndAntdFormChange("cidade", data.localidade);
-    handleFormikAndAntdFormChange("estado", data.estado);
+    handleFormikAndAntdFormChange("nmendereco", nmendereco);
+    handleFormikAndAntdFormChange("nmcidade", data.localidade);
+    handleFormikAndAntdFormChange("nmestado", data.estado);
   }
 
   function handleFormikAndAntdFormChange(key, value) {
@@ -75,62 +111,105 @@ export const useFormularioEntrega = (props) => {
     antdForm.setFieldsValue({ [key]: value });
   }
 
-  function getTotalProducts(produtos) {
-    let total = 0;
-    for (const produto of produtos) {
-      for (const item of produto.items) {
-        total += parseFloat(item.value.replace(",", "."));
-      }
-    }
-    return total;
+  function dayjsParse(datestring) {
+    return dayjs(datestring, "DD/MM/YYYY");
   }
 
   const [antdForm] = Form.useForm();
 
-  const { state, actions } = useCarrinhoStore();
+  const getDefaultValues = () => {
+    let _defaultValues = {
+      nmresponsavel: "",
+      nmemail: "",
+      nutelefone: "",
+      dtnascimento: undefined,
+      nucep: "",
+      nmendereco: "",
+      nuendereco: undefined,
+      semNumero: false,
+      nmestado: "",
+      nmcidade: "",
+      nmcomplemento: "",
+      deobservacoes: "",
+    };
+
+    const keys = Object.keys(_defaultValues);
+
+    keys.forEach((key) => {
+      if (searchParams.has(key)) {
+        let keyValue = searchParams.get(key);
+
+        if (key === "nuendereco") {
+          keyValue = Number(searchParams.get(key));
+        }
+
+        if (key === "semNumero") {
+          keyValue = JSON.parse(searchParams.get(key));
+        }
+
+        if (key === "dtnascimento") {
+          keyValue = moment(keyValue, "YYYY-MM-DD").format("DD/MM/YYYY");
+        }
+
+        _defaultValues[key] = keyValue;
+      }
+    });
+
+    return _defaultValues;
+  };
+
+  function getUfEstado(estado) {
+    return estados.find((item) => item.nome === estado).sigla;
+  }
 
   const formik = useFormik({
-    initialValues: {
-      nome: "",
-      email: "",
-      telefone: "",
-      nascimento: "",
-      cep: "",
-      endereco: "",
-      numero: undefined,
-      semNumero: false,
-      estado: "",
-      cidade: "",
-      complemento: "",
-      observacoes: "",
-    },
+    initialValues: getDefaultValues(),
     validateOnBlur: false,
     validateOnChange: true,
     validationSchema,
     async onSubmit(values) {
-      console.log("@onSubmit -> values", values);
+      const url = getFormUrl(values);
 
-      actions.update("nmCliente", values.nome);
-      actions.update("nmTelefone", values.telefone);
-      actions.update("nmCEP", values.cep);
-      actions.update("nmEndereco", values.endereco);
-      actions.update("nmCidade", values.cidade);
-      actions.update("nmEstado", values.estado);
-      actions.update("nmComplemento", values.complemento);
+      toast.loading("Aguarde...", { id: "cadastrar-nmendereco" });
 
-      const total = getTotalProducts(state.produtos);
+      const form = {
+        nmcidade: values.nmcidade,
+        nmresponsavel: values.nmresponsavel,
+        nmestado: values.nmestado,
+        nmendereco: values.nmendereco,
+        nuendereco: values.nuendereco,
+        nucep: values.nucep,
+        nutelefone: values.nutelefone,
+        deobservacoes: values.deobservacoes,
+        dtnascimento: values.dtnascimento,
+        nmemail: values.nmemail,
+        nmcomplemento: values.nmcomplemento,
+        nmuf: getUfEstado(values.nmestado),
+      };
 
-      actions.update("nmTotal", total);
-      actions.update("nmObservacoes", values.observacoes);
-      actions.update("nmEmailCliente", values.email);
-
-      console.log(JSON.stringify(state));
+      console.log(form)
 
       try {
-        await criarPedido(state)
-        toast.success('Pedido realizado')
+        if (searchParams.has("cdendereco")) {
+          form.cdendereco = searchParams.get("cdendereco");
+        }
+
+        await upsertEndereco({
+          ...form,
+          cdendereco: searchParams.get("cdendereco"),
+        });
+
+        toast.dismiss("cadastrar-nmendereco");
+        toast.success("Sucesso!");
+
+        if (getRedirectUrl()) {
+          return router.push(getRedirectUrl());
+        }
+
+        router.push(url);
       } catch (error) {
-        toast.error(error.message)
+        toast.dismiss("cadastrar-nmendereco");
+        toast.error(error.message);
       }
     },
   });
@@ -140,5 +219,6 @@ export const useFormularioEntrega = (props) => {
     antdForm,
     IsError,
     onFillCep,
+    dayjsParse,
   };
 };
