@@ -6,17 +6,25 @@ import LoginModal from "@/components/Modal/login";
 import RegistrarModal from "@/components/Modal/registrar";
 import { useOpen } from "@/hooks/open";
 import { useUser } from "@/hooks/user";
-import { List, ShoppingCart, UserCircle } from "@phosphor-icons/react";
+import {
+  AddressBook,
+  List,
+  Receipt,
+  ShoppingCart,
+  SignOut,
+  UserCircle,
+} from "@phosphor-icons/react";
 import { EyeClosed } from "@phosphor-icons/react/dist/ssr";
 import { Button, Drawer, Dropdown } from "antd";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const Container = ({ children, ...props }) => (
   <div
     {...props}
-    className="sticky top-0 z-40 flex h-20 mb-10 w-screen max-w-full justify-between overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]"
+    className="sticky top-0 z-40 mb-10 flex h-20 w-screen max-w-full justify-between overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]"
   >
     {children}
   </div>
@@ -32,6 +40,15 @@ const InfoContainer = ({ children, ...props }) => (
 
 const obsidianUrl =
   "/exclusivos/obsidian?shape=38e17418-703f-4620-90af-14742adea114&paddles=450ea66e-ff61-45fd-8b16-b129b12aea2d&paddlesClick=6a1149cc-a091-45c7-8bc1-d7b41f9c4ebe&paddlesColor=29f43501-db68-4ac7-ad59-15b45f819be7&trigger=ea661451-0a41-497d-8d7f-456790f9ac47&grip=a6f00944-26b7-41f6-bab6-0c7790de82e8&faceplateGrip=0e7b1b79-0cbf-4f0d-ac68-1f2a1263daa1&vibration=695989a7-7521-4ac7-a8c9-2e499e81d631&";
+
+const MenuItem = ({ href, label, Icon = null, onClick = undefined }) => {
+  return (
+    <Link className="flex items-center gap-1" href={href} onClick={onClick}>
+      <Icon className="cursor-pointer text-xl text-slate-600 lg:text-2xl" />
+      {label}
+    </Link>
+  );
+};
 
 export function HeaderNavigator({ ...props }) {
   const { existe: existeUsuario, user, sair } = useUser();
@@ -85,21 +102,39 @@ export function HeaderNavigator({ ...props }) {
                 items: [
                   {
                     label: (
-                      <a href="#" onClick={sair}>
-                        Sair
-                      </a>
+                      <MenuItem
+                        href="/enderecos"
+                        label="Endereços"
+                        Icon={AddressBook}
+                      />
                     ),
-                    key: "Sair",
                   },
                   {
-                    label: <Link href={obsidianUrl}>Obsidian</Link>,
-                    key: "Obsidian",
+                    label: (
+                      <MenuItem
+                        href="/pedidos"
+                        label="Pedidos"
+                        Icon={Receipt}
+                      />
+                    ),
+                    key: "Pedidos",
+                  },
+                  {
+                    label: (
+                      <MenuItem
+                        href="#"
+                        label={"Sair"}
+                        Icon={SignOut}
+                        onClick={sair}
+                      />
+                    ),
+                    key: "Sair",
                   },
                 ],
               }}
               trigger={["click"]}
             >
-              <a className="flex h-fit items-center gap-2 text-slate-600 max-md:hidden">
+              <a className="flex h-fit cursor-pointer items-center gap-2 text-slate-600 max-md:hidden">
                 <UserCircle size={40} />
                 <span>{user.nmUsuario || user.nmEmail}</span>
               </a>
@@ -115,9 +150,12 @@ export function HeaderNavigator({ ...props }) {
               <span className="text-lg font-bold">Entrar</span>
             </Button>
           </If>
-          <Link onClick={goToCart} href={"#"}>
-            <ShoppingCart className="cursor-pointer text-3xl text-slate-600 hover:rounded-md lg:text-4xl" />
-          </Link>
+
+          <ShoppingCart
+            onClick={goToCart}
+            className="cursor-pointer text-3xl text-slate-600 hover:rounded-md lg:text-4xl"
+          />
+
           <LoginModal
             open={openLogin.open}
             okText={"Entrar"}
