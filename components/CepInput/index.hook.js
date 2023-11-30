@@ -19,7 +19,6 @@ export function useCepInput(props) {
           toast.dismiss("cep");
           if (data.erro) toast.error("CEP não encontrado");
           else toast.success("CEP encontrado");
-          console.log(data);
         })
         .catch((err) => {
           props.onFill({ erro: err.message });
