@@ -1,6 +1,7 @@
 import { CheckoutComponent } from "@/components/CheckoutPage";
 import { serverFetcher } from "@/lib/util/server-fetcher";
 import { createServerSupabaseClient } from "@/lib/util/supabase";
+import { redirect } from "next/navigation";
 
 async function loadData() {
   const supabase = createServerSupabaseClient();
