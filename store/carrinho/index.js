@@ -1,23 +1,12 @@
 import { create } from "zustand";
-import { v4 as uuid } from 'uuid'
 
 const defaultValues = {
-  cdPedido: uuid(),
-  nmStore: 'PGCUSTOM',
-  nmCliente: '',
-  nmTelefone: '',
-  nmCEP: '',
-  nmEndereco: '',
-  nmCidade: '',
-  nmEstado: '',
-  nmComplemento: '',
-  nmTotal: '',
-  nmObservacoes: '',
-  nmEmailCliente: '',
-  produtos: []
-}
+  cdcarrinho: "",
+  cdendereco: "",
+  cdpagamento: "",
+};
 
-export const useCarrinhoStore = create((set) => ({
+export const useCheckoutStore = create((set) => ({
   state: defaultValues,
   actions: {
     update(key, value) {

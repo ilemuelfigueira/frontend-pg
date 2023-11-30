@@ -28,7 +28,7 @@ const Arrow = ({
   />
 );
 
-const Quantidade = ({ nuqtdpacote, cdpacote, maxMdHide = true }) => {
+const Quantidade = ({ nuqtdpacote, cdpacote, max_md_hide = true }) => {
   const router = useRouter();
 
   const podeDiminuir = Number(nuqtdpacote) > 1;
@@ -75,8 +75,8 @@ const Quantidade = ({ nuqtdpacote, cdpacote, maxMdHide = true }) => {
 
   return (
     <div
-      data-maxMdHide={maxMdHide}
-      className="flex flex-col items-center data-[maxMdHide=true]:max-md:hidden data-[maxMdHide=false]:md:hidden"
+      data-max_md_hide={max_md_hide}
+      className="flex flex-col items-center data-[max_md_hide=true]:max-md:hidden data-[max_md_hide=false]:md:hidden"
     >
       <span className="text-sm text-slate-500 lg:text-2xl">Quantidade</span>
       <div className="flex items-center justify-center gap-4">
@@ -142,11 +142,11 @@ const ImagemProduto = ({ cdpacote, nmpath, nmproduto, nmprodutotipo }) => {
   );
 };
 
-const ValorPacote = ({ vlpacote, maxMdHide = true }) => {
+const ValorPacote = ({ vlpacote, max_md_hide = true }) => {
   return (
     <div
-      data-maxMdHide={maxMdHide}
-      className="flex flex-col items-center data-[maxMdHide=true]:max-md:hidden data-[maxMdHide=false]:md:hidden"
+      data-max_md_hide={max_md_hide}
+      className="flex flex-col items-center data-[max_md_hide=true]:max-md:hidden data-[max_md_hide=false]:md:hidden"
     >
       <span className="text-center text-sm text-slate-500 lg:text-2xl">
         Preço à vista
@@ -223,12 +223,12 @@ export function Pacotes({ pacotes = [] }) {
             <RemoverPacote cdpacote={pacote.cdpacote} />
           </div>
           <div className="flex w-full items-center justify-between">
-            <ValorPacote vlpacote={pacote.vlpacote} maxMdHide={false} />
+            <ValorPacote vlpacote={pacote.vlpacote} max_md_hide={false} />
 
             <Quantidade
               nuqtdpacote={pacote.nuqtdpacote}
               cdpacote={pacote.cdpacote}
-              maxMdHide={false}
+              max_md_hide={false}
             />
           </div>
         </div>
