@@ -64,6 +64,10 @@ export default function RegistrarModal({
           email: values.email,
           password: values.senha,
           options: {
+            data:{
+              nome: values.nome,
+              telefone: values.telefone,
+            },
             emailRedirectTo: `${location.origin}/api/auth/callback`,
           },
         });
