@@ -1,5 +1,4 @@
 import { cadastrarPacoteComItens } from "@/actions/cadastrar-pacote-carrinho";
-import { useCarrinhoStore } from "@/store/carrinho";
 import { useFormik } from "formik";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -95,8 +94,6 @@ export const useProduct = ({ ...props } = {}) => {
     router.push("/formulario-entrega");
   };
 
-  const { state, actions } = useCarrinhoStore();
-
   const formik = useFormik({
     initialValues: getDefaultValues(),
     validationSchema,
@@ -133,22 +130,13 @@ export const useProduct = ({ ...props } = {}) => {
         );
 
         pacote.subprodutos.push(subproduto);
-        // pacote.subprodutos.push(value);
       }
-
-      // cadastrarPacoteComItens({
-      //   cdproduto: pacote.cdproduto,
-      //   cdsubprodutos: pacote.subprodutos.map((subproduto) => subproduto.cdsubproduto),
-      //   foto:
-      // })
 
       const bannerPacote = props.subprodutosFotos.filter(
         (foto) => foto.cdsubproduto == values.shape && foto.nmsubprodutofototipo == 'BANNER',
       )[0]
 
       
-      // console.log({ values, productUrl });
-
       await cadastrarPacoteComItens({
         cdproduto: pacote.cdproduto,
         pathname: productUrl,
@@ -161,13 +149,6 @@ export const useProduct = ({ ...props } = {}) => {
           nmmimetype: bannerPacote.nmmimetype,
         }
       })
-
-
-      // return;
-
-      // actions.update("produtos", produtos);
-
-      // console.log("producturl \n", productUrl);
 
       router.push(productUrl);
     },
