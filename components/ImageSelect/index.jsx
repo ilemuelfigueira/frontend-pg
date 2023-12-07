@@ -81,7 +81,7 @@ export const ImageSelectLoading = ({ title = "", size = 6 }) => {
             className={`mb-2 aspect-square h-[94px] w-[94px] select-none bg-cover bg-no-repeat p-0 hover:duration-75`}
             // data-aspect={item.aspect || "1/1"}
             src={null}
-            alt={null}
+            alt={"Imagem carregando..."}
           />
         ))}
       </div>

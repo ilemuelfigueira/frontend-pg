@@ -8,7 +8,7 @@ import If from "../If";
 
 export function ResumoCarrinho({ somapacotes, carrinhoVazio = false }) {
   return (
-    <div className="w-full flex-col items-center justify-center p-4 shadow-md">
+    <div className="w-full flex-col items-center justify-center p-4 shadow-md bg-white rounded-lg">
       <header className="flex w-full justify-between">
         <span className="text-lg font-bold text-slate-700 md:text-2xl">
           VALOR TOTAL:
