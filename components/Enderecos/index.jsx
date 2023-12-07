@@ -27,7 +27,7 @@ export function Enderecos({ enderecos }) {
         >
           <PlusCircle className="h-16 w-16" />
 
-          <span className="font-bold">Adicionar endereço</span>
+          <span className="font-light text-lg lg:text-xl">Adicionar endereço</span>
         </Link>
         {enderecos.map((endereco) => (
           <div
