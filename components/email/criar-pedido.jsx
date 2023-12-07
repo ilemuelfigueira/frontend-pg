@@ -15,8 +15,8 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-const baseUrl = process.env.STORAGE_PRODUTOS
-  ? `https://${process.env.STORAGE_PRODUTOS}`
+const baseUrl = process.env.NEXT_PUBLIC_STORAGE_PRODUTOS
+  ? `https://${process.env.NEXT_PUBLIC_STORAGE_PRODUTOS}`
   : "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos";
 
 export const Email = (props = {}) => {

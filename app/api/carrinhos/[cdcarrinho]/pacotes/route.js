@@ -42,7 +42,7 @@ export async function GET(req, { params }) {
         CONCAT(pr.nmprodutotipo, ' - ', pr.nmproduto) as concat_nmproduto,
 	      string_agg(CONCAT(spt.nmsubprodutotipo, ' - ', sp.nmsubproduto), ', ') as concat_nmsubprodutotipo,
         string_agg(sp.nmsubproduto, ', ') as concat_nmsubproduto,
-        CONCAT(${process.env.NEXT_PUBLIC_STORAGE_PRODUTOS}, COALESCE(pf2.nmpath, pf.nmpath)) as nmpath,
+        CONCAT(${process.env.STORAGE_PRODUTOS}, COALESCE(pf2.nmpath, pf.nmpath)) as nmpath,
         (SUM(COALESCE(spp.vlsubproduto, 0)) + COALESCE(pp.vlproduto, 0)) * cp.nuqtdpacote as vlpacote
       from carrinho_pacote cp
       inner join pacote p 
