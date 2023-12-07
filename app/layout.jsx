@@ -40,11 +40,11 @@ export default function RootLayout({ children, ...props }) {
     <html lang="pt-BR" className={`${poppins.variable}`}>
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
-          <body className="mx-auto my-0 mb-8 flex items-center min-h-screen flex-col bg-slate-50 sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]">
+          <body className="mx-auto my-0 mb-8 flex items-center min-h-screen flex-col bg-gray-200 sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]">
             <Toaster />
             <HeaderNavigator />
-            <div className="mb-[400px] py-2 max-lg:px-2">{children}</div>
-            <footer className="mt-auto bg-white p-4 shadow-md dark:bg-gray-900">
+            <div className="mb-[400px] py-2 max-lg:px-2 max-w-full">{children}</div>
+            <footer className="w-full mt-auto bg-white p-4 shadow-md dark:bg-gray-900">
               <div className="sm:flex sm:items-center sm:justify-between">
                 <div className="flex items-center text-center text-slate-800 dark:text-slate-300">
                   {/* <img className="aspect-square w-14" src="/logo-192x192.png" /> */}
