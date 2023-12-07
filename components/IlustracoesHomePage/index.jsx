@@ -6,6 +6,7 @@ import { Pagination, Autoplay, Mousewheel } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import Image from "next/image";
 
 export function IlustracoesHomePage() {
   return (
@@ -20,16 +21,16 @@ export function IlustracoesHomePage() {
       className="relative z-10 aspect-video w-full max-w-full"
     >
       <SwiperSlide className="z-10">
-        <img src="/xbox-dualsense.jpg" />
+        <Image fill src="/xbox-dualsense.jpg" />
       </SwiperSlide>
       <SwiperSlide className="z-10">
-        <img src="/dualsense-foco.jpg" />
+        <Image fill src="/dualsense-foco.jpg" />
       </SwiperSlide>
       <SwiperSlide className="z-10">
-        <img src="/dualsense-desfocado.jpg" />
+        <Image fill src="/dualsense-desfocado.jpg" />
       </SwiperSlide>
       <SwiperSlide className="z-10">
-        <img src="/jogatina.jpg" />
+        <Image fill src="/jogatina.jpg" />
       </SwiperSlide>
       <header className="absolute bottom-0 left-0 z-[2] flex w-full flex-col items-start justify-center bg-black bg-opacity-30 p-2 lg:p-4">
         <span className="text-xl font-medium text-white lg:text-3xl">
