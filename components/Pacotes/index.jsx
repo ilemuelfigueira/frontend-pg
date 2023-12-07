@@ -28,7 +28,12 @@ const Arrow = ({
   />
 );
 
-const Quantidade = ({ nuqtdpacote, cdpacote, max_md_hide = true }) => {
+const Quantidade = ({
+  className,
+  nuqtdpacote,
+  cdpacote,
+  max_md_hide = true,
+}) => {
   const router = useRouter();
 
   const podeDiminuir = Number(nuqtdpacote) > 1;
@@ -76,7 +81,10 @@ const Quantidade = ({ nuqtdpacote, cdpacote, max_md_hide = true }) => {
   return (
     <div
       data-max_md_hide={max_md_hide}
-      className="flex flex-col items-center data-[max_md_hide=true]:max-md:hidden data-[max_md_hide=false]:md:hidden"
+      className={twMerge(
+        "data-[max_md_hide=true]:max-md:hidden data-[max_md_hide=false]:md:hidden flex flex-col items-center",
+        className,
+      )}
     >
       <span className="text-sm text-slate-500 lg:text-2xl">Quantidade</span>
       <div className="flex items-center justify-center gap-4">
@@ -142,11 +150,14 @@ const ImagemProduto = ({ cdpacote, nmpath, nmproduto, nmprodutotipo }) => {
   );
 };
 
-const ValorPacote = ({ vlpacote, max_md_hide = true }) => {
+const ValorPacote = ({ className, vlpacote, max_md_hide = true }) => {
   return (
     <div
       data-max_md_hide={max_md_hide}
-      className="flex flex-col items-center data-[max_md_hide=true]:max-md:hidden data-[max_md_hide=false]:md:hidden"
+      className={twMerge(
+        "data-[max_md_hide=true]:max-md:hidden data-[max_md_hide=false]:md:hidden flex flex-col items-center",
+        className,
+      )}
     >
       <span className="text-center text-sm text-slate-500 lg:text-2xl">
         Preço à vista
@@ -161,7 +172,7 @@ const ValorPacote = ({ vlpacote, max_md_hide = true }) => {
   );
 };
 
-const RemoverPacote = ({ cdpacote }) => {
+const RemoverPacote = ({ className, cdpacote }) => {
   const router = useRouter();
 
   const remover = async ({ cdpacote }) => {
@@ -178,7 +189,10 @@ const RemoverPacote = ({ cdpacote }) => {
     <span
       onClick={() => remover({ cdpacote })}
       title="Excluir produto"
-      className="flex h-fit cursor-pointer items-center justify-start text-xl font-bold text-red-500"
+      className={twMerge(
+        "flex h-fit cursor-pointer items-center justify-start text-xl font-bold text-red-500",
+        className,
+      )}
     >
       <i className="pi pi-trash" />
     </span>
@@ -216,13 +230,17 @@ export function Pacotes({ pacotes = [] }) {
               nmprodutotipo={pacote.nmprodutotipo}
             />
             <Quantidade
+              className={"max-md:hidden"}
               cdpacote={pacote.cdpacote}
               nuqtdpacote={pacote.nuqtdpacote}
             />
-            <ValorPacote vlpacote={pacote.vlpacote} />
+            <ValorPacote
+              className={"max-md:hidden"}
+              vlpacote={pacote.vlpacote}
+            />
             <RemoverPacote cdpacote={pacote.cdpacote} />
           </div>
-          <div className="flex w-full items-center justify-between">
+          <div className="hidden w-full items-center justify-between max-md:flex">
             <ValorPacote vlpacote={pacote.vlpacote} max_md_hide={false} />
 
             <Quantidade

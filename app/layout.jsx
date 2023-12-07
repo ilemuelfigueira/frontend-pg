@@ -40,7 +40,7 @@ export default function RootLayout({ children, ...props }) {
     <html lang="pt-BR" className={`${poppins.variable}`}>
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
-          <body className="mx-auto my-0 mb-8 flex min-h-screen flex-col bg-slate-50 sm:w-[500px] md:w-[700px] lg:w-[800px] xl:w-[1100px] 2xl:w-[1400px]">
+          <body className="mx-auto my-0 mb-8 flex items-center min-h-screen flex-col bg-slate-50 sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]">
             <Toaster />
             <HeaderNavigator />
             <div className="mb-[400px] py-2 max-lg:px-2">{children}</div>

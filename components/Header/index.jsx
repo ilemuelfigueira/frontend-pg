@@ -15,7 +15,7 @@ import {
   UserCircle,
 } from "@phosphor-icons/react";
 import { EyeClosed } from "@phosphor-icons/react/dist/ssr";
-import { Button, Drawer, Dropdown } from "antd";
+import { Button, Drawer, Dropdown, Input } from "antd";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ import { useEffect } from "react";
 const Container = ({ children, ...props }) => (
   <div
     {...props}
-    className="sticky top-0 z-40 mb-10 flex h-20 w-screen max-w-full justify-between overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen max-lg:w-[100vw] lg:w-[90vw] xl:w-[1200px] 2xl:w-[1400px]"
+    className="sticky top-0 z-40 mb-10 flex h-20 w-screen max-w-full items-center justify-between gap-4 overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen"
   >
     {children}
   </div>
@@ -95,6 +95,7 @@ export function HeaderNavigator({ ...props }) {
             <span className="font-normal">STORE</span>
           </span>
         </LogoContainer>
+        <Input.Search placeholder="Pesquisar produto..." />
         <InfoContainer>
           <If condition={existeUsuario}>
             <Dropdown
@@ -167,9 +168,45 @@ export function HeaderNavigator({ ...props }) {
             okText={"Registrar"}
             onCancel={openRegister.handleClose}
           />
-          <Link href="#">
-            <List className="text-4xl text-slate-900 lg:text-5xl" />
-          </Link>
+
+          <Dropdown
+            className="md:hidden"
+            menu={{
+              items: [
+                {
+                  label: (
+                    <MenuItem
+                      href="/enderecos"
+                      label="Endereços"
+                      Icon={AddressBook}
+                    />
+                  ),
+                },
+                {
+                  label: (
+                    <MenuItem href="/pedidos" label="Pedidos" Icon={Receipt} />
+                  ),
+                  key: "Pedidos",
+                },
+                {
+                  label: (
+                    <MenuItem
+                      href="#"
+                      label={"Sair"}
+                      Icon={SignOut}
+                      onClick={sair}
+                    />
+                  ),
+                  key: "Sair",
+                },
+              ],
+            }}
+            trigger={["click"]}
+          >
+            <Link href="#">
+              <List className="text-4xl text-slate-900 lg:text-5xl" />
+            </Link>
+          </Dropdown>
         </InfoContainer>
       </Container>
     </>
