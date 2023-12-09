@@ -64,14 +64,15 @@ export default function RegistrarModal({
           email: values.email,
           password: values.senha,
           options: {
-            data:{
+            data: {
               nome: values.nome,
               telefone: values.telefone,
+              role: "cliente",
             },
             emailRedirectTo: `${location.origin}/api/auth/callback`,
           },
         });
-  
+
         onCancel();
         toast("Verifique sua caixa de email, para confirmar seu acesso.");
         router.push("/login");
@@ -107,7 +108,7 @@ export default function RegistrarModal({
       title={
         <div className="flex w-full items-center justify-center gap-2">
           <PencilCircle size={64} />
-          <span className="font-bold text-slate-600 text-3xl">CADASTRO</span>
+          <span className="text-3xl font-bold text-slate-600">CADASTRO</span>
         </div>
       }
       centered
@@ -149,7 +150,8 @@ export default function RegistrarModal({
             icon={<Warning size={32} />}
             color="error"
           >
-            Erro ao enviar o formulário, <br />verifique os dados inseridos ou tente novamente mais tarde.
+            Erro ao enviar o formulário, <br />
+            verifique os dados inseridos ou tente novamente mais tarde.
           </Tag>
         )}
         {formik.isSubmitting && (
@@ -227,10 +229,9 @@ export default function RegistrarModal({
             </Form.Item>
           </FormContainer>
         </Form>
-        <span
-          className="text-sm font-semibold text-slate-600 hover:cursor-pointer hover:underline"
-        >
-          Após o cadastro, verifique a caixa de spam, caso não encontre o email com o acesso.
+        <span className="text-sm font-semibold text-slate-600 hover:cursor-pointer hover:underline">
+          Após o cadastro, verifique a caixa de spam, caso não encontre o email
+          com o acesso.
         </span>
       </Container>
     </Modal>
