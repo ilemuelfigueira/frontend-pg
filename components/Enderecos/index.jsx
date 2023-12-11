@@ -27,7 +27,9 @@ export function Enderecos({ enderecos }) {
         >
           <PlusCircle className="h-16 w-16" />
 
-          <span className="font-light text-lg lg:text-xl">Adicionar endereço</span>
+          <span className="text-lg font-light lg:text-xl">
+            Adicionar endereço
+          </span>
         </Link>
         {enderecos.map((endereco) => (
           <div
@@ -50,7 +52,7 @@ export function Enderecos({ enderecos }) {
               {endereco.nmcidade} - {endereco.nmuf || endereco.nmestado}
             </span>
             <span>{endereco.nucep}</span>
-            <div className="mt-auto flex w-full justify-end gap-2">
+            <div className="mt-auto flex w-full items-center justify-end gap-2">
               <Link
                 href={`/formulario-entrega?${objectToQueryString(
                   endereco,
@@ -72,6 +74,7 @@ export function Enderecos({ enderecos }) {
               </button>
               |
               <button
+                data-padrao={endereco.flpadrao}
                 onClick={() =>
                   upsertEndereco({
                     ...endereco,
@@ -81,9 +84,9 @@ export function Enderecos({ enderecos }) {
                     ),
                   }).then(router.refresh)
                 }
-                className="hover:cursor-pointer hover:text-blue-500 active:text-slate-800"
+                className="hover:cursor-pointer hover:text-blue-500 active:text-slate-800 data-[padrao='S']:hidden"
               >
-                Marcar como padrão
+                Padrão
               </button>
             </div>
           </div>

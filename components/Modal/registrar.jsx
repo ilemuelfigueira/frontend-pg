@@ -1,6 +1,8 @@
+import { aplicarMascara } from "@/lib/util";
 import {
   At,
   CircleDashed,
+  IdentificationCard,
   Key,
   PencilCircle,
   Warning,
@@ -12,6 +14,9 @@ import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 import * as yup from "yup";
+import { CpfInput } from "../CpfInput";
+import { verificarSeUsuarioExiste } from "@/services/usuarios";
+import toast from "react-hot-toast";
 
 const Container = ({ children, ...props }) => <div {...props}>{children}</div>;
 
@@ -41,6 +46,8 @@ export default function RegistrarModal({
       telefone: "",
       senha: "",
       submitError: false,
+      cpfInvalido: false,
+      cpf: "",
     },
     validationSchema: yup.object({
       nome: yup
@@ -52,14 +59,27 @@ export default function RegistrarModal({
         .string()
         .email("Digite um email válido")
         .required("Campo obrigatório"),
+      telefone: yup.string().required("Campo obrigatório"),
+      cpf: yup
+        .string()
+        .min(14, "Cpf deve ter 11 números")
+        .max(14, "Cpf deve ter 11 números")
+        .when(
+          ["cpfInvalido"],
+          (cpfInvalido, schema) => cpfInvalido == false ? schema.resolve() : schema,
+          "Cpf já cadastrado",
+        )
+        .required("Campo obrigatório"),
       senha: yup
         .string()
         .min(5, "Digite pelo menos 5 caracteres")
         .required("Campo obrigatório"),
+      cpfInvalido: yup.boolean().required().equals([false]),
     }),
     onSubmit: async (values) => {
       formik.setFieldValue("submitError", false);
       try {
+        // TODO: verificar se existe usuário com cpf ou email já cadastrado
         await supabase.auth.signUp({
           email: values.email,
           password: values.senha,
@@ -67,6 +87,7 @@ export default function RegistrarModal({
             data: {
               nome: values.nome,
               telefone: values.telefone,
+              cpf: values.cpf,
               role: "cliente",
             },
             emailRedirectTo: `${location.origin}/api/auth/callback`,
@@ -77,7 +98,6 @@ export default function RegistrarModal({
         toast("Verifique sua caixa de email, para confirmar seu acesso.");
         router.push("/login");
       } catch (error) {
-        console.error(error.message);
         toast.error("Tente novamente mais tarde.");
         formik.setFieldValue("submitError", true);
       }
@@ -102,6 +122,30 @@ export default function RegistrarModal({
   }
 
   const [antdForm] = Form.useForm();
+
+  function handleChangeCpf(e) {
+    const valueLength = e.target.value.length;
+
+    if (valueLength === 14) {
+      formik.setFieldError("cpf", "Verificando cpf");
+      verificarSeUsuarioExiste(e.target.value).then((response) => {
+        const cpfEmUso = response.flExiste === "S";
+
+        if (cpfEmUso) {
+          formik.setFieldError("cpf", "Cpf já cadastrado");
+          formik.setFieldValue("cpfInvalido", true);
+        }
+        // } else {
+        //   formik.setFieldError("cpf", "");
+        //   formik.setFieldValue("cpfInvalido", false);
+        // }
+      });
+    }
+
+    formik.setFieldError("cpf", "123");
+
+    formik.handleChange(e);
+  }
 
   return (
     <Modal
@@ -208,6 +252,23 @@ export default function RegistrarModal({
                 prefix={<At size={24} />}
                 type="text"
                 onChange={formik.handleChange}
+              />
+            </Form.Item>
+
+            {formik.errors.cpf}
+            <Form.Item
+              label="CPF"
+              name="cpf"
+              validateStatus={IsError("cpf", "type")}
+              help={IsError("cpf", "message")}
+              className="m-0 w-full"
+            >
+              <CpfInput
+                size="large"
+                placeholder="Digite um cpf"
+                prefix={<IdentificationCard size={24} />}
+                type="text"
+                onChange={handleChangeCpf}
               />
             </Form.Item>
 

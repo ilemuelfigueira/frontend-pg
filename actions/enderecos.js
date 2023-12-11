@@ -6,6 +6,7 @@ import { createServerSupabaseClient } from "@/lib/util/supabase";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import moment from "moment";
+import { revalidateTag } from "next/cache";
 
 dayjs.extend(customParseFormat);
 
@@ -101,6 +102,8 @@ export async function upsertEndereco(endereco) {
 
     return endereco;
   });
+
+  revalidateTag('/api/enderecos')
 }
 
 export async function removerEndereco({ cdendereco }) {

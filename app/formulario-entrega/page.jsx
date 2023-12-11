@@ -15,7 +15,7 @@ async function loadData() {
   } = await supabase.auth.getSession();
 
   if (!session) {
-    redirect("/");
+    redirect("/", "push");
   }
   
 }

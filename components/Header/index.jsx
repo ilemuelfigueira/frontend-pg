@@ -110,16 +110,16 @@ export function HeaderNavigator({ ...props }) {
                       />
                     ),
                   },
-                  {
-                    label: (
-                      <MenuItem
-                        href="/pedidos"
-                        label="Pedidos"
-                        Icon={Receipt}
-                      />
-                    ),
-                    key: "Pedidos",
-                  },
+                  // {
+                  //   label: (
+                  //     <MenuItem
+                  //       href="/pedidos"
+                  //       label="Pedidos"
+                  //       Icon={Receipt}
+                  //     />
+                  //   ),
+                  //   key: "Pedidos",
+                  // },
                   {
                     label: (
                       <MenuItem

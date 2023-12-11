@@ -1,4 +1,5 @@
 import { useUser } from "@/hooks/user";
+import { setCookie } from "@/lib/util/cookie";
 import {
   At,
   CircleDashed,
@@ -62,13 +63,19 @@ export default function LoginModal({
           password: values.senha,
         });
 
-        const { error, data } = await supabase.auth.getUser();
+        const {
+          error,
+          data: { session },
+        } = await supabase.auth.getSession();
 
-        if (error) {
+        if (!session) {
           throw new Error(error);
         }
 
-        const { user } = data;
+        setCookie("access_token", session.access_token, 1);
+        setCookie("refresh_token", session.refresh_token, 1);
+
+        const { user } = session;
         substituirUsuario({
           cdUsuario: user.id,
           nmEmail: user.email,
@@ -79,7 +86,6 @@ export default function LoginModal({
         onCancel();
         router.push("/exclusivos/obsidian");
       } catch (error) {
-        console.error(error.message);
         toast.error("Login ou senha inválidos");
         formik.setFieldValue("submitError", true);
       }
@@ -110,7 +116,7 @@ export default function LoginModal({
       title={
         <div className="flex w-full items-center justify-center gap-2">
           <UserCircle size={64} />
-          <span className="font-bold text-slate-600 text-3xl">LOGIN</span>
+          <span className="text-3xl font-bold text-slate-600">LOGIN</span>
         </div>
       }
       centered

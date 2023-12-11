@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div className="w-full">
       <Breadcrumb
         items={[
           { title: <Link href="/">Início</Link> },

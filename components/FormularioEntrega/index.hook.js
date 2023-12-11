@@ -187,8 +187,6 @@ export const useFormularioEntrega = (props) => {
         nmuf: getUfEstado(values.nmestado),
       };
 
-      console.log(form)
-
       try {
         if (searchParams.has("cdendereco")) {
           form.cdendereco = searchParams.get("cdendereco");
