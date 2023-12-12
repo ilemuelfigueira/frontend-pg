@@ -1,5 +1,6 @@
 import { IlustracoesHomePage } from "@/components/IlustracoesHomePage";
 import { fetcher } from "@/lib/util/fetcher";
+import Link from "next/link";
 
 async function loadData() {
   const dataMap = new Map();
@@ -14,6 +15,18 @@ async function loadData() {
 
   return dataMap;
 }
+
+const controleExclusivoHref = (nmproduto) => {
+  if (nmproduto.toLowerCase().includes("obsidian"))
+    return "/exclusivos/obsidian";
+  if (nmproduto.toLowerCase().includes("speakeasy"))
+    return "/exclusivos/speakeasy";
+  if (nmproduto.toLowerCase().includes("goliath")) return "/exclusivos/goliath";
+  if (nmproduto.toLowerCase().includes("grandmaster"))
+    return "/exclusivos/grandmaster";
+
+  return "#";
+};
 
 export default async function Home() {
   const dataMap = await loadData();
@@ -40,8 +53,8 @@ export default async function Home() {
                   </h2>
 
                   <p class="mt-4 text-gray-500">
-                    Separamos alguns modelos exclusivos para você escolher,
-                    e também é possível personalizar o seu controle.
+                    Separamos alguns modelos exclusivos para você escolher, e
+                    também é possível personalizar o seu controle.
                   </p>
                 </header>
               </div>
@@ -57,11 +70,10 @@ export default async function Home() {
                       }}
                       key={produto.cdproduto}
                     >
-                      <a href="#" className="group block">
+                      <Link href={controleExclusivoHref(produto.nmproduto)} className="group block">
                         <img
                           src={
-                            produto.produto_foto[0]?.nmpath ||
-                            "/no-photo.png"
+                            produto.produto_foto[0]?.nmpath || "/no-photo.png"
                           }
                           alt=""
                           className="aspect-square w-full rounded object-cover"
@@ -72,7 +84,7 @@ export default async function Home() {
                             {produto.nmproduto}
                           </h3>
                         </div>
-                      </a>
+                      </Link>
                     </li>
                   ))
                 ) : (
