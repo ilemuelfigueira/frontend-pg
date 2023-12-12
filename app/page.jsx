@@ -61,7 +61,7 @@ export default async function Home() {
                         <img
                           src={
                             produto.produto_foto[0]?.nmpath ||
-                            "/xbox-dualsense.jpg"
+                            "/no-photo.png"
                           }
                           alt=""
                           className="aspect-square w-full rounded object-cover"
