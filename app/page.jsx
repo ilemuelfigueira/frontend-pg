@@ -43,16 +43,16 @@ export default async function Home() {
       </header>
       <IlustracoesHomePage />
       <section className="w-full">
-        <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-          <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch">
-            <div class="grid place-content-center rounded bg-gray-100 p-6 sm:p-8">
-              <div class="mx-auto max-w-md text-center lg:text-left">
+        <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch">
+            <div className="grid place-content-center rounded bg-gray-100 p-6 sm:p-8">
+              <div className="mx-auto max-w-md text-center lg:text-left">
                 <header>
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">
+                  <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
                     Configure o seu!
                   </h2>
 
-                  <p class="mt-4 text-gray-500">
+                  <p className="mt-4 text-gray-500">
                     Separamos alguns modelos exclusivos para você escolher, e
                     também é possível personalizar o seu controle.
                   </p>
@@ -60,8 +60,8 @@ export default async function Home() {
               </div>
             </div>
 
-            <div class="lg:col-span-2 lg:py-8">
-              <ul class="grid grid-cols-2 gap-4">
+            <div className="lg:col-span-2 lg:py-8">
+              <ul className="grid grid-cols-2 gap-4">
                 {dataMap.has("produtosExclusivos") ? (
                   dataMap.get("produtosExclusivos")?.items?.map((produto) => (
                     <li
