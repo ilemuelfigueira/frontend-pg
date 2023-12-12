@@ -15,9 +15,9 @@ async function loadMetadata(nmproduto) {
   // fetch data
   let produto = await fetcher(`/api/produtos?nmproduto=${nmproduto}`);
 
-  if (!produto.length > 0) throw new Error("Produto não encontrado");
+  if (!produto?.items.length > 0) throw new Error("Produto não encontrado");
 
-  produto = produto[0];
+  produto = produto.items[0];
 
   const subprodutoFotos = await fetcher(
     `/api/produtos/${produto.cdproduto}/sub-produtos/fotos`,
@@ -100,7 +100,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 async function getProduto(nmproduto) {
   const res = await fetcher(`/api/produtos?nmproduto=${nmproduto}`);
 
-  const produto = res[0];
+  const produto = res.items[0];
 
   return produto;
 }

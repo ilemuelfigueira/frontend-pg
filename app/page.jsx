@@ -63,7 +63,7 @@ export default async function Home() {
             <div class="lg:col-span-2 lg:py-8">
               <ul class="grid grid-cols-2 gap-4">
                 {dataMap.has("produtosExclusivos") ? (
-                  dataMap.get("produtosExclusivos").map((produto) => (
+                  dataMap.get("produtosExclusivos")?.items?.map((produto) => (
                     <li
                       style={{
                         flex: "0 0 200px",
