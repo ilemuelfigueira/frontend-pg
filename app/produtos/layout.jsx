@@ -3,21 +3,21 @@ import Link from "next/link";
 
 export const metadata = {
   title: {
-    template: "%s | Carrinho",
+    template: "%s | Produtos",
   },
 };
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <>
       <Breadcrumb
         items={[
           { title: <Link href="/">Início</Link> },
-          { title: "Meu Carrinho" },
+          { title: "Produtos" },
         ]}
         className="mb-8"
       />
       {children}
-    </div>
+    </>
   );
 }
