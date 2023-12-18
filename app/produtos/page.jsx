@@ -1,8 +1,56 @@
-export default function Page() {
-  return <div className="w-full">
+import ProdutosPage from "@/components/ProdutosPage";
+import { fetcher } from "@/lib/util/fetcher";
 
-    <span>Produtos:</span>
+async function loadData({ searchParams } = {}) {
+  const dataMap = new Map();
+  const tiposResponse = await fetcher("/api/produtos/tipos");
 
+  if (tiposResponse.error) {
+    console.error(tiposResponse.error);
+    throw new Error(tiposResponse.error?.message);
+  }
 
-  </div>;
+  dataMap.set("tipos", tiposResponse);
+
+  if (searchParams) {
+    const searchParamsMap = new URLSearchParams(searchParams);
+    if (!searchParamsMap.has("page")) searchParamsMap.set("page", 1);
+    if (!searchParamsMap.has("size")) searchParamsMap.set("size", 10);
+
+    const queryString = searchParamsMap.toString();
+
+    const produtosResponse = await fetcher(`/api/produtos?${queryString}`);
+
+    if (produtosResponse.error) {
+      throw new Error(produtosResponse.error?.message);
+    }
+
+    dataMap.set("produtos", produtosResponse);
+  }
+
+  return dataMap;
+}
+
+export default async function Page({ searchParams }) {
+  const dataMap = await loadData({ searchParams });
+  return (
+    <section className="w-full">
+      <div className="w-full max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <header>
+          <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
+            Produtos
+          </h2>
+
+          <p className="mt-4 max-w-md text-gray-500">
+            Aqui você encontra todos os produtos disponíveis para compra.
+          </p>
+        </header>
+
+        <ProdutosPage
+          tipos={dataMap.has("tipos") ? dataMap.get("tipos") : []}
+          produtos={dataMap.has("produtos") ? dataMap.get("produtos") : []}
+        />
+      </div>
+    </section>
+  );
 }

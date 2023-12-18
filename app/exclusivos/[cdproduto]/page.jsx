@@ -11,9 +11,9 @@ import { fetcher } from "@/lib/util/fetcher";
 //   },
 // };
 
-async function loadMetadata(nmproduto) {
+async function loadMetadata(cdproduto) {
   // fetch data
-  let produto = await fetcher(`/api/produtos?nmproduto=${nmproduto}`);
+  let produto = await fetcher(`/api/produtos?cdproduto=${cdproduto}`);
 
   if (!produto?.items.length > 0) throw new Error("Produto não encontrado");
 
@@ -31,7 +31,7 @@ async function loadMetadata(nmproduto) {
 
 export async function generateMetadata({ params, searchParams }, parent) {
   // read route params
-  const id = params.nmproduto;
+  const id = params.cdproduto;
   const baseUrl = process.env.NEXT_PUBLIC_DOMAIN;
 
   if (!id)
@@ -97,8 +97,8 @@ export async function generateMetadata({ params, searchParams }, parent) {
   };
 }
 
-async function getProduto(nmproduto) {
-  const res = await fetcher(`/api/produtos?nmproduto=${nmproduto}`);
+async function getProduto(cdproduto) {
+  const res = await fetcher(`/api/produtos?cdproduto=${cdproduto}`);
 
   const produto = res.items[0];
 
@@ -124,7 +124,7 @@ async function getSubProdutosPrecos(cdproduto) {
 }
 
 async function loadData({ params }) {
-  const produto = await getProduto(params.nmproduto);
+  const produto = await getProduto(params.cdproduto);
 
   if(produto.error) throw new Error(produto.error);
 

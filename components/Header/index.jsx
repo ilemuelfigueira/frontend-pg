@@ -9,6 +9,7 @@ import { useUser } from "@/hooks/user";
 import {
   AddressBook,
   List,
+  MagnifyingGlass,
   Receipt,
   ShoppingCart,
   SignOut,
@@ -19,7 +20,7 @@ import { Button, Drawer, Dropdown, Input } from "antd";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Container = ({ children, ...props }) => (
   <div
@@ -63,8 +64,6 @@ export function HeaderNavigator({ ...props }) {
     defaultValue: searchParams.get("login") == "true",
   });
 
-  const openSideBar = useOpen();
-
   const goToCart = () => {
     if (!existeUsuario) return openLogin.handleOpen();
 
@@ -89,13 +88,12 @@ export function HeaderNavigator({ ...props }) {
             }
             className="aspect-square w-14 md:w-20"
           />
-          <span className="flex gap-2 font-semibold text-slate-600 max-lg:hidden lg:text-2xl">
+          <span className="flex gap-2 font-semibold text-slate-600 max-lg:text-sm lg:text-2xl">
             <span>PGCUSTOM</span>
             <span className="font-normal">|</span>
             <span className="font-normal">STORE</span>
           </span>
         </LogoContainer>
-        <Input.Search placeholder="Pesquisar produto..." />
         <InfoContainer>
           <If condition={existeUsuario}>
             <Dropdown
@@ -143,7 +141,7 @@ export function HeaderNavigator({ ...props }) {
           </If>
           <If condition={!existeUsuario}>
             <Button
-              className="flex items-center text-slate-600"
+              className="hidden md:flex items-center text-slate-600"
               size="large"
               onClick={openLogin.handleOpen}
               icon={<i className="pi pi-user text-xl lg:text-2xl" />}
@@ -172,34 +170,51 @@ export function HeaderNavigator({ ...props }) {
           <Dropdown
             className="md:hidden"
             menu={{
-              items: [
-                {
-                  label: (
-                    <MenuItem
-                      href="/enderecos"
-                      label="Endereços"
-                      Icon={AddressBook}
-                    />
-                  ),
-                },
-                {
-                  label: (
-                    <MenuItem href="/pedidos" label="Pedidos" Icon={Receipt} />
-                  ),
-                  key: "Pedidos",
-                },
-                {
-                  label: (
-                    <MenuItem
-                      href="#"
-                      label={"Sair"}
-                      Icon={SignOut}
-                      onClick={sair}
-                    />
-                  ),
-                  key: "Sair",
-                },
-              ],
+              items: existeUsuario
+                ? [
+                    {
+                      label: (
+                        <MenuItem
+                          href="/enderecos"
+                          label="Endereços"
+                          Icon={AddressBook}
+                        />
+                      ),
+                    },
+                    {
+                      label: (
+                        <MenuItem
+                          href="/pedidos"
+                          label="Pedidos"
+                          Icon={Receipt}
+                        />
+                      ),
+                      key: "Pedidos",
+                    },
+                    {
+                      label: (
+                        <MenuItem
+                          href="#"
+                          label={"Sair"}
+                          Icon={SignOut}
+                          onClick={sair}
+                        />
+                      ),
+                      key: "Sair",
+                    },
+                  ]
+                : [
+                    {
+                      label: (
+                        <MenuItem
+                          href="#"
+                          label={"Entrar"}
+                          Icon={UserCircle}
+                          onClick={openLogin.handleOpen}
+                        />
+                      ),
+                    },
+                  ],
             }}
             trigger={["click"]}
           >
