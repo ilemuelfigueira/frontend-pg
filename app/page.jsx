@@ -1,6 +1,6 @@
 import { IlustracoesHomePage } from "@/components/IlustracoesHomePage";
+import { onError } from "@/lib/util/error";
 import { fetcher } from "@/lib/util/fetcher";
-import Link from "next/link";
 
 async function loadData() {
   const dataMap = new Map();
@@ -9,7 +9,11 @@ async function loadData() {
     "/api/produtos?nmprodutotipo=CONTROLE_EXCLUSIVO&size=4",
   );
 
-  if (produtosExclusivos.error) throw new Error(produtosExclusivos.error);
+  if (produtosExclusivos.error)
+    onError(
+      produtosExclusivos.error,
+      "Erro ao carregar produtos exclusivos das ilustrações",
+    );
 
   dataMap.set("produtosExclusivos", produtosExclusivos);
 
@@ -70,7 +74,10 @@ export default async function Home() {
                       }}
                       key={produto.cdproduto}
                     >
-                      <a href={controleExclusivoHref(produto.nmproduto)} className="group block">
+                      <a
+                        href={controleExclusivoHref(produto.nmproduto)}
+                        className="group block"
+                      >
                         <img
                           src={
                             produto.produto_foto[0]?.nmpath || "/no-photo.png"

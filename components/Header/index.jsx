@@ -18,7 +18,7 @@ import {
 import { EyeClosed } from "@phosphor-icons/react/dist/ssr";
 import { Button, Drawer, Dropdown, Input } from "antd";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -57,6 +57,14 @@ export function HeaderNavigator({ ...props }) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  const pathName = usePathname();
+
+  const [getSearch, setSearch] = useState(searchParams.get("search") || "");
+
+  const showSearch = !["produtos", "exclusivos"].some((item) =>
+    pathName.includes(item),
+  );
+
   const openRegister = useOpen({
     defaultValue: searchParams.get("register") == "true",
   });
@@ -94,6 +102,22 @@ export function HeaderNavigator({ ...props }) {
             <span className="font-normal">STORE</span>
           </span>
         </LogoContainer>
+        <div
+          data-show={showSearch}
+          className="hidden w-full max-w-[700px] items-center gap-2 data-[show=true]:flex"
+        >
+          <Input
+            className="h-12"
+            placeholder="Pesquisar nesta loja..."
+            value={getSearch}
+            onChange={(e) => setSearch(e.target.value)}
+            onPressEnter={() => router.push("/produtos?nmproduto=" + getSearch)}
+          />
+          <MagnifyingGlass
+            size={24}
+            onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
+          />
+        </div>
         <InfoContainer>
           <If condition={existeUsuario}>
             <Dropdown
@@ -141,7 +165,7 @@ export function HeaderNavigator({ ...props }) {
           </If>
           <If condition={!existeUsuario}>
             <Button
-              className="hidden md:flex items-center text-slate-600"
+              className="hidden items-center text-slate-600 md:flex"
               size="large"
               onClick={openLogin.handleOpen}
               icon={<i className="pi pi-user text-xl lg:text-2xl" />}
