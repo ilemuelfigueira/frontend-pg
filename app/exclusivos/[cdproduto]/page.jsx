@@ -100,9 +100,9 @@ export async function generateMetadata({ params, searchParams }, parent) {
 async function getProduto(cdproduto) {
   const res = await fetcher(`/api/produtos?cdproduto=${cdproduto}`);
 
-  const produto = res.items[0];
+  if (res.error) throw new Error(res.error);
 
-  return produto;
+  return res.items[0];
 }
 
 async function getSubProdutos(cdproduto) {
@@ -125,8 +125,6 @@ async function getSubProdutosPrecos(cdproduto) {
 
 async function loadData({ params }) {
   const produto = await getProduto(params.cdproduto);
-
-  if(produto.error) throw new Error(produto.error);
 
   if (!produto) throw new Error("Produto não encontrado");
 

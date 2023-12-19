@@ -356,7 +356,7 @@ const isExclusivo = (produto) => {
 const getHrefProduto = (produto) => {
   if (!produto) return "#";
 
-  if (produto.produto_tipo.nmprodutotipo == "CONTROLE_EXCLUSIVO")
+  if (produto.produto_tipo[0]?.nmprodutotipo == "CONTROLE_EXCLUSIVO")
     return `/exclusivos/${produto.cdproduto}`;
 
   return "#";

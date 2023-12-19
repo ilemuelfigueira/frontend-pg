@@ -70,7 +70,7 @@ export default async function Home() {
                       }}
                       key={produto.cdproduto}
                     >
-                      <Link href={controleExclusivoHref(produto.nmproduto)} className="group block">
+                      <a href={controleExclusivoHref(produto.nmproduto)} className="group block">
                         <img
                           src={
                             produto.produto_foto[0]?.nmpath || "/no-photo.png"
@@ -84,7 +84,7 @@ export default async function Home() {
                             {produto.nmproduto}
                           </h3>
                         </div>
-                      </Link>
+                      </a>
                     </li>
                   ))
                 ) : (
