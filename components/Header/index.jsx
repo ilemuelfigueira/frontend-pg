@@ -61,10 +61,6 @@ export function HeaderNavigator({ ...props }) {
 
   const [getSearch, setSearch] = useState(searchParams.get("search") || "");
 
-  const showSearch = !["produtos", "exclusivos"].some((item) =>
-    pathName.includes(item),
-  );
-
   const openRegister = useOpen({
     defaultValue: searchParams.get("register") == "true",
   });
@@ -103,8 +99,7 @@ export function HeaderNavigator({ ...props }) {
           </span>
         </LogoContainer>
         <div
-          data-show={showSearch}
-          className="hidden w-full max-w-[700px] items-center gap-2 data-[show=true]:flex"
+          className="hidden w-full max-w-[700px] items-center gap-2"
         >
           <Input
             className="h-12"
