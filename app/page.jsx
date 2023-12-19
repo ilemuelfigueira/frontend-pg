@@ -1,12 +1,13 @@
 import { IlustracoesHomePage } from "@/components/IlustracoesHomePage";
 import { onError } from "@/lib/util/error";
 import { fetcher } from "@/lib/util/fetcher";
+import Link from "next/link";
 
 async function loadData() {
   const dataMap = new Map();
 
   const produtosExclusivos = await fetcher(
-    "/api/produtos?nmprodutotipo=CONTROLE_EXCLUSIVO&size=4",
+    "/api/produtos?nmprodutotipo=CONTROLE_EXCLUSIVO",
   );
 
   if (produtosExclusivos.error)
@@ -19,18 +20,6 @@ async function loadData() {
 
   return dataMap;
 }
-
-const controleExclusivoHref = (nmproduto) => {
-  if (nmproduto.toLowerCase().includes("obsidian"))
-    return "/exclusivos/obsidian";
-  if (nmproduto.toLowerCase().includes("speakeasy"))
-    return "/exclusivos/speakeasy";
-  if (nmproduto.toLowerCase().includes("goliath")) return "/exclusivos/goliath";
-  if (nmproduto.toLowerCase().includes("grandmaster"))
-    return "/exclusivos/grandmaster";
-
-  return "#";
-};
 
 export default async function Home() {
   const dataMap = await loadData();
@@ -74,10 +63,7 @@ export default async function Home() {
                       }}
                       key={produto.cdproduto}
                     >
-                      <a
-                        href={controleExclusivoHref(produto.nmproduto)}
-                        className="group block"
-                      >
+                      <Link href={produto.cdproduto} className="group block">
                         <img
                           src={
                             produto.produto_foto[0]?.nmpath || "/no-photo.png"
@@ -91,7 +77,7 @@ export default async function Home() {
                             {produto.nmproduto}
                           </h3>
                         </div>
-                      </a>
+                      </Link>
                     </li>
                   ))
                 ) : (
