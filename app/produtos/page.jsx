@@ -1,14 +1,13 @@
 import ProdutosPage from "@/components/ProdutosPage";
+import { onError } from "@/lib/util/error";
 import { fetcher } from "@/lib/util/fetcher";
 
 async function loadData({ searchParams } = {}) {
   const dataMap = new Map();
   const tiposResponse = await fetcher("/api/produtos/tipos");
 
-  if (tiposResponse.error) {
-    console.error(tiposResponse.error);
-    throw new Error(tiposResponse.error?.message);
-  }
+  if (tiposResponse.error)
+    onError(tiposResponse.error, "Erro ao carregar tipos de produtos");
 
   dataMap.set("tipos", tiposResponse);
 
@@ -21,9 +20,8 @@ async function loadData({ searchParams } = {}) {
 
     const produtosResponse = await fetcher(`/api/produtos?${queryString}`);
 
-    if (produtosResponse.error) {
-      throw new Error(produtosResponse.error?.message);
-    }
+    if (produtosResponse.error)
+      onError(produtosResponse.error, "Erro ao carregar produtos");
 
     dataMap.set("produtos", produtosResponse);
   }

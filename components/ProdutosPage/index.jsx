@@ -20,12 +20,11 @@ import { aplicarMascara } from "@/lib/util";
 import { useOpen } from "@/hooks/open";
 
 const filtrosSchema = yup.object().shape({
+  nmproduto: yup.string().nullable(),
   nmprodutotipo: yup.string().nullable(),
-  vlprodutofrom: yup.number().nullable(),
-  vlprodutoto: yup.number().nullable(),
 });
 
-function FiltrosComponent({ className, onFilter = () => '', ...props }) {
+function FiltrosComponent({ className, onFilter = () => "", ...props }) {
   const searchParams = useSearchParams();
 
   const router = useRouter();
@@ -38,23 +37,16 @@ function FiltrosComponent({ className, onFilter = () => '', ...props }) {
       initialValues.nmprodutotipo = nmprodutotipo;
     }
 
-    if (searchParams.has("vlprodutofrom")) {
-      const vlprodutofrom = searchParams.get("vlprodutofrom");
+    if (searchParams.has("nmproduto")) {
+      const nmproduto = searchParams.get("nmproduto");
 
-      initialValues.vlprodutofrom = vlprodutofrom;
-    }
-
-    if (searchParams.has("vlprodutoto")) {
-      const vlprodutoto = searchParams.get("vlprodutoto");
-
-      initialValues.vlprodutoto = vlprodutoto;
+      initialValues.nmproduto = nmproduto;
     }
 
     return Object.assign(
       {
+        nmproduto: "",
         nmprodutotipo: "",
-        vlprodutofrom: 0,
-        vlprodutoto: 0,
       },
       initialValues,
     );
@@ -64,7 +56,7 @@ function FiltrosComponent({ className, onFilter = () => '', ...props }) {
     initialValues: getInitialValues(),
     validationSchema: filtrosSchema,
     onSubmit: (values) => {
-      onFilter(values)
+      onFilter(values);
       const filledValues = Object.fromEntries(
         Object.entries(values).filter(([_, v]) => v),
       );
@@ -99,6 +91,50 @@ function FiltrosComponent({ className, onFilter = () => '', ...props }) {
         <p className="block text-xs font-medium text-gray-700">Filtros</p>
 
         <div className="mt-1 space-y-2">
+          <details className="group overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
+              <span className="text-sm font-medium"> Nome </span>
+
+              <span className="transition group-open:-rotate-180">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-4 w-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                  />
+                </svg>
+              </span>
+            </summary>
+
+            <div className="border-t border-gray-200 bg-white">
+              <div className="border-t border-gray-200 p-4">
+                <div className="flex justify-between gap-4">
+                  <label
+                    htmlFor="FilterProductName"
+                    className="flex w-full items-center gap-2"
+                  >
+                    <input
+                      type="text"
+                      id="FilterProductName"
+                      placeholder="Digite o nome do produto..."
+                      className="w-full rounded-md border-gray-200 shadow-sm focus:outline-none sm:text-sm"
+                      name="nmproduto"
+                      value={formik.values.nmproduto}
+                      onChange={formik.handleChange}
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+          </details>
+
           <details className="group overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
             <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
               <span className="text-sm font-medium"> Tipos </span>
@@ -167,81 +203,6 @@ function FiltrosComponent({ className, onFilter = () => '', ...props }) {
             </div>
           </details>
 
-          <details className="group overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
-            <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
-              <span className="text-sm font-medium"> Valor </span>
-
-              <span className="transition group-open:-rotate-180">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="h-4 w-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                  />
-                </svg>
-              </span>
-            </summary>
-
-            <div className="border-t border-gray-200 bg-white">
-              <header className="flex items-center justify-between p-4">
-                <span className="text-sm text-gray-700">
-                  Selecione um intervalo
-                </span>
-
-                <button
-                  type="button"
-                  className="text-sm text-gray-900 underline underline-offset-4"
-                >
-                  Limpar
-                </button>
-              </header>
-
-              <div className="border-t border-gray-200 p-4">
-                <div className="flex justify-between gap-4">
-                  <label
-                    htmlFor="FilterPriceFrom"
-                    className="flex items-center gap-2"
-                  >
-                    <span className="text-sm text-gray-600">R$</span>
-
-                    <input
-                      type="number"
-                      id="FilterPriceFrom"
-                      placeholder="De"
-                      className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                      name="vlprodutofrom"
-                      value={formik.values.vlprodutofrom}
-                      onChange={formik.handleChange}
-                    />
-                  </label>
-
-                  <label
-                    htmlFor="FilterPriceTo"
-                    className="flex items-center gap-2"
-                  >
-                    <span className="text-sm text-gray-600">R$</span>
-
-                    <input
-                      type="number"
-                      id="FilterPriceTo"
-                      placeholder="Até"
-                      className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                      name="vlprodutoto"
-                      value={formik.values.vlprodutoto}
-                      onChange={formik.handleChange}
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-          </details>
           <Button
             onClick={formik.handleSubmit}
             className="w-full bg-blue-500 font-light tracking-tight text-white"
@@ -292,7 +253,11 @@ export default function ProdutosPage({ tipos, produtos }) {
           onCancel={openFilters.handleClose}
           footer={null}
         >
-          <FiltrosComponent onFilter={openFilters.handleClose} className="block" tipos={tipos} />
+          <FiltrosComponent
+            onFilter={openFilters.handleClose}
+            className="block"
+            tipos={tipos}
+          />
         </Modal>
 
         <div className="lg:col-span-3">
@@ -322,6 +287,15 @@ export default function ProdutosPage({ tipos, produtos }) {
                         />
                       </SwiperSlide>
                     ))}
+                    {produto.produto_foto.length == 0 && (
+                      <SwiperSlide className="z-10">
+                        <Image
+                          className="object-cover"
+                          fill
+                          src="/no-photo.png"
+                        />
+                      </SwiperSlide>
+                    )}
                   </Swiper>
 
                   <div className="relative bg-white p-4">
@@ -333,9 +307,10 @@ export default function ProdutosPage({ tipos, produtos }) {
                       <span className="sr-only"> {produto.deproduto} </span>
 
                       <span className="tracking-wider text-gray-900">
-                        {isExclusivo
+                        {isExclusivo(produto)
                           ? "Monte o seu"
-                          : aplicarMascara(getVlProduto(produto), "real")}
+                          : "a partir de R$ " +
+                            aplicarMascara(getVlProduto(produto), "real")}
                       </span>
                     </p>
                   </div>
@@ -363,12 +338,6 @@ const getHrefProduto = (produto) => {
 };
 
 const getVlProduto = (produto) => {
-  const isControleExclusivo =
-    produto.produto_tipo[0].nmprodutotipo == "CONTROLE_EXCLUSIVO";
-
-  if (isControleExclusivo) {
-    return "Monte o seu";
-  }
   if (produto.produto_preco.length > 0) {
     return produto.produto_preco[0].vlproduto;
   }

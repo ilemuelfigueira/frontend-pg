@@ -1,5 +1,6 @@
 import { Pacotes } from "@/components/Pacotes";
 import { ResumoCarrinho } from "@/components/ResumoCarrinho";
+import { onError } from "@/lib/util/error";
 import { serverFetcher } from "@/lib/util/server-fetcher";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -19,13 +20,13 @@ async function loadData() {
 
   const carrinho = await serverFetcher("/api/carrinhos");
 
-  if (carrinho.error) throw new Error(carrinho.error);
+  if (carrinho.error) onError(carrinho.error, "Erro ao carregar carrinho");
 
   const pacotes_carrinho = await serverFetcher(
     `/api/carrinhos/${carrinho.cdcarrinho}/pacotes`,
   );
 
-  if (pacotes_carrinho.error) throw new Error(pacotes_carrinho.error);
+  if (pacotes_carrinho.error) onError(pacotes_carrinho.error, "Erro ao carregar items do carrinho");
 
   carrinho.pacotes = pacotes_carrinho;
 
