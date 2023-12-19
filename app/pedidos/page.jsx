@@ -1,3 +1,4 @@
+import { onError } from "@/lib/util/error";
 import { serverFetcher } from "@/lib/util/server-fetcher";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -17,9 +18,9 @@ async function loadData() {
 
   const pedidos = await serverFetcher("/api/pedidos");
 
-  if (pedidos.error) throw new Error(pedidos.error);
+  if (pedidos.error) onError(pedidos.error, "Erro ao carregar pedidos");
 
-  if(pedidos.length == 0) throw new Error("Nenhum pedido encontrado");
+  if(pedidos.length == 0) onError("Nenhum pedido encontrado");
 
   return pedidos;
 }
