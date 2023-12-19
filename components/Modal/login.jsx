@@ -84,6 +84,7 @@ export default function LoginModal({
 
         toast.success("Seja bem vindo!");
         onCancel();
+        router.refresh();
       } catch (error) {
         toast.error("Login ou senha inválidos");
         formik.setFieldValue("submitError", true);

@@ -99,7 +99,7 @@ export default function RegistrarModal({
 
         onCancel();
         toast("Verifique sua caixa de email, para confirmar seu acesso.");
-        router.push("/login");
+        router.refresh()
       } catch (error) {
         toast.error("Tente novamente mais tarde.");
         formik.setFieldValue("submitError", true);
