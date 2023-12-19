@@ -1,4 +1,11 @@
+import estados from "@/public/json/estados.json";
+
 export async function getCepDetails(cep) {
-  return await fetch("/api/cep/" + cep)
-    .then((res) => res.json());
+  let res = await fetch(`https://viacep.com.br/ws/${cep}/json/`).then((res) =>
+    res.json(),
+  );
+
+  const nmestado = estados.find((estado) => estado.sigla === res.uf)?.nome;
+
+  return Object.assign(res, { estado: nmestado });
 }
