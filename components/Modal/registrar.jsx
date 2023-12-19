@@ -5,6 +5,7 @@ import {
   IdentificationCard,
   Key,
   PencilCircle,
+  Phone,
   Warning,
 } from "@phosphor-icons/react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -17,6 +18,7 @@ import * as yup from "yup";
 import { CpfInput } from "../CpfInput";
 import { verificarSeUsuarioExiste } from "@/services/usuarios";
 import toast from "react-hot-toast";
+import { PhoneInput } from "../PhoneInput";
 
 const Container = ({ children, ...props }) => <div {...props}>{children}</div>;
 
@@ -66,7 +68,8 @@ export default function RegistrarModal({
         .max(14, "Cpf deve ter 11 números")
         .when(
           ["cpfInvalido"],
-          (cpfInvalido, schema) => cpfInvalido == false ? schema.resolve() : schema,
+          (cpfInvalido, schema) =>
+            cpfInvalido == false ? schema.resolve() : schema,
           "Cpf já cadastrado",
         )
         .required("Campo obrigatório"),
@@ -255,7 +258,6 @@ export default function RegistrarModal({
               />
             </Form.Item>
 
-            {formik.errors.cpf}
             <Form.Item
               label="CPF"
               name="cpf"
@@ -267,6 +269,22 @@ export default function RegistrarModal({
                 size="large"
                 placeholder="Digite um cpf"
                 prefix={<IdentificationCard size={24} />}
+                type="text"
+                onChange={handleChangeCpf}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Telefone"
+              name="telefone"
+              validateStatus={IsError("cpf", "type")}
+              help={IsError("cpf", "message")}
+              className="m-0 w-full"
+            >
+              <PhoneInput
+                size="large"
+                placeholder="Digite um telefone"
+                prefix={<Phone size={24} />}
                 type="text"
                 onChange={handleChangeCpf}
               />
