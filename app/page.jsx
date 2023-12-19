@@ -63,7 +63,7 @@ export default async function Home() {
                       }}
                       key={produto.cdproduto}
                     >
-                      <Link href={produto.cdproduto} className="group block">
+                      <Link href={`/produtos?cdproduto=${produto.cdproduto}`} className="group block">
                         <img
                           src={
                             produto.produto_foto[0]?.nmpath || "/no-photo.png"

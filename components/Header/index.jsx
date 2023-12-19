@@ -99,7 +99,7 @@ export function HeaderNavigator({ ...props }) {
           </span>
         </LogoContainer>
         <div
-          className="hidden w-full max-w-[700px] items-center gap-2"
+          className="flex w-full max-w-[700px] items-center gap-2"
         >
           <Input
             className="h-12"
