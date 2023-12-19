@@ -15,12 +15,11 @@ import {
   SignOut,
   UserCircle,
 } from "@phosphor-icons/react";
-import { EyeClosed } from "@phosphor-icons/react/dist/ssr";
-import { Button, Drawer, Dropdown, Input } from "antd";
+import { Button, Dropdown, Input } from "antd";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Container = ({ children, ...props }) => (
   <div
@@ -39,9 +38,6 @@ const InfoContainer = ({ children, ...props }) => (
   <div className="flex items-center gap-4">{children}</div>
 );
 
-const obsidianUrl =
-  "/exclusivos/obsidian?shape=38e17418-703f-4620-90af-14742adea114&paddles=450ea66e-ff61-45fd-8b16-b129b12aea2d&paddlesClick=6a1149cc-a091-45c7-8bc1-d7b41f9c4ebe&paddlesColor=29f43501-db68-4ac7-ad59-15b45f819be7&trigger=ea661451-0a41-497d-8d7f-456790f9ac47&grip=a6f00944-26b7-41f6-bab6-0c7790de82e8&faceplateGrip=0e7b1b79-0cbf-4f0d-ac68-1f2a1263daa1&vibration=695989a7-7521-4ac7-a8c9-2e499e81d631&";
-
 const MenuItem = ({ href, label, Icon = null, onClick = undefined }) => {
   return (
     <Link className="flex items-center gap-1" href={href} onClick={onClick}>
@@ -56,8 +52,6 @@ export function HeaderNavigator({ ...props }) {
 
   const searchParams = useSearchParams();
   const router = useRouter();
-
-  const pathName = usePathname();
 
   const [getSearch, setSearch] = useState(searchParams.get("search") || "");
 
