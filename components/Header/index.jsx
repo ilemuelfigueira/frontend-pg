@@ -24,14 +24,14 @@ import { useState } from "react";
 const Container = ({ children, ...props }) => (
   <div
     {...props}
-    className="sticky top-0 z-40 flex h-20 w-screen max-w-full items-center justify-between gap-4 overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen"
+    className="sticky top-0 z-40 flex h-20 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-white px-4 shadow-sm data-[open=true]:min-h-screen"
   >
     {children}
   </div>
 );
 
 const LogoContainer = ({ children }) => (
-  <div className="flex items-center gap-2">{children}</div>
+  <div className="flex items-center gap-1">{children}</div>
 );
 
 const InfoContainer = ({ children, ...props }) => (
@@ -84,9 +84,9 @@ export function HeaderNavigator({ ...props }) {
               process.env.NEXT_PUBLIC_STORAGE_PRODUTOS +
               "/produtos/png/logo/logo-192x192.png"
             }
-            className="aspect-square w-14 md:w-20"
+            className="aspect-square w-10 md:w-14"
           />
-          <span className="flex gap-2 font-semibold text-slate-600 max-lg:text-sm lg:text-2xl">
+          <span className="flex gap-1 font-semibold text-slate-600 max-lg:text-sm lg:text-2xl">
             <span>PGCUSTOM</span>
             <span className="font-normal">|</span>
             <span className="font-normal">STORE</span>
