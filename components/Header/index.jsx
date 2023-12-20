@@ -24,7 +24,7 @@ import { useState } from "react";
 const Container = ({ children, ...props }) => (
   <div
     {...props}
-    className="sticky top-0 z-40 mb-10 flex h-20 w-screen max-w-full items-center justify-between gap-4 overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen"
+    className="sticky top-0 z-40 flex h-20 w-screen max-w-full items-center justify-between gap-4 overflow-hidden rounded-b-3xl bg-white px-4 shadow-lg data-[open=true]:min-h-screen"
   >
     {children}
   </div>
@@ -92,21 +92,24 @@ export function HeaderNavigator({ ...props }) {
             <span className="font-normal">STORE</span>
           </span>
         </LogoContainer>
-        <div
-          className="flex w-full max-w-[700px] items-center gap-2"
-        >
-          <Input
-            className="h-12"
-            placeholder="Pesquisar nesta loja..."
-            value={getSearch}
-            onChange={(e) => setSearch(e.target.value)}
-            onPressEnter={() => router.push("/produtos?nmproduto=" + getSearch)}
-          />
-          <MagnifyingGlass
-            size={24}
-            onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
-          />
-        </div>
+        <section className="w-full">
+          <div className="relative flex w-full max-w-[700px] items-center gap-2">
+            <Input
+              className="h-10"
+              placeholder="Pesquisar nesta loja..."
+              value={getSearch}
+              onChange={(e) => setSearch(e.target.value)}
+              onPressEnter={() =>
+                router.push("/produtos?nmproduto=" + getSearch)
+              }
+            />
+            <MagnifyingGlass
+              size={24}
+              onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
+              className="pointer-events-none absolute right-2 mt-auto select-none"
+            />
+          </div>
+        </section>
         <InfoContainer>
           <If condition={existeUsuario}>
             <Dropdown
@@ -146,9 +149,11 @@ export function HeaderNavigator({ ...props }) {
               }}
               trigger={["click"]}
             >
-              <a className="flex h-fit cursor-pointer items-center gap-2 text-slate-600 max-md:hidden">
-                <UserCircle size={40} />
-                <span>{user.nmUsuario || user.nmEmail}</span>
+              <a className="flex h-fit cursor-pointer items-center gap-1 text-slate-600 max-md:hidden">
+                <UserCircle size={24} />
+                <span className="text-xs">
+                  {user.nmUsuario || user.nmEmail}
+                </span>
               </a>
             </Dropdown>
           </If>
