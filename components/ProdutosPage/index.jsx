@@ -18,6 +18,7 @@ import Image from "next/image";
 import * as yup from "yup";
 import { aplicarMascara } from "@/lib/util";
 import { useOpen } from "@/hooks/open";
+import If from "../If";
 
 const filtrosSchema = yup.object().shape({
   nmproduto: yup.string().nullable(),
@@ -305,12 +306,11 @@ export default function ProdutosPage({ tipos, produtos }) {
 
                     <p className="mt-2 block">
                       <span className="sr-only"> {produto.deproduto} </span>
+                    </p>
 
-                      <span className="tracking-wider text-gray-900">
-                        {isExclusivo(produto)
-                          ? "Monte o seu"
-                          : "a partir de R$ " +
-                            aplicarMascara(getVlProduto(produto), "real")}
+                    <p className="mt-2 block">
+                      <span>
+                        {`A partir de ${aplicarMascara(produto.valorminimo, "real")}`}
                       </span>
                     </p>
                   </div>
