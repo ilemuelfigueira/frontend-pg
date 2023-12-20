@@ -26,7 +26,8 @@ async function loadData() {
     `/api/carrinhos/${carrinho.cdcarrinho}/pacotes`,
   );
 
-  if (pacotes_carrinho.error) onError(pacotes_carrinho.error, "Erro ao carregar items do carrinho");
+  if (pacotes_carrinho.error)
+    onError(pacotes_carrinho.error, "Erro ao carregar items do carrinho");
 
   carrinho.pacotes = pacotes_carrinho;
 
