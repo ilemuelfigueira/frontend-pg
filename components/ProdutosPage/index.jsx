@@ -310,7 +310,7 @@ export default function ProdutosPage({ tipos, produtos }) {
 
                     <p className="mt-2 block">
                       <span>
-                        {`A partir de ${aplicarMascara(produto.valorminimo, "real")}`}
+                        {`A partir de R$ ${aplicarMascara(produto.valorminimo, "real")}`}
                       </span>
                     </p>
                   </div>
