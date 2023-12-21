@@ -373,8 +373,8 @@ export default function ProdutosPage({ tipos, produtos }) {
             ))}
           </ul>
 
-          <footer className="mt-4 flex w-full items-center justify-end gap-4">
-            <span>Produtos por página</span>
+          <footer className="mt-4 flex w-full items-center justify-end gap-2">
+            <span className="text-sm">Produtos por página</span>
             <Select
               value={
                 getQuery().has("size") ? Number(getQuery().get("size")) : 10
@@ -388,13 +388,13 @@ export default function ProdutosPage({ tipos, produtos }) {
               <Select.Option value={50}>50</Select.Option>
               <Select.Option value={100}>100</Select.Option>
             </Select>
-            <div className="flex items-center justify-end gap-2">
+            <div className="flex items-center justify-end gap-2 w-fit">
               <Button
                 disabled={produtos.page <= 1}
                 onClick={() => prevPage(produtos.page)}
                 icon={<ArrowLeft size={14} />}
               />
-              {produtos.page} de {produtos.totalPages}
+              {produtos.page} / {produtos.totalPages}
               <Button
                 disabled={produtos.totalPages <= produtos.page}
                 onClick={() => nextPage(produtos.page)}
