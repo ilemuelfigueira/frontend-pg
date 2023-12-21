@@ -162,7 +162,6 @@ export function HeaderNavigator({ ...props }) {
               className="hidden items-center text-slate-600 md:flex"
               size="large"
               onClick={openLogin.handleOpen}
-              icon={<i className="pi pi-user text-xl lg:text-2xl" />}
             >
               <span className="text-lg font-bold">Entrar</span>
             </Button>
