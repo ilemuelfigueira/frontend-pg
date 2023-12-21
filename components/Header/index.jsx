@@ -84,16 +84,16 @@ export function HeaderNavigator({ ...props }) {
               process.env.NEXT_PUBLIC_STORAGE_PRODUTOS +
               "/produtos/png/logo/logo-192x192.png"
             }
-            className="aspect-square w-10 md:w-14"
+            className="aspect-square w-10 md:w-12"
           />
-          <span className="flex gap-1 font-semibold text-slate-600 max-lg:text-sm lg:text-2xl">
+          <span className="flex gap-1 font-semibold text-slate-600 text-sm lg:text-lg">
             <span>PGCUSTOM</span>
             <span className="font-normal">|</span>
             <span className="font-normal">STORE</span>
           </span>
         </LogoContainer>
         <section className="w-full">
-          <div className="relative flex w-full max-w-[700px] items-center gap-2">
+          <div className="relative mx-auto flex w-full max-w-[700px] items-center gap-2">
             <Input
               className="h-10"
               placeholder="Pesquisar nesta loja..."
