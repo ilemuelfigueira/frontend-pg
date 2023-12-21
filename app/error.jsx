@@ -24,7 +24,7 @@ export default function Error({ error, ...props }) {
             <Button
               className="aspect-square bg-blue-500 font-semibold tracking-wider  text-white"
               type="text"
-              onClick={() => router.refresh()}
+              onClick={() => window.location.reload()}
             >
               Tente novamente
             </Button>
