@@ -359,13 +359,9 @@ export default function ProdutosPage({ tipos, produtos }) {
                       <span className="sr-only"> {produto.deproduto} </span>
                     </p>
 
-                    <p className="mt-2 block">
-                      <span>
-                        {`A partir de R$ ${aplicarMascara(
-                          produto.valorminimo,
-                          "real",
-                        )}`}
-                      </span>
+                    <p className="mt-2 block text-xs">
+                      {`A partir de `}
+                      <strong className="text-base font-semibold">R$ {aplicarMascara(produto.valorminimo, "real")}</strong>
                     </p>
                   </div>
                 </Link>
@@ -388,7 +384,7 @@ export default function ProdutosPage({ tipos, produtos }) {
               <Select.Option value={50}>50</Select.Option>
               <Select.Option value={100}>100</Select.Option>
             </Select>
-            <div className="flex items-center justify-end gap-2 w-fit">
+            <div className="flex w-fit items-center justify-end gap-2">
               <Button
                 disabled={produtos.page <= 1}
                 onClick={() => prevPage(produtos.page)}
