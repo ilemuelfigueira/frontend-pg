@@ -313,9 +313,9 @@ export default function ProdutosPage({ tipos, produtos }) {
         </Modal>
 
         <div className="lg:col-span-3">
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-3 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {produtos.items.map((produto) => (
-              <li className="shadow-md" key={produto?.cdproduto}>
+              <li className="bg-white shadow-md" key={produto?.cdproduto}>
                 <Link
                   href={getHrefProduto(produto)}
                   className="group block overflow-hidden"
@@ -350,7 +350,7 @@ export default function ProdutosPage({ tipos, produtos }) {
                     )}
                   </Swiper>
 
-                  <div className="relative bg-white p-4">
+                  <div className="relative h-full p-4">
                     <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
                       {produto.nmproduto}
                     </h3>
@@ -376,9 +376,12 @@ export default function ProdutosPage({ tipos, produtos }) {
           <footer className="mt-4 flex w-full items-center justify-end gap-4">
             <span>Produtos por página</span>
             <Select
-              value={Number(getQuery().get("size") || 0)}
+              value={
+                getQuery().has("size") ? Number(getQuery().get("size")) : 10
+              }
               onChange={(value) => updatePageQuery("size", value)}
               defaultValue={10}
+              size="large"
             >
               <Select.Option value={10}>10</Select.Option>
               <Select.Option value={20}>20</Select.Option>
