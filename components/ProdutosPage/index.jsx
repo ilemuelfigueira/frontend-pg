@@ -1,7 +1,11 @@
 "use client";
 
-import { MagnifyingGlass, ShoppingCart } from "@phosphor-icons/react";
-import { Button, Input, Modal } from "antd";
+import {
+  ArrowRight,
+  MagnifyingGlass,
+  ShoppingCart,
+} from "@phosphor-icons/react";
+import { Button, Input, Modal, Select } from "antd";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -19,13 +23,19 @@ import * as yup from "yup";
 import { aplicarMascara } from "@/lib/util";
 import { useOpen } from "@/hooks/open";
 import If from "../If";
+import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 
 const filtrosSchema = yup.object().shape({
   nmproduto: yup.string().nullable(),
   nmprodutotipo: yup.string().nullable(),
 });
 
-function FiltrosComponent({ className, onFilter = () => "", ...props }) {
+function FiltrosComponent({
+  className,
+  getQuery = () => new URLSearchParams(),
+  onFilter = () => "",
+  ...props
+}) {
   const searchParams = useSearchParams();
 
   const router = useRouter();
@@ -61,8 +71,14 @@ function FiltrosComponent({ className, onFilter = () => "", ...props }) {
       const filledValues = Object.fromEntries(
         Object.entries(values).filter(([_, v]) => v),
       );
-      const queryString = new URLSearchParams(filledValues).toString();
-      router.push(`/produtos?${queryString}`, {
+
+      const query = getQuery();
+
+      Object.keys(filledValues).forEach((key) => {
+        query.set(key, filledValues[key]);
+      });
+
+      router.push(`/produtos?${query.toString()}`, {
         shallow: true,
         scroll: false,
       });
@@ -219,6 +235,40 @@ function FiltrosComponent({ className, onFilter = () => "", ...props }) {
 export default function ProdutosPage({ tipos, produtos }) {
   const openFilters = useOpen();
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  function getQuery() {
+    const query = new URLSearchParams(searchParams);
+
+    return query;
+  }
+
+  function nextPage(page = 1) {
+    page = parseInt(page) + 1;
+
+    updatePageQuery("page", page);
+  }
+
+  function prevPage(page = 1) {
+    page = parseInt(page);
+
+    page = page <= 1 ? 1 : page - 1;
+
+    updatePageQuery("page", page);
+  }
+
+  function updatePageQuery(key, value) {
+    const query = getQuery();
+
+    query.set(key, value);
+
+    router.push(`/produtos?${query.toString()}`, {
+      shallow: true,
+      scroll: false,
+    });
+  }
+
   return (
     <div>
       <div className="mt-8 block lg:hidden">
@@ -246,7 +296,7 @@ export default function ProdutosPage({ tipos, produtos }) {
       </div>
 
       <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
-        <FiltrosComponent tipos={tipos} />
+        <FiltrosComponent getQuery={getQuery} tipos={tipos} />
 
         <Modal
           open={openFilters.open}
@@ -255,6 +305,7 @@ export default function ProdutosPage({ tipos, produtos }) {
           footer={null}
         >
           <FiltrosComponent
+            getQuery={getQuery}
             onFilter={openFilters.handleClose}
             className="block"
             tipos={tipos}
@@ -310,7 +361,10 @@ export default function ProdutosPage({ tipos, produtos }) {
 
                     <p className="mt-2 block">
                       <span>
-                        {`A partir de R$ ${aplicarMascara(produto.valorminimo, "real")}`}
+                        {`A partir de R$ ${aplicarMascara(
+                          produto.valorminimo,
+                          "real",
+                        )}`}
                       </span>
                     </p>
                   </div>
@@ -318,6 +372,33 @@ export default function ProdutosPage({ tipos, produtos }) {
               </li>
             ))}
           </ul>
+
+          <footer className="mt-4 flex w-full items-center justify-end gap-4">
+            <span>Produtos por página</span>
+            <Select
+              value={Number(getQuery().get("size") || 0)}
+              onChange={(value) => updatePageQuery("size", value)}
+              defaultValue={10}
+            >
+              <Select.Option value={10}>10</Select.Option>
+              <Select.Option value={20}>20</Select.Option>
+              <Select.Option value={50}>50</Select.Option>
+              <Select.Option value={100}>100</Select.Option>
+            </Select>
+            <div className="flex items-center justify-end gap-2">
+              <Button
+                disabled={produtos.page <= 1}
+                onClick={() => prevPage(produtos.page)}
+                icon={<ArrowLeft size={14} />}
+              />
+              {produtos.page} de {produtos.totalPages}
+              <Button
+                disabled={produtos.totalPages <= produtos.page}
+                onClick={() => nextPage(produtos.page)}
+                icon={<ArrowRight size={14} />}
+              />
+            </div>
+          </footer>
         </div>
       </div>
     </div>
@@ -331,16 +412,7 @@ const isExclusivo = (produto) => {
 const getHrefProduto = (produto) => {
   if (!produto) return "#";
 
-  if (produto.produto_tipo[0]?.nmprodutotipo == "CONTROLE_EXCLUSIVO")
-    return `/exclusivos/${produto.cdproduto}`;
+  if (isExclusivo(produto)) return `/exclusivos/${produto.cdproduto}`;
 
   return "#";
-};
-
-const getVlProduto = (produto) => {
-  if (produto.produto_preco.length > 0) {
-    return produto.produto_preco[0].vlproduto;
-  }
-
-  return "Consulte o preço";
 };
