@@ -22,7 +22,6 @@ import Image from "next/image";
 import * as yup from "yup";
 import { aplicarMascara } from "@/lib/util";
 import { useOpen } from "@/hooks/open";
-import If from "../If";
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 
 const filtrosSchema = yup.object().shape({
@@ -72,7 +71,7 @@ function FiltrosComponent({
         Object.entries(values).filter(([_, v]) => v),
       );
 
-      const query = getQuery();
+      const query = new URLSearchParams();
 
       Object.keys(filledValues).forEach((key) => {
         query.set(key, filledValues[key]);
@@ -182,7 +181,11 @@ function FiltrosComponent({
                   type="button"
                   className="text-sm text-gray-900 underline underline-offset-4"
                   onClick={() => {
-                    formik.setFieldValue("nmprodutotipo", "");
+                    formik.resetForm({
+                      values: {
+                        nmprodutotipo: ""
+                      }
+                    });
                   }}
                 >
                   Limpar
@@ -269,6 +272,8 @@ export default function ProdutosPage({ tipos, produtos }) {
     });
   }
 
+  const modal = useOpen();
+
   return (
     <div>
       <div className="mt-8 block lg:hidden">
@@ -317,6 +322,7 @@ export default function ProdutosPage({ tipos, produtos }) {
             {produtos.items.map((produto) => (
               <li className="bg-white shadow-md" key={produto?.cdproduto}>
                 <Link
+                  scroll={false}
                   href={getHrefProduto(produto)}
                   className="group block overflow-hidden"
                 >
@@ -361,7 +367,9 @@ export default function ProdutosPage({ tipos, produtos }) {
 
                     <p className="mt-2 block text-xs">
                       {`A partir de `}
-                      <strong className="text-base font-semibold">R$ {aplicarMascara(produto.valorminimo, "real")}</strong>
+                      <strong className="text-base font-semibold">
+                        R$ {aplicarMascara(produto.valorminimo, "real")}
+                      </strong>
                     </p>
                   </div>
                 </Link>
@@ -413,5 +421,5 @@ const getHrefProduto = (produto) => {
 
   if (isExclusivo(produto)) return `/exclusivos/${produto.cdproduto}`;
 
-  return "#";
+  return `/produto/${produto.cdproduto}`;
 };
