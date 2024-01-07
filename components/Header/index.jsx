@@ -73,6 +73,16 @@ export function HeaderNavigator({ ...props }) {
     openRegister.handleOpen();
   };
 
+  const search = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    
+    if (getSearch) params.set("nmproduto", getSearch);
+
+    const href = `/produtos?${params.toString()}`;
+
+    router.push(href);
+  };
+
   return (
     <>
       <Container {...props}>
@@ -86,7 +96,7 @@ export function HeaderNavigator({ ...props }) {
             }
             className="aspect-square w-10 md:w-12"
           />
-          <span className="flex gap-1 font-semibold text-slate-600 text-sm lg:text-lg">
+          <span className="flex gap-1 text-sm font-semibold text-slate-600 lg:text-lg">
             <span>PGCUSTOM</span>
             <span className="font-normal">|</span>
             <span className="font-normal">STORE</span>
@@ -99,9 +109,7 @@ export function HeaderNavigator({ ...props }) {
               placeholder="Pesquisar nesta loja..."
               value={getSearch}
               onChange={(e) => setSearch(e.target.value)}
-              onPressEnter={() =>
-                router.push("/produtos?nmproduto=" + getSearch)
-              }
+              onPressEnter={search}
             />
             <MagnifyingGlass
               size={24}
