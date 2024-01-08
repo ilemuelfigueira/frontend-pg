@@ -22,6 +22,10 @@ module.exports = {
           $cinza: "#6F6F6F",
         },
       },
+      fontSize: {
+        "2xs": ".625rem",
+        "3xs": ".5rem",
+      },
       keyframes: {
         slideInLeft: {
           "0%": { transform: "translateX(-100%)", opacity: 0 },
