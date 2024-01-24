@@ -5,7 +5,9 @@ import Image from "@/components/Image";
 import LoginModal from "@/components/Modal/login";
 import RegistrarModal from "@/components/Modal/registrar";
 import { useOpen } from "@/hooks/open";
+import useFcmToken from "@/hooks/useFcmToken";
 import { useUser } from "@/hooks/user";
+import firebaseApp from "@/lib/util/firebase";
 import {
   AddressBook,
   List,
@@ -16,10 +18,11 @@ import {
   UserCircle,
 } from "@phosphor-icons/react";
 import { Button, Dropdown, Input } from "antd";
+import { getMessaging, onMessage } from "firebase/messaging";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Container = ({ children, ...props }) => (
   <div
@@ -75,13 +78,32 @@ export function HeaderNavigator({ ...props }) {
 
   const search = () => {
     const params = new URLSearchParams(searchParams.toString());
-    
+
     if (getSearch) params.set("nmproduto", getSearch);
 
     const href = `/produtos?${params.toString()}`;
 
     router.push(href);
   };
+
+  const { fcmToken } = useFcmToken();
+  // Use the token as needed
+  fcmToken && console.log("FCM token:", fcmToken);
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      const messaging = getMessaging(firebaseApp);
+      const unsubscribe = onMessage(messaging, (payload) => {
+        console.log("Foreground push notification received:", payload);
+        // Handle the received push notification while the app is in the foreground
+        // You can display a notification or update the UI based on the payload
+      });
+      return () => {
+        unsubscribe(); // Unsubscribe from the onMessage event
+      };
+    }
+  }, []);
 
   return (
     <>
