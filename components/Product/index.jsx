@@ -138,8 +138,7 @@ export default function Product({ ...props }) {
   const getSubProdutosPorTipo = (subprodutos = [], tipo = "") => {
     return subprodutos.filter(
       (item) =>
-        item.nmsubprodutotipo == tipo ||
-        item.nmsubprodutofototipo == "BANNER/AVATAR",
+        item.nmsubprodutotipo == tipo
     );
   };
 
@@ -362,7 +361,7 @@ export default function Product({ ...props }) {
             )}
           </If>
 
-          <If condition={server.paddlesClicks.length > 0}>
+          <If condition={server.paddlesColors.length > 0}>
             {values.hidePaddles != "S" && (
               <ImageSelect
                 onChange={onChange}

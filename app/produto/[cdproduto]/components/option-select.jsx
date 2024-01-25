@@ -16,9 +16,9 @@ export function OptionSelect({
       {options.map((option, optionIndex) => (
         <li
           key={option.label + optionIndex}
-          className="group peer relative grid w-fit max-w-[70px] grid-cols-1 items-center rounded border border-slate-200 p-2 hover:cursor-pointer hover:border-blue-300 data-[checked=true]:border-2 data-[checked=true]:border-blue-400"
+          className="group peer relative grid w-fit grid-cols-1 items-center rounded border border-slate-200 p-2 hover:cursor-pointer hover:border-blue-300 data-[checked=true]:border-2 data-[checked=true]:border-blue-400"
           style={{
-            flex: "1 1 70px",
+            flex: "1 0 70px",
           }}
           onClick={() => {
             const newValue = option.value == value ? null : option.value;
@@ -29,7 +29,7 @@ export function OptionSelect({
         >
           <p
             title={option.label}
-            className="text-3xs overflow-hidden text-ellipsis whitespace-pre-line text-center font-light leading-tight tracking-wide hover:underline"
+            className="text-xs overflow-hidden text-ellipsis whitespace-pre-line text-center font-light leading-tight tracking-wide hover:underline"
           >
             {option.label}
           </p>

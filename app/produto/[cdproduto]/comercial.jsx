@@ -79,13 +79,15 @@ export function Comercial({ dataMap }) {
         <ul className="grid grid-cols-1 gap-2">
           {getFields.map((field) => (
             <li key={field.name}>
-              <span className="text-xs font-semibold">
-                {field.name}:{" "}
+              <span className="text-sm font-semibold">
+                {`${field.name} : `}
                 <span className="font-light">
-                  {
-                    subprodutoByTipo(dataMap.get("subProdutos"), field.name)
-                      ?.nmsubproduto
-                  }
+                  {dataMap
+                    .get("subProdutos")
+                    .find(
+                      (subproduto) =>
+                        subproduto.cdsubproduto == formik.values[field.name],
+                    )?.nmsubproduto || "Selecione"}
                 </span>
               </span>
               <OptionSelect
