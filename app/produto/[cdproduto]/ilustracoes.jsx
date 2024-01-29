@@ -17,12 +17,12 @@ export function Ilustracoes({ imagens = [] }) {
       <header className="scroll grid h-fit max-h-full hide-scrollbar grid-cols-1 gap-4 overflow-auto">
         {imagens.map((imagem, index) => (
           <div
+            key={imagem + index}
             className="group/nav-image rounded-md border border-slate-300 bg-white p-4 hover:cursor-pointer data-[checked=true]:border-2 data-[checked=true]:border-blue-400"
             onMouseEnter={() => swiper.slideTo(index)}
             data-checked={swiper?.activeIndex == index}
           >
             <div
-              key={imagem + index}
               className="relative aspect-square w-12"
               style={{
                 flex: "1 0 60px",
