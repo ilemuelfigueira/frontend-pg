@@ -136,6 +136,7 @@ export default function Product({ ...props }) {
   };
 
   const getSubProdutosPorTipo = (subprodutos = [], tipo = "") => {
+    console.log(subprodutos)
     return subprodutos.filter(
       (item) =>
         item.nmsubprodutotipo == tipo

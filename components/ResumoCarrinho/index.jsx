@@ -6,7 +6,8 @@ import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import If from "../If";
 
-export function ResumoCarrinho({ somapacotes, carrinhoVazio = false }) {
+export function ResumoCarrinho({ somapacotes, carrinhoVazio = false, cdcarrinho = '' }) {
+  const hrefCheckout = `/checkout/${cdcarrinho}`
   return (
     <div className="w-full flex-col items-center justify-center p-4 shadow-md bg-white rounded-lg">
       <header className="flex w-full justify-between">
@@ -28,7 +29,7 @@ export function ResumoCarrinho({ somapacotes, carrinhoVazio = false }) {
           </Link>
         </If>
         <Link
-          href={"/"}
+          href={hrefCheckout}
           className="flex cursor-pointer items-center gap-2 text-base text-orange-400 hover:underline md:text-lg"
         >
           <ArrowLeft className="text-lg md:text-2xl" />

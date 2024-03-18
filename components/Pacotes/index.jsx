@@ -8,6 +8,7 @@ import Link from "next/link";
 import { floatToBRL } from "@/lib/util/intl";
 import { removerPacoteDoCarrinho } from "@/actions/excluir-pacote-carrinho";
 import toast from "react-hot-toast";
+import { NewText } from "../NewText";
 
 const Arrow = ({
   className = "",
@@ -221,8 +222,9 @@ export function Pacotes({ pacotes = [] }) {
               nmproduto={pacote.nmproduto}
               nmprodutotipo={pacote.nmprodutotipo}
             />
+            {pacote.concat_nmsubprodutotipo}
             <NomeProduto
-              concat_nmsubprodutotipo={pacote.concat_nmsubprodutotipo}
+              concat_nmsubprodutotipo={pacote.concat_nmsubprodutotipo.replace('\\n', '\n')}
               nmpathname={pacote.nmpathname}
               nmproduto={pacote.nmproduto}
               nmprodutotipo={pacote.nmprodutotipo}

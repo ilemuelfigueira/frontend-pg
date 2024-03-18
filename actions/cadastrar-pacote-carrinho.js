@@ -105,10 +105,16 @@ export async function cadastrarPacoteComItens(body, cb) {
       });
     }
 
-    const carrinho = await prisma.carrinho.findFirst({
+    let carrinho = await prisma.carrinho.findFirst({
       where: {
         cdusuario: user.id,
         sgcarrinhosituacao: 'PEN'
+      }
+    })
+
+    if(!carrinho) carrinho = await prisma.carrinho.create({
+      data: {
+        cdusuario: user.id
       }
     })
 

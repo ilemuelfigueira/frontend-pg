@@ -26,6 +26,8 @@ export function useUser() {
 
       return user;
     }
+
+    sair()
   });
 
   const { state, actions } = useUserStore();
