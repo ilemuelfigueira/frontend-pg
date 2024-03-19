@@ -9,6 +9,8 @@ import { ConfigProvider } from "antd";
 import theme from "@/lib/AntdTheme";
 import { Toaster } from "react-hot-toast";
 import { HeaderNavigator } from "@/components/Header";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -28,20 +30,37 @@ export const metadata = {
   },
 };
 
+async function loadData() {
+
+  const map = new Map()
+
+  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if(user) map.set("user", user)
+
+  return map
+}
+
 /**
  *
  * @type {import('next').Route}
  * @param {import('next').GetStaticPropsContext} context
  *
  */
-export default function RootLayout({ children, ...props }) {
-  // const data = await loadData();
+export default async function RootLayout({ children, ...props }) {
+  const data = await loadData();
+
   return (
     <html lang="pt-BR" className={`${poppins.variable}`}>
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
           <body className="w-full max-w-full bg-gray-100">
-            <HeaderNavigator />
+            <HeaderNavigator user={data.get("user")} />
             <section className="mx-auto my-0 mb-8 flex min-h-screen flex-col items-center sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]">
               <Toaster />
               <div className="w-full max-w-full py-2 max-lg:px-2">

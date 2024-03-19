@@ -40,8 +40,6 @@ async function loadData() {
 
   dataMap.set("pacotes", pacotes_carrinho);
 
-  console.log(JSON.stringify(pacotes_carrinho))
-
   carrinho.pacotes = pacotes_carrinho;
 
   return dataMap;
@@ -73,8 +71,7 @@ export default async function Carrinho() {
         </span>
       </div>
       <Pacotes pacotes={pacotes} />
-      {JSON.stringify(dataMap.get("carrinho"))}
-      <If condition={!carrinho} fallback={"Carrinho Vazio"}>
+      <If condition={carrinho} fallback={"Carrinho Vazio"}>
         <ResumoCarrinho
           cdcarrinho={carrinho?.cdcarrinho}
           carrinhoVazio={pacotes.length == 0}

@@ -18,6 +18,8 @@ async function loadData() {
 
   dataMap.set("produtosExclusivos", produtosExclusivos);
 
+  console.log(dataMap.get("produtosExclusivos"))
+
   return dataMap;
 }
 

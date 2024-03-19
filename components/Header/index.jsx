@@ -17,6 +17,7 @@ import {
   SignOut,
   UserCircle,
 } from "@phosphor-icons/react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button, Dropdown, Input } from "antd";
 import { getMessaging, onMessage } from "firebase/messaging";
 import Link from "next/link";
@@ -50,8 +51,14 @@ const MenuItem = ({ href, label, Icon = null, onClick = undefined }) => {
   );
 };
 
-export function HeaderNavigator({ ...props }) {
-  const { existe: existeUsuario, user, sair } = useUser();
+export function HeaderNavigator({ user,...props }) {
+  const existeUsuario = Boolean(user)
+
+  const supabase = createClientComponentClient();
+
+  async function sair() {
+    return await supabase.auth.signOut().then(res => router.refresh())
+  }
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -163,7 +170,7 @@ export function HeaderNavigator({ ...props }) {
               <a className="flex h-fit cursor-pointer items-center gap-1 text-slate-600 max-md:hidden">
                 <UserCircle size={24} />
                 <span className="text-xs">
-                  {user.nmUsuario || user.nmEmail}
+                  {user?.nome || user?.email}
                 </span>
               </a>
             </Dropdown>
