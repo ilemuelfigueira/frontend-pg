@@ -5,7 +5,7 @@
     "4paddles": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/png/dualshock4/traseira_paddle_2.png",
     "sem": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/sem_paddles_slim.svg"
   },
-  "description": "Apresentamos o Controle Goliath da PG Custom, uma obra-prima de engenharia e design que redefine os padrões da experiência de jogos. Este controle customizável é uma verdadeira expressão de tecnologia avançada e ergonomia, cuidadosamente projetado para proporcionar desempenho superior e conforto incomparável a cada jogador. O Controle goliath não é apenas um dispositivo, é uma extensão do seu estilo de jogo, oferecendo uma gama de recursos personalizáveis para atender às suas necessidades específicas.",
+  "description": "O DualShock 4 Goliath mistura a modernidade com um toque de nostalgia, relembre os melhores momentos das suas jogatinas com o controle original de Playstation 4, só que, sem abrir mão das melhores tecnologias atuais.\n\nEsse modelo conta com um carinho especial da PG, por ter sido nosso início nas modificações, e nele está envolvido muitos anos de dedicação e estudo para trazer sempre o melhor. Graças a isso, temos hoje a maestria para fornecer diferentes tipos de modificações, que combinam seu próprio estilo com o máximo desempenho, sempre!\n\nO PG Goliath, assim como nossos modelos mais “atuais”, conta com as opções de 2 ou 4 paddles, e também 2 paddles + botões de suporte laterais à sua escolha.\n\nEsse modelo é, com certeza, um GIGANTE da nossa trajetória como empresa.",
   "vibrations": [
     {
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/dualshock4_sem_vibracao.svg",
@@ -32,23 +32,25 @@
     {
       "label": "PG Grip",
       "strongLabel": "Militar",
+      "tooltip": "PG Grip Militar é uma pintura emborrachada (seguindo a base da cor do controle selecionado) que aumenta a aderência no seu controle, a Pintura PG Grip é add respingos em alto relevo sobre o Shape do controle original.",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_militar_icon.svg",
-      "price": "119,99",
+      "price": "199,99",
       "value": "militar"
     },
     {
       "label": "PG Grip",
       "strongLabel": "Tático",
+      "tooltip": "PG Grip Tático é uma pintura emborrachada para proporcionar maior estabilidade e precisão ao jogar, feita com camadas de pintura de base e texturizadas, além de receber o logo da PG.",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_tatico_icon.svg",
-      "price": "149,99",
+      "price": "249,99",
       "value": "tatico"
     },
     {
       "label": "PG Grip",
       "strongLabel": "Exclusive",
-      "tooltip": "Envie uma mensagem ao nosso time, \ninformando a logo ou texto que deseja registrar no seu controle.",
+      "tooltip": "PG Grip Exclusive confere as mesmas características de aderência e conforto do Grip Tático, porém, nesse, as suas opções de personalização são muito maiores, podendo adicionar seu Logo, Escudo, Gametag ou outros elementos que façam parte da sua identidade. Além de contar com camadas extras de grip, você pode escolher mais de uma cor para a texturização dele, combinada com a cor que escolheu para a pintura na camada abaixo.",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/grip_exclusive_icon.svg",
-      "price": "199,99",
+      "price": "299,99",
       "value": "exclusivo"
     }
   ],
@@ -56,18 +58,21 @@
     {
       "label": "Default",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_default_sony.svg",
+      "tooltip": "Manter os gatilhos originais de fábrica.",
       "price": "00,00",
       "value": "default"
     },
     {
       "label": "Stop",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_stop_sony.svg",
+      "tooltip": "É um parafuso que limita os gatilhos para um retorno mais rápido ao acioná-lo.",
       "price": "9,99",
       "value": "stop"
     },
     {
       "label": "Digital",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/trigger_click_digital_sony.svg",
+      "tooltip": "Transforma os acionadores dos seus gatilhos padrão em switches Omron  experimentando a sensibilidade e respostas instantâneas que você teria clicando em um mouse, pois o switch é o mesmo.",
       "price": "149,99",
       "value": "digital"
     }
@@ -99,20 +104,15 @@
     {
       "label": "Click tactil",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_tactil.svg",
+      "tooltip": "Paddles PG com Click Táctil: 2M de ciclos de clicks, som e sensação ao clicar suave, acionador usado nos controles da PG desde 2014, testado e aprovado por jogadores exigentes com acionamento de 1.5N.",
       "aspect": "16/9",
       "price": "74,99",
       "value": "tactil"
     },
     {
-      "label": "Click digital",
-      "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_digital.svg",
-      "aspect": "16/9",
-      "price": "99,99",
-      "value": "digital"
-    },
-    {
       "label": "Click mouse",
       "src": "https://ljgdfxvbwvrxsltyjutg.supabase.co/storage/v1/object/public/produtos/svg/click_paddle_mouse.svg",
+      "tooltip": "Paddles PG com Click de Mouse: 10M de ciclos de clicks, maior sensibilidade ao toque e repetições mais rápidas, mesmo acionador usado em mouses com acionamento de 0.6N.",
       "aspect": "16/9",
       "price": "149,99",
       "value": "mouse"

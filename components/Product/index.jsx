@@ -114,7 +114,7 @@ export default function Product({ ...props }) {
           <span className="#modelName font-helveticaNeue w-full font-semibold">
             {getLabel(props.shapes, formik.values.shape)}
           </span>
-          <p className="font-helvetica w-full text-sm font-light leading-6 tracking-[0.0125em]">
+          <p className="font-helvetica w-full text-sm font-light leading-6 tracking-[0.0125em] whitespace-pre-line">
             {props.description}
           </p>
         </div>

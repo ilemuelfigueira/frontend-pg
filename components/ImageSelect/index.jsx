@@ -52,16 +52,18 @@ function ImageSelect(props) {
                   label: (
                     <span>
                       <strong>
-                        {item.label} - {item.strongLabel}:
+                        {item.label}
+                        {item.strongLabel ? `- ${item.strongLabel}` : ""}
+                        {": "}
                       </strong>
                       <span className="whitespace-pre-line">
-                        {" "}
                         {item.tooltip}
                       </span>
                     </span>
                   ),
                 })),
               }}
+              rootClassName="lg:max-w-[500px] max-lg:max-w-[300px]"
               placement="bottom"
             >
               <i className="pi pi-info-circle ml-2 hover:cursor-pointer"></i>
