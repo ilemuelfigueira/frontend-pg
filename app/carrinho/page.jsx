@@ -3,30 +3,21 @@ import { Pacotes } from "@/components/Pacotes";
 import { ResumoCarrinho } from "@/components/ResumoCarrinho";
 import { onError } from "@/lib/util/error";
 import { serverFetcher } from "@/lib/util/server-fetcher";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { readUserOrThrow } from "@/lib/util/supabase";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 async function loadData() {
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
-    redirect("/");
-  }
+  await readUserOrThrow({
+    onOffline: () => redirect("/"),
+  });
 
   const carrinho = await serverFetcher("/api/carrinhos");
 
   const dataMap = new Map();
 
   if (carrinho.error) {
-    console.error(carrinho.error)
     return dataMap;
-    // onError(carrinho.error, "Erro ao carregar carrinho");
   }
 
   dataMap.set("carrinho", carrinho);
@@ -71,7 +62,25 @@ export default async function Carrinho() {
         </span>
       </div>
       <Pacotes pacotes={pacotes} />
-      <If condition={carrinho} fallback={"Carrinho Vazio"}>
+      <If
+        condition={carrinho}
+        fallback={
+          <div className="w-full flex flex-col gap-2">
+            <Link
+              className="w-full rounded-full bg-blue-500 hover:brightness-95 p-2 text-center font-semibold text-white"
+              href={"/produtos"}
+            >
+              Ir para produtos
+            </Link>
+            <Link
+              className="w-full rounded-full bg-white p-2 hover:brightness-95 text-center font-semibold text-blue-500"
+              href={"/pedidos"}
+            >
+              Ver pedidos
+            </Link>
+          </div>
+        }
+      >
         <ResumoCarrinho
           cdcarrinho={carrinho?.cdcarrinho}
           carrinhoVazio={pacotes.length == 0}
