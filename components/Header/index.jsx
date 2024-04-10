@@ -5,9 +5,6 @@ import Image from "@/components/Image";
 import LoginModal from "@/components/Modal/login";
 import RegistrarModal from "@/components/Modal/registrar";
 import { useOpen } from "@/hooks/open";
-import useFcmToken from "@/hooks/useFcmToken";
-import { useUser } from "@/hooks/user";
-import firebaseApp from "@/lib/util/firebase";
 import {
   AddressBook,
   List,
@@ -19,11 +16,11 @@ import {
 } from "@phosphor-icons/react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button, Dropdown, Input } from "antd";
-import { getMessaging, onMessage } from "firebase/messaging";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Container = ({ children, ...props }) => (
   <div
@@ -92,6 +89,13 @@ export function HeaderNavigator({ user,...props }) {
 
     router.push(href);
   };
+
+  useEffect(() => {
+    if(props.expired_login) {
+      toast.error("Autentique-se novamente!")
+      router.replace("/")
+    }
+  }, [])
 
   return (
     <>
