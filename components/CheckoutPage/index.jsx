@@ -2,7 +2,6 @@
 
 import {
   AddressBook,
-  Bank,
   CheckCircle,
   CircleDashed,
   GameController,
@@ -18,6 +17,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Pacotes } from "../Pacotes";
+import { cadastrarPedido } from "@/actions/pedido";
 
 export function CheckoutComponent({ data }) {
   const { enderecos } = data;
@@ -29,9 +29,10 @@ export function CheckoutComponent({ data }) {
   const [step, setStep] = useState({
     enderecos: "process",
     produtos: "wait",
-    pay: "wait",
     done: "wait",
   });
+
+  const [pedido, setPedido] = useState();
 
   const getCdEnderecoFlPadrao = (enderecos = []) => {
     return enderecos.find((endereco) => endereco.flpadrao === "S").cdendereco;
@@ -80,8 +81,6 @@ export function CheckoutComponent({ data }) {
       case "enderecos":
         return "produtos";
       case "produtos":
-        return "pay";
-      case "pay":
         return "done";
       case "done":
         return "done";
@@ -90,13 +89,16 @@ export function CheckoutComponent({ data }) {
     }
   };
 
-  const handleProsseguir = () => {
-    console.log(step);
+  const handleProsseguir = async () => {
     const stepInProcess = Object.keys(step).find(
       (key) => step[key] === "process",
     );
 
     const nextStep = getNextStep(stepInProcess);
+
+    if (nextStep == "done") {
+      return formik.handleSubmit();
+    }
 
     setStep({
       ...step,
@@ -108,9 +110,18 @@ export function CheckoutComponent({ data }) {
   const formik = useFormik({
     initialValues: {
       cdendereco: getCdEnderecoFlPadrao(enderecos),
+      cdcarrinho: data.cdcarrinho,
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const response = await cadastrarPedido(values);
+
+      setPedido(response.pedido);
+
+      setStep({
+        ...step,
+        ["produtos"]: "done",
+        ["done"]: "done",
+      });
     },
   });
 
@@ -121,30 +132,24 @@ export function CheckoutComponent({ data }) {
         items={[
           {
             title: "Endereço",
-            status: "process",
+            status: step.enderecos,
             icon: (
               <StepIcon
                 status={step.enderecos}
                 ProcessIcon={AddressBook}
-                // className="aspect-square w-12"
               />
             ),
           },
           {
             title: "Produtos",
-            status: "wait",
+            status: step.produtos,
             icon: (
               <StepIcon status={step.produtos} ProcessIcon={GameController} />
             ),
           },
           {
-            title: "Pay",
-            status: "wait",
-            icon: <StepIcon status={step.pay} ProcessIcon={Bank} />,
-          },
-          {
             title: "Done",
-            status: "wait",
+            status: step.done,
             icon: <StepIcon status={step.done} ProcessIcon={Smiley} />,
           },
         ]}
@@ -234,32 +239,23 @@ export function CheckoutComponent({ data }) {
         </div>
       </div>
 
-      <div
+      <section
         data-show={step.produtos}
-        className="wrapper hidden data-[show='process']:block"
+        className="wrapper hidden data-[show='process']:flex flex-col gap-4"
       >
-        <Title>Produtos:</Title>
+        <Title >Produtos:</Title>
         <Pacotes pacotes={data.produtos} />
-      </div>
-
-      <div
-        data-show={step.pay}
-        className="wrapper hidden data-[show='process']:block"
-      >
-        <Title>Pay:</Title>
-      </div>
+      </section>
 
       <div
         data-show={step.done}
-        className="wrapper hidden data-[show='process']:block"
+        className="wrapper hidden data-[show='done']:block data-[show='process']:block"
       >
         <Title>Done:</Title>
         <Result
           status="success"
-          // title="Successfully Purchased Cloud Server ECS!"
-          title="Pedido realizado com sucesso!"
-          // subTitle="Código do pedido: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
-          subTitle="Código do pedido: 2017182818828182881 O seu pedido pode demorar um pouco para ser processado, por favor aguarde."
+          title="Pedido fechado!"
+          subTitle={`Código do pedido: ${pedido?.cdpedido}.\nEfetue o pagamento e aguarde a confirmação que irá demorar alguns instantes!`}
           extra={[
             <div
               key="buttons"
@@ -272,8 +268,13 @@ export function CheckoutComponent({ data }) {
               >
                 Ver Meus Pedidos
               </Button>
-              <Button onClick={() => router.push("/")} type="primary" key="buy">
-                Continuar
+              <Button
+                href={pedido?.payment_url}
+                target="_blank"
+                type="primary"
+                key="buy"
+              >
+                Pagar
               </Button>
             </div>,
           ]}
@@ -282,6 +283,7 @@ export function CheckoutComponent({ data }) {
 
       <Button
         type="primary"
+        data-done={step.done == "done" || step.done == "process"}
         className="float-right mt-8 data-[done=true]:hidden"
         onClick={handleProsseguir}
       >
@@ -306,11 +308,13 @@ const Title = ({ children, className, ...props }) => {
 
 const Button = ({ children, className, onClick, ...props }) => {
   return (
-    <button
+    <a
+      href={props?.href}
+      target={props?.target}
       data-type={props.type}
       onClick={onClick}
       className={twMerge(
-        "max-w-[300px] rounded-full p-4 text-white shadow-md outline-none",
+        "max-w-[300px] rounded-full p-4 text-white shadow-md outline-none hover:cursor-pointer active:opacity-90",
         className,
         "data-[type='primary']:bg-green-400 data-[type='primary']:text-white dark:data-[type='primary']:bg-green-600 dark:data-[type='primary']:text-green-600",
         "data-[type='secondary']:bg-white data-[type='secondary']:text-green-400 dark:data-[type='secondary']:bg-slate-300 dark:data-[type='secondary']:text-green-600",
@@ -318,6 +322,6 @@ const Button = ({ children, className, onClick, ...props }) => {
       {...props}
     >
       <span className="font-semibold lg:text-lg">{children}</span>
-    </button>
+    </a>
   );
 };
