@@ -9,8 +9,7 @@ import { ConfigProvider } from "antd";
 import theme from "@/lib/AntdTheme";
 import { Toaster } from "react-hot-toast";
 import { HeaderNavigator } from "@/components/Header";
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { readUserOrThrow } from "@/lib/util/supabase";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,19 +30,17 @@ export const metadata = {
 };
 
 async function loadData() {
+  const map = new Map();
 
-  const map = new Map()
+  await readUserOrThrow({
+    onSuccess: ({user}) => map.set("user", user),
+    onExpired: () => {
+      map.set("expired_login", true);
+      map.set("user", null);
+    },
+  });
 
-  const cookieStore = cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if(user) map.set("user", user)
-
-  return map
+  return map;
 }
 
 /**
@@ -52,15 +49,21 @@ async function loadData() {
  * @param {import('next').GetStaticPropsContext} context
  *
  */
-export default async function RootLayout({ children, ...props }) {
+export default async function RootLayout({ children, params, ...props }) {
   const data = await loadData();
+
+  params.user = data.get("user");
+  params.expired_login = data.get("expired_login") ? 'S' : 'N';
 
   return (
     <html lang="pt-BR" className={`${poppins.variable}`}>
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
           <body className="w-full max-w-full bg-gray-100">
-            <HeaderNavigator user={data.get("user")} />
+            <HeaderNavigator
+              user={data.get("user")}
+              expired_login={data.get("expired_login")}
+            />
             <section className="mx-auto my-0 mb-8 flex min-h-screen flex-col items-center sm:w-[640px] md:w-[768px] lg:w-[1024px] xl:w-[1280px] 2xl:w-[1536px]">
               <Toaster />
               <div className="w-full max-w-full py-2 max-lg:px-2">

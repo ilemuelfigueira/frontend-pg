@@ -91,7 +91,7 @@ export function HeaderNavigator({ user,...props }) {
   };
 
   useEffect(() => {
-    if(props.expired_login) {
+    if(props.expired_login == 'S') {
       toast.error("Autentique-se novamente!")
       router.replace("/")
     }
