@@ -209,9 +209,9 @@ export function Pacotes({ pacotes = [] }) {
     );
   }
   return (
-    <>
+    <ul className="w-full flex flex-col gap-4">
       {pacotes.map((pacote) => (
-        <div
+        <li
           key={pacote.cdpacote}
           className="w-full flex-col gap-4 rounded-lg bg-white p-4 shadow-md max-md:rounded-none"
         >
@@ -224,7 +224,10 @@ export function Pacotes({ pacotes = [] }) {
             />
             {pacote.concat_nmsubprodutotipo}
             <NomeProduto
-              concat_nmsubprodutotipo={pacote.concat_nmsubprodutotipo.replace('\\n', '\n')}
+              concat_nmsubprodutotipo={pacote.concat_nmsubprodutotipo.replace(
+                "\\n",
+                "\n",
+              )}
               nmpathname={pacote.nmpathname}
               nmproduto={pacote.nmproduto}
               nmprodutotipo={pacote.nmprodutotipo}
@@ -249,8 +252,8 @@ export function Pacotes({ pacotes = [] }) {
               max_md_hide={false}
             />
           </div>
-        </div>
+        </li>
       ))}
-    </>
+    </ul>
   );
 }
