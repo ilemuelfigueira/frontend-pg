@@ -11,12 +11,10 @@ export function useUser() {
   const [userSession, _] = useState(async () => {
     const {
       data
-    } = await supabase.auth.getSession();
+    } = await supabase.auth.getUser();
 
-    const session = data.session
-
-    if (session) {
-      const user = session.user;
+    if (data.user) {
+      const user = data.user;
 
       substituirUsuario({
         cdUsuario: user.id,
@@ -26,6 +24,9 @@ export function useUser() {
 
       return user;
     }
+
+    substituirUsuario(limparObjeto(state))
+    return null
   });
 
   const { state, actions } = useUserStore();
@@ -56,11 +57,11 @@ export function useUser() {
   }
 
   async function sair() {
-    await supabase.auth.signOut()
-    substituirUsuario(limparObjeto(state))
+    // await supabase.auth.signOut()
+    // substituirUsuario(limparObjeto(state))
 
-    toast("Até logo :)")
-    router.refresh()
+    // toast("Até logo :)")
+    // router.refresh()
   }
 
   return {

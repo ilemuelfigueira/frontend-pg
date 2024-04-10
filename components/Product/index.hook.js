@@ -137,6 +137,12 @@ export const useProduct = ({ ...props } = {}) => {
       )[0]
 
       
+      const sanatizeUrl = (url) => {
+        const index = url.lastIndexOf("/public") + 7
+        
+        return url.slice(index)
+      }
+
       await cadastrarPacoteComItens({
         cdproduto: pacote.cdproduto,
         pathname: productUrl,
@@ -144,7 +150,7 @@ export const useProduct = ({ ...props } = {}) => {
           (subproduto) => subproduto.cdsubproduto,
         ),
         foto: {
-          nmpath: bannerPacote.nmpath.replace(process.env.NEXT_PUBLIC_STORAGE_PUBLIC, ''),
+          nmpath: sanatizeUrl(bannerPacote.nmpath),
           nmaspect: bannerPacote.nmaspect,
           nmmimetype: bannerPacote.nmmimetype,
         }

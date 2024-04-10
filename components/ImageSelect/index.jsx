@@ -7,6 +7,7 @@ import { Dropdown } from "antd";
 import Image from "@/components/Image";
 import { floatToBRL } from "@/lib/util/intl";
 import If from "@/components/If";
+import { NewText } from "../NewText";
 
 export const Root = ({ children, className, ...props }) => (
   <div
@@ -87,10 +88,6 @@ export const ImageSelectLoading = ({ title = "", size = 6 }) => {
       </div>
     </div>
   );
-};
-
-const NewText = ({ text }) => {
-  return `${text}`.replace("\\n", "\n");
 };
 
 function ImageSelect(props) {

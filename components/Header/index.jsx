@@ -5,9 +5,6 @@ import Image from "@/components/Image";
 import LoginModal from "@/components/Modal/login";
 import RegistrarModal from "@/components/Modal/registrar";
 import { useOpen } from "@/hooks/open";
-import useFcmToken from "@/hooks/useFcmToken";
-import { useUser } from "@/hooks/user";
-import firebaseApp from "@/lib/util/firebase";
 import {
   AddressBook,
   List,
@@ -17,12 +14,13 @@ import {
   SignOut,
   UserCircle,
 } from "@phosphor-icons/react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button, Dropdown, Input } from "antd";
-import { getMessaging, onMessage } from "firebase/messaging";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Container = ({ children, ...props }) => (
   <div
@@ -50,8 +48,14 @@ const MenuItem = ({ href, label, Icon = null, onClick = undefined }) => {
   );
 };
 
-export function HeaderNavigator({ ...props }) {
-  const { existe: existeUsuario, user, sair } = useUser();
+export function HeaderNavigator({ user,...props }) {
+  const existeUsuario = Boolean(user)
+
+  const supabase = createClientComponentClient();
+
+  async function sair() {
+    return await supabase.auth.signOut().then(res => router.refresh())
+  }
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -85,6 +89,13 @@ export function HeaderNavigator({ ...props }) {
 
     router.push(href);
   };
+
+  useEffect(() => {
+    if(props.expired_login == 'S') {
+      toast.error("Autentique-se novamente!")
+      router.replace("/")
+    }
+  }, [])
 
   return (
     <>
@@ -163,7 +174,7 @@ export function HeaderNavigator({ ...props }) {
               <a className="flex h-fit cursor-pointer items-center gap-1 text-slate-600 max-md:hidden">
                 <UserCircle size={24} />
                 <span className="text-xs">
-                  {user.nmUsuario || user.nmEmail}
+                  {user?.nome || user?.email}
                 </span>
               </a>
             </Dropdown>

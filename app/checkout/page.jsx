@@ -1,19 +1,13 @@
 import { CheckoutComponent } from "@/components/CheckoutPage";
 import { onError } from "@/lib/util/error";
 import { serverFetcher } from "@/lib/util/server-fetcher";
-import { createServerSupabaseClient } from "@/lib/util/supabase";
+import { readUserOrThrow } from "@/lib/util/supabase";
 import { redirect } from "next/navigation";
 
 async function loadData() {
-  const supabase = createServerSupabaseClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
-    redirect("/");
-  }
+  await readUserOrThrow({
+    onOffline: () => redirect("/"),
+  });
 
   const enderecos = await serverFetcher("/api/enderecos");
 
@@ -32,7 +26,7 @@ async function loadData() {
 
   carrinho.pacotes = pacotes_carrinho;
 
-  return { enderecos, produtos: pacotes_carrinho };
+  return { enderecos, produtos: pacotes_carrinho, cdcarrinho: carrinho.cdcarrinho };
 }
 
 export default async function CheckoutPage() {
