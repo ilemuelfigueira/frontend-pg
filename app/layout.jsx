@@ -11,6 +11,10 @@ import { Toaster } from "react-hot-toast";
 import { HeaderNavigator } from "@/components/Header";
 import { readUserOrThrow } from "@/lib/util/supabase";
 
+import 'moment/locale/pt-br'
+import moment from "moment";
+moment.locale('pt-br')
+
 const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
