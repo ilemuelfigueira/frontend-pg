@@ -18,9 +18,9 @@ module.exports = {
         poppins: ["var(--font-poppins", "sans-serif"],
       },
       colors: {
-        fonts: {
-          $cinza: "#6F6F6F",
-        },
+        azul_escuro: "#1B4472",
+        $cinza: "#6F6F6F",
+        s2condPurple: '#a32eff',
       },
       fontSize: {
         "2xs": ".625rem",
