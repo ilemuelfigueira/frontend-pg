@@ -1,6 +1,11 @@
 import { IlustracoesHomePage } from "@/components/IlustracoesHomePage";
 import { onError } from "@/lib/util/error";
 import { fetcher } from "@/lib/util/fetcher";
+import { IconeSVG } from "@/public/home/Icone";
+import { AderenciaSVG } from "@/public/home/aderencia";
+import { MiraSVG } from "@/public/home/mira";
+import { NaoPercaTempoSVG } from "@/public/home/nao-perca-tempo";
+import { PinturaSVG } from "@/public/home/pintura";
 import Link from "next/link";
 
 async function loadData() {
@@ -27,14 +32,14 @@ export default async function Home() {
   return (
     <main className="flex w-full flex-col items-center justify-start">
       <IlustracoesHomePage />
-      <section className="grid w-full grid-cols-1 gap-20 bg-red-100 px-20 py-16">
-        <span className="text-azul_escuro bg-red-200 text-center text-5xl font-semibold">
+      <section className="grid w-full grid-cols-1 gap-20 px-20 py-16">
+        <span className="text-azul_escuro text-center text-5xl font-semibold">
           Por que escolher um PG?
         </span>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
-          <img
-            src="/logo-32x32.png"
+          <NaoPercaTempoSVG
+            src="/home/icone.svg"
             className="aspect-square w-72 min-w-[150px]"
           />
           <div className="text-azul_escuro flex max-w-[650px] flex-col items-start gap-1">
@@ -53,11 +58,11 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="text-azul_escuro flex w-full flex-col items-center justify-start gap-9 bg-blue-100">
+        <div className="text-azul_escuro flex w-full flex-col items-center justify-start gap-9">
           <span className="text-2xl font-medium">
             Mantenha-se sempre mirando!
           </span>
-          <img
+          <MiraSVG
             src="/logo-32x32.png"
             className="aspect-square w-72 min-w-[150px]"
           />
@@ -90,14 +95,14 @@ export default async function Home() {
               diferente.
             </span>
           </div>
-          <img
+          <AderenciaSVG
             src="/logo-32x32.png"
             className="aspect-square w-72 min-w-[150px]"
           />
         </div>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
-          <img
+          <PinturaSVG
             src="/logo-32x32.png"
             className="aspect-square w-72 min-w-[150px]"
           />
