@@ -104,19 +104,19 @@ export function HeaderNavigator({ user, ...props }) {
   }, []);
 
   useEffect(() => {
-    if (openSearch.open) searchRef.current && searchRef.current.focus()
+    if (openSearch.open) searchRef.current && searchRef.current.focus();
   }, [openSearch.open]);
 
   const searchRef = useRef(null);
 
-  const pathName = usePathname()
+  const pathName = usePathname();
 
   return (
     <>
       <Container
         {...props}
         data-isHome={pathName == "/"}
-        className="sticky top-0 z-40 data-[isHome=false]:mb-8 data-[isHome=true]:-mb-16 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm"
+        className="sticky top-0 z-40 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm data-[isHome=false]:mb-8 data-[isHome=true]:-mb-16"
       >
         <Link href={"/"} className="w-fit cursor-pointer">
           <LogoContainer className="flex items-center gap-4">
@@ -149,21 +149,36 @@ export function HeaderNavigator({ user, ...props }) {
           data-open={openSearch.open}
           className="relative flex gap-6 text-white data-[open=true]:hidden"
         >
-          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+          <Link
+            href={`/produtos?nmprodutotipo=CONTROLE_EXCLUSIVO`}
+            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+          >
             Controles
-          </span>
-          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+          </Link>
+          <Link
+            href={`/produtos?nmprodutotipo=CONSOLE`}
+            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+          >
             Consoles
-          </span>
-          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+          </Link>
+          <Link
+            href={`/produtos?nmprodutotipo=MOUSE`}
+            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+          >
             Mouses
-          </span>
-          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+          </Link>
+          <Link
+            href={`/produtos?nmprodutotipo=ARCADE`}
+            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+          >
             Arcades
-          </span>
-          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+          </Link>
+          <Link
+            href={`/sobre`}
+            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+          >
             Sobre
-          </span>
+          </Link>
         </section>
         <InfoContainer>
           <MagnifyingGlass
