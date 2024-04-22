@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 export const Clipboard = ({ text }) => {
   const onCopy = () => {
     navigator.clipboard.writeText(text);
-    toast.success("texto copiado!");
+    toast.success("texto copiado!", {
+      id: 'clipboard'
+    });
   };
 
   return (
