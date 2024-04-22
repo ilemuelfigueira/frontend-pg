@@ -32,23 +32,21 @@ async function loadData({ searchParams } = {}) {
 export default async function Page({ searchParams }) {
   const dataMap = await loadData({ searchParams });
   return (
-    <section className="w-full flex justify-center max-w-page-limit">
-      <div className="w-full max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-        <header>
-          <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
-            Produtos
-          </h2>
+    <section>
+      <header>
+        <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
+          Produtos
+        </h2>
 
-          <p className="mt-4 max-w-md text-gray-500">
-            Aqui você encontra todos os produtos disponíveis para compra.
-          </p>
-        </header>
+        <p className="mt-4 max-w-md text-gray-500">
+          Aqui você encontra todos os produtos disponíveis para compra.
+        </p>
+      </header>
 
-        <ProdutosPage
-          tipos={dataMap.has("tipos") ? dataMap.get("tipos") : []}
-          produtos={dataMap.has("produtos") ? dataMap.get("produtos") : []}
-        />
-      </div>
+      <ProdutosPage
+        tipos={dataMap.has("tipos") ? dataMap.get("tipos") : []}
+        produtos={dataMap.has("produtos") ? dataMap.get("produtos") : []}
+      />
     </section>
   );
 }
