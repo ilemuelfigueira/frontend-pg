@@ -32,8 +32,8 @@ export default async function Home() {
   return (
     <main className="flex w-full flex-col items-center justify-start">
       <IlustracoesHomePage />
-      <section className="max-w-page-limit grid w-full grid-cols-1 gap-20 p-8 md:px-20 md:py-16">
-        <span className="text-center text-5xl font-semibold text-azul_escuro">
+      <section className="max-w-page-limit grid w-full grid-cols-1 gap-14 md:gap-20 p-8 md:px-20 md:py-16">
+        <span className="text-center text-3xl lg:text-5xl font-semibold text-azul_escuro">
           Por que escolher um PG?
         </span>
 
@@ -58,13 +58,13 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="flex w-full flex-col items-center justify-start gap-9 text-azul_escuro">
+        <div className="flex w-full flex-col items-center justify-start gap-1 text-azul_escuro">
           <span className="text-2xl font-medium">
             Mantenha-se sempre mirando!
           </span>
           <MiraSVG
             src="/logo-32x32.png"
-            className="aspect-square  w-72 min-w-[200px] sm:w-96 md:w-[30rem]"
+            className="aspect-square w-72 min-w-[200px] max-w-full sm:w-96 md:w-[30rem]"
           />
 
           <span className="max-w-[650px] text-base">
