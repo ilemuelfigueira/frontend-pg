@@ -133,30 +133,30 @@ export default async function Home() {
         <ul className="max-w-page-limit grid w-full grid-cols-3 grid-rows-1 gap-3 place-self-center overflow-x-auto">
           <li className="flex aspect-[9/16] flex-col items-start gap-3 rounded-tr-[15%] bg-blue-100 bg-[url('/collection.png')] p-3 text-white">
             <span className="text-lg lg:text-2xl">Savytzz</span>
-            <span className="text-xs lg:text-lg">
+            <span className="text-xs lg:text-base">
               Essa é a linha exclusiva do Savytzz, com as configurações
               preferidas por ele!
             </span>
 
             <Link
               href="#"
-              className="flex items-center gap-2 text-center text-base outline-none lg:text-xl"
+              className="flex items-center gap-2 text-center text-base outline-none lg:text-lg"
             >
               Comprar
               <i className="pi pi-chevron-right text-[8px]"></i>
             </Link>
           </li>
 
-          <li className="flex aspect-[9/16] flex-col items-start gap-3 rounded-tr-[15%] bg-blue-100 bg-[url('/collection.png')] p-3 text-white">
+          <li className="flex aspect-[9/16] flex-col items-start gap-3 rounded-tr-[15%] bg-blue-100 bg-[url('/dualsense-desfocado.jpg')] bg-center bg-cover p-3 text-white">
             <span className="text-lg lg:text-2xl">Obsidian</span>
-            <span className="text-xs lg:text-lg">
+            <span className="text-xs lg:text-base">
               Esse é um controle de playstation 4 que poderá ser montado da
               forma que desejar!
             </span>
 
             <Link
               href="/exclusivos/bcca0ca6-09ac-4581-99fe-81ea1a780250"
-              className="flex items-center gap-2 text-center text-base outline-none lg:text-xl"
+              className="flex items-center gap-2 text-center text-base outline-none lg:text-lg"
             >
               Montar
               <i className="pi pi-chevron-right text-[8px]"></i>
@@ -165,14 +165,14 @@ export default async function Home() {
 
           <li className="flex aspect-[9/16] flex-col items-start gap-3 rounded-tr-[15%] bg-blue-100 bg-[url('/collection.png')] p-3 text-white">
             <span className="text-lg lg:text-2xl">Savytzz</span>
-            <span className="text-xs lg:text-lg">
+            <span className="text-xs lg:text-base">
               Essa é a linha exclusiva do Savytzz, com as configurações
               preferidas por ele!
             </span>
 
             <Link
               href="#"
-              className="flex items-center gap-2 text-center text-base outline-none lg:text-xl"
+              className="flex items-center gap-2 text-center text-base outline-none lg:text-lg"
             >
               Comprar
               <i className="pi pi-chevron-right text-[8px]"></i>
