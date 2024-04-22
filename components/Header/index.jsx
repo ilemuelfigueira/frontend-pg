@@ -118,17 +118,21 @@ export function HeaderNavigator({ user, ...props }) {
         data-isHome={pathName == "/"}
         className="sticky top-0 z-40 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm data-[isHome=false]:mb-8 data-[isHome=true]:-mb-16"
       >
-        <Link href={"/"} data-isSearchOpen={openSearch.open} className="w-fit max-md:data-[isSearchOpen=true]:hidden cursor-pointer">
-          <LogoContainer className="flex w-full items-center gap-4">
+        <Link
+          href={"/"}
+          data-isSearchOpen={openSearch.open}
+          className="w-fit cursor-pointer max-md:data-[isSearchOpen=true]:hidden"
+        >
+          <LogoContainer className="flex w-full items-center gap-2 md:gap-4">
             <IconeNavbarSVG fill="white" className="aspect-square w-6 md:w-8" />
-            <span className="w-full text-xl font-black text-white lg:text-2xl">
+            <span className="w-full text-base font-black text-white md:text-xl lg:text-2xl">
               PG Custom
             </span>
           </LogoContainer>
         </Link>
         <section
           data-open={openSearch.open}
-          className="relative mx-auto flex w-full md:max-w-[350px] lg:max-w-[500px] items-center gap-2 data-[open=false]:hidden"
+          className="relative mx-auto flex w-full items-center gap-2 data-[open=false]:hidden md:max-w-[350px] lg:max-w-[500px]"
         >
           <Input
             ref={searchRef}
@@ -147,7 +151,7 @@ export function HeaderNavigator({ user, ...props }) {
         </section>
         <section
           data-open={openSearch.open}
-          className="relative max-md:hidden flex gap-6 text-white data-[open=true]:hidden"
+          className="relative flex gap-6 text-white data-[open=true]:hidden max-md:hidden"
         >
           <Link
             href={`/produtos?nmprodutotipo=CONTROLE_EXCLUSIVO`}
@@ -183,12 +187,12 @@ export function HeaderNavigator({ user, ...props }) {
         <InfoContainer>
           <MagnifyingGlass
             onClick={openSearch.openClose}
-            className={"cursor-pointer text-3xl text-white"}
+            className={"cursor-pointer text-lg text-white md:text-3xl"}
           />
 
           <ShoppingCart
             onClick={goToCart}
-            className="cursor-pointer text-3xl text-white hover:rounded-md"
+            className="cursor-pointer text-lg text-white hover:rounded-md md:text-3xl"
           />
           {/* <If condition={existeUsuario}> */}
           <Dropdown
@@ -245,7 +249,7 @@ export function HeaderNavigator({ user, ...props }) {
                 <UserCircle size={24} />
                 <span className="text-xs">{user?.nome || user?.email}</span>
               </a> */}
-            <User className="cursor-pointer text-3xl text-white hover:rounded-md" />
+            <User className="cursor-pointer text-lg text-white hover:rounded-md md:text-3xl" />
           </Dropdown>
           {/* </If> */}
           {/* <If condition={!existeUsuario}>
