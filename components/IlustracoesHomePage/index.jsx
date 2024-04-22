@@ -14,7 +14,7 @@ export function IlustracoesHomePage() {
       spaceBetween={50}
       slidesPerView={1}
       autoplay={{ delay: 2500 }}
-      mousewheel={true}
+      mousewheel={false}
       pagination={{ clickable: true }}
       modules={[Pagination, Autoplay, Mousewheel]}
       loop={true}
