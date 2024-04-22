@@ -4,10 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-  schemas   = ["auth", "public"]
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["auth", "public"]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -35,6 +34,7 @@ model flow_state {
   created_at             DateTime?             @db.Timestamptz(6)
   updated_at             DateTime?             @db.Timestamptz(6)
   authentication_method  String
+  auth_code_issued_at    DateTime?             @db.Timestamptz(6)
   saml_relay_states      saml_relay_states[]
 
   @@index([created_at(sort: Desc)])
@@ -45,7 +45,7 @@ model flow_state {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model identities {
-  id              String
+  provider_id     String
   user_id         String    @db.Uuid
   identity_data   Json
   provider        String
@@ -53,9 +53,10 @@ model identities {
   created_at      DateTime? @db.Timestamptz(6)
   updated_at      DateTime? @db.Timestamptz(6)
   email           String?   @default(dbgenerated("lower((identity_data ->> 'email'::text))"))
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   users           users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
-  @@id([provider, id])
+  @@unique([provider_id, provider], map: "identities_provider_id_provider_unique")
   @@index([email])
   @@index([user_id])
   @@schema("auth")
@@ -148,6 +149,7 @@ model saml_providers {
   attribute_mapping Json?
   created_at        DateTime?     @db.Timestamptz(6)
   updated_at        DateTime?     @db.Timestamptz(6)
+  name_id_format    String?
   sso_providers     sso_providers @relation(fields: [sso_provider_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@index([sso_provider_id])
@@ -162,7 +164,6 @@ model saml_relay_states {
   request_id      String
   for_email       String?
   redirect_to     String?
-  from_ip_address String?       @db.Inet
   created_at      DateTime?     @db.Timestamptz(6)
   updated_at      DateTime?     @db.Timestamptz(6)
   flow_state_id   String?       @db.Uuid
@@ -194,6 +195,7 @@ model sessions {
   refreshed_at   DateTime?        @db.Timestamp(6)
   user_agent     String?
   ip             String?          @db.Inet
+  tag            String?
   mfa_amr_claims mfa_amr_claims[]
   refresh_tokens refresh_tokens[]
   users          users            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -272,6 +274,7 @@ model users {
   reauthentication_sent_at    DateTime?     @db.Timestamptz(6)
   is_sso_user                 Boolean       @default(false)
   deleted_at                  DateTime?     @db.Timestamptz(6)
+  is_anonymous                Boolean       @default(false)
   identities                  identities[]
   mfa_factors                 mfa_factors[]
   sessions                    sessions[]
@@ -280,6 +283,7 @@ model users {
   pacote                      pacote[]
 
   @@index([instance_id])
+  @@index([is_anonymous])
   @@schema("auth")
 }
 
@@ -298,73 +302,70 @@ model pacote {
 }
 
 model pacote_item {
-  cdpacoteitem     String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  cdpacote         String       @db.Uuid
-  cdproduto        String       @db.Uuid
-  cdsubproduto     String?      @db.Uuid
-  cdsubprodutotipo String?      @db.Uuid
-  pacote           pacote       @relation(fields: [cdpacote], references: [cdpacote], onDelete: NoAction, onUpdate: NoAction)
-  produto          produto      @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
-  sub_produto      sub_produto? @relation(fields: [cdsubproduto], references: [cdsubproduto], onDelete: NoAction, onUpdate: NoAction)
+  cdpacoteitem      String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  cdpacote          String       @db.Uuid
+  cdproduto         String       @db.Uuid
+  cdsubproduto      String?      @db.Uuid
+  cdsubprodutotipo  String?      @db.Uuid
+  pacote_item       pacote_item  @relation("pacote_itemTopacote_item", fields: [cdpacoteitem], references: [cdpacoteitem], onDelete: NoAction, onUpdate: NoAction, map: "pacote_foto_item_cdpacoteitem_fkey")
+  other_pacote_item pacote_item? @relation("pacote_itemTopacote_item")
+  pacote            pacote       @relation(fields: [cdpacote], references: [cdpacote], onDelete: NoAction, onUpdate: NoAction)
+  produto           produto      @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
+  sub_produto       sub_produto? @relation(fields: [cdsubproduto], references: [cdsubproduto], onDelete: NoAction, onUpdate: NoAction)
 
   @@unique([cdpacote, cdproduto, cdsubprodutotipo], map: "uq_produto_sub")
   @@schema("public")
 }
 
 model pedido {
-  cdpedido         String          @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  cdusuario        String          @db.Uuid
-  cdendereco       String          @db.Uuid
-  dtcriado         DateTime        @default(now()) @db.Timestamp(6)
-  dtremovido       DateTime?       @db.Timestamp(6)
-  dtatualizado     DateTime?       @db.Timestamp(6)
-  cdcarrinho       String          @db.Uuid
-  sgpedidosituacao String          @db.Char(3)
-  carrinho         carrinho        @relation(fields: [cdcarrinho], references: [cdcarrinho], onDelete: NoAction, onUpdate: NoAction, map: "fk_carrinho")
-  endereco         endereco        @relation(fields: [cdendereco], references: [cdendereco], onDelete: NoAction, onUpdate: NoAction, map: "fk_endereco")
-  pedido_situacao  pedido_situacao @relation(fields: [sgpedidosituacao], references: [sgpedidosituacao], onDelete: NoAction, onUpdate: NoAction, map: "fk_sgpedidosituacao")
+  cdpedido              String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id               String             @db.Uuid
+  preference_id         String?            @db.VarChar
+  created_at            DateTime           @default(now()) @db.Timestamp(6)
+  updated_at            DateTime?          @default(now()) @db.Timestamp(6)
+  status                pedido_status_enum @default(PENDING)
+  value                 Decimal            @db.Decimal(10, 2)
+  cdcarrinho            String             @unique(map: "uq_cdcarrinho") @db.Uuid
+  cdendereco            String?            @db.Uuid
+  raw_payment_meta_data Json?
+  payment_url           String?
+  items                 Json?
+  carrinho              carrinho           @relation(fields: [cdcarrinho], references: [cdcarrinho], onDelete: NoAction, onUpdate: NoAction)
+  endereco              endereco?          @relation(fields: [cdendereco], references: [cdendereco], onDelete: NoAction, onUpdate: NoAction)
 
-  @@schema("public")
-}
-
-model pedido_situacao {
-  cdpedidosituacao String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  nmpedidosituacao String   @db.VarChar(255)
-  sgpedidosituacao String   @unique(map: "uq_sg") @db.Char(3)
-  pedido           pedido[]
-
-  @@unique([nmpedidosituacao, sgpedidosituacao], map: "uq_pedidosituacao")
   @@schema("public")
 }
 
 model produto {
-  cdproduto                                        String          @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  cdprodutotipo                                    String          @db.Uuid
-  nmproduto                                        String          @unique(map: "uq_nmproduto") @db.VarChar(50)
-  deproduto                                        String          @db.VarChar
-  nmprodutotipo                                    String?         @db.VarChar(255)
-  dtatualizado                                     DateTime?       @db.Timestamp(6)
-  dtcriado                                         DateTime        @default(now()) @db.Timestamp(6)
-  dtremovido                                       DateTime?       @db.Timestamp(6)
-  pacote_item                                      pacote_item[]
-  produto_tipo_produto_nmprodutotipoToproduto_tipo produto_tipo?   @relation("produto_nmprodutotipoToproduto_tipo", fields: [nmprodutotipo], references: [nmprodutotipo], onDelete: NoAction, onUpdate: NoAction, map: "fk_nmprodutotipo")
-  produto_tipo                                     produto_tipo    @relation(fields: [cdprodutotipo], references: [cdprodutotipo], onDelete: NoAction, onUpdate: NoAction)
-  produto_foto                                     produto_foto[]
-  produto_preco                                    produto_preco[]
-  sub_produto                                      sub_produto[]
+  cdproduto     String          @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  cdprodutotipo String          @db.Uuid
+  nmproduto     String          @unique(map: "uq_nmproduto") @db.VarChar(50)
+  deproduto     String          @db.VarChar
+  nmprodutotipo String?         @db.VarChar(255)
+  dtatualizado  DateTime?       @db.Timestamp(6)
+  dtcriado      DateTime        @default(now()) @db.Timestamp(6)
+  dtremovido    DateTime?       @db.Timestamp(6)
+  estoque       estoque[]
+  pacote_item   pacote_item[]
+  produto_foto  produto_foto[]
+  produto_preco produto_preco[]
+  sub_produto   sub_produto[]
 
+  @@index([cdproduto, dtcriado], map: "idx_nmproduto")
   @@schema("public")
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model produto_foto {
-  cdprodutofoto String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  cdproduto     String  @db.Uuid
-  nmprodutofoto String? @db.VarChar(50)
-  nmpath        String? @db.VarChar(255)
-  nmmimetype    String? @db.VarChar(100)
-  nmaspect      String? @db.VarChar(5)
-  produto       produto @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
+  cdprodutofoto     String             @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  cdproduto         String             @db.Uuid
+  nmprodutofoto     String?            @db.VarChar(50)
+  nmpath            String?            @db.VarChar(255)
+  nmmimetype        String?            @db.VarChar(100)
+  nmaspect          String?            @db.VarChar(5)
+  nmprodutofototipo String?            @db.VarChar(255)
+  produto_foto_tipo produto_foto_tipo? @relation(fields: [nmprodutofototipo], references: [nmprodutofototipo], onDelete: NoAction, onUpdate: NoAction, map: "fk_nmprodutofototipo")
+  produto           produto            @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
 
   @@schema("public")
 }
@@ -379,40 +380,35 @@ model produto_preco {
   dtfim          DateTime? @db.Timestamp(6)
   dtatualizado   DateTime? @db.Timestamp(6)
   dtcriado       DateTime  @default(now()) @db.Timestamp(6)
-  dtremovido     DateTime? @db.Timestamp(6)
+  flativo        String    @default("S") @db.Char(1)
   produto        produto?  @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
 
   @@schema("public")
 }
 
 model produto_tipo {
-  cdprodutotipo                               String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  nmprodutotipo                               String    @unique(map: "uq_produto_tipo") @db.VarChar(255)
-  deprodutotipo                               String?   @db.VarChar(255)
-  produto_produto_nmprodutotipoToproduto_tipo produto[] @relation("produto_nmprodutotipoToproduto_tipo")
-  produto                                     produto[]
+  cdprodutotipo String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  nmprodutotipo String  @unique(map: "uq_produto_tipo") @db.VarChar(255)
+  deprodutotipo String? @db.VarChar(255)
 
   @@schema("public")
 }
 
 model sub_produto {
-  cdsubproduto                                                    String              @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  cdproduto                                                       String              @db.Uuid
-  cdsubprodutotipo                                                String              @db.Uuid
-  nmsubproduto                                                    String?             @db.VarChar(255)
-  nmsubprodutotipo                                                String              @db.VarChar(255)
-  nmhelpsubproduto                                                String?             @db.VarChar(255)
-  dtatualizado                                                    DateTime?           @db.Timestamp(6)
-  dtcriado                                                        DateTime            @default(now()) @db.Timestamp(6)
-  dtremovido                                                      DateTime?           @db.Timestamp(6)
-  pacote_item                                                     pacote_item[]
-  sub_produto_tipo_sub_produto_nmsubprodutotipoTosub_produto_tipo sub_produto_tipo    @relation("sub_produto_nmsubprodutotipoTosub_produto_tipo", fields: [nmsubprodutotipo], references: [nmsubprodutotipo], onDelete: NoAction, onUpdate: NoAction, map: "fk_nmsubprodutotipo")
-  produto                                                         produto             @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
-  sub_produto_tipo_sub_produto_cdsubprodutotipoTosub_produto_tipo sub_produto_tipo    @relation("sub_produto_cdsubprodutotipoTosub_produto_tipo", fields: [cdsubprodutotipo], references: [cdsubprodutotipo], onDelete: NoAction, onUpdate: NoAction)
-  sub_produto_foto                                                sub_produto_foto[]
-  sub_produto_preco                                               sub_produto_preco[]
+  cdsubproduto        String              @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  cdproduto           String              @db.Uuid
+  nmsubproduto        String?             @db.VarChar(255)
+  nmsubprodutotipo    String              @db.VarChar(255)
+  nmhelpsubproduto    String?             @db.VarChar(255)
+  dtatualizado        DateTime?           @db.Timestamp(6)
+  dtcriado            DateTime            @default(now()) @db.Timestamp(6)
+  dtremovido          DateTime?           @db.Timestamp(6)
+  cdsubprodutosubtipo String?             @db.Uuid
+  pacote_item         pacote_item[]
+  produto             produto             @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
+  sub_produto_foto    sub_produto_foto[]
+  sub_produto_preco   sub_produto_preco[]
 
-  @@unique([cdproduto, cdsubprodutotipo, nmsubproduto], map: "uq_sub_produto_tipo_nm_per_produto")
   @@schema("public")
 }
 
@@ -448,18 +444,16 @@ model sub_produto_preco {
   dtfim             DateTime?   @db.Timestamp(6)
   dtatualizado      DateTime?   @db.Timestamp(6)
   dtcriado          DateTime    @default(now()) @db.Timestamp(6)
-  dtremovido        DateTime?   @db.Timestamp(6)
+  flativo           String      @default("S") @db.Char(1)
   sub_produto       sub_produto @relation(fields: [cdsubproduto], references: [cdsubproduto], onDelete: NoAction, onUpdate: NoAction)
 
   @@schema("public")
 }
 
 model sub_produto_tipo {
-  cdsubprodutotipo                                           String        @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  nmsubprodutotipo                                           String?       @unique(map: "uq_sub_produto_tipo") @db.VarChar(255)
-  desubprodutotipo                                           String?       @db.VarChar(255)
-  sub_produto_sub_produto_nmsubprodutotipoTosub_produto_tipo sub_produto[] @relation("sub_produto_nmsubprodutotipoTosub_produto_tipo")
-  sub_produto_sub_produto_cdsubprodutotipoTosub_produto_tipo sub_produto[] @relation("sub_produto_cdsubprodutotipoTosub_produto_tipo")
+  cdsubprodutotipo String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  nmsubprodutotipo String? @unique(map: "uq_sub_produto_tipo") @db.VarChar(255)
+  desubprodutotipo String? @db.VarChar(255)
 
   @@schema("public")
 }
@@ -474,7 +468,7 @@ model carrinho {
   carrinho_situacao  carrinho_situacao @relation(fields: [sgcarrinhosituacao], references: [sgcarrinhosituacao], onDelete: NoAction, onUpdate: NoAction, map: "fk_carrinhosituacao")
   users              users             @relation(fields: [cdusuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuario")
   carrinho_pacote    carrinho_pacote[]
-  pedido             pedido[]
+  pedido             pedido?
 
   @@schema("public")
 }
@@ -535,6 +529,58 @@ model pacote_foto {
   @@schema("public")
 }
 
+model estoque {
+  cdestoque    String    @id(map: "estoqueproduto_pkey") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  cdproduto    String    @db.Uuid
+  nuestoque    Int       @default(0)
+  dtcriado     DateTime  @default(now()) @db.Timestamp(6)
+  dtatualizado DateTime? @db.Timestamp(6)
+  produto      produto   @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("public")
+}
+
+model produto_foto_tipo {
+  cdprodutofototipo String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  nmprodutofototipo String         @unique(map: "uq_produto_foto_tipo") @db.VarChar(255)
+  deprodutofototipo String?        @db.VarChar(255)
+  produto_foto      produto_foto[]
+
+  @@schema("public")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model pacote_item_foto {
+  cdpacoteitemfoto String  @id(map: "pk_pacoteitemfoto") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  cdpacoteitem     String  @unique(map: "uq_cdpacoteitem") @db.Uuid
+  nmpacoteitemfoto String? @db.VarChar(50)
+  nmpath           String? @db.VarChar(255)
+  nmmimetype       String? @db.VarChar(100)
+  nmaspect         String? @db.VarChar(5)
+
+  @@schema("public")
+}
+
+model sub_produto_sub_tipo {
+  cdsubprodutosubtipo String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  nmsubprodutosubtipo String? @unique(map: "uq_sub_produto_sub_tipo") @db.VarChar(255)
+  desubprodutosubtipo String? @db.VarChar(255)
+
+  @@schema("public")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model action_logger {
+  id                    String  @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  action                String? @db.VarChar
+  content               String? @db.VarChar
+  request_ip            String? @db.VarChar
+  raw_payment_meta_data Json?
+
+  @@ignore
+  @@schema("public")
+}
+
 enum aal_level {
   aal1
   aal2
@@ -562,4 +608,20 @@ enum factor_type {
   webauthn
 
   @@schema("auth")
+}
+
+enum payment_status_enum {
+  PENDING
+  PAID
+  FAILED
+
+  @@schema("public")
+}
+
+enum pedido_status_enum {
+  PENDING
+  PAID
+  FAILED
+
+  @@schema("public")
 }
