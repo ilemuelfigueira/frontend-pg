@@ -37,9 +37,12 @@ async function loadData() {
   const map = new Map();
 
   await readUserOrThrow({
-    onSuccess: ({ user }) => map.set("user", user),
+    onSuccess: ({ user }) => {
+      map.set("user", user)
+      map.set("expired_login", "N")
+    },
     onExpired: () => {
-      map.set("expired_login", true);
+      map.set("expired_login", "S");
       map.set("user", null);
     },
   });
@@ -57,7 +60,7 @@ export default async function RootLayout({ children, params, ...props }) {
   const data = await loadData();
 
   params.user = data.get("user");
-  params.expired_login = data.get("expired_login") ? "S" : "N";
+  params.expired_login = data.get("expired_login");
 
   return (
     <html lang="pt-BR" className={`${poppins.variable}`}>
