@@ -1,6 +1,8 @@
-export const PinturaSVG = () => {
+import { twMerge } from "tailwind-merge"
+
+export const PinturaSVG = ({ className }) => {
 return (
-<svg width="348" height="348" viewBox="0 0 348 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg className={twMerge("w-[348px] h-[348px]", className)} viewBox="0 0 348 348" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clipPath="url(#clip0_162_32)">
 <path d="M173.6 327.58C258.641 327.58 327.58 258.641 327.58 173.6C327.58 88.5592 258.641 19.62 173.6 19.62C88.5592 19.62 19.62 88.5592 19.62 173.6C19.62 258.641 88.5592 327.58 173.6 327.58Z" stroke="#1B4472" strokeWidth="0.5" strokeMiterlimit="10"/>
 <path d="M173.6 330.63C260.325 330.63 330.63 260.325 330.63 173.6C330.63 86.8747 260.325 16.5699 173.6 16.5699C86.8747 16.5699 16.57 86.8747 16.57 173.6C16.57 260.325 86.8747 330.63 173.6 330.63Z" stroke="#1B4472" strokeWidth="0.85" strokeMiterlimit="10"/>

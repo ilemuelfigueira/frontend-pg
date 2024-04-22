@@ -1,6 +1,8 @@
-export const NaoPercaTempoSVG = () => {
+import { twMerge } from "tailwind-merge"
+
+export const NaoPercaTempoSVG = ({ className }) => {
 	return (
-		<svg width="300" height="350" viewBox="0 0 300 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg className={twMerge("w-[300px] h-[350px]", className)} viewBox="0 0 300 350" fill="none" xmlns="http://www.w3.org/2000/svg">
 	<path d="M238 328.729C221.48 338.142 203.296 344.972 184 348.668" stroke="#80CEFF" strokeLinecap="round" />
 	<path d="M150.5 345.834C191.228 345.834 228.63 331.596 258 307.826" stroke="#80CEFF" strokeWidth="2" strokeLinecap="round" />
 	<path d="M281.509 271.834C251.81 311.88 204.186 337.834 150.5 337.834C132.503 337.834 115.188 334.918 99 329.531" stroke="#80CEFF" strokeWidth="3" strokeLinecap="round" />
