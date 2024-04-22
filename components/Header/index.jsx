@@ -1,39 +1,34 @@
 "use client";
 
 import { cookieRemove } from "@/actions/delete-cookie";
-import If from "@/components/If";
-import Image from "@/components/Image";
 import LoginModal from "@/components/Modal/login";
 import RegistrarModal from "@/components/Modal/registrar";
 import { useOpen } from "@/hooks/open";
+import { IconeNavbarSVG } from "@/public/home/icone-navbar";
+import { LupaSVG } from "@/public/home/lupa";
 import {
   AddressBook,
   List,
   MagnifyingGlass,
   Receipt,
   ShoppingCart,
+  SignIn,
   SignOut,
+  User,
   UserCircle,
 } from "@phosphor-icons/react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Button, Dropdown, Input } from "antd";
+import { Dropdown, Input } from "antd";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-const Container = ({ children, ...props }) => (
-  <div
-    {...props}
-    className="sticky top-0 z-40 flex h-20 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-white px-4 shadow-sm data-[open=true]:min-h-screen"
-  >
-    {children}
-  </div>
-);
+const Container = ({ children, ...props }) => <div {...props}>{children}</div>;
 
-const LogoContainer = ({ children }) => (
-  <div className="flex items-center gap-1">{children}</div>
+const LogoContainer = ({ children, ...props }) => (
+  <div {...props}>{children}</div>
 );
 
 const InfoContainer = ({ children, ...props }) => (
@@ -49,13 +44,13 @@ const MenuItem = ({ href, label, Icon = null, onClick = undefined }) => {
   );
 };
 
-export function HeaderNavigator({ user,...props }) {
-  const existeUsuario = Boolean(user)
+export function HeaderNavigator({ user, ...props }) {
+  const existeUsuario = Boolean(user);
 
   const supabase = createClientComponentClient();
 
   async function sair() {
-    return await supabase.auth.signOut().then(res => router.refresh())
+    return await supabase.auth.signOut().then((res) => router.refresh());
   }
 
   const searchParams = useSearchParams();
@@ -68,6 +63,10 @@ export function HeaderNavigator({ user,...props }) {
   });
   const openLogin = useOpen({
     defaultValue: searchParams.get("login") == "true",
+  });
+
+  const openSearch = useOpen({
+    defaultValue: false,
   });
 
   const goToCart = () => {
@@ -88,103 +87,153 @@ export function HeaderNavigator({ user,...props }) {
 
     const href = `/produtos?${params.toString()}`;
 
+    openSearch.handleClose();
+
     router.push(href);
   };
 
   useEffect(() => {
-    if(props.expired_login == 'S') {
-      toast.error("Autentique-se novamente!")
-      cookieRemove("access_token")
-      cookieRemove("refresh_token")
+    if (props.expired_login == "S") {
+      toast.error("Autentique-se novamente!");
+      cookieRemove("access_token");
+      cookieRemove("refresh_token");
       setTimeout(() => {
-        router.replace("/")
-      }, 3000)
+        router.replace("/");
+      }, 3000);
     }
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (!openSearch.open) searchRef.current && searchRef.current.focus();
+  }, [openSearch.open]);
+
+  const searchRef = useRef(null);
+
+  const pathName = usePathname()
 
   return (
     <>
-      <Container {...props}>
-        <LogoContainer>
-          <Image
-            href={`/`}
-            priority
-            src={
-              process.env.NEXT_PUBLIC_STORAGE_PRODUTOS +
-              "/produtos/png/logo/logo-192x192.png"
-            }
-            className="aspect-square w-10 md:w-12"
+      <Container
+        {...props}
+        data-isHome={pathName == "/"}
+        className="sticky top-0 z-40 data-[isHome=false]:mb-8 data-[isHome=true]:-mb-16 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm"
+      >
+        <Link href={"/"} className="w-fit cursor-pointer">
+          <LogoContainer className="flex items-center gap-4">
+            <IconeNavbarSVG fill="white" className="aspect-square w-6 md:w-8" />
+            <span className="w-full text-lg font-black text-white md:text-2xl">
+              PG Custom
+            </span>
+          </LogoContainer>
+        </Link>
+        <section
+          data-open={openSearch.open}
+          className="relative mx-auto flex w-full max-w-[700px] items-center gap-2 data-[open=false]:hidden"
+        >
+          <Input
+            ref={searchRef}
+            className="text-sm font-semibold text-slate-800 placeholder:text-slate-400"
+            placeholder="Pesquisar nesta loja..."
+            value={getSearch}
+            onChange={(e) => setSearch(e.target.value)}
+            onBlur={openSearch.handleClose}
+            onPressEnter={search}
           />
-          <span className="flex gap-1 text-sm font-semibold text-slate-600 lg:text-lg">
-            <span>PGCUSTOM</span>
-            <span className="font-normal">|</span>
-            <span className="font-normal">STORE</span>
+          <MagnifyingGlass
+            size={24}
+            onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
+            className="pointer-events-none absolute right-2 mt-auto select-none"
+          />
+        </section>
+        <section
+          data-open={openSearch.open}
+          className="relative flex gap-6 text-white data-[open=true]:hidden"
+        >
+          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+            Controles
           </span>
-        </LogoContainer>
-        <section className="w-full">
-          <div className="relative mx-auto flex w-full max-w-[700px] items-center gap-2">
-            <Input
-              className="h-10"
-              placeholder="Pesquisar nesta loja..."
-              value={getSearch}
-              onChange={(e) => setSearch(e.target.value)}
-              onPressEnter={search}
-            />
-            <MagnifyingGlass
-              size={24}
-              onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
-              className="pointer-events-none absolute right-2 mt-auto select-none"
-            />
-          </div>
+          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+            Consoles
+          </span>
+          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+            Mouses
+          </span>
+          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+            Arcades
+          </span>
+          <span className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer">
+            Sobre
+          </span>
         </section>
         <InfoContainer>
-          <If condition={existeUsuario}>
-            <Dropdown
-              menu={{
-                items: [
-                  {
-                    label: (
-                      <MenuItem
-                        href="/enderecos"
-                        label="Endereços"
-                        Icon={AddressBook}
-                      />
-                    ),
-                  },
-                  // {
-                  //   label: (
-                  //     <MenuItem
-                  //       href="/pedidos"
-                  //       label="Pedidos"
-                  //       Icon={Receipt}
-                  //     />
-                  //   ),
-                  //   key: "Pedidos",
-                  // },
-                  {
-                    label: (
-                      <MenuItem
-                        href="#"
-                        label={"Sair"}
-                        Icon={SignOut}
-                        onClick={sair}
-                      />
-                    ),
-                    key: "Sair",
-                  },
-                ],
-              }}
-              trigger={["click"]}
-            >
-              <a className="flex h-fit cursor-pointer items-center gap-1 text-slate-600 max-md:hidden">
+          <MagnifyingGlass
+            onClick={openSearch.openClose}
+            className={"cursor-pointer text-3xl text-white"}
+          />
+
+          <ShoppingCart
+            onClick={goToCart}
+            className="cursor-pointer text-3xl text-white hover:rounded-md"
+          />
+          {/* <If condition={existeUsuario}> */}
+          <Dropdown
+            menu={{
+              items: existeUsuario
+                ? [
+                    {
+                      label: (
+                        <MenuItem
+                          href="/enderecos"
+                          label="Endereços"
+                          Icon={AddressBook}
+                        />
+                      ),
+                    },
+                    {
+                      label: (
+                        <MenuItem
+                          href="/pedidos"
+                          label="Pedidos"
+                          Icon={Receipt}
+                        />
+                      ),
+                      key: "Pedidos",
+                    },
+                    {
+                      label: (
+                        <MenuItem
+                          href="#"
+                          label={"Sair"}
+                          Icon={SignOut}
+                          onClick={sair}
+                        />
+                      ),
+                      key: "Sair",
+                    },
+                  ]
+                : [
+                    {
+                      label: (
+                        <MenuItem
+                          href={"#"}
+                          label={"Entrar"}
+                          Icon={SignIn}
+                          onClick={openLogin.handleOpen}
+                        />
+                      ),
+                    },
+                  ],
+            }}
+            trigger={["click"]}
+          >
+            {/* <a className="flex h-fit cursor-pointer items-center gap-1 text-slate-600 max-md:hidden">
                 <UserCircle size={24} />
-                <span className="text-xs">
-                  {user?.nome || user?.email}
-                </span>
-              </a>
-            </Dropdown>
-          </If>
-          <If condition={!existeUsuario}>
+                <span className="text-xs">{user?.nome || user?.email}</span>
+              </a> */}
+            <User className="cursor-pointer text-3xl text-white hover:rounded-md" />
+          </Dropdown>
+          {/* </If> */}
+          {/* <If condition={!existeUsuario}>
             <Button
               className="hidden items-center text-slate-600 md:flex"
               size="large"
@@ -192,12 +241,7 @@ export function HeaderNavigator({ user,...props }) {
             >
               <span className="text-lg font-bold">Entrar</span>
             </Button>
-          </If>
-
-          <ShoppingCart
-            onClick={goToCart}
-            className="cursor-pointer text-3xl text-slate-600 hover:rounded-md lg:text-4xl"
-          />
+          </If> */}
 
           <LoginModal
             open={openLogin.open}
@@ -248,6 +292,9 @@ export function HeaderNavigator({ user,...props }) {
                     },
                   ]
                 : [
+                    {
+                      label: <MenuItem href="#" Icon={LupaSVG} />,
+                    },
                     {
                       label: (
                         <MenuItem
