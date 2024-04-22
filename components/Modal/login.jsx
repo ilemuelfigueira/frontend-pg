@@ -38,7 +38,6 @@ export default function LoginModal({
 }) {
   const router = useRouter();
   const supabase = createClientComponentClient();
-  const { substituirUsuario } = useUser();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -74,13 +73,6 @@ export default function LoginModal({
 
         setCookie("access_token", session.access_token, 1);
         setCookie("refresh_token", session.refresh_token, 1);
-
-        const { user } = session;
-        substituirUsuario({
-          cdUsuario: user.id,
-          nmEmail: user.email,
-          nmTelefone: user.phone,
-        });
 
         toast.success("Seja bem vindo!");
         onCancel();
