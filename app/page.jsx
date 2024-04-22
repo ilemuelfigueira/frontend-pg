@@ -32,7 +32,7 @@ export default async function Home() {
   return (
     <main className="flex w-full flex-col items-center justify-start">
       <IlustracoesHomePage />
-      <section className="grid w-full grid-cols-1 gap-20 p-8 md:px-20 md:py-16">
+      <section className="max-w-page-limit grid w-full grid-cols-1 gap-20 p-8 md:px-20 md:py-16">
         <span className="text-center text-5xl font-semibold text-azul_escuro">
           Por que escolher um PG?
         </span>
@@ -125,6 +125,62 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <section className="flex w-full flex-col items-start justify-center gap-8 bg-[#303030] p-4">
+        <span className="w-full text-center text-xl font-semibold text-white md:text-4xl">
+          Coleções
+        </span>
+        <ul className="max-w-page-limit grid w-full grid-cols-3 grid-rows-1 gap-3 place-self-center overflow-x-auto">
+          <li className="flex aspect-[9/16] flex-col items-start gap-3 rounded-tr-[15%] bg-blue-100 bg-[url('/collection.png')] p-3 text-white">
+            <span className="text-lg">Savytzz</span>
+            <span className="text-xs">
+              Essa é a linha exclusiva do Savytzz, com as configurações
+              preferidas por ele!
+            </span>
+
+            <Link
+              href="#"
+              className="flex items-center gap-2 text-center text-base outline-none"
+            >
+              Comprar
+              <i className="pi pi-chevron-right text-[8px]"></i>
+            </Link>
+          </li>
+
+          <li className="flex aspect-[9/16] flex-col items-start gap-3 rounded-tr-[15%] bg-blue-100 bg-[url('/collection.png')] p-3 text-white">
+            <span className="text-lg">Obsidian</span>
+            <span className="text-xs">
+              Esse é um controle de playstation 4 que poderá ser montado da
+              forma que desejar!
+            </span>
+
+            <Link
+              href="/exclusivos/bcca0ca6-09ac-4581-99fe-81ea1a780250"
+              className="flex items-center gap-2 text-center text-base outline-none"
+            >
+              Montar
+              <i className="pi pi-chevron-right text-[8px]"></i>
+            </Link>
+          </li>
+
+          <li className="flex aspect-[9/16] flex-col items-start gap-3 rounded-tr-[15%] bg-blue-100 bg-[url('/collection.png')] p-3 text-white">
+            <span className="text-lg">Savytzz</span>
+            <span className="text-xs">
+              Essa é a linha exclusiva do Savytzz, com as configurações
+              preferidas por ele!
+            </span>
+
+            <Link
+              href="#"
+              className="flex items-center gap-2 text-center text-base outline-none"
+            >
+              Comprar
+              <i className="pi pi-chevron-right text-[8px]"></i>
+            </Link>
+          </li>
+        </ul>
+      </section>
+
       <section className="w-full">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch">
