@@ -1,6 +1,7 @@
 import { cadastrarPacoteComItens } from "@/actions/cadastrar-pacote-carrinho";
 import { useFormik } from "formik";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 import * as Yup from "yup";
 
@@ -133,15 +134,16 @@ export const useProduct = ({ ...props } = {}) => {
       }
 
       const bannerPacote = props.subprodutosFotos.filter(
-        (foto) => foto.cdsubproduto == values.shape && foto.nmsubprodutofototipo == 'BANNER',
-      )[0]
+        (foto) =>
+          foto.cdsubproduto == values.shape &&
+          foto.nmsubprodutofototipo == "BANNER",
+      )[0];
 
-      
       const sanatizeUrl = (url) => {
-        const index = url.lastIndexOf("/public") + 7
-        
-        return url.slice(index)
-      }
+        const index = url.lastIndexOf("/public") + 7;
+
+        return url.slice(index);
+      };
 
       await cadastrarPacoteComItens({
         cdproduto: pacote.cdproduto,
@@ -153,10 +155,14 @@ export const useProduct = ({ ...props } = {}) => {
           nmpath: sanatizeUrl(bannerPacote.nmpath),
           nmaspect: bannerPacote.nmaspect,
           nmmimetype: bannerPacote.nmmimetype,
-        }
+        },
       })
-
-      router.push(productUrl);
+        .then(() => {
+          toast.success("Verifique seu carrinho");
+        })
+        .catch(() => {
+          toast.error("Erro ao adicionar produto no carrinho.");
+        });
     },
   });
 
