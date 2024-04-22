@@ -35,7 +35,11 @@ export function CheckoutComponent({ data }) {
   const [pedido, setPedido] = useState();
 
   const getCdEnderecoFlPadrao = (enderecos = []) => {
-    return enderecos.find((endereco) => endereco.flpadrao === "S").cdendereco;
+    const enderecoPadrao = enderecos.find((endereco) => endereco?.flpadrao === "S")?.cdendereco;
+
+    if(!enderecoPadrao) return ''
+
+    return enderecoPadrao
   };
 
   const url = `${pathName}?${searchParams.toString()}`;
