@@ -32,7 +32,7 @@ async function loadData({ searchParams } = {}) {
 export default async function Page({ searchParams }) {
   const dataMap = await loadData({ searchParams });
   return (
-    <section className="w-full">
+    <section className="w-full flex justify-center max-w-page-limit">
       <div className="w-full max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <header>
           <h2 className="text-xl font-bold text-gray-900 sm:text-3xl">
