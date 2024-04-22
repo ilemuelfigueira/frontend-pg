@@ -94,7 +94,7 @@ export function HeaderNavigator({ user, ...props }) {
 
   useEffect(() => {
     if (props.expired_login == "S") {
-      toast.error("Autentique-se novamente!");
+      toast.error("Autentique-se novamente!", { id: "auth" });
       cookieRemove("access_token");
       cookieRemove("refresh_token");
       setTimeout(() => {
@@ -115,13 +115,13 @@ export function HeaderNavigator({ user, ...props }) {
     <>
       <Container
         {...props}
-        data-isHome={pathName == "/"}
-        className="sticky top-0 z-40 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm data-[isHome=false]:mb-8 data-[isHome=true]:-mb-16"
+        data-ishome={pathName == "/"}
+        className="sticky top-0 z-40 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm md:data-[ishome=true]:-mb-16 data-[ishome=false]:mb-8"
       >
         <Link
           href={"/"}
-          data-isSearchOpen={openSearch.open}
-          className="w-fit cursor-pointer max-md:data-[isSearchOpen=true]:hidden"
+          data-is-searchopen={openSearch.open}
+          className="w-fit cursor-pointer max-md:data-[is-searchopen=true]:hidden"
         >
           <LogoContainer className="flex w-full items-center gap-2 md:gap-4">
             <IconeNavbarSVG fill="white" className="aspect-square w-6 md:w-8" />
