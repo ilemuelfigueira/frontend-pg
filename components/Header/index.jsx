@@ -104,7 +104,7 @@ export function HeaderNavigator({ user, ...props }) {
   }, []);
 
   useEffect(() => {
-    if (openSearch.open) searchRef.current && searchRef.current.focus();
+    // if (openSearch.open) searchRef.current && searchRef.current.focus();
   }, [openSearch.open]);
 
   const searchRef = useRef(null);
@@ -118,17 +118,17 @@ export function HeaderNavigator({ user, ...props }) {
         data-isHome={pathName == "/"}
         className="sticky top-0 z-40 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm data-[isHome=false]:mb-8 data-[isHome=true]:-mb-16"
       >
-        <Link href={"/"} className="w-fit cursor-pointer">
-          <LogoContainer className="flex items-center gap-4">
+        <Link href={"/"} data-isSearchOpen={openSearch.open} className="w-fit max-md:data-[isSearchOpen=true]:hidden cursor-pointer">
+          <LogoContainer className="flex w-full items-center gap-4">
             <IconeNavbarSVG fill="white" className="aspect-square w-6 md:w-8" />
-            <span className="w-full text-lg font-black text-white md:text-2xl">
+            <span className="w-full text-xl font-black text-white lg:text-2xl">
               PG Custom
             </span>
           </LogoContainer>
         </Link>
         <section
           data-open={openSearch.open}
-          className="relative mx-auto flex w-full max-w-[700px] items-center gap-2 data-[open=false]:hidden"
+          className="relative mx-auto flex w-full md:max-w-[350px] lg:max-w-[500px] items-center gap-2 data-[open=false]:hidden"
         >
           <Input
             ref={searchRef}
@@ -147,7 +147,7 @@ export function HeaderNavigator({ user, ...props }) {
         </section>
         <section
           data-open={openSearch.open}
-          className="relative flex gap-6 text-white data-[open=true]:hidden"
+          className="relative max-md:hidden flex gap-6 text-white data-[open=true]:hidden"
         >
           <Link
             href={`/produtos?nmprodutotipo=CONTROLE_EXCLUSIVO`}
@@ -269,65 +269,6 @@ export function HeaderNavigator({ user, ...props }) {
             okText={"Registrar"}
             onCancel={openRegister.handleClose}
           />
-
-          <Dropdown
-            className="md:hidden"
-            menu={{
-              items: existeUsuario
-                ? [
-                    {
-                      label: (
-                        <MenuItem
-                          href="/enderecos"
-                          label="Endereços"
-                          Icon={AddressBook}
-                        />
-                      ),
-                    },
-                    {
-                      label: (
-                        <MenuItem
-                          href="/pedidos"
-                          label="Pedidos"
-                          Icon={Receipt}
-                        />
-                      ),
-                      key: "Pedidos",
-                    },
-                    {
-                      label: (
-                        <MenuItem
-                          href="#"
-                          label={"Sair"}
-                          Icon={SignOut}
-                          onClick={sair}
-                        />
-                      ),
-                      key: "Sair",
-                    },
-                  ]
-                : [
-                    {
-                      label: <MenuItem href="#" Icon={LupaSVG} />,
-                    },
-                    {
-                      label: (
-                        <MenuItem
-                          href="#"
-                          label={"Entrar"}
-                          Icon={UserCircle}
-                          onClick={openLogin.handleOpen}
-                        />
-                      ),
-                    },
-                  ],
-            }}
-            trigger={["click"]}
-          >
-            <Link href="#">
-              <List className="text-4xl text-slate-900 lg:text-5xl" />
-            </Link>
-          </Dropdown>
         </InfoContainer>
       </Container>
     </>
