@@ -26,8 +26,8 @@ export default async function Pedidos({ params }) {
   const pedidos = await loadData({ params });
 
   return (
-    <div className="mx-auto my-0">
-      <span className="flex items-center gap-2 text-center text-base font-bold text-slate-800 md:text-2xl">
+    <div className="w-full">
+      <span className="mb-8 flex items-center gap-2 text-center text-base font-bold text-slate-800 md:text-2xl">
         <i className="pi pi-ticket"></i>
         {" PEDIDOS"}
       </span>
