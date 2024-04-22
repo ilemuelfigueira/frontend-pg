@@ -104,7 +104,7 @@ export function HeaderNavigator({ user, ...props }) {
   }, []);
 
   useEffect(() => {
-    if (!openSearch.open) searchRef.current && searchRef.current.focus();
+    if (openSearch.open) searchRef.current && searchRef.current.focus()
   }, [openSearch.open]);
 
   const searchRef = useRef(null);
