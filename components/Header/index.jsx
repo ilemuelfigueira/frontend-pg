@@ -1,5 +1,6 @@
 "use client";
 
+import { cookieRemove } from "@/actions/delete-cookie";
 import If from "@/components/If";
 import Image from "@/components/Image";
 import LoginModal from "@/components/Modal/login";
@@ -93,7 +94,11 @@ export function HeaderNavigator({ user,...props }) {
   useEffect(() => {
     if(props.expired_login == 'S') {
       toast.error("Autentique-se novamente!")
-      router.replace("/")
+      cookieRemove("access_token")
+      cookieRemove("refresh_token")
+      setTimeout(() => {
+        router.replace("/")
+      }, 3000)
     }
   }, [])
 
