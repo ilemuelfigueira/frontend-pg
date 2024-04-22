@@ -49,7 +49,7 @@ export default async function Carrinho() {
   );
 
   return (
-    <div className="flex w-full max-w-full flex-col gap-8">
+    <div className="flex w-full flex-col gap-8 max-w-page-limit">
       <div className="flex w-full max-w-full justify-between border-b border-slate-600 px-4">
         <span className="text-base font-bold text-slate-800 md:text-2xl">
           <i className="pi pi-shopping-bag"></i> PRODUTO E SERVIÇO

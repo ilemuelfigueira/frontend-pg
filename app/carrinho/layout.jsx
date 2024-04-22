@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div className="w-full max-w-page-limit mt-8">
       <Breadcrumb
         items={[
           { title: <Link href="/">Início</Link> },
