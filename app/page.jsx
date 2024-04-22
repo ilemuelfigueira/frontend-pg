@@ -32,17 +32,17 @@ export default async function Home() {
   return (
     <main className="flex w-full flex-col items-center justify-start">
       <IlustracoesHomePage />
-      <section className="grid w-full grid-cols-1 gap-20 px-20 py-16">
-        <span className="text-azul_escuro text-center text-5xl font-semibold">
+      <section className="grid w-full grid-cols-1 gap-20 p-8 md:px-20 md:py-16">
+        <span className="text-center text-5xl font-semibold text-azul_escuro">
           Por que escolher um PG?
         </span>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
           <NaoPercaTempoSVG
             src="/home/icone.svg"
-            className="aspect-square w-72 min-w-[150px]"
+            className="aspect-square w-72 min-w-[200px]"
           />
-          <div className="text-azul_escuro flex max-w-[650px] flex-col items-start gap-1">
+          <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
               Não perca tempo para atirar
             </span>
@@ -58,13 +58,13 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="text-azul_escuro flex w-full flex-col items-center justify-start gap-9">
+        <div className="flex w-full flex-col items-center justify-start gap-9 text-azul_escuro">
           <span className="text-2xl font-medium">
             Mantenha-se sempre mirando!
           </span>
           <MiraSVG
             src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[150px]"
+            className="aspect-square  w-72 min-w-[200px] sm:w-96 md:w-[30rem]"
           />
 
           <span className="max-w-[650px] text-base">
@@ -78,7 +78,7 @@ export default async function Home() {
         </div>
 
         <div className="flex w-full items-center justify-end gap-9 max-md:flex-col-reverse">
-          <div className="text-azul_escuro flex max-w-[650px] flex-col items-start gap-1">
+          <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
               Tenha a aderência perfeita!
             </span>
@@ -97,16 +97,16 @@ export default async function Home() {
           </div>
           <AderenciaSVG
             src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[150px]"
+            className="aspect-square w-72 min-w-[200px]"
           />
         </div>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
           <PinturaSVG
             src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[150px]"
+            className="aspect-square w-72 min-w-[200px]"
           />
-          <div className="text-azul_escuro flex max-w-[650px] flex-col items-start gap-1">
+          <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
               A pintura é feita para durar!
             </span>
