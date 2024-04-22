@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Layout({ children }) {
   return (
-    <div className="w-full">
+    <div className="w-full max-w-page-limit">
       <Breadcrumb
         items={[
           { title: <Link href="/">Início</Link> },

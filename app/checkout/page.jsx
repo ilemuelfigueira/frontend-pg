@@ -26,14 +26,14 @@ async function loadData() {
 
   carrinho.pacotes = pacotes_carrinho;
 
-  return { enderecos, produtos: pacotes_carrinho, cdcarrinho: carrinho.cdcarrinho };
+  return {
+    enderecos,
+    produtos: pacotes_carrinho,
+    cdcarrinho: carrinho.cdcarrinho,
+  };
 }
 
 export default async function CheckoutPage() {
   const data = await loadData();
-  return (
-    <div>
-      <CheckoutComponent data={data} />
-    </div>
-  );
+  return <CheckoutComponent data={data} />;
 }
