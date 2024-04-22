@@ -22,8 +22,9 @@ module.exports = {
       },
       colors: {
         azul_escuro: "#1B4472",
-        $cinza: "#6F6F6F",
+        cinza: "#6F6F6F",
         s2condPurple: '#a32eff',
+        "focus-blue": '#80CEFF'
       },
       fontSize: {
         "2xs": ".625rem",
