@@ -158,10 +158,14 @@ export const useProduct = ({ ...props } = {}) => {
         },
       })
         .then(() => {
-          toast.success("Verifique seu carrinho");
+          toast.success("Verifique seu carrinho", {
+            id: 'adicionar-carrinho'
+          });
         })
         .catch(() => {
-          toast.error("Erro ao adicionar produto no carrinho.");
+          toast.error("Erro ao adicionar produto no carrinho.", {
+            id: 'adicionar-carrinho'
+          });
         });
     },
   });
