@@ -43,7 +43,7 @@ export default async function Pedidos({ params }) {
                 <span className="font-medium">Código do pedido</span>
                 <span className="font-light">
                   {pedido.cdpedido} {"  "}
-                  <Clipboard text={pedido.cdpedido} />
+                  <Clipboard label="Código do pedido" text={pedido.cdpedido} />
                 </span>
               </div>
 

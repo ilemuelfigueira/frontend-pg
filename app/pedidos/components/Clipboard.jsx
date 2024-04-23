@@ -2,10 +2,10 @@
 
 import toast from "react-hot-toast";
 
-export const Clipboard = ({ text }) => {
+export const Clipboard = ({ text, label = 'texto' }) => {
   const onCopy = () => {
     navigator.clipboard.writeText(text);
-    toast.success("texto copiado!", {
+    toast.success(`${label} copiado!`, {
       id: 'clipboard'
     });
   };
