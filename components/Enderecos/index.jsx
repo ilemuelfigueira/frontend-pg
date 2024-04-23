@@ -14,7 +14,7 @@ export function Enderecos({ enderecos }) {
 
   const url = `${pathName}?${searchParams.toString()}`;
   return (
-    <div>
+    <div className="w-full">
       <span className="text-lg font-semibold"> Seus Endereços </span>
 
       <section className="flex w-full flex-wrap items-center justify-start gap-4">
