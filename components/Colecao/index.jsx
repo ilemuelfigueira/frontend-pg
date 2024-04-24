@@ -32,7 +32,7 @@ export const Colecao = () => {
         modules={[Pagination, Autoplay, Mousewheel]}
         loop={true}
         zoom={true}
-        className="relative z-10 aspect-video w-full max-w-full p-4 max-md:h-[calc(100vh-100px)]"
+        className="relative z-10 aspect-video w-full max-w-page-limit p-4 max-md:h-[calc(100vh-100px)]"
       >
         <SwiperSlide className={"z-10"}>
           <SlideItem label="Comprar" src="/xbox-dualsense.jpg" />
@@ -66,11 +66,11 @@ const SlideItem = ({
         backgroundImage: `url(${src})`,
       }}
       className={twMerge(
-        "flex h-full aspect-[9/16] w-full overflow-hidden rounded-l-md rounded-br-md rounded-tr-[15%] bg-cover bg-center bg-no-repeat text-white",
+        "flex aspect-[9/16] h-full w-full overflow-hidden rounded-l-md rounded-br-md rounded-tr-[15%] bg-cover bg-center bg-no-repeat text-white",
         className,
       )}
     >
-      <text-container className="flex h-fit w-fit flex-col items-start justify-start gap-4 rounded-tr-xl bg-slate-800/20 p-3">
+      <text-container className="flex h-fit w-full flex-col items-start justify-start gap-4 rounded-tr-xl bg-slate-800/20 p-3">
         <span className="text-lg lg:text-2xl">Obsidian</span>
         <span className="text-xs lg:text-base">
           Esse é um controle de playstation 4 que poderá ser montado da forma
