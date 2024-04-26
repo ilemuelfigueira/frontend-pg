@@ -71,7 +71,7 @@ export default async function RootLayout({ children, params, ...props }) {
               user={data.get("user")}
               expired_login={data.get("expired_login")}
             />
-            <section className="mx-auto my-0 mb-8 flex min-h-screen flex-col items-center">
+            <section className="mx-auto my-0 mb-8 flex flex-col items-center">
               <Toaster />
               {children}
             </section>
