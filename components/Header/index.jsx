@@ -122,7 +122,7 @@ export function HeaderNavigator({ user, ...props }) {
       <Container
         {...props}
         data-ishome={pathName == "/"}
-        className="sticky top-0 z-40 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm data-[ishome=false]:mb-8 md:data-[ishome=true]:-mb-16"
+        className="sticky top-0 z-40 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black md:data-[ishome=true]:-mb-16"
       >
         <Link
           href={"/"}
