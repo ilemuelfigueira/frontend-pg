@@ -24,7 +24,8 @@ module.exports = {
         azul_escuro: "#1B4472",
         cinza: "#6F6F6F",
         s2condPurple: '#a32eff',
-        "focus-blue": '#80CEFF'
+        "focus-blue": '#80CEFF',
+        "preto": '#303030'
       },
       fontSize: {
         "2xs": ".625rem",
