@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   darkMode: ["class", '[data-mode="dark"]'],
   content: [
@@ -8,24 +11,28 @@ module.exports = {
     "./node_modules/primereact/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      xs: "475px",
+      ...defaultTheme.screens,
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
-        "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
         poppins: ["var(--font-poppins", "sans-serif"],
       },
       maxWidth: {
-        "page-limit": "1346px"
+        "page-limit": "1346px",
       },
       colors: {
         azul_escuro: "#1B4472",
         cinza: "#6F6F6F",
-        s2condPurple: '#a32eff',
-        "focus-blue": '#80CEFF',
-        "preto": '#303030'
+        s2condPurple: "#a32eff",
+        "focus-blue": "#80CEFF",
+        preto: "#303030",
       },
       fontSize: {
         "2xs": ".625rem",
