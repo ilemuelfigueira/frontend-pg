@@ -25,14 +25,14 @@ export const Colecao = () => {
             slidesPerView: 3,
           },
         }}
-        spaceBetween={14}
+        spaceBetween={18}
         autoplay={{ delay: 2500 }}
         mousewheel={false}
         pagination={{ clickable: true }}
         modules={[Pagination, Autoplay, Mousewheel]}
         loop={true}
         zoom={true}
-        className="relative z-10 aspect-video w-full max-w-page-limit p-4 max-md:h-[calc(100vh-100px)]"
+        className="relative z-10 aspect-video w-full max-w-page-limit p-4 pb-8 max-md:h-[calc(100vh-100px)]"
       >
         <SwiperSlide className={"z-10"}>
           <SlideItem label="Comprar" src="/xbox-dualsense.jpg" />
