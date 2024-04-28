@@ -116,7 +116,7 @@ export default async function ParceiroPage({ params }) {
         </div>
         <div
           id="frase-container"
-          className="relative flex aspect-[16/4] w-full max-w-page-limit items-center justify-center bg-preto text-white"
+          className="relative flex max-xs:aspect-video xs:aspect-[16/6] w-full max-w-page-limit items-center justify-center bg-preto text-white"
         >
           <AspasSuperior className="xs:w-8 absolute left-2 top-2 h-fit w-5 md:w-14 lg:w-20" />
 
