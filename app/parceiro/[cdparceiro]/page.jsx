@@ -118,17 +118,17 @@ export default async function ParceiroPage({ params }) {
           id="frase-container"
           className="relative flex aspect-[16/4] w-full max-w-page-limit items-center justify-center bg-preto text-white"
         >
-          <AspasSuperior className="absolute h-fit left-2 top-2 w-8 md:w-14 lg:w-20" />
+          <AspasSuperior className="xs:w-8 absolute left-2 top-2 h-fit w-5 md:w-14 lg:w-20" />
 
-          <span className="w-[70%] text-center xs:text-sm lg:text-3xl font-semibold">
+          <span className="xs:text-sm w-[70%] text-center text-2xs font-semibold lg:text-3xl">
             {parceiro["nmopiniaopg"]}
           </span>
 
-          <AspasInferior className="absolute h-fit bottom-2 right-2 w-8 md:w-14 lg:w-20" />
+          <AspasInferior className="xs:w-8 absolute bottom-2 right-2 h-fit w-5 md:w-14 lg:w-20" />
         </div>
         <div
           id="image-grid"
-          className="grid w-full max-w-page-limit grid-cols-4 gap-4 md:p-4"
+          className="grid w-full max-w-page-limit grid-cols-4 gap-4 max-md:gap-[2px] md:p-4"
         >
           <img
             className="col-span-1 row-span-2 aspect-square h-full w-full bg-contain"
