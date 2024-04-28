@@ -128,7 +128,7 @@ export default async function ParceiroPage({ params }) {
         </div>
         <div
           id="image-grid"
-          className="grid w-full max-w-page-limit grid-cols-4 gap-4 max-md:gap-[2px] md:p-4"
+          className="grid w-full max-w-page-limit grid-cols-4 gap-4 max-md:gap-[2px] max-md:p-1 md:p-3"
         >
           <img
             className="col-span-1 row-span-2 aspect-square h-full w-full bg-contain"
