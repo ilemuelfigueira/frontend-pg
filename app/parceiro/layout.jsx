@@ -1,6 +1,3 @@
-import { Breadcrumb } from "antd";
-import Link from "next/link";
-
 export const metadata = {
   title: {
     template: "%s | Parceiros",
