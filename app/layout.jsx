@@ -353,7 +353,7 @@ export default async function RootLayout({ children, params, ...props }) {
                     <span className="text-lg font-bold text-white">
                       Social Media
                     </span>
-                    <ul className="mt-8 flex justify-start gap-3 sm:mt-0 sm:justify-end">
+                    <ul className="flex justify-start gap-3 sm:mt-0 sm:justify-end">
                       <li>
                         <a
                           href="https://www.facebook.com/pgcustomstore"
