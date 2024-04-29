@@ -293,7 +293,7 @@ export default async function RootLayout({ children, params, ...props }) {
                         href="/faqs"
                         className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        FAQ's
+                        {`FAQ's`}
                       </a>
                     </li>
 
@@ -435,7 +435,7 @@ export default async function RootLayout({ children, params, ...props }) {
                           <span className="sr-only">Youtube</span>
 
                           <svg
-                            className="w-6 h-6"
+                            className="h-6 w-6"
                             viewBox="0 0 31 22"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
