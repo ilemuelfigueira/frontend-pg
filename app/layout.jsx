@@ -38,8 +38,8 @@ async function loadData() {
 
   await readUserOrThrow({
     onSuccess: ({ user }) => {
-      map.set("user", user)
-      map.set("expired_login", "N")
+      map.set("user", user);
+      map.set("expired_login", "N");
     },
     onExpired: () => {
       map.set("expired_login", "S");
@@ -71,310 +71,413 @@ export default async function RootLayout({ children, params, ...props }) {
               user={data.get("user")}
               expired_login={data.get("expired_login")}
             />
-            <section className="mx-auto my-0 mb-8 flex flex-col items-center">
+            <section className="mx-auto my-0 flex flex-col items-center">
               <Toaster />
               {children}
             </section>
-            <footer className="mt-auto w-full bg-white p-4 shadow-md dark:bg-gray-900">
-              <div className="sm:flex sm:items-center sm:justify-between">
-                <div className="flex items-center text-center text-slate-800 dark:text-slate-300">
-                  {/* <img className="aspect-square w-14" src="/logo-192x192.png" /> */}
-                  <span className="font-semibold">PGCUSTOM</span>
-                  <span className="mx-1">|</span>
-                  <span>STORE</span>
-                </div>
-
-                <ul className="mt-8 flex justify-start gap-6 sm:mt-0 sm:justify-end">
-                  <li>
-                    <a
-                      href="/"
-                      rel="noreferrer"
-                      target="_blank"
-                      className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                    >
-                      <span className="sr-only">Facebook</span>
-
-                      <svg
-                        className="h-6 w-6"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="/"
-                      rel="noreferrer"
-                      target="_blank"
-                      className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                    >
-                      <span className="sr-only">Instagram</span>
-
-                      <svg
-                        className="h-6 w-6"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="/"
-                      rel="noreferrer"
-                      target="_blank"
-                      className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                    >
-                      <span className="sr-only">Twitter</span>
-
-                      <svg
-                        className="h-6 w-6"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                      </svg>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="/"
-                      rel="noreferrer"
-                      target="_blank"
-                      className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                    >
-                      <span className="sr-only">GitHub</span>
-
-                      <svg
-                        className="h-6 w-6"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="/"
-                      rel="noreferrer"
-                      target="_blank"
-                      className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                    >
-                      <span className="sr-only">Dribbble</span>
-
-                      <svg
-                        className="h-6 w-6"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c5.51 0 10-4.48 10-10S17.51 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.25.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="grid grid-cols-1 gap-8 border-t border-gray-100 pt-8 dark:border-gray-800 sm:grid-cols-2 lg:grid-cols-4 lg:pt-16">
+            <footer className="flex w-full items-start justify-between bg-[#121212] p-10 shadow-md max-md:flex-col max-md:items-start max-md:justify-start max-md:gap-8">
+              <div className="grid grid-cols-1 gap-8 dark:border-gray-800 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    Services
+                  <p className="text-base font-bold text-white dark:text-white">
+                    Loja
                   </p>
 
                   <ul className="mt-6 space-y-4 text-sm">
                     <li>
                       <a
                         href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        1on1 Coaching
+                        PG Painted
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="/parceiro"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        Coleção Parceiros
                       </a>
                     </li>
 
                     <li>
                       <a
                         href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        Company Review
+                        Envie o seu
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="/produtos?nmproduto=PS5"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        PS5
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="/produtos?nmproduto=PS4"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        PS4
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="/produtos?nmproduto=XBOX"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        XBOX
                       </a>
                     </li>
 
                     <li>
                       <a
                         href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        Accounts Review
+                        Consoles
                       </a>
                     </li>
 
                     <li>
                       <a
                         href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        HR Consulting
+                        Mouses
                       </a>
                     </li>
 
                     <li>
                       <a
                         href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        SEO Optimisation
+                        Arcades
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        Instale você mesmo
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        Acessórios
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="#"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        PG Trade-In
                       </a>
                     </li>
                   </ul>
                 </div>
 
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    Company
+                  <p className="text-base font-bold text-white dark:text-white">
+                    Empresa
                   </p>
 
                   <ul className="mt-6 space-y-4 text-sm">
                     <li>
                       <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        href="/sobre"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        About
+                        Sobre
                       </a>
                     </li>
 
                     <li>
                       <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        href="/equipe"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        Meet the Team
+                        Equipe
                       </a>
                     </li>
 
                     <li>
                       <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        href="/avaliacoes"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        Accounts Review
+                        Avaliações
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="/termos-de-uso"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        Termos de uso
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="/garantias"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        Garantias
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="/devolucoes"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        Devoluções
+                      </a>
+                    </li>
+
+                    <li>
+                      <a
+                        href="/privacidade"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                      >
+                        Privacidade
                       </a>
                     </li>
                   </ul>
                 </div>
 
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    Helpful Links
+                  <p className="text-base font-bold text-white dark:text-white">
+                    Suporte
                   </p>
 
                   <ul className="mt-6 space-y-4 text-sm">
                     <li>
                       <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        href="/contato"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        Contact
+                        Contato
                       </a>
                     </li>
 
                     <li>
                       <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        href="/rastrear-pedido"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        FAQs
+                        Rastrear pedido
                       </a>
                     </li>
 
                     <li>
                       <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        href="/faqs"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        Live Chat
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    Legal
-                  </p>
-
-                  <ul className="mt-6 space-y-4 text-sm">
-                    <li>
-                      <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                      >
-                        Accessibility
+                        FAQ's
                       </a>
                     </li>
 
                     <li>
                       <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        href="/testar-controles"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        Returns Policy
+                        Testar controles
                       </a>
                     </li>
 
                     <li>
                       <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
+                        href="/manuais-e-instrucoes"
+                        className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
-                        Refund Policy
-                      </a>
-                    </li>
-
-                    <li>
-                      <a
-                        href="#"
-                        className="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
-                      >
-                        Hiring Statistics
+                        Manuais e instruções
                       </a>
                     </li>
                   </ul>
                 </div>
               </div>
 
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                &copy; 2022. PGCUSTOM | STORE. Todos os direitos reservados.
-              </p>
+              <div className="sm:flex sm:flex-col sm:items-start sm:justify-start">
+                <div
+                  id="right-footer"
+                  className="flex flex-col items-start justify-start gap-12 text-center text-slate-800 dark:text-slate-300"
+                >
+                  <div
+                    id="novidades-email-container"
+                    className="flex flex-col items-start justify-start gap-4"
+                  >
+                    <span className="text-lg font-bold text-white">
+                      Receba novidades por e-mail
+                    </span>
+                    <div
+                      id="novidades-email-input-container"
+                      className="flex items-center"
+                    >
+                      <input
+                        id="novidades-email-input"
+                        type="email"
+                        placeholder="Endereço de email"
+                        className="w-72 rounded-md border px-2 py-1 outline-none placeholder:text-xs max-md:w-44"
+                      />
+                      <button className="aspect-video rounded-md bg-blue-600 p-2 text-xs font-semibold text-white outline-none focus:bg-blue-800 focus:outline active:bg-blue-800">
+                        Enviar
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    id="social-media-container"
+                    className="flex flex-col items-start justify-start gap-4"
+                  >
+                    <span className="text-lg font-bold text-white">
+                      Social Media
+                    </span>
+                    <ul className="mt-8 flex justify-start gap-3 sm:mt-0 sm:justify-end">
+                      <li>
+                        <a
+                          href="https://www.facebook.com/pgcustomstore"
+                          rel="noreferrer"
+                          target="_blank"
+                          className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                        >
+                          <span className="sr-only">Facebook</span>
+
+                          <svg
+                            className="h-6 w-6"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="https://www.instagram.com/pgcustomstore/"
+                          rel="noreferrer"
+                          target="_blank"
+                          className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                        >
+                          <span className="sr-only">Instagram</span>
+
+                          <svg
+                            className="h-6 w-6"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="https://www.tiktok.com/@pgcustomstore"
+                          rel="noreferrer"
+                          target="_blank"
+                          className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                        >
+                          <span className="sr-only">Tiktok</span>
+
+                          <svg
+                            className="h-6 w-6"
+                            viewBox="0 0 19 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M18.0501 8.6101C17.8801 8.6301 17.71 8.6401 17.53 8.6401C15.63 8.6401 13.8701 7.6901 12.8301 6.1001V14.7501C12.8301 18.2801 9.97005 21.1401 6.44005 21.1401C2.91005 21.1401 0.0500488 18.2801 0.0500488 14.7501C0.0500488 11.2201 2.91005 8.3601 6.44005 8.3601C6.57005 8.3601 6.70005 8.3701 6.84005 8.3801V11.5301C6.71005 11.5101 6.58005 11.4901 6.44005 11.4901C4.64005 11.4901 3.18005 12.9501 3.18005 14.7501C3.18005 16.5501 4.64005 18.0101 6.44005 18.0101C8.24005 18.0101 9.83005 16.5901 9.83005 14.7901L9.86005 0.100098H12.8701C13.1501 2.8001 15.3301 4.9101 18.0401 5.1101V8.6101"
+                              fill="white"
+                            />
+                          </svg>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="https://www.youtube.com/@pgcustomstore"
+                          rel="noreferrer"
+                          target="_blank"
+                          className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                        >
+                          <span className="sr-only">Youtube</span>
+
+                          <svg
+                            className="w-6 h-6"
+                            viewBox="0 0 31 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M30.7801 6.71014C30.7801 3.08014 27.8401 0.140137 24.2101 0.140137H7.40008C3.77008 0.140137 0.830078 3.08014 0.830078 6.71014V14.5301C0.830078 18.1601 3.77008 21.1001 7.40008 21.1001H24.2101C27.8401 21.1001 30.7801 18.1601 30.7801 14.5301V6.71014ZM20.8901 11.2101L13.3501 14.9401C13.0501 15.1001 12.0501 14.8901 12.0501 14.5501V6.90014C12.0501 6.56014 13.0601 6.35014 13.3601 6.51014L20.5701 10.4301C20.8701 10.6001 21.1901 11.0401 20.8801 11.2101H20.8901Z"
+                              fill="white"
+                            />
+                          </svg>
+                        </a>
+                      </li>
+
+                      <li>
+                        <a
+                          href="https://twitter.com/pgcustomstore"
+                          rel="noreferrer"
+                          target="_blank"
+                          className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
+                        >
+                          <span className="sr-only">Twitter</span>
+
+                          <svg
+                            className="h-6 w-6"
+                            viewBox="0 0 22 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M11.2802 0C5.41015 0 0.660156 4.76 0.660156 10.62C0.660156 16.48 5.42015 21.24 11.2802 21.24C17.1402 21.24 21.9001 16.48 21.9001 10.62C21.9001 4.76 17.1402 0 11.2802 0ZM13.9501 16.78L10.3401 11.95L5.87015 16.78H4.72015L9.83015 11.26L4.75015 4.47H8.66016L11.9902 8.92L16.1102 4.47H17.2601L12.5002 9.61L17.8602 16.78H13.9501Z"
+                              fill="white"
+                            />
+                            <path
+                              d="M6.42993 5.31006L14.3699 15.9301H16.1699L8.22993 5.31006H6.42993Z"
+                              fill="white"
+                            />
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </footer>
           </body>
         </ConfigProvider>
