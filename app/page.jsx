@@ -1,4 +1,5 @@
 import { Colecao } from "@/components/Colecao";
+import { DizemComponent } from "@/components/Dizem";
 import { IlustracoesHomePage } from "@/components/IlustracoesHomePage";
 import { onError } from "@/lib/util/error";
 import { fetcher } from "@/lib/util/fetcher";
@@ -6,6 +7,8 @@ import { AderenciaSVG } from "@/public/home/aderencia";
 import { MiraSVG } from "@/public/home/mira";
 import { NaoPercaTempoSVG } from "@/public/home/nao-perca-tempo";
 import { PinturaSVG } from "@/public/home/pintura";
+import AspasInferior from "@/public/parceiros/Aspas_inferior";
+import AspasSuperior from "@/public/parceiros/Aspas_superior";
 import Link from "next/link";
 
 async function loadData() {
@@ -32,8 +35,8 @@ export default async function Home() {
   return (
     <main className="flex w-full flex-col items-center justify-start">
       <IlustracoesHomePage />
-      <section className="max-w-page-limit grid w-full grid-cols-1 gap-14 md:gap-20 p-8 md:px-20 md:py-16">
-        <span className="text-center text-3xl lg:text-5xl font-semibold text-azul_escuro">
+      <section className="grid w-full max-w-page-limit grid-cols-1 gap-14 p-8 md:gap-20 md:px-20 md:py-16">
+        <span className="text-center text-3xl font-semibold text-azul_escuro lg:text-5xl">
           Por que escolher um PG?
         </span>
 
@@ -126,12 +129,14 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="flex w-full flex-col items-start justify-center pt-4 gap-8 bg-[#303030]">
+      <section className="flex w-full flex-col items-start justify-center gap-8 bg-[#303030] pt-4">
         <span className="w-full text-center text-xl font-semibold text-white md:text-4xl">
           Coleções
         </span>
         <Colecao />
       </section>
+
+      <DizemComponent />
 
       <section className="w-full">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
