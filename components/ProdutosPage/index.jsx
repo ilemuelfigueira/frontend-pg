@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  ArrowRight,
-  MagnifyingGlass,
-  ShoppingCart,
-} from "@phosphor-icons/react";
+import { ArrowRight } from "@phosphor-icons/react";
 import { Button, Input, Modal, Select } from "antd";
 import { useFormik } from "formik";
 import Link from "next/link";
@@ -12,7 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay, Mousewheel } from "swiper/modules";
+import { Autoplay, Mousewheel } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -47,6 +43,12 @@ function FiltrosComponent({
       initialValues.nmprodutotipo = nmprodutotipo;
     }
 
+    if (searchParams.has("order")) {
+      const order = searchParams.get("order");
+
+      initialValues.order = ordenacoes.find((ordem) => ordem.value == order)?.value;
+    }
+
     if (searchParams.has("nmproduto")) {
       const nmproduto = searchParams.get("nmproduto");
 
@@ -57,10 +59,19 @@ function FiltrosComponent({
       {
         nmproduto: "",
         nmprodutotipo: "",
+        order: "",
       },
       initialValues,
     );
   };
+
+  const ordenacoes = [
+    { label: "Maior valor", value: "expensive" },
+    {
+      label: "Menor valor",
+      value: "cheaper",
+    },
+  ];
 
   const formik = useFormik({
     initialValues: getInitialValues(),
@@ -78,7 +89,6 @@ function FiltrosComponent({
       });
 
       router.push(`/produtos?${query.toString()}`, {
-        shallow: true,
         scroll: false,
       });
     },
@@ -87,26 +97,83 @@ function FiltrosComponent({
   return (
     <div {...props} className={twMerge("hidden space-y-4 lg:block", className)}>
       <div>
-        <label
-          htmlFor="SortBy"
-          className="block text-xs font-medium text-gray-700"
-        >
-          Ordenar por
-        </label>
+        <p className="block text-xs font-medium text-gray-700 max-md:text-lg max-md:font-semibold">
+          Filtros
+        </p>
 
-        <select id="SortBy" className="mt-1 rounded border-gray-300 text-sm">
-          <option>Selecione</option>
-          <option value="Nome, DESC">Nome, DESC</option>
-          <option value="Nome, ASC">Nome, ASC</option>
-          <option value="Valor, DESC">Valor, DESC</option>
-          <option value="Valor, ASC">Valor, ASC</option>
-        </select>
-      </div>
+        <div className="mt-2 space-y-2">
+          <details className="group overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
+              <span className="text-sm font-medium"> Ordem </span>
 
-      <div>
-        <p className="block text-xs font-medium text-gray-700">Filtros</p>
+              <span className="transition group-open:-rotate-180">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-4 w-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                  />
+                </svg>
+              </span>
+            </summary>
 
-        <div className="mt-1 space-y-2">
+            <div className="border-t border-gray-200 bg-white">
+              <header className="flex items-center justify-between p-4">
+                <span className="text-sm text-gray-700">
+                  Selecione
+                </span>
+
+                <button
+                  type="button"
+                  className="text-sm text-gray-900 underline underline-offset-4"
+                  onClick={() => {
+                    formik.resetForm({
+                      values: {
+                        nmprodutotipo: "",
+                      },
+                    });
+                  }}
+                >
+                  Limpar
+                </button>
+              </header>
+
+              <ul className="space-y-1 border-t border-gray-200 p-4">
+                {ordenacoes.map((obj) => (
+                  <li key={obj.value}>
+                    <label
+                      htmlFor={obj.value}
+                      className="inline-flex cursor-pointer select-none items-center gap-2"
+                    >
+                      <input
+                        type="checkbox"
+                        id={obj.value}
+                        className="h-5 w-5 rounded border-gray-300"
+                        name="order"
+                        value={obj.value}
+                        onChange={(e) => {
+                          formik.setFieldValue(e.target.name, e.target.value);
+                        }}
+                        checked={formik.values.order == obj.value}
+                      />
+
+                      <span className="text-sm font-medium text-gray-700 hover:text-blue-600 hover:underline">
+                        {obj.label}
+                      </span>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+
           <details className="group overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
             <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
               <span className="text-sm font-medium"> Nome </span>
@@ -183,8 +250,8 @@ function FiltrosComponent({
                   onClick={() => {
                     formik.resetForm({
                       values: {
-                        nmprodutotipo: ""
-                      }
+                        nmprodutotipo: "",
+                      },
                     });
                   }}
                 >
@@ -330,22 +397,20 @@ export default function ProdutosPage({ tipos, produtos }) {
                     spaceBetween={50}
                     slidesPerView={1}
                     autoplay={{ delay: 2500 }}
-                    mousewheel={true}
-                    pagination={{ clickable: true }}
-                    modules={[Pagination, Autoplay, Mousewheel]}
+                    modules={[Autoplay, Mousewheel]}
                     loop={true}
                     className="z-10 aspect-square w-full max-w-full transition duration-500 group-hover:scale-105"
                   >
-                    {produto.produto_foto.map((foto) => (
-                      <SwiperSlide key={foto.cdprodutofoto} className="z-10">
+                    {produto?.banners?.map((foto) => (
+                      <SwiperSlide key={foto} className="z-10">
                         <Image
                           className="object-cover"
                           fill
-                          src={foto.nmpath}
+                          src={`${process.env.NEXT_PUBLIC_STORAGE_PUBLIC}${foto}`}
                         />
                       </SwiperSlide>
                     ))}
-                    {produto.produto_foto.length == 0 && (
+                    {(produto?.banners?.length || []) == 0 && (
                       <SwiperSlide className="z-10">
                         <Image
                           className="object-cover"
