@@ -10,7 +10,7 @@ import { ShareNetwork } from "@phosphor-icons/react";
 export function Comercial({ dataMap }) {
   const tipos = distinctListByKey(
     dataMap.get("subProdutos"),
-    "desubprodutotipo",
+    "nmsubprodutotipo",
   );
 
   const [getFields, setFields] = useState(() => {
@@ -98,7 +98,7 @@ export function Comercial({ dataMap }) {
                 options={dataMap
                   .get("subProdutos")
                   .filter(
-                    (subProduto) => subProduto.desubprodutotipo == field.name,
+                    (subProduto) => subProduto.nmsubprodutotipo == field.name,
                   )
                   .map((item) => ({
                     image: item?.sub_produto_foto[0]?.nmpath || "/no-photo.png",
@@ -129,5 +129,5 @@ function distinctListByKey(list = [], key = "") {
 }
 
 function subprodutoByTipo(list = [], tipo = "") {
-  return list.find((item) => item.desubprodutotipo == tipo);
+  return list.find((item) => item.nmsubprodutotipo == tipo);
 }

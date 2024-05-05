@@ -42,11 +42,9 @@ export default async function ProdutoPage({ params }) {
 }
 
 function getAllImagesSrcFromDataMap(dataMap = new Map()) {
-  if (!dataMap.has("produto") || !dataMap.has("subProdutos"))
-    return ["/no-photo.png"];
 
-  return [].concat(
-    dataMap.get("produto").produto_foto.map((item) => item.nmpath),
-    dataMap.get("subProdutos").map((item) => item.sub_produto_foto[0]?.nmpath),
-  );
+  if(!dataMap.get("produto")?.banners) return ["/no-photo.png"]
+
+  return dataMap.get("produto")?.banners
+
 }
