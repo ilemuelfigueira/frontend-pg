@@ -33,3 +33,11 @@
 nextjs-portal {
   display: none;
 }
+
+slide-container {
+  z-index: 10;
+}
+
+.swiper {
+  z-index: 10;
+}

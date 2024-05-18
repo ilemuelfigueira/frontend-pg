@@ -143,7 +143,7 @@ export function HeaderNavigator({ user, ...props }) {
           >
             Controles
             <SubHeader
-              className="hidden cursor-auto group-hover:grid group-focus:grid"
+              className="hidden cursor-auto group-hover:grid group-focus-within:grid"
               mainColumnList={controleColumns}
             />
           </span>
@@ -153,8 +153,8 @@ export function HeaderNavigator({ user, ...props }) {
           >
             Consoles
             <SubHeader
-              className="hidden cursor-auto group-hover:grid group-focus:grid"
-              mainColumnList={controleColumns}
+              className="hidden cursor-auto group-hover:grid group-focus-within:grid"
+              mainColumnList={consoleColumns}
             />
           </span>
           <span
@@ -163,8 +163,8 @@ export function HeaderNavigator({ user, ...props }) {
           >
             Mouses
             <SubHeader
-              className="hidden cursor-auto group-hover:grid group-focus:grid"
-              mainColumnList={controleColumns}
+              className="hidden cursor-auto group-hover:grid group-focus-within:grid"
+              mainColumnList={mouseColumns}
             />
           </span>
           <span
@@ -173,8 +173,8 @@ export function HeaderNavigator({ user, ...props }) {
           >
             Arcades
             <SubHeader
-              className="hidden cursor-auto group-hover:grid group-focus:grid"
-              mainColumnList={controleColumns}
+              className="hidden cursor-auto group-hover:grid group-focus-within:grid"
+              mainColumnList={arcadeColumns}
             />
           </span>
           <span
@@ -183,8 +183,8 @@ export function HeaderNavigator({ user, ...props }) {
           >
             Sobre
             <SubHeader
-              className="hidden cursor-auto group-hover:grid group-focus:grid"
-              mainColumnList={controleColumns}
+              className="hidden cursor-auto group-hover:grid group-focus-within:grid"
+              mainColumnList={sobreColumns}
             />
           </span>
         </section>
@@ -399,4 +399,238 @@ const controleColumns = [
       ],
     },
   ],
+];
+
+const consoleColumns = [
+  [
+    {
+      title: "PS5",
+      items: [
+        {
+          label: "Shapes PS5 Painted",
+          href: "http://localhost:3000/produtos/?nmproduto=Shapes PS5 Painted",
+        },
+      ],
+    },
+    {
+      title: "XBOX",
+      items: [
+        {
+          label: "Shapes XBOX Painted",
+          href: "http://localhost:3000/produtos/?nmproduto=" + "Shapes XBOX Painted",
+        },
+      ],
+    },
+    {
+      title: "Em estoque ( Todos )",
+      items: [
+        {
+          label: "Shapes à pronta entrega",
+          href: "http://localhost:3000/produtos/?nmproduto=" + "Shapes à pronta entrega",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: "Quer um shape com seu design?",
+      items: [
+        {
+          label: "Entre em contato via Whatsapp",
+          href: "https://wa.me/5521994391557" ,
+        },
+      ],
+    },
+  ],
+];
+
+const mouseColumns = [
+  [
+    {
+      title: "Nossos Designs",
+      items: [
+        {
+          label: "Mouses Painted",
+          href: "http://localhost:3000/produtos/?nmproduto=" + "Mouses Painted",
+        },
+      ],
+    },
+    {
+      title: "Em estoque ( Todos )",
+      items: [
+        {
+          label: "Mouses à pronta entrega",
+          href: "http://localhost:3000/produtos/?nmproduto=" + "Mouses à pronta entrega",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: "Quer um mouse com seu design?",
+      items: [
+        {
+          label: "Entre em contato via Whatsapp",
+          href: "https://wa.me/5521994391557" ,
+        },
+      ],
+    },
+  ],
+];
+
+const arcadeColumns = [
+  [
+    {
+      title: "Arcade Bartop",
+      items: [
+        {
+          label: "Bartops Customizados",
+          href: "http://localhost:3000/produtos/?nmproduto=" + "Bartops Customizados",
+        },
+        {
+          label: "À pronta entrega",
+          href: "http://localhost:3000/produtos/?nmproduto=" + "à pronta entrega",
+        },
+      ],
+    },
+    {
+      title: "Arcade Stick",
+      items: [
+        {
+          label: "Arcade Sticks Customizados",
+          href: "http://localhost:3000/produtos/?nmproduto=" + "Arcade Sticks Customizados",
+        },
+        {
+          label: "À pronta entrega",
+          href: "http://localhost:3000/produtos/?nmproduto=" + "À pronta entrega",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: "Quer um Arcade com seu Design?",
+      items: [
+        {
+          label: "Entre em contato via Whatsapp",
+          href: "https://wa.me/5521994391557" ,
+        },
+      ],
+    },
+  ],
+];
+
+const sobreColumns = [
+  [
+    {
+      title: "Informações",
+      items: [
+        {
+          label: "Sobre a empresa",
+          href: "http://localhost:3000/sobre",
+        },
+        {
+          label: "O Time PG",
+          href: "http://localhost:3000/time-pg",
+        },
+        {
+          label: "Avaliações",
+          href: "http://localhost:3000/avaliacoes",
+        },
+      ],
+    },
+    {
+      title: "Suporte",
+      items: [
+        {
+          label: "Entre em contato",
+          href: "https://wa.me/5521994391557",
+        },
+        {
+          label: "Rastrear Pedidos",
+          href: "https://rastreamento.correios.com.br/app/index.php",
+        },
+        {
+          label: "FAQ's",
+          href: "https://google.com",
+        },
+        {
+          label: "Testar Controles",
+          href: "https://hardwaretester.com/gamepad",
+        },
+        
+      ],
+    },
+  ],
+  [
+    {
+      title: "Games com PG",
+      items: [
+        {
+          label: "Call of Duty + Warzone 2",
+          href: "#" ,
+        },
+        {
+          label: "Fortnite",
+          href: "#" ,
+        },
+        {
+          label: "Rocket League",
+          href: "#" ,
+        },
+        {
+          label: "Apex Legends",
+          href: "#" ,
+        },
+        {
+          label: "Rainbow Six Siege",
+          href: "#" ,
+        },
+        {
+          label: "FIFA 2K",
+          href: "#" ,
+        },
+        {
+          label: "GTA Online",
+          href: "#" ,
+        },
+        {
+          label: "Mortal Kombat",
+          href: "#" ,
+        },
+        {
+          label: "Street Fighters",
+          href: "#" ,
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: "Outros",
+      items: [
+        {
+          label: "Termos de Uso",
+          href: "#" ,
+        },
+        {
+          label: "Garantias",
+          href: "#" ,
+        },
+        {
+          label: "Devoluções",
+          href: "#" ,
+        },
+        {
+          label: "Políticas de Privacidade",
+          href: "#" ,
+        },
+        {
+          label: "Manuais e instruções",
+          href: "#" ,
+        },
+      ],
+    },
+  ],
+
 ];
