@@ -96,7 +96,7 @@ export const DizemComponent = () => {
       </span>
       <AspasSuperior
         fill="black"
-        className="absolute left-2 top-2 h-fit w-5 xs:w-8 md:w-14 lg:w-20"
+        className="absolute left-4 top-2 h-fit w-5 xs:w-8 md:w-14 lg:w-20"
       />
       <span
         onClick={handleBefore}
@@ -159,7 +159,7 @@ export const DizemComponent = () => {
 
       <AspasInferior
         fill="black"
-        className="absolute bottom-2 right-2 h-fit w-5 xs:w-8 md:w-14 lg:w-20"
+        className="absolute bottom-2 right-4 h-fit w-5 xs:w-8 md:w-14 lg:w-20"
       />
     </div>
   );
