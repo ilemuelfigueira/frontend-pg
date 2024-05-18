@@ -5,7 +5,6 @@ import LoginModal from "@/components/Modal/login";
 import RegistrarModal from "@/components/Modal/registrar";
 import { useOpen } from "@/hooks/open";
 import { IconeNavbarSVG } from "@/public/home/icone-navbar";
-import { LupaSVG } from "@/public/home/lupa";
 import {
   AddressBook,
   List,
@@ -32,7 +31,7 @@ const LogoContainer = ({ children, ...props }) => (
 );
 
 const InfoContainer = ({ children, ...props }) => (
-  <div className="flex items-center gap-4">{children}</div>
+  <div className={props?.className}>{children}</div>
 );
 
 const MenuItem = ({ href, label, Icon = null, onClick = undefined }) => {
@@ -122,83 +121,87 @@ export function HeaderNavigator({ user, ...props }) {
       <Container
         {...props}
         data-ishome={pathName == "/"}
-        className="sticky top-0 z-40 flex h-14 w-screen max-w-full items-center justify-between gap-4 overflow-hidden bg-black/80 p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black md:data-[ishome=true]:-mb-16"
+        data-searchopen={openSearch.open}
+        className="sticky top-0 z-40 grid max-md:data-[searchopen=true]:grid-cols-1 grid-cols-3 grid-rows-1 max-md:grid-cols-2 h-16 w-screen max-w-full overflow-hidden bg-black/90 p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black md:data-[ishome=true]:-mb-18"
       >
         <Link
           href={"/"}
           data-is-searchopen={openSearch.open}
-          className="w-fit cursor-pointer max-md:data-[is-searchopen=true]:hidden"
+          className="w-full items-center place-self-center cursor-pointer max-md:data-[is-searchopen=true]:hidden"
         >
           <LogoContainer className="flex w-full items-center gap-2 md:gap-4">
             <IconeNavbarSVG fill="white" className="aspect-square w-6 md:w-8" />
-            <span className="w-full text-base font-black text-white md:text-xl lg:text-2xl">
+            <span className="w-full whitespace-nowrap text-base font-black text-white md:text-xl lg:text-2xl">
               PG Custom
             </span>
           </LogoContainer>
         </Link>
         <section
-          data-open={openSearch.open}
-          className="relative mx-auto flex w-full items-center gap-2 data-[open=false]:hidden md:max-w-[350px] lg:max-w-[500px]"
-        >
-          <Input
-            ref={searchRef}
-            className="text-sm font-semibold text-slate-800 placeholder:text-slate-400"
-            placeholder="Pesquisar nesta loja..."
-            value={getSearch}
-            onChange={(e) => setSearch(e.target.value)}
-            onBlur={openSearch.handleClose}
-            onPressEnter={search}
-          />
-          <MagnifyingGlass
-            size={24}
-            onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
-            className="pointer-events-none absolute right-2 mt-auto select-none"
-          />
-        </section>
-        <section
-          data-open={openSearch.open}
-          className="relative flex gap-6 text-white data-[open=true]:hidden max-md:hidden"
+          // data-open={openSearch.open}
+          className="flex place-self-center w-full justify-center items-center gap-6 text-white data-[open=true]:hidden max-md:hidden"
         >
           <Link
             href={`/produtos?nmprodutotipo=CONTROLE_EXCLUSIVO`}
-            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
           >
             Controles
           </Link>
           <Link
             href={`/produtos?nmprodutotipo=CONSOLE`}
-            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
           >
             Consoles
           </Link>
           <Link
             href={`/produtos?nmprodutotipo=MOUSE`}
-            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
           >
             Mouses
           </Link>
           <Link
             href={`/produtos?nmprodutotipo=ARCADE`}
-            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
           >
             Arcades
           </Link>
           <Link
             href={`/sobre`}
-            className="hover:text-focus-blue focus:text-focus-blue hover:border-b-focus-blue focus:border-b-focus-blue border-b py-2 hover:cursor-pointer"
+            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
           >
             Sobre
           </Link>
         </section>
-        <InfoContainer>
+        <InfoContainer
+          data-is-searchopen={openSearch.open}
+          className="flex w-full items-center justify-end gap-4 place-self-center"
+        >
+          <section
+            data-open={openSearch.open}
+            className="relative w-full bg-black/90 -mr-2 flex justify-between items-center gap-2 data-[open=false]:hidden"
+          >
+            <Input
+              ref={searchRef}
+              className="rounded-full z-10 w-full border-focus-blue bg-transparent px-4 py-1 text-sm font-normal text-white placeholder:text-focus-blue"
+              placeholder="Pesquisar"
+              value={getSearch}
+              onChange={(e) => setSearch(e.target.value)}
+              onBlur={openSearch.handleClose}
+              onPressEnter={search}
+            />
+            <MagnifyingGlass
+              onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
+              className="pointer-events-none absolute right-2 text-2xl aspect-square select-none fill-focus-blue"
+            />
+          </section>
           <MagnifyingGlass
+            data-show={!openSearch.open}
             onClick={openSearch.openClose}
-            className={"cursor-pointer text-lg text-white md:text-3xl"}
+            className="text-2xl aspect-square shrink-0 cursor-pointer text-white data-[show=false]:hidden"
           />
 
           <ShoppingCart
             onClick={goToCart}
-            className="cursor-pointer text-lg text-white hover:rounded-md md:text-3xl"
+            className="text-2xl aspect-square shrink-0 cursor-pointer text-white hover:rounded-md"
           />
           {/* <If condition={existeUsuario}> */}
           <Dropdown
@@ -255,19 +258,10 @@ export function HeaderNavigator({ user, ...props }) {
                 <UserCircle size={24} />
                 <span className="text-xs">{user?.nome || user?.email}</span>
               </a> */}
-            <User className="cursor-pointer text-lg text-white hover:rounded-md md:text-3xl" />
+            <User
+              className="cursor-pointer text-2xl shrink-0 aspect-square text-white"
+            />
           </Dropdown>
-          {/* </If> */}
-          {/* <If condition={!existeUsuario}>
-            <Button
-              className="hidden items-center text-slate-600 md:flex"
-              size="large"
-              onClick={openLogin.handleOpen}
-            >
-              <span className="text-lg font-bold">Entrar</span>
-            </Button>
-          </If> */}
-
           <LoginModal
             open={openLogin.open}
             okText={"Entrar"}
