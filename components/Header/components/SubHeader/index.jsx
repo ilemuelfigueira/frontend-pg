@@ -18,15 +18,16 @@ export default function SubHeader({
       {...props}
     >
       {mainColumnList.map((list, mainColumnListIndex) => (
-        <ul className="grid h-fit w-full grid-flow-row grid-cols-1 place-items-start gap-4">
+        <ul key={'mainColumn-' + mainColumnListIndex} className="grid h-fit w-full grid-flow-row grid-cols-1 place-items-start gap-4">
           {list.map((column) => (
-            <li>
+            <li key={column.title}>
               <span className="text-xs font-normal text-[#929292]">
                 {column.title}
               </span>
               <ul className="flex w-full flex-col items-start gap-1">
                 {column.items.map((item) => (
                   <li
+                    key={item.href + item.label}
                     data-is-big={mainColumnListIndex == 0}
                     className="text-sm text-white data-[is-big=true]:text-2xl data-[is-big=true]:font-semibold"
                   >

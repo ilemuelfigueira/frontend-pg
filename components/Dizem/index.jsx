@@ -112,9 +112,9 @@ export const DizemComponent = () => {
           <path
             d="M12.6066 2L1.99998 12.6066L12.6066 23.2132"
             stroke="black"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </span>
@@ -150,9 +150,9 @@ export const DizemComponent = () => {
           <path
             d="M2 23.2131L12.6066 12.6065L2 1.99996"
             stroke="black"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </span>
