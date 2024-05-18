@@ -7,14 +7,12 @@ import { useOpen } from "@/hooks/open";
 import { IconeNavbarSVG } from "@/public/home/icone-navbar";
 import {
   AddressBook,
-  List,
   MagnifyingGlass,
   Receipt,
   ShoppingCart,
   SignIn,
   SignOut,
   User,
-  UserCircle,
 } from "@phosphor-icons/react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Dropdown, Input } from "antd";
@@ -23,6 +21,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import SubHeader from "./components/SubHeader";
 
 const Container = ({ children, ...props }) => <div {...props}>{children}</div>;
 
@@ -109,7 +108,7 @@ export function HeaderNavigator({ user, ...props }) {
   }, []);
 
   useEffect(() => {
-    // if (openSearch.open) searchRef.current && searchRef.current.focus();
+    if (openSearch.open) searchRef.current && searchRef.current.focus();
   }, [openSearch.open]);
 
   const searchRef = useRef(null);
@@ -122,66 +121,84 @@ export function HeaderNavigator({ user, ...props }) {
         {...props}
         data-ishome={pathName == "/"}
         data-searchopen={openSearch.open}
-        className="sticky top-0 z-40 grid max-md:data-[searchopen=true]:grid-cols-1 grid-cols-3 grid-rows-1 max-md:grid-cols-2 h-16 w-screen max-w-full overflow-hidden bg-black/90 p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black md:data-[ishome=true]:-mb-18"
+        className="sticky top-0 z-40 grid h-16 gap-4 w-screen max-w-full grid-cols-3 grid-rows-1 overflow-visible bg-black p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black max-md:grid-cols-2 max-md:data-[searchopen=true]:grid-cols-1 md:data-[ishome=true]:-mb-16"
       >
         <Link
           href={"/"}
           data-is-searchopen={openSearch.open}
-          className="w-full items-center place-self-center cursor-pointer max-md:data-[is-searchopen=true]:hidden"
+          className="w-fit items-center place-self-start self-center max-md:data-[is-searchopen=true]:hidden"
         >
-          <LogoContainer className="flex w-full items-center gap-2 md:gap-4">
+          <LogoContainer className="flex w-fit items-center justify-start gap-2 md:gap-4">
             <IconeNavbarSVG fill="white" className="aspect-square w-6 md:w-8" />
-            <span className="w-full whitespace-nowrap text-base font-black text-white md:text-xl lg:text-2xl">
+            <span className="whitespace-nowrap text-base font-black text-white md:text-xl lg:text-2xl">
               PG Custom
             </span>
           </LogoContainer>
         </Link>
-        <section
-          // data-open={openSearch.open}
-          className="flex place-self-center w-full justify-center items-center gap-6 text-white data-[open=true]:hidden max-md:hidden"
-        >
-          <Link
-            href={`/produtos?nmprodutotipo=CONTROLE_EXCLUSIVO`}
-            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
+        <section className="flex w-full items-center justify-center gap-6 place-self-center text-white data-[open=true]:hidden max-md:hidden">
+          <span
+            tabIndex={0}
+            // data-open={openControlesSub.open}
+            className="group border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Controles
-          </Link>
-          <Link
-            href={`/produtos?nmprodutotipo=CONSOLE`}
-            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
+            <SubHeader
+              className="hidden cursor-auto group-hover:grid group-focus:grid"
+              mainColumnList={controleColumns}
+            />
+          </span>
+          <span
+            tabIndex={0}
+            className="group border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Consoles
-          </Link>
-          <Link
-            href={`/produtos?nmprodutotipo=MOUSE`}
-            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
+            <SubHeader
+              className="hidden cursor-auto group-hover:grid group-focus:grid"
+              mainColumnList={controleColumns}
+            />
+          </span>
+          <span
+            tabIndex={0}
+            className="group border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Mouses
-          </Link>
-          <Link
-            href={`/produtos?nmprodutotipo=ARCADE`}
-            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
+            <SubHeader
+              className="hidden cursor-auto group-hover:grid group-focus:grid"
+              mainColumnList={controleColumns}
+            />
+          </span>
+          <span
+            tabIndex={0}
+            className="group border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Arcades
-          </Link>
-          <Link
-            href={`/sobre`}
-            className="border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue"
+            <SubHeader
+              className="hidden cursor-auto group-hover:grid group-focus:grid"
+              mainColumnList={controleColumns}
+            />
+          </span>
+          <span
+            tabIndex={0}
+            className="group border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue focus:border-b-focus-blue focus:text-focus-blue data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Sobre
-          </Link>
+            <SubHeader
+              className="hidden cursor-auto group-hover:grid group-focus:grid"
+              mainColumnList={controleColumns}
+            />
+          </span>
         </section>
         <InfoContainer
           data-is-searchopen={openSearch.open}
-          className="flex w-full items-center justify-end gap-4 place-self-center"
+          className="flex max-md:w-full place-self-end self-center items-center justify-end gap-4"
         >
           <section
             data-open={openSearch.open}
-            className="relative w-full bg-black/90 -mr-2 flex justify-between items-center gap-2 data-[open=false]:hidden"
+            className="relative -mr-2 flex w-full items-center justify-between gap-2 bg-black/90 data-[open=false]:hidden"
           >
             <Input
               ref={searchRef}
-              className="rounded-full z-10 w-full border-focus-blue bg-transparent px-4 py-1 text-sm font-normal text-white placeholder:text-focus-blue"
+              className="z-10 w-full rounded-full border-focus-blue bg-transparent px-4 py-1 text-sm font-normal text-white placeholder:text-focus-blue"
               placeholder="Pesquisar"
               value={getSearch}
               onChange={(e) => setSearch(e.target.value)}
@@ -190,20 +207,19 @@ export function HeaderNavigator({ user, ...props }) {
             />
             <MagnifyingGlass
               onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
-              className="pointer-events-none absolute right-2 text-2xl aspect-square select-none fill-focus-blue"
+              className="pointer-events-none absolute right-2 aspect-square select-none fill-focus-blue text-2xl"
             />
           </section>
           <MagnifyingGlass
             data-show={!openSearch.open}
             onClick={openSearch.openClose}
-            className="text-2xl aspect-square shrink-0 cursor-pointer text-white data-[show=false]:hidden"
+            className="aspect-square shrink-0 cursor-pointer text-2xl text-white data-[show=false]:hidden"
           />
 
           <ShoppingCart
             onClick={goToCart}
-            className="text-2xl aspect-square shrink-0 cursor-pointer text-white hover:rounded-md"
+            className="aspect-square shrink-0 cursor-pointer text-2xl text-white hover:rounded-md"
           />
-          {/* <If condition={existeUsuario}> */}
           <Dropdown
             menu={{
               items: existeUsuario
@@ -254,13 +270,7 @@ export function HeaderNavigator({ user, ...props }) {
             }}
             trigger={["click"]}
           >
-            {/* <a className="flex h-fit cursor-pointer items-center gap-1 text-slate-600 max-md:hidden">
-                <UserCircle size={24} />
-                <span className="text-xs">{user?.nome || user?.email}</span>
-              </a> */}
-            <User
-              className="cursor-pointer text-2xl shrink-0 aspect-square text-white"
-            />
+            <User className="aspect-square shrink-0 cursor-pointer text-2xl text-white" />
           </Dropdown>
           <LoginModal
             open={openLogin.open}
@@ -278,3 +288,115 @@ export function HeaderNavigator({ user, ...props }) {
     </>
   );
 }
+
+const controleColumns = [
+  [
+    {
+      title: "Todos",
+      items: [
+        {
+          label: "PG Painted",
+          href: "http://localhost:3000/parceiros",
+        },
+        {
+          label: "Coleção Parceiros PG",
+          href: "Envie Seu Controle",
+        },
+      ],
+    },
+    {
+      title: "PS5 / PC",
+      items: [
+        {
+          label: "Obsidian",
+          href: "http://localhost:3000/produtos/?nmproduto=Obsidian",
+        },
+        {
+          label: "Speakeasy",
+          href: "http://localhost:3000/produtos/?nmproduto=Speakeasy",
+        },
+      ],
+    },
+    {
+      title: "XBOX / PC",
+      items: [
+        {
+          label: "Grandmaster",
+          href: "http://localhost:3000/produtos/?nmproduto=grandmaster",
+        },
+      ],
+    },
+    {
+      title: "PS4 / PC",
+      items: [
+        {
+          label: "Goliath",
+          href: "http://localhost:3000/produtos/?nmproduto=goliath",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: "Instale você mesmo",
+      items: [
+        {
+          label: "Kit Shape + Placa Remap + Paddles PG",
+          href: "http://localhost:3000/produtos/?nmproduto=Kit Shape + Placa Remap + Paddles PG",
+        },
+        {
+          label: "Kit Paddles PG",
+          href: "http://localhost:3000/produtos/?nmproduto=Kit Paddles PG",
+        },
+        {
+          label: "Placa PG Controle Arcade PS5 / PC",
+          href: "http://localhost:3000/produtos/?nmproduto=Placa PG Controle Arcade PS5 / PC",
+        },
+      ],
+    },
+    {
+      title: "PG Custom Trade-in",
+      items: [
+        {
+          label: "Troque seu PG Antigo por um Novinho",
+          href: "http://localhost:3000/produtos/?nmproduto=Troque seu PG Antigo Por um Novinho",
+        },
+      ],
+    },
+  ],
+  [
+    {
+      title: "Acessórios e Peças",
+      items: [
+        {
+          label: "Cases Custom",
+          href: "http://localhost:3000/produtos/?nmproduto=Cases Custom",
+        },
+        {
+          label: "Paddles",
+          href: "http://localhost:3000/produtos/?nmproduto=Paddles",
+        },
+        {
+          label: "Faceplates",
+          href: "http://localhost:3000/produtos/?nmproduto=Faceplates",
+        },
+        {
+          label: "Cartões de presente",
+          href: "http://localhost:3000/produtos/?nmproduto=Cartões de presente",
+        },
+        {
+          label: "Cabos",
+          href: "http://localhost:3000/produtos/?nmproduto=Cabos",
+        },
+        {
+          label: "Trigger PG Click Mouse",
+          href: "http://localhost:3000/produtos/?nmproduto=Trigger PG Click Mouse",
+        },
+        {
+          label: "Placa Remap Paddles",
+          href: "http://localhost:3000/produtos/?nmproduto=Placa Remap Paddles",
+        },
+      ],
+    },
+  ],
+];

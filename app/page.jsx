@@ -11,6 +11,8 @@ import AspasInferior from "@/public/parceiros/Aspas_inferior";
 import AspasSuperior from "@/public/parceiros/Aspas_superior";
 import Link from "next/link";
 
+import "./globals.css"
+
 async function loadData() {
   const dataMap = new Map();
 
