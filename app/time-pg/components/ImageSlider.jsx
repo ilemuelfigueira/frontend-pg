@@ -166,7 +166,7 @@ export default function ImageSlider() {
             },
             {
               avatar: "/dualsense-foco.jpg",
-              title: "Annye Carolinnye",
+              title: "Caio Franco",
               subtitle: "CCO, Artista & Designer, Pinturas",
               redes: [
                 {
