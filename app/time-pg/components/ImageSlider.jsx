@@ -26,6 +26,10 @@ export default function ImageSlider() {
     });
   }, []);
 
+  useEffect(() => {
+
+  })
+
   function scrollPrev() {
     if (scrollAmount > 0) {
       setScrollAmount((prev) => {
@@ -189,7 +193,7 @@ export default function ImageSlider() {
               ],
             },
           ].map((person) => (
-            <div className="mt-4 flex w-full flex-col items-start">
+            <div key={person.title} className="mt-4 flex w-full flex-col items-start">
               <img className="aspect-square" src={person.avatar} />
               <span className="mt-4 w-full text-center text-2xl font-semibold">
                 {person.title}
