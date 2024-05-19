@@ -11,7 +11,8 @@ import AspasInferior from "@/public/parceiros/Aspas_inferior";
 import AspasSuperior from "@/public/parceiros/Aspas_superior";
 import Link from "next/link";
 
-import "./globals.css"
+import "./globals.css";
+import ComprePorCategoria from "@/components/ComprePorCategoria";
 
 async function loadData() {
   const dataMap = new Map();
@@ -140,7 +141,37 @@ export default async function Home() {
 
       <DizemComponent />
 
-      <section className="w-full hidden">
+      <ComprePorCategoria
+        items={[
+          {
+            // src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=PS5",
+            label: 'PS5 / PC'
+          },
+          {
+            src: "/dualsense-desfocado.jpg",
+            href: "/produtos?nmproduto=PS4",
+            label: 'PS4 / PC'
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=XBOX",
+            label: 'XBOX / PC'
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=Mouse",
+            label: 'Mouses'
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=Arcade",
+            label: 'Arcades'
+          },
+        ]}
+      />
+
+      <section className="hidden w-full">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch">
             <div className="grid place-content-center rounded bg-gray-100 p-6 sm:p-8">

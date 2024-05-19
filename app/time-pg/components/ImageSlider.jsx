@@ -188,7 +188,7 @@ export default function ImageSlider() {
               ],
             },
           ].map((person) => (
-            <div
+            <li
               key={person.title}
               className="mt-4 flex w-full flex-col items-start"
             >
@@ -207,7 +207,7 @@ export default function ImageSlider() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </li>
           ))}
         </ul>
       </aside>

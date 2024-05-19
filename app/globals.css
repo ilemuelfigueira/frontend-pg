@@ -13,8 +13,8 @@
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -24,8 +24,8 @@
 .hidden-flex-item {
   content: "";
   flex: 1 0 300px;
-  padding: 5px;     
-  margin-top: 10px;  
+  padding: 5px;
+  margin-top: 10px;
   margin-right: 5px;
   visibility: hidden;
 }
