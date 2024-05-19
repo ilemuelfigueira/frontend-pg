@@ -204,6 +204,7 @@ export function HeaderNavigator({ user, ...props }) {
               onChange={(e) => setSearch(e.target.value)}
               onBlur={openSearch.handleClose}
               onPressEnter={search}
+              enterKeyHint="go"
             />
             <MagnifyingGlass
               onClick={() => router.push("/produtos?nmproduto=" + getSearch)}
