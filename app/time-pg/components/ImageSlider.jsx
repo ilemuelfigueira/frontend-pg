@@ -15,20 +15,11 @@ export default function ImageSlider() {
   });
 
   useEffect(() => {
-    console.log({
-      totalWidth: imageContainerRef.current.scrollWidth,
-      itemWidth: imageContainerRef.current.clientWidth,
-    });
-
     setWitdh({
       totalWidth: imageContainerRef.current.scrollWidth,
       itemWidth: imageContainerRef.current.clientWidth,
     });
   }, []);
-
-  useEffect(() => {
-
-  })
 
   function scrollPrev() {
     if (scrollAmount > 0) {
@@ -49,12 +40,6 @@ export default function ImageSlider() {
 
       const go = prev < width.totalWidth - width.itemWidth;
 
-      console.log({
-        prev,
-        total: width.totalWidth,
-        item: width.itemWidth,
-      });
-
       if (!go) return width.totalWidth - width.itemWidth;
 
       imageContainerRef.current.scrollTo({
@@ -66,10 +51,10 @@ export default function ImageSlider() {
   }
   return (
     <>
-      <div className="relative flex flex-col w-full gap-5 items-center justify-center">
+      <div className="relative flex w-full flex-col items-center justify-center gap-5">
         <span className="text-4xl font-semibold">Conheça o Time</span>
 
-        <div className="xs:absolute xs:right-0 flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 xs:absolute xs:right-0">
           <button
             disabled={scrollAmount === 0}
             onClick={scrollPrev}
@@ -120,7 +105,17 @@ export default function ImageSlider() {
       <aside className="mb-40 mt-12 w-full">
         <ul
           ref={imageContainerRef}
-          className="hide-scrollbar grid w-full max-w-full auto-cols-[100%] xs:auto-cols-[50%] md:auto-cols-[33.333333333333336%] grid-flow-col items-center gap-4 overflow-auto"
+          className="hide-scrollbar grid w-full max-w-full auto-cols-[100%] grid-flow-col items-center gap-4 overflow-auto xs:auto-cols-[50%] md:auto-cols-[33.333333333333336%]"
+          // onScroll={() => {
+          //   if(imageContainerRef.current) {
+          //     const { scrollTop, scrollLeft } = imageContainerRef.current
+
+          //     setScrollAmount({
+          //       scrollTop,
+          //       scrollLeft
+          //     })
+          //   }
+          // }}
         >
           {[
             {
@@ -193,7 +188,10 @@ export default function ImageSlider() {
               ],
             },
           ].map((person) => (
-            <div key={person.title} className="mt-4 flex w-full flex-col items-start">
+            <div
+              key={person.title}
+              className="mt-4 flex w-full flex-col items-start"
+            >
               <img className="aspect-square" src={person.avatar} />
               <span className="mt-4 w-full text-center text-2xl font-semibold">
                 {person.title}
