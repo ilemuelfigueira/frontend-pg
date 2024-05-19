@@ -210,7 +210,7 @@ export default async function RootLayout({ children, params, ...props }) {
 
                     <li>
                       <a
-                        href="/equipe"
+                        href="/time-pg"
                         className="font-normal text-white transition hover:opacity-75 dark:text-gray-200"
                       >
                         Equipe
