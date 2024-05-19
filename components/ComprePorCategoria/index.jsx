@@ -2,15 +2,12 @@
 
 import { useRef, useState } from "react";
 import "./index.css";
-import { useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 
 export default function ComprePorCategoria({ ...props }) {
   const cols = props?.cols || 3;
   const galleryRef = useRef(null);
-
-  if (!props?.items) return "";
 
   const [lista, _] = useState(() => {
     const items = props?.items || [];
@@ -24,10 +21,6 @@ export default function ComprePorCategoria({ ...props }) {
     return groupedArray;
   });
 
-  useEffect(() => {
-    console.log(galleryRef.current.scrollWidth);
-    console.log(galleryRef.current.style);
-  }, []);
   return (
     <section
       id="compre-por-categoria-home"
