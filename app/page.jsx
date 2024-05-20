@@ -7,12 +7,10 @@ import { AderenciaSVG } from "@/public/home/aderencia";
 import { MiraSVG } from "@/public/home/mira";
 import { NaoPercaTempoSVG } from "@/public/home/nao-perca-tempo";
 import { PinturaSVG } from "@/public/home/pintura";
-import AspasInferior from "@/public/parceiros/Aspas_inferior";
-import AspasSuperior from "@/public/parceiros/Aspas_superior";
 import Link from "next/link";
 
 import "./globals.css";
-import ComprePorCategoria from "@/components/ComprePorCategoria";
+import HomeImageSlider from "@/components/HomeImageSlider";
 
 async function loadData() {
   const dataMap = new Map();
@@ -141,32 +139,65 @@ export default async function Home() {
 
       <DizemComponent />
 
-      <ComprePorCategoria
+      <HomeImageSlider
+        data-mode="dark"
+        title="Compre por Categoria"
         items={[
           {
             // src: "/dualsense-foco.jpg",
             href: "/produtos?nmproduto=PS5",
-            label: 'PS5 / PC'
+            label: "PS5 / PC",
           },
           {
             src: "/dualsense-desfocado.jpg",
             href: "/produtos?nmproduto=PS4",
-            label: 'PS4 / PC'
+            label: "PS4 / PC",
           },
           {
             src: "/dualsense-foco.jpg",
             href: "/produtos?nmproduto=XBOX",
-            label: 'XBOX / PC'
+            label: "XBOX / PC",
           },
           {
             src: "/dualsense-foco.jpg",
             href: "/produtos?nmproduto=Mouse",
-            label: 'Mouses'
+            label: "Mouses",
           },
           {
             src: "/dualsense-foco.jpg",
             href: "/produtos?nmproduto=Arcade",
-            label: 'Arcades'
+            label: "Arcades",
+          },
+        ]}
+      />
+
+      <HomeImageSlider
+        title="Mais Populares"
+        items={[
+          {
+            // src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=" + 'Dualsense Roze',
+            label: "Dualsense Roze",
+          },
+          {
+            src: "/dualsense-desfocado.jpg",
+            href: "/produtos?nmproduto=" + 'Dualsense Rick N Morty',
+            label: "Dualsense Rick N Morty",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=" + 'Dualsense Realeza',
+            label: "Dualsense Realeza",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=" + 'Mouse Customizado',
+            label: "Mouse Customizado",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=" + 'Arcades',
+            label: "Arcades",
           },
         ]}
       />
