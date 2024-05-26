@@ -443,7 +443,7 @@ export default function Product({ ...props }) {
             />
           </If>
 
-          <span className="sticky bottom-2 z-20 w-full bg-white text-2xl font-bold uppercase">
+          <span className="sticky bottom-0 pb-2 z-20 w-full text-2xl font-bold uppercase bg-gray-100">
             Total:
             <strong className="ml-2 text-3xl font-extrabold text-green-400">
               {total(subprodutosPrecos, [
