@@ -2,10 +2,21 @@ import { onError } from "@/lib/util/error";
 import { serverFetcher } from "@/lib/util/server-fetcher";
 import { Comercial } from "./comercial";
 import { Ilustracoes } from "./ilustracoes";
-import { aplicarMascara } from "@/lib/util";
+import { readUserOrThrow } from "@/lib/util/supabase";
 
 async function loadData({ cdproduto = "" }) {
   const dataMap = new Map();
+
+  await readUserOrThrow({
+    onSuccess: ({ user }) => {
+      dataMap.set("user", user);
+      dataMap.set("expired_login", "N");
+    },
+    onExpired: () => {
+      dataMap.set("expired_login", "S");
+      dataMap.set("user", null);
+    },
+  });
 
   const produtoResponse = await serverFetcher(`/api/produtos/${cdproduto}`);
 
@@ -25,6 +36,7 @@ async function loadData({ cdproduto = "" }) {
     );
 
   dataMap.set("subProdutos", subProdutoResponse);
+  dataMap.set("cdproduto", cdproduto);
 
   return dataMap;
 }
@@ -42,9 +54,12 @@ export default async function ProdutoPage({ params }) {
 }
 
 function getAllImagesSrcFromDataMap(dataMap = new Map()) {
+  if (!dataMap.get("produto")?.banners) return ["/no-photo.png"];
 
-  if(!dataMap.get("produto")?.banners) return ["/no-photo.png"]
-
-  return dataMap.get("produto")?.banners
-
+  return dataMap
+    .get("produto")
+    ?.banners.map((banner) =>
+      banner.replace(process.env.NEXT_PUBLIC_STORAGE_PUBLIC, ""),
+    )
+    .map((banner) => `${process.env.NEXT_PUBLIC_STORAGE_PUBLIC}${banner}`);
 }

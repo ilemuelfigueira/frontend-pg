@@ -8,11 +8,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Mousewheel } from "swiper/modules";
+import { Autoplay, Mousewheel, Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import "swiper/css/mousewheel"
 import Image from "next/image";
 
 import * as yup from "yup";
@@ -385,7 +386,7 @@ export default function ProdutosPage({ tipos, produtos }) {
         </Modal>
 
         <div className="lg:col-span-3">
-          <ul className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-2 gap-1 md:gap-4 md:grid-cols-4 lg:grid-cols-5">
             {produtos.items.map((produto) => (
               <li className="bg-white shadow-md" key={produto?.cdproduto}>
                 <Link
@@ -397,7 +398,10 @@ export default function ProdutosPage({ tipos, produtos }) {
                     spaceBetween={50}
                     slidesPerView={1}
                     autoplay={{ delay: 2500 }}
-                    modules={[Autoplay, Mousewheel]}
+                    modules={[Autoplay, Mousewheel, Pagination]}
+                    pagination={{
+                      clickable: true
+                    }}
                     loop={true}
                     className="z-10 aspect-square w-full max-w-full transition duration-500 group-hover:scale-105"
                   >
@@ -442,7 +446,7 @@ export default function ProdutosPage({ tipos, produtos }) {
             ))}
           </ul>
 
-          <footer className="mt-4 flex w-full items-center justify-end gap-2">
+          <footer className="mt-4 flex w-full items-center justify-end gap-2 bg-inherit">
             <span className="text-sm">Produtos por página</span>
             <Select
               value={

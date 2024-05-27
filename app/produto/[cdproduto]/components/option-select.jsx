@@ -1,5 +1,6 @@
 "use client";
 
+import { aplicarMascara } from "@/lib/util";
 import { twMerge } from "tailwind-merge";
 
 export function OptionSelect({
@@ -12,11 +13,11 @@ export function OptionSelect({
   if (!options || !options.length) return "Nenhuma opção disponível";
 
   return (
-    <ul className={twMerge("flex flex-wrap gap-2", className)} {...props}>
+    <ul className={twMerge("grid grid-cols-3 gap-2", className)} {...props}>
       {options.map((option, optionIndex) => (
         <li
           key={option.label + optionIndex}
-          className="group peer relative grid w-fit grid-cols-1 items-center rounded border border-slate-200 p-2 hover:cursor-pointer hover:border-blue-300 data-[checked=true]:border-2 data-[checked=true]:border-blue-400"
+          className="group peer gap-2 relative place-items-center grid w-full grid-cols-1 items-center rounded border border-slate-200 p-2 hover:cursor-pointer hover:border-blue-300 data-[checked=true]:border-2 data-[checked=true]:border-blue-400"
           style={{
             flex: "1 0 70px",
           }}
@@ -27,12 +28,16 @@ export function OptionSelect({
           title="Clique para selecionar"
           data-checked={option.value == value}
         >
-          <p
+          <img className="aspect-square w-4/5" src={option.image} />
+          <span
             title={option.label}
             className="text-xs overflow-hidden text-ellipsis whitespace-pre-line text-center font-light leading-tight tracking-wide hover:underline"
           >
             {option.label}
-          </p>
+          </span>
+          <span className="text-xs font-normal">
+            R$ {aplicarMascara(option.price, "real")}
+          </span>
         </li>
       ))}
     </ul>

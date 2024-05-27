@@ -108,6 +108,8 @@ export const useProduct = ({ ...props } = {}) => {
 
       const productUrl = getProductUrl(values);
 
+      console.log(JSON.stringify(productUrl))
+
       const pacote = {
         ...props.produto,
         subprodutos: [],
@@ -144,6 +146,11 @@ export const useProduct = ({ ...props } = {}) => {
 
         return url.slice(index);
       };
+
+      console.log('run')
+
+      toast.error('teste')
+      throw new Error('teste')
 
       await cadastrarPacoteComItens({
         cdproduto: pacote.cdproduto,

@@ -222,7 +222,6 @@ export function Pacotes({ pacotes = [] }) {
               nmproduto={pacote.nmproduto}
               nmprodutotipo={pacote.nmprodutotipo}
             />
-            {pacote.concat_nmsubprodutotipo}
             <NomeProduto
               concat_nmsubprodutotipo={pacote.concat_nmsubprodutotipo.replace(
                 "\\n",
