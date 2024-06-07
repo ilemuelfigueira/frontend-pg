@@ -48,35 +48,6 @@ export default async function Home() {
 
   return (
     <main className="flex w-full flex-col items-center justify-start">
-      <Head>
-        <title>PG Custom | Store</title>
-        <meta
-          name="description"
-          content="Página de customização de controles de video-game."
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charSet="UTF-8" />
-        <meta httpEquiv="Content-Language" content="pt-BR" />
-        <link rel="icon" href="/logo-32x32.png" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/logo-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/logo-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/logo-32x32.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-      </Head>
       <div className="z-0 mt-16 w-full">
         <IlustracoesHomePage />
       </div>

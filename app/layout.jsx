@@ -21,15 +21,32 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export const metadata = {
-  metadataBase: process.env.NEXT_PUBLIC_DOMAIN,
+const thumbnail = {
+  url: "/logo-32x32.png",
+  width: 32,
+  height: 32,
+  alt: "Home",
+};
+
+const defaultMetadata = {
   title: "PG CUSTOM",
   description: "Loja de venda e personalização de controles de videogame",
-  icons: {
-    icon: "/logo-32x32.png",
+  images: [thumbnail],
+};
+
+export const metadata = {
+  ...defaultMetadata,
+  twitter: {
+    ...defaultMetadata,
+    card: "summary_large_image",
+    site: "@pgcustomstore",
+    creator: "@pgcustomstore",
   },
-  verification: {
-    google: "google-site-verification=123133123113",
+  openGraph: {
+    ...defaultMetadata,
+    type: "website",
+    url: "https://" + process.env.NEXT_PUBLIC_DOMAIN,
+    siteName: "PG CUSTOM",
   },
 };
 
