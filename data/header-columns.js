@@ -7,11 +7,11 @@ export const controleColumns = [
       items: [
         {
           label: "PG Painted",
-          href: `${DOMAIN}/parceiros`,
+          href: `/produtos?nmproduto=Painted`,
         },
         {
           label: "Coleção Parceiros PG",
-          href: `/produtos?nmproduto=Envie Seu Controle`,
+          href: `/parceiro`,
         },
       ],
     },
