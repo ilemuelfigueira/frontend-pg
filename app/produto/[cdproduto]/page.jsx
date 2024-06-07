@@ -43,7 +43,7 @@ export async function generateMetadata({ params }, parent) {
   const defaultMetadata = {
     title: `${produtoResponse.nmproduto} | PG CUSTOM`,
     description: produtoResponse.deproduto,
-    images: [getAllImagesSrcFromDataMap(produtoResponse?.banners)],
+    images: getAllImagesSrcFromDataMap(produtoResponse?.banners),
   };
 
   const meta = {
