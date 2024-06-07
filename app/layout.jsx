@@ -45,7 +45,7 @@ export const metadata = {
   openGraph: {
     ...defaultMetadata,
     type: "website",
-    url: "https://" + process.env.NEXT_PUBLIC_DOMAIN,
+    url: process.env.NEXT_PUBLIC_DOMAIN,
     siteName: "PG CUSTOM",
   },
 };
