@@ -180,12 +180,9 @@ export function HeaderNavigator({ user, ...props }) {
     <>
       <Container
         {...props}
-        style={{
-          zIndex: 99999999,
-        }}
         data-ishome={pathName == "/"}
         data-searchopen={openSearch.open}
-        className="sticky top-0 flex h-16 w-screen max-w-full items-center justify-between gap-4 overflow-visible bg-black p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black max-md:data-[searchopen=true]:grid-cols-1 md:data-[ishome=true]:-mb-16"
+        className="sticky z-10 top-0 flex h-16 w-screen max-w-full items-center justify-between gap-4 overflow-visible bg-black p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black max-md:data-[searchopen=true]:grid-cols-1 md:data-[ishome=true]:-mb-16"
       >
         <Link
           href={"/"}
