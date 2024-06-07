@@ -11,7 +11,7 @@ export const controleColumns = [
         },
         {
           label: "Coleção Parceiros PG",
-          href: `Envie Seu Controle`,
+          href: `/produtos?nmproduto=Envie Seu Controle`,
         },
       ],
     },
