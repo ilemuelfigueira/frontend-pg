@@ -76,91 +76,92 @@ export const DizemComponent = () => {
     arr = arr.filter((_, i) => i != opnioes.length - 1);
     arr.unshift(opnioes[opnioes.length - 1]);
 
-    
     arr[activeIndex] = {
       ...arr[activeIndex],
       disabled: false,
     };
 
-    console.debug(arr)
+    console.debug(arr);
 
     setOpnioes(arr);
   }
   return (
-    <div
-      id="frase-container"
-      className="relative flex w-full max-w-page-limit flex-col items-center justify-start bg-[#E6E6E6] text-black max-md:hidden max-md:aspect-video md:aspect-[16/5]"
-    >
-      <span className="p-8 font-semibold md:text-xl lg:text-3xl">
-        O que estão dizendo sobre nós
-      </span>
-      <AspasSuperior
-        fill="black"
-        className="absolute left-4 top-2 h-fit w-5 xs:w-8 md:w-14 lg:w-20"
-      />
-      <span
-        onClick={handleBefore}
-        className="absolute left-12 top-1/2 select-none text-lg hover:cursor-pointer active:scale-95 active:transform"
+    <div className="w-full flex items-center justify-center bg-[#E6E6E6]">
+      <div
+        id="frase-container"
+        className="relative flex w-full max-w-page-limit flex-col items-center justify-start text-black max-md:hidden max-md:aspect-video md:aspect-[16/5]"
       >
-        <svg
-          width="15"
-          height="25"
-          viewBox="0 0 15 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        <span className="p-8 font-semibold md:text-xl lg:text-3xl">
+          O que estão dizendo sobre nós
+        </span>
+        <AspasSuperior
+          fill="black"
+          className="absolute left-4 top-2 h-fit w-5 xs:w-8 md:w-14 lg:w-20"
+        />
+        <span
+          onClick={handleBefore}
+          className="absolute left-12 top-1/2 select-none text-lg hover:cursor-pointer active:scale-95 active:transform"
         >
-          <path
-            d="M12.6066 2L1.99998 12.6066L12.6066 23.2132"
-            stroke="black"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-      <div className="flex w-3/5 flex-col pb-10 h-full items-center justify-between gap-24">
-        <span className="text-center font-light md:text-lg lg:text-xl">
-          {getActive()?.description}
+          <svg
+            width="15"
+            height="25"
+            viewBox="0 0 15 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.6066 2L1.99998 12.6066L12.6066 23.2132"
+              stroke="black"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+        <div className="flex h-full w-3/5 flex-col items-center justify-between gap-24 pb-10">
+          <span className="text-center font-light md:text-lg lg:text-xl">
+            {getActive()?.description}
+          </span>
+
+          <ul className="flex w-full justify-between">
+            {opnioes.map((item) => (
+              <li key={item.label}>
+                <span
+                  data-disabled={item.disabled}
+                  className="text-center text-lg font-medium text-black data-[disabled=true]:text-base data-[disabled=true]:text-[#929292]"
+                >
+                  {item.label}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <span
+          onClick={handleNext}
+          className="absolute right-12 top-1/2 select-none text-lg hover:cursor-pointer active:scale-95 active:transform"
+        >
+          <svg
+            width="15"
+            height="25"
+            viewBox="0 0 15 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 23.2131L12.6066 12.6065L2 1.99996"
+              stroke="black"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </span>
 
-        <ul className="flex w-full justify-between">
-          {opnioes.map((item) => (
-            <li key={item.label}>
-              <span
-                data-disabled={item.disabled}
-                className="text-lg font-medium text-center text-black data-[disabled=true]:text-base data-[disabled=true]:text-[#929292]"
-              >
-                {item.label}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <AspasInferior
+          fill="black"
+          className="absolute bottom-2 right-4 h-fit w-5 xs:w-8 md:w-14 lg:w-20"
+        />
       </div>
-      <span
-        onClick={handleNext}
-        className="absolute right-12 top-1/2 select-none text-lg hover:cursor-pointer active:scale-95 active:transform"
-      >
-        <svg
-          width="15"
-          height="25"
-          viewBox="0 0 15 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M2 23.2131L12.6066 12.6065L2 1.99996"
-            stroke="black"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-
-      <AspasInferior
-        fill="black"
-        className="absolute bottom-2 right-4 h-fit w-5 xs:w-8 md:w-14 lg:w-20"
-      />
     </div>
   );
 };

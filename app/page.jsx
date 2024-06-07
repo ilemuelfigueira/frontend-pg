@@ -36,7 +36,7 @@ export default async function Home() {
   return (
     <main className="flex w-full flex-col items-center justify-start">
       <IlustracoesHomePage />
-      <section className="grid w-full max-w-page-limit grid-cols-1 gap-14 p-8 md:gap-20 md:px-20 md:py-16">
+      <section className="grid w-full max-w-page-limit grid-cols-1 gap-14 p-4 md:p-8 md:gap-20 md:py-16">
         <span className="text-center text-3xl font-semibold text-azul_escuro lg:text-5xl">
           Por que escolher um PG?
         </span>
@@ -44,7 +44,7 @@ export default async function Home() {
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
           <NaoPercaTempoSVG
             src="/home/icone.svg"
-            className="aspect-square w-72 min-w-[200px]"
+            className="aspect-square w-72 min-w-[200px] lg:w-96"
           />
           <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
@@ -68,7 +68,7 @@ export default async function Home() {
           </span>
           <MiraSVG
             src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[200px] max-w-full sm:w-96 md:w-[30rem]"
+            className="aspect-square w-72 min-w-[200px] md:w-96 lg:w-[500px]"
           />
 
           <span className="max-w-[650px] text-base">
@@ -101,14 +101,14 @@ export default async function Home() {
           </div>
           <AderenciaSVG
             src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[200px]"
+            className="aspect-square w-72 min-w-[200px] lg:w-96"
           />
         </div>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
           <PinturaSVG
             src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[200px]"
+            className="aspect-square w-72 min-w-[200px] lg:w-96"
           />
           <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
@@ -140,6 +140,40 @@ export default async function Home() {
       <DizemComponent />
 
       <HomeImageSlider
+        className="max-md:hidden"
+        data-mode="dark"
+        title="Compre por Categoria"
+        items={[
+          {
+            // src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=PS5",
+            label: "PS5 / PC",
+          },
+          {
+            src: "/dualsense-desfocado.jpg",
+            href: "/produtos?nmproduto=PS4",
+            label: "PS4 / PC",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=XBOX",
+            label: "XBOX / PC",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=Mouse",
+            label: "Mouses",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=Arcade",
+            label: "Arcades",
+          },
+        ]}
+      />
+      <HomeImageSlider
+        className="md:hidden"
+        cols={2}
         data-mode="dark"
         title="Compre por Categoria"
         items={[
@@ -172,31 +206,64 @@ export default async function Home() {
       />
 
       <HomeImageSlider
+        className="max-md:hidden"
         title="Mais Populares"
         items={[
           {
             // src: "/dualsense-foco.jpg",
-            href: "/produtos?nmproduto=" + 'Dualsense Roze',
+            href: "/produtos?nmproduto=" + "Dualsense Roze",
             label: "Dualsense Roze",
           },
           {
             src: "/dualsense-desfocado.jpg",
-            href: "/produtos?nmproduto=" + 'Dualsense Rick N Morty',
+            href: "/produtos?nmproduto=" + "Dualsense Rick N Morty",
             label: "Dualsense Rick N Morty",
           },
           {
             src: "/dualsense-foco.jpg",
-            href: "/produtos?nmproduto=" + 'Dualsense Realeza',
+            href: "/produtos?nmproduto=" + "Dualsense Realeza",
             label: "Dualsense Realeza",
           },
           {
             src: "/dualsense-foco.jpg",
-            href: "/produtos?nmproduto=" + 'Mouse Customizado',
+            href: "/produtos?nmproduto=" + "Mouse Customizado",
             label: "Mouse Customizado",
           },
           {
             src: "/dualsense-foco.jpg",
-            href: "/produtos?nmproduto=" + 'Arcades',
+            href: "/produtos?nmproduto=" + "Arcades",
+            label: "Arcades",
+          },
+        ]}
+      />
+      <HomeImageSlider
+        className="md:hidden"
+        cols={2}
+        title="Mais Populares"
+        items={[
+          {
+            // src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=" + "Dualsense Roze",
+            label: "Dualsense Roze",
+          },
+          {
+            src: "/dualsense-desfocado.jpg",
+            href: "/produtos?nmproduto=" + "Dualsense Rick N Morty",
+            label: "Dualsense Rick N Morty",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=" + "Dualsense Realeza",
+            label: "Dualsense Realeza",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=" + "Mouse Customizado",
+            label: "Mouse Customizado",
+          },
+          {
+            src: "/dualsense-foco.jpg",
+            href: "/produtos?nmproduto=" + "Arcades",
             label: "Arcades",
           },
         ]}

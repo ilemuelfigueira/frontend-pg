@@ -10,7 +10,7 @@ export default function SubHeader({
   return (
     <aside
       className={twMerge(
-        "absolute left-0 top-0 z-[9999999] mt-16 h-fit grid w-screen grid-cols-1 gap-6 overflow-visible bg-black/95 px-[72px] py-[28px] md:grid-cols-2 lg:grid-cols-3",
+        "absolute left-0 -top-2 z-[9999999] mt-16 h-fit grid w-screen grid-cols-1 gap-6 overflow-visible bg-black px-[72px] py-[28px] md:grid-cols-2 lg:grid-cols-3",
         className,
       )}
       onFocus={() => console.log('focus')}
@@ -31,7 +31,7 @@ export default function SubHeader({
                     data-is-big={mainColumnListIndex == 0}
                     className="text-sm text-white data-[is-big=true]:text-2xl data-[is-big=true]:font-semibold"
                   >
-                    <Link href={item.href} target="_blank">
+                    <Link href={item.href} target="_blank" className="hover:text-focus-blue">
                       {item.label}
                     </Link>
                   </li>

@@ -16,12 +16,9 @@ export const Colecao = () => {
         id="swiper-ilustracoes"
         breakpoints={{
           0: {
-            slidesPerView: 1.05,
+            slidesPerView: 2,
           },
           768: {
-            slidesPerView: 2.05,
-          },
-          1024: {
             slidesPerView: 3,
           },
         }}
@@ -32,18 +29,25 @@ export const Colecao = () => {
         modules={[Pagination, Autoplay, Mousewheel]}
         loop={true}
         zoom={true}
-        className="relative z-10 aspect-video w-full max-w-page-limit p-4 pb-8 max-md:h-[calc(100vh-100px)]"
+        className="relative z-10 w-full max-w-page-limit p-4 pb-8"
+        style={{
+          "--swiper-pagination-color": "rgb(27 68 114 / var(--tw-bg-opacity))",
+          "--swiper-pagination-bullet-inactive-color": "#999999",
+          "--swiper-pagination-bullet-inactive-opacity": "1",
+          "--swiper-pagination-bullet-size": "10px",
+          "--swiper-pagination-bullet-horizontal-gap": "6px"
+        }}
       >
-        <SwiperSlide className={"z-10"}>
+        <SwiperSlide className="z-10">
           <SlideItem label="Comprar" src="/xbox-dualsense.jpg" />
         </SwiperSlide>
-        <SwiperSlide className={"z-10"}>
+        <SwiperSlide className="z-10">
           <SlideItem label="Comprar" src="/dualsense-foco.jpg" />
         </SwiperSlide>
-        <SwiperSlide className={"z-10"}>
+        <SwiperSlide className="z-10">
           <SlideItem label="Comprar" src="/dualsense-desfocado.jpg" />
         </SwiperSlide>
-        <SwiperSlide className={"z-10"}>
+        <SwiperSlide className="z-10">
           <SlideItem label="Comprar" src="/jogatina.jpg" />
         </SwiperSlide>
       </Swiper>
@@ -66,13 +70,13 @@ const SlideItem = ({
         backgroundImage: `url(${src})`,
       }}
       className={twMerge(
-        "flex aspect-[9/16] h-full w-full overflow-hidden rounded-l-md rounded-br-md rounded-tr-[15%] bg-cover bg-center bg-no-repeat text-white",
+        "flex aspect-square h-full w-full overflow-hidden rounded-l-md rounded-br-md rounded-tr-[15%] bg-cover bg-center bg-no-repeat text-white",
         className,
       )}
     >
       <text-container className="flex h-fit w-full flex-col items-start justify-start gap-4 rounded-tr-xl bg-slate-800/20 p-3">
-        <span className="text-lg lg:text-2xl">Obsidian</span>
-        <span className="text-xs lg:text-base">
+        <span className="text-lg lg:text-2xl font-normal">Obsidian</span>
+        <span className="text-xs lg:text-base font-light">
           Esse é um controle de playstation 4 que poderá ser montado da forma
           que desejar!
         </span>

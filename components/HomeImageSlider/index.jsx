@@ -22,7 +22,7 @@ export default function HomeImageSlider({ ...props }) {
   });
 
   return (
-    <div data-mode={props["data-mode"] ?? null}>
+    <div data-mode={props["data-mode"] ?? null} className={twMerge("w-full", props?.className)}>
       <section
         id="compre-por-categoria-home"
         className="w-full bg-white px-4 py-6 dark:bg-[#303030]"
@@ -38,15 +38,17 @@ export default function HomeImageSlider({ ...props }) {
             //   galleryRef.style.scrollBehavior = 'auto'
             // }}
             ref={galleryRef}
-            className="hide-scrollbar flex w-full overflow-x-scroll"
+            className="hide-scrollbar flex gap-4 w-full overflow-x-scroll max-w-page-limit"
           >
             {lista?.map((items) => (
               <li
                 key={items}
                 className={twMerge(
-                  "grid w-full flex-none grid-cols-[repeat(3,minmax(0,1fr))!important] gap-4",
-                  `grid-cols[repeat(${cols},minmax(0,1fr))!important]`,
+                  "grid w-full flex-none gap-4",
                 )}
+                style={{
+                  gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`
+                }}
               >
                 {items.map((item, itemindex) => (
                   <Link

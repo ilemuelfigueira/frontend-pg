@@ -1,0 +1,22 @@
+/* .gallery {
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+}
+
+.gallery li {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 20px;
+  padding: 10px;
+  flex: none;
+}
+
+.gallery li img {
+  width: 100%;
+} */
+
+.gallery::-webkit-scrollbar {
+  display: none;
+}
