@@ -27,8 +27,8 @@ import {
   consoleColumns,
   controleColumns,
   mouseColumns,
-  sobreColumns
-} from "@/data/header-columns"
+  sobreColumns,
+} from "@/data/header-columns";
 
 const Container = ({ children, ...props }) => <div {...props}>{children}</div>;
 
@@ -37,7 +37,9 @@ const LogoContainer = ({ children, ...props }) => (
 );
 
 const InfoContainer = ({ children, ...props }) => (
-  <div className={props?.className} {...props}>{children}</div>
+  <div className={props?.className} {...props}>
+    {children}
+  </div>
 );
 
 const MenuItem = ({ href, label, Icon = null, onClick = undefined }) => {
@@ -51,6 +53,58 @@ const MenuItem = ({ href, label, Icon = null, onClick = undefined }) => {
 
 export function HeaderNavigator({ user, ...props }) {
   const existeUsuario = Boolean(user);
+
+  const [columnOpen, setColumnOpen] = useState({
+    controles: false,
+    consoles: false,
+    mouses: false,
+    arcades: false,
+    sobre: false,
+  });
+
+  function getAllColumnsClosed() {
+    const keys = Object.keys(columnOpen);
+
+    let obj = {};
+
+    for (const key of keys) {
+      obj[key] = false;
+    }
+
+    return obj;
+  }
+
+  function openColumn(columnName) {
+    const allClosed = getAllColumnsClosed();
+    switch (columnName) {
+      case "controles": {
+        setColumnOpen({ ...allClosed, controles: true });
+        break;
+      }
+      case "consoles": {
+        setColumnOpen({ ...allClosed, consoles: true });
+        break;
+      }
+      case "mouses": {
+        setColumnOpen({ ...allClosed, mouses: true });
+        break;
+      }
+      case "arcades": {
+        setColumnOpen({ ...allClosed, arcades: true });
+        break;
+      }
+      case "sobre": {
+        setColumnOpen({ ...allClosed, sobre: true });
+        break;
+      }
+    }
+  }
+
+  function closeColumns() {
+    const allClosed = getAllColumnsClosed();
+
+    setColumnOpen(allClosed);
+  }
 
   const supabase = createClientComponentClient();
 
@@ -126,9 +180,12 @@ export function HeaderNavigator({ user, ...props }) {
     <>
       <Container
         {...props}
+        style={{
+          zIndex: 99999999,
+        }}
         data-ishome={pathName == "/"}
         data-searchopen={openSearch.open}
-        className="sticky top-0 z-40 flex items-center justify-between h-16 gap-4 w-screen max-w-full overflow-visible bg-black p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black max-md:data-[searchopen=true]:grid-cols-1 md:data-[ishome=true]:-mb-16"
+        className="sticky top-0 flex h-16 w-screen max-w-full items-center justify-between gap-4 overflow-visible bg-black p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black max-md:data-[searchopen=true]:grid-cols-1 md:data-[ishome=true]:-mb-16"
       >
         <Link
           href={"/"}
@@ -142,61 +199,106 @@ export function HeaderNavigator({ user, ...props }) {
             </span>
           </LogoContainer>
         </Link>
-        <section className="flex w-full items-center justify-center gap-6 place-self-center text-white data-[open=true]:hidden max-md:hidden">
+        <section className="flex w-full items-center justify-center gap-6 place-self-center text-white transition-all duration-1000 data-[open=true]:hidden max-md:hidden">
           <span
             tabIndex={0}
-            className="group pb-2 border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
+            data-open={columnOpen.controles}
+            onClick={() => openColumn("controles")}
+            onMouseEnter={() => openColumn("controles")}
+            onFocus={() => openColumn("controles")}
+            onBlur={() => closeColumns()}
+            className="group border-b border-b-transparent py-3 pb-2 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Controles
             <SubHeader
-              className="hidden cursor-auto group-hover:grid transition-all duration-100"
+              onMouseLeave={() => setTimeout(closeColumns, 200)}
+              data-open={columnOpen.controles}
+              onMouseEnter={() => openColumn("controles")}
+              onFocus={() => openColumn("controles")}
+              className="hidden cursor-auto data-[open=true]:grid"
               mainColumnList={controleColumns}
             />
           </span>
           <span
             tabIndex={0}
-            className="group pb-2 border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
+            data-open={columnOpen.consoles}
+            onClick={() => openColumn("consoles")}
+            onMouseEnter={() => openColumn("consoles")}
+            onFocus={() => openColumn("consoles")}
+            onBlur={() => closeColumns()}
+            className="group border-b border-b-transparent py-3 pb-2 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Consoles
             <SubHeader
-              className="hidden cursor-auto group-hover:grid"
+              onMouseLeave={() => setTimeout(closeColumns, 200)}
+              data-open={columnOpen.consoles}
+              onMouseEnter={() => openColumn("consoles")}
+              onFocus={() => openColumn("consoles")}
+              className="hidden cursor-auto data-[open=true]:grid"
               mainColumnList={consoleColumns}
             />
           </span>
           <span
             tabIndex={0}
-            className="group pb-2 border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
+            data-open={columnOpen.mouses}
+            onClick={() => openColumn("mouses")}
+            onMouseEnter={() => openColumn("mouses")}
+            onFocus={() => openColumn("mouses")}
+            onBlur={() => closeColumns()}
+            className="group border-b border-b-transparent py-3 pb-2 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Mouses
             <SubHeader
-              className="hidden cursor-auto group-hover:grid"
+              onMouseLeave={() => setTimeout(closeColumns, 200)}
+              data-open={columnOpen.mouses}
+              onMouseEnter={() => openColumn("mouses")}
+              onFocus={() => openColumn("mouses")}
+              className="hidden cursor-auto data-[open=true]:grid"
               mainColumnList={mouseColumns}
             />
           </span>
           <span
             tabIndex={0}
-            className="group pb-2 border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
+            data-open={columnOpen.arcades}
+            onClick={() => openColumn("arcades")}
+            onMouseEnter={() => openColumn("arcades")}
+            onFocus={() => openColumn("arcades")}
+            onBlur={() => closeColumns()}
+            className="group border-b border-b-transparent py-3 pb-2 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Arcades
             <SubHeader
-              className="hidden cursor-auto group-hover:grid"
+              onMouseLeave={() => setTimeout(closeColumns, 200)}
+              data-open={columnOpen.arcades}
+              onMouseEnter={() => openColumn("arcades")}
+              onFocus={() => openColumn("arcades")}
+              className="hidden cursor-auto data-[open=true]:grid"
               mainColumnList={arcadeColumns}
             />
           </span>
           <span
             tabIndex={0}
-            className="group pb-2 border-b border-b-transparent py-3 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
+            data-open={columnOpen.sobre}
+            onClick={() => openColumn("sobre")}
+            onMouseEnter={() => openColumn("sobre")}
+            onFocus={() => openColumn("sobre")}
+            onBlur={() => closeColumns()}
+            className="group border-b border-b-transparent py-3 pb-2 hover:cursor-pointer hover:border-b-focus-blue hover:text-focus-blue  data-[open=true]:border-b-focus-blue data-[open=true]:text-focus-blue"
           >
             Sobre
             <SubHeader
-              className="hidden cursor-auto group-hover:grid"
+              onMouseLeave={() => setTimeout(closeColumns, 200)}
+              data-open={columnOpen.sobre}
+              onMouseEnter={() => openColumn("sobre")}
+              onFocus={() => openColumn("sobre")}
+              className="hidden cursor-auto data-[open=true]:grid"
               mainColumnList={sobreColumns}
             />
           </span>
         </section>
         <InfoContainer
           data-searchopen={openSearch.open}
-          className="flex max-md:w-full data-[searchopen=true]:w-full place-self-end self-center items-center justify-end gap-4"
+          className="flex items-center justify-end gap-4 place-self-end self-center data-[searchopen=true]:w-full max-md:w-full"
         >
           <section
             // data-open={true}

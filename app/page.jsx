@@ -11,6 +11,7 @@ import Link from "next/link";
 
 import "./globals.css";
 import HomeImageSlider from "@/components/HomeImageSlider";
+import Head from "next/head";
 
 async function loadData() {
   const dataMap = new Map();
@@ -30,13 +31,56 @@ async function loadData() {
   return dataMap;
 }
 
+const teste = {
+  metadataBase: process.env.NEXT_PUBLIC_DOMAIN,
+  title: "PG CUSTOM",
+  description: "Loja de venda e personalização de controles de videogame",
+  icons: {
+    icon: "/logo-32x32.png",
+  },
+  verification: {
+    google: "google-site-verification=123133123113",
+  },
+};
+
 export default async function Home() {
   const dataMap = await loadData();
 
   return (
     <main className="flex w-full flex-col items-center justify-start">
-      <IlustracoesHomePage />
-      <section className="grid w-full max-w-page-limit grid-cols-1 gap-14 p-4 md:p-8 md:gap-20 md:py-16">
+      <Head>
+        <title>PG Custom | Store</title>
+        <meta
+          name="description"
+          content="Página de customização de controles de video-game."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="UTF-8" />
+        <meta httpEquiv="Content-Language" content="pt-BR" />
+        <link rel="icon" href="/logo-32x32.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/logo-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/logo-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/logo-32x32.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+      </Head>
+      <div className="z-0 mt-16 w-full">
+        <IlustracoesHomePage />
+      </div>
+      <section className="grid w-full max-w-page-limit grid-cols-1 gap-14 p-4 md:gap-20 md:p-8 md:py-16">
         <span className="text-center text-3xl font-semibold text-azul_escuro lg:text-5xl">
           Por que escolher um PG?
         </span>

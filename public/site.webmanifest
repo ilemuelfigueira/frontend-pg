@@ -1,0 +1,9 @@
+{
+  "name": "PG Custom | Store",
+  "short_name": "PG Custom",
+  "theme_color": "#1B4472",
+  "background_color": "#1B4472",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
+}
