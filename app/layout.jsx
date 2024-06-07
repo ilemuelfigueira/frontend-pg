@@ -69,6 +69,11 @@ async function loadData() {
 }
 
 const CLARITY_ID = process.env.CLARITY_ID;
+const GA_MEASUREMENT_ID = process.env.GA_MEASUREMENT_ID;
+
+function getUserName(user) {
+  return user?.user_metadata?.nome || "0";
+}
 
 /**
  *
@@ -82,14 +87,20 @@ export default async function RootLayout({ children, params, ...props }) {
   params.user = data.get("user");
   params.expired_login = data.get("expired_login");
 
+  const userName = getUserName(data.get("user"));
+
   return (
     <html lang="pt-BR" className={`${poppins.variable}`}>
       <Analytics />
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
           <body className="w-full max-w-full bg-gray-100">
-            <HeaderNavigator
+            <Analytics
+              GA_MEASUREMENT_ID={GA_MEASUREMENT_ID}
               CLARITY_ID={CLARITY_ID}
+              userName={userName}
+            />
+            <HeaderNavigator
               user={data.get("user")}
               expired_login={data.get("expired_login")}
             />

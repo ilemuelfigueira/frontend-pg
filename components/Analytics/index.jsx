@@ -4,7 +4,9 @@ import Script from 'next/script';
 const GA_MEASUREMENT_ID = process.env.GA_MEASUREMENT_ID;
 const CLARITY_ID = process.env.CLARITY_ID;
 
-export function Analytics() {
+export function Analytics({
+  userName
+}) {
   return (
     <>
       {CLARITY_ID ? (
@@ -21,6 +23,7 @@ export function Analytics() {
             t.src = "https://www.clarity.ms/tag/" + i;
             y = l.getElementsByTagName(r)[0];
             y.parentNode.insertBefore(t, y);
+            clarity("set", "userId", ${userName || '0'});
           })(window, document, "clarity", "script", "${CLARITY_ID}");
         `}
         </Script>
