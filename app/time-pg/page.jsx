@@ -1,5 +1,34 @@
-import ImageSlider from "./components/ImageSlider";
 import ImageSlider2 from "./components/ImageSlider2";
+
+const thumbnail = {
+  url: "/time-icon.png",
+  width: 1200,
+  height: 630,
+  alt: "Time",
+};
+
+
+const defaultMetadata = {
+  title: `Time | PG CUSTOM`,
+  description: 'Nosso time de colaboradores.',
+  images: [thumbnail],
+};
+
+export const metadata = {
+  ...defaultMetadata,
+  twitter: {
+    ...defaultMetadata,
+    card: "summary_large_image",
+    site: "@pgcustomstore",
+    creator: "@pgcustomstore",
+  },
+  openGraph: {
+    ...defaultMetadata,
+    type: "website",
+    url: `${process.env.NEXT_PUBLIC_DOMAIN}/time-pg`,
+    siteName: "PG CUSTOM",
+  },
+};
 
 export default function Sobre() {
   return (

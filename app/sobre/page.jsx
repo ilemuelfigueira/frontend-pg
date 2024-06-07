@@ -1,11 +1,41 @@
+const thumbnail = {
+  url: "/sobre-icon.png",
+  width: 1200,
+  height: 630,
+  alt: "Sobre",
+};
+
+
+const defaultMetadata = {
+  title: `Sobre | PG CUSTOM`,
+  description: 'Jornada time da pgcustom',
+  images: [thumbnail],
+};
+
+export const metadata = {
+  ...defaultMetadata,
+  twitter: {
+    ...defaultMetadata,
+    card: "summary_large_image",
+    site: "@pgcustomstore",
+    creator: "@pgcustomstore",
+  },
+  openGraph: {
+    ...defaultMetadata,
+    type: "website",
+    url: `${process.env.NEXT_PUBLIC_DOMAIN}/sobre`,
+    siteName: "PG CUSTOM",
+  },
+};
+
 export default function Sobre() {
   return (
     <div className="w-full">
-      <aside className="mb-12 -mx-1 md:-mx-4 lg:-mx-12 -mt-12">
-        <img className="w-full aspect-[16/4]" src="/dualsense-foco.jpg" />
+      <aside className="-mx-1 -mt-12 mb-12 md:-mx-4 lg:-mx-12">
+        <img className="aspect-[16/4] w-full" src="/dualsense-foco.jpg" />
       </aside>
       <aside className="flex w-full flex-col gap-9">
-        <span className="text-2xl md:text-4xl font-semibold text-black">
+        <span className="text-2xl font-semibold text-black md:text-4xl">
           A história da PG se inicia em 2014...
         </span>
         <span className="text-base font-normal text-black">
@@ -21,11 +51,8 @@ export default function Sobre() {
         </span>
       </aside>
 
-      <aside className="mt-12 grid grid-cols-1 md:grid-cols-2 place-items-center items-start gap-12">
-        <img
-          className="aspect-square w-full"
-          src="/dualsense-desfocado.jpg"
-        />
+      <aside className="mt-12 grid grid-cols-1 place-items-center items-start gap-12 md:grid-cols-2">
+        <img className="aspect-square w-full" src="/dualsense-desfocado.jpg" />
         <span className="text-base font-normal text-black">
           Yuri estudou a melhor forma de realizar o projeto, e então todos
           enviaram seus controles. Começou com materiais improvisados que ele
@@ -93,8 +120,8 @@ export default function Sobre() {
         <img className="aspect-square" src="/dualsense-foco.jpg" />
       </aside>
 
-      <aside className="mt-12 mb-32">
-        <span className="text-lg md:text-2xl font-normal">
+      <aside className="mb-32 mt-12">
+        <span className="text-lg font-normal md:text-2xl">
           Queremos que você <strong>evolua</strong> significativamente a sua
           gameplay, que <strong>se divirta</strong>, mas também que{" "}
           <strong>ganhe muitos jogos!</strong> E então, conte para seus amigos{" "}
