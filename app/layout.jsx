@@ -93,7 +93,6 @@ export default async function RootLayout({ children, params, ...props }) {
               user={data.get("user")}
               expired_login={data.get("expired_login")}
             />
-            {JSON.stringify(data.get("user"))}
             <section className="mx-auto my-0 flex flex-col items-center">
               <Toaster />
               {children}
