@@ -68,6 +68,8 @@ async function loadData() {
   return map;
 }
 
+const CLARITY_ID = process.env.CLARITY_ID;
+
 /**
  *
  * @type {import('next').Route}
@@ -87,9 +89,11 @@ export default async function RootLayout({ children, params, ...props }) {
         <ConfigProvider theme={theme}>
           <body className="w-full max-w-full bg-gray-100">
             <HeaderNavigator
+              CLARITY_ID={CLARITY_ID}
               user={data.get("user")}
               expired_login={data.get("expired_login")}
             />
+            {JSON.stringify(data.get("user"))}
             <section className="mx-auto my-0 flex flex-col items-center">
               <Toaster />
               {children}

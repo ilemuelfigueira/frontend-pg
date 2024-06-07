@@ -35,7 +35,7 @@ export default async function Home() {
 
   return (
     <main className="flex w-full flex-col items-center justify-start">
-      <div className="z-0 mt-16 w-full">
+      <div className="z-0 w-full">
         <IlustracoesHomePage />
       </div>
       <section className="grid w-full max-w-page-limit grid-cols-1 gap-14 p-4 md:gap-20 md:p-8 md:py-16">
