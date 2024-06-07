@@ -13,6 +13,7 @@ import { readUserOrThrow } from "@/lib/util/supabase";
 
 import "moment/locale/pt-br";
 import moment from "moment";
+import { Analytics } from "@/components/Analytics";
 moment.locale("pt-br");
 
 const poppins = Poppins({
@@ -81,6 +82,7 @@ export default async function RootLayout({ children, params, ...props }) {
 
   return (
     <html lang="pt-BR" className={`${poppins.variable}`}>
+      <Analytics />
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
           <body className="w-full max-w-full bg-gray-100">
