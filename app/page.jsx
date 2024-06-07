@@ -11,7 +11,6 @@ import Link from "next/link";
 
 import "./globals.css";
 import HomeImageSlider from "@/components/HomeImageSlider";
-import Head from "next/head";
 
 async function loadData() {
   const dataMap = new Map();
@@ -30,18 +29,6 @@ async function loadData() {
 
   return dataMap;
 }
-
-const teste = {
-  metadataBase: process.env.NEXT_PUBLIC_DOMAIN,
-  title: "PG CUSTOM",
-  description: "Loja de venda e personalização de controles de videogame",
-  icons: {
-    icon: "/logo-32x32.png",
-  },
-  verification: {
-    google: "google-site-verification=123133123113",
-  },
-};
 
 export default async function Home() {
   const dataMap = await loadData();

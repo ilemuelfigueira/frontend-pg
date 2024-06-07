@@ -22,10 +22,10 @@ const poppins = Poppins({
 });
 
 const thumbnail = {
-  url: "/logo-32x32.png",
-  width: 32,
-  height: 32,
-  alt: "Home",
+  url: "/inicio.png",
+  width: 1200,
+  height: 630,
+  alt: "Inicio",
 };
 
 const defaultMetadata = {
