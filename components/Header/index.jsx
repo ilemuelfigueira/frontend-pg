@@ -177,6 +177,8 @@ export function HeaderNavigator({ user, ...props }) {
 
   const pathName = usePathname();
 
+  const userName = user?.user_metadata?.nome || '0'
+
   return (
     <>
       <Container
@@ -185,14 +187,13 @@ export function HeaderNavigator({ user, ...props }) {
         data-searchopen={openSearch.open}
         className="sticky z-20 top-0 flex h-16 w-screen max-w-full items-center justify-between gap-4 overflow-visible bg-black p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black max-md:data-[searchopen=true]:grid-cols-1 md:data-[ishome=true]:-mb-16"
       >
-          {props.CLARITY_ID}
         <Script id="clarity-script">
           {existeUsuario ? `
           (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
             t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            clarity("set", "userId", ${user?.user_metadata?.nome || '0'});
+            clarity("set", "userId", ${userName || '0'});
         })(window, document, "clarity", "script", ${props.CLARITY_ID});
         ` : ''}
         </Script>
