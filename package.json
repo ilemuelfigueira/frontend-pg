@@ -38,6 +38,6 @@
     "tailwindcss": "latest"
   },
   "engines": {
-    "node": ">=16.0.0 <17.0.0"
+    "node": ">=18 <19.0.0"
   }
 }
