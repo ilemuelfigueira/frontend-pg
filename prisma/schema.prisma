@@ -240,43 +240,44 @@ model sso_providers {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
 model users {
-  instance_id                 String?       @db.Uuid
-  id                          String        @id @db.Uuid
-  aud                         String?       @db.VarChar(255)
-  role                        String?       @db.VarChar(255)
-  email                       String?       @db.VarChar(255)
-  encrypted_password          String?       @db.VarChar(255)
-  email_confirmed_at          DateTime?     @db.Timestamptz(6)
-  invited_at                  DateTime?     @db.Timestamptz(6)
-  confirmation_token          String?       @db.VarChar(255)
-  confirmation_sent_at        DateTime?     @db.Timestamptz(6)
-  recovery_token              String?       @db.VarChar(255)
-  recovery_sent_at            DateTime?     @db.Timestamptz(6)
-  email_change_token_new      String?       @db.VarChar(255)
-  email_change                String?       @db.VarChar(255)
-  email_change_sent_at        DateTime?     @db.Timestamptz(6)
-  last_sign_in_at             DateTime?     @db.Timestamptz(6)
+  instance_id                 String?           @db.Uuid
+  id                          String            @id @db.Uuid
+  aud                         String?           @db.VarChar(255)
+  role                        String?           @db.VarChar(255)
+  email                       String?           @db.VarChar(255)
+  encrypted_password          String?           @db.VarChar(255)
+  email_confirmed_at          DateTime?         @db.Timestamptz(6)
+  invited_at                  DateTime?         @db.Timestamptz(6)
+  confirmation_token          String?           @db.VarChar(255)
+  confirmation_sent_at        DateTime?         @db.Timestamptz(6)
+  recovery_token              String?           @db.VarChar(255)
+  recovery_sent_at            DateTime?         @db.Timestamptz(6)
+  email_change_token_new      String?           @db.VarChar(255)
+  email_change                String?           @db.VarChar(255)
+  email_change_sent_at        DateTime?         @db.Timestamptz(6)
+  last_sign_in_at             DateTime?         @db.Timestamptz(6)
   raw_app_meta_data           Json?
   raw_user_meta_data          Json?
   is_super_admin              Boolean?
-  created_at                  DateTime?     @db.Timestamptz(6)
-  updated_at                  DateTime?     @db.Timestamptz(6)
-  phone                       String?       @unique
-  phone_confirmed_at          DateTime?     @db.Timestamptz(6)
-  phone_change                String?       @default("")
-  phone_change_token          String?       @default("") @db.VarChar(255)
-  phone_change_sent_at        DateTime?     @db.Timestamptz(6)
-  confirmed_at                DateTime?     @default(dbgenerated("LEAST(email_confirmed_at, phone_confirmed_at)")) @db.Timestamptz(6)
-  email_change_token_current  String?       @default("") @db.VarChar(255)
-  email_change_confirm_status Int?          @default(0) @db.SmallInt
-  banned_until                DateTime?     @db.Timestamptz(6)
-  reauthentication_token      String?       @default("") @db.VarChar(255)
-  reauthentication_sent_at    DateTime?     @db.Timestamptz(6)
-  is_sso_user                 Boolean       @default(false)
-  deleted_at                  DateTime?     @db.Timestamptz(6)
-  is_anonymous                Boolean       @default(false)
+  created_at                  DateTime?         @db.Timestamptz(6)
+  updated_at                  DateTime?         @db.Timestamptz(6)
+  phone                       String?           @unique
+  phone_confirmed_at          DateTime?         @db.Timestamptz(6)
+  phone_change                String?           @default("")
+  phone_change_token          String?           @default("") @db.VarChar(255)
+  phone_change_sent_at        DateTime?         @db.Timestamptz(6)
+  confirmed_at                DateTime?         @default(dbgenerated("LEAST(email_confirmed_at, phone_confirmed_at)")) @db.Timestamptz(6)
+  email_change_token_current  String?           @default("") @db.VarChar(255)
+  email_change_confirm_status Int?              @default(0) @db.SmallInt
+  banned_until                DateTime?         @db.Timestamptz(6)
+  reauthentication_token      String?           @default("") @db.VarChar(255)
+  reauthentication_sent_at    DateTime?         @db.Timestamptz(6)
+  is_sso_user                 Boolean           @default(false)
+  deleted_at                  DateTime?         @db.Timestamptz(6)
+  is_anonymous                Boolean           @default(false)
   identities                  identities[]
   mfa_factors                 mfa_factors[]
+  one_time_tokens             one_time_tokens[]
   sessions                    sessions[]
   carrinho                    carrinho[]
   endereco                    endereco[]
@@ -293,6 +294,7 @@ model pacote {
   cdusuario       String            @db.Uuid
   nmpacote        String?           @db.VarChar(255)
   nmpathname      String?           @db.VarChar
+  avatar          String?           @db.VarChar
   carrinho_pacote carrinho_pacote[]
   users           users             @relation(fields: [cdusuario], references: [id], onDelete: NoAction, onUpdate: NoAction)
   pacote_foto     pacote_foto?
@@ -306,14 +308,14 @@ model pacote_item {
   cdpacote          String       @db.Uuid
   cdproduto         String       @db.Uuid
   cdsubproduto      String?      @db.Uuid
-  cdsubprodutotipo  String?      @db.Uuid
+  avatar            String?      @db.VarChar
+  nmtipo            String?      @db.VarChar
   pacote_item       pacote_item  @relation("pacote_itemTopacote_item", fields: [cdpacoteitem], references: [cdpacoteitem], onDelete: NoAction, onUpdate: NoAction, map: "pacote_foto_item_cdpacoteitem_fkey")
   other_pacote_item pacote_item? @relation("pacote_itemTopacote_item")
   pacote            pacote       @relation(fields: [cdpacote], references: [cdpacote], onDelete: NoAction, onUpdate: NoAction)
   produto           produto      @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
   sub_produto       sub_produto? @relation(fields: [cdsubproduto], references: [cdsubproduto], onDelete: NoAction, onUpdate: NoAction)
 
-  @@unique([cdpacote, cdproduto, cdsubprodutotipo], map: "uq_produto_sub")
   @@schema("public")
 }
 
@@ -330,6 +332,8 @@ model pedido {
   raw_payment_meta_data Json?
   payment_url           String?
   items                 Json?
+  tracking_code         String?            @db.VarChar
+  tracking_status       String?            @db.VarChar
   carrinho              carrinho           @relation(fields: [cdcarrinho], references: [cdcarrinho], onDelete: NoAction, onUpdate: NoAction)
   endereco              endereco?          @relation(fields: [cdendereco], references: [cdendereco], onDelete: NoAction, onUpdate: NoAction)
 
@@ -345,8 +349,12 @@ model produto {
   dtatualizado  DateTime?       @db.Timestamp(6)
   dtcriado      DateTime        @default(now()) @db.Timestamp(6)
   dtremovido    DateTime?       @db.Timestamp(6)
+  banners       Json?
+  tempoproducao String?         @db.VarChar
+  vlproduto     Decimal         @default(0) @db.Decimal(10, 2)
   estoque       estoque[]
   pacote_item   pacote_item[]
+  parceiro      parceiro[]
   produto_foto  produto_foto[]
   produto_preco produto_preco[]
   sub_produto   sub_produto[]
@@ -404,6 +412,9 @@ model sub_produto {
   dtcriado            DateTime            @default(now()) @db.Timestamp(6)
   dtremovido          DateTime?           @db.Timestamp(6)
   cdsubprodutosubtipo String?             @db.Uuid
+  banners             Json?
+  avatar              String?             @db.VarChar
+  vlsubproduto        Decimal             @default(0) @db.Decimal(10, 2)
   pacote_item         pacote_item[]
   produto             produto             @relation(fields: [cdproduto], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction)
   sub_produto_foto    sub_produto_foto[]
@@ -581,6 +592,54 @@ model action_logger {
   @@schema("public")
 }
 
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model one_time_tokens {
+  id         String              @id @db.Uuid
+  user_id    String              @db.Uuid
+  token_type one_time_token_type
+  token_hash String
+  relates_to String
+  created_at DateTime            @default(now()) @db.Timestamp(6)
+  updated_at DateTime            @default(now()) @db.Timestamp(6)
+  users      users               @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, token_type])
+  @@index([relates_to], map: "one_time_tokens_relates_to_hash_idx", type: Hash)
+  @@index([token_hash], map: "one_time_tokens_token_hash_hash_idx", type: Hash)
+  @@schema("auth")
+}
+
+model novidades_email {
+  cdnovidadesemail String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  nmemail          String   @unique @db.VarChar
+  created_at       DateTime @default(now()) @db.Timestamp(6)
+  updated_at       DateTime @db.Timestamp(6)
+
+  @@map("novidades-email")
+  @@schema("public")
+}
+
+model parceiro {
+  cdparceiro      String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  nmparceiro      String    @unique(map: "uq_nmparceiro") @db.VarChar
+  nmregiao        String    @db.VarChar(50)
+  nmfuncao        String    @db.VarChar
+  nmjogos         Json?
+  nmdescricao     String?   @db.VarChar
+  nmopiniaopg     String?   @db.VarChar
+  ilustracoes1    Json?
+  produtofavorito String?   @db.Uuid
+  dtcriado        DateTime  @default(now()) @db.Timestamp(6)
+  dtremovido      DateTime? @db.Timestamp(6)
+  redes           Json?
+  nmavatar        String?   @db.VarChar
+  nmsocial        String?   @db.VarChar
+  produto         produto?  @relation(fields: [produtofavorito], references: [cdproduto], onDelete: NoAction, onUpdate: NoAction, map: "fk_produtofavorito")
+
+  @@index([cdparceiro, dtcriado], map: "idx_parceiro")
+  @@schema("public")
+}
+
 enum aal_level {
   aal1
   aal2
@@ -624,4 +683,15 @@ enum pedido_status_enum {
   FAILED
 
   @@schema("public")
+}
+
+enum one_time_token_type {
+  confirmation_token
+  reauthentication_token
+  recovery_token
+  email_change_token_new
+  email_change_token_current
+  phone_change_token
+
+  @@schema("auth")
 }
