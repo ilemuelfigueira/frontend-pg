@@ -8,6 +8,7 @@ import theme from "@/lib/AntdTheme";
 
 import "primeicons/primeicons.css";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
       className={`${poppins.variable}`}
     >
       <body className="flex w-full flex-col items-center justify-center bg-gray-200">
+        <Analytics userName={'root'} />
         <StyledComponentsRegistry>
           <ConfigProvider theme={theme}>
             <Navigator>{children}</Navigator>
