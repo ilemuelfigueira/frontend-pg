@@ -11,6 +11,7 @@ import Link from "next/link";
 
 import "./globals.css";
 import HomeImageSlider from "@/components/HomeImageSlider";
+import { MiraMobileSVG } from "@/public/home/mira-mobile";
 
 async function loadData() {
   const dataMap = new Map();
@@ -38,16 +39,13 @@ export default async function Home() {
       <div className="z-0 w-full">
         <IlustracoesHomePage />
       </div>
-      <section className="grid w-full max-w-page-limit grid-cols-1 gap-14 p-4 md:gap-20 md:p-8 md:py-16">
+      <section className="grid w-full max-w-page-limit grid-cols-1 gap-14 p-4 md:gap-20 md:py-16">
         <span className="text-center text-3xl font-semibold text-azul_escuro lg:text-5xl">
           Por que escolher um PG?
         </span>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
-          <NaoPercaTempoSVG
-            src="/home/icone.svg"
-            className="aspect-square w-72 min-w-[200px] lg:w-96"
-          />
+          <NaoPercaTempoSVG className="w-72 min-w-[200px] lg:w-96" />
           <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
               Não perca tempo para atirar
@@ -64,14 +62,15 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="flex w-full flex-col items-center justify-start gap-1 text-azul_escuro">
-          <span className="text-2xl font-medium">
-            Mantenha-se sempre mirando!
-          </span>
-          <MiraSVG
-            src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[200px] md:w-96 lg:w-[500px]"
-          />
+        <div className="flex w-full flex-col items-center justify-start gap-1 text-azul_escuro lg:flex-row lg:justify-between">
+          <div className="flex flex-col items-center justify-start gap-1">
+            <span className="text-2xl font-medium">
+              Mantenha-se sempre mirando!
+            </span>
+            <MiraSVG className="hidden w-72 min-w-[200px] md:block md:w-96 lg:w-[40rem]" />
+
+            <MiraMobileSVG className="w-72 min-w-[200px] xs:w-96 md:hidden" />
+          </div>
 
           <span className="max-w-[650px] text-base">
             Com nossos Paddles traseiros, você pode simplesmente NUNCA MAIS
@@ -101,17 +100,11 @@ export default async function Home() {
               diferente.
             </span>
           </div>
-          <AderenciaSVG
-            src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[200px] lg:w-96"
-          />
+          <AderenciaSVG className="w-72 min-w-[200px] lg:h-96 lg:w-96" />
         </div>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
-          <PinturaSVG
-            src="/logo-32x32.png"
-            className="aspect-square w-72 min-w-[200px] lg:w-96"
-          />
+          <PinturaSVG className=" w-72 min-w-[200px] lg:h-96 lg:w-96" />
           <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
               A pintura é feita para durar!
@@ -145,6 +138,7 @@ export default async function Home() {
         className="max-md:hidden"
         data-mode="dark"
         title="Compre por Categoria"
+        cols={4}
         items={[
           {
             // src: "/dualsense-foco.jpg",
@@ -210,6 +204,7 @@ export default async function Home() {
       <HomeImageSlider
         className="max-md:hidden"
         title="Mais Populares"
+        cols={4}
         items={[
           {
             // src: "/dualsense-foco.jpg",

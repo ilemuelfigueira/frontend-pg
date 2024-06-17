@@ -22,12 +22,15 @@ export default function HomeImageSlider({ ...props }) {
   });
 
   return (
-    <div data-mode={props["data-mode"] ?? null} className={twMerge("w-full", props?.className)}>
+    <div
+      data-mode={props["data-mode"] ?? null}
+      className={twMerge("w-full", props?.className)}
+    >
       <section
         id="compre-por-categoria-home"
         className="w-full bg-white px-4 py-6 dark:bg-[#303030]"
       >
-        <span className="flex w-full justify-center text-lg md:text-2xl text-black dark:text-white font-semibold">
+        <span className="flex w-full justify-center text-lg font-semibold text-black dark:text-white md:text-2xl">
           {props?.title ?? "Título"}
         </span>
         <div className="gallery-wrap mt-4 flex w-full flex-col items-center justify-start gap-5">
@@ -38,16 +41,14 @@ export default function HomeImageSlider({ ...props }) {
             //   galleryRef.style.scrollBehavior = 'auto'
             // }}
             ref={galleryRef}
-            className="hide-scrollbar flex gap-4 w-full overflow-x-scroll max-w-page-limit"
+            className="hide-scrollbar flex w-full max-w-page-limit gap-4 overflow-x-scroll p-4"
           >
             {lista?.map((items) => (
               <li
                 key={items}
-                className={twMerge(
-                  "grid w-full flex-none gap-4",
-                )}
+                className={twMerge("grid w-full flex-none gap-4")}
                 style={{
-                  gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`
+                  gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`,
                 }}
               >
                 {items.map((item, itemindex) => (

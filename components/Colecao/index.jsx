@@ -70,20 +70,22 @@ const SlideItem = ({
         backgroundImage: `url(${src})`,
       }}
       className={twMerge(
-        "flex aspect-square h-full w-full overflow-hidden rounded-l-md rounded-br-md rounded-tr-[15%] bg-cover bg-center bg-no-repeat text-white",
+        "flex aspect-[9/12] h-full w-full items-end overflow-hidden rounded-l-md rounded-br-md rounded-tr-[15%] bg-cover bg-center bg-no-repeat text-white",
         className,
       )}
     >
       <text-container className="flex h-fit w-full flex-col items-start justify-start gap-4 rounded-tr-xl bg-slate-800/20 p-3">
-        <span className="text-lg lg:text-2xl font-normal">Obsidian</span>
-        <span className="text-xs lg:text-base font-light">
+        <span className="text-lg font-normal uppercase lg:text-2xl">
+          Obsidian
+        </span>
+        <span className="text-xs font-light lg:text-sm">
           Esse é um controle de playstation 4 que poderá ser montado da forma
           que desejar!
         </span>
 
         <Link
           href="/exclusivos/bcca0ca6-09ac-4581-99fe-81ea1a780250"
-          className="flex items-center gap-2 text-center text-base font-medium outline-none lg:text-lg"
+          className="flex items-center gap-1 text-center text-base font-semibold uppercase tracking-wide text-cyan-500 outline-none lg:text-lg"
         >
           Montar
           <i className="pi pi-chevron-right text-[14px]"></i>
