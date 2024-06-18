@@ -1,9 +1,32 @@
 import { Breadcrumb } from "antd";
 import Link from "next/link";
 
+const thumbnail = {
+  url: "/receipt.png",
+  width: 1200,
+  height: 630,
+  alt: "Pedidos",
+};
+
+const defaultMetadata = {
+  title: "Pedidos | PGCUSTOM",
+  description: "Visualizar seus pedidos",
+  images: [thumbnail],
+};
+
 export const metadata = {
-  title: {
-    template: "%s | Pedidos",
+  ...defaultMetadata,
+  twitter: {
+    ...defaultMetadata,
+    card: "summary_large_image",
+    site: "@pgcustomstore",
+    creator: "@pgcustomstore",
+  },
+  openGraph: {
+    ...defaultMetadata,
+    type: "website",
+    url: process.env.NEXT_PUBLIC_DOMAIN,
+    siteName: "PG CUSTOM",
   },
 };
 

@@ -3,15 +3,31 @@ import { onError } from "@/lib/util/error";
 import { serverFetcher } from "@/lib/util/server-fetcher";
 import { redirect } from "next/navigation";
 import { Clipboard } from "./components/Clipboard";
-import { StatusBadge } from "./components/StatusBadge";
 import If from "@/components/If";
 import { readUserOrThrow } from "@/lib/util/supabase";
 import moment from "moment";
+import { AlertNotification } from "./components/AlertNotification";
+import { PaymentStatus } from "./enums";
 
 async function loadData(props) {
+  const map = new Map();
   await readUserOrThrow({
     onOffline: () => redirect("/"),
+    onSuccess: ({ user }) => {
+      map.set("user", user);
+      map.set("expired_login", "N");
+    },
+    onExpired: () => {
+      map.set("expired_login", "S");
+      map.set("user", null);
+    },
   });
+
+  const user = map.get("user");
+
+  if (!user) redirect("/");
+
+  const userMetadata = user.user_metadata;
 
   const pedidos = await serverFetcher("/api/pedidos");
 
@@ -19,11 +35,14 @@ async function loadData(props) {
 
   if (pedidos.length == 0) onError("Nenhum pedido encontrado");
 
-  return pedidos;
+  return {
+    pedidos,
+    userMetadata,
+  };
 }
 
 export default async function Pedidos({ params }) {
-  const pedidos = await loadData({ params });
+  const { pedidos, userMetadata } = await loadData({ params });
 
   return (
     <div className="w-full">
@@ -37,7 +56,6 @@ export default async function Pedidos({ params }) {
             key={pedido.cdpedido}
             className="flex flex-col items-start justify-start gap-4 rounded-lg bg-gray-300 p-4"
           >
-            <StatusBadge status={pedido.status} />
             <header className="flex w-full justify-between">
               <div className="flex flex-col items-start justify-start gap-[2px]">
                 <span className="font-medium">Código do pedido</span>
@@ -60,9 +78,9 @@ export default async function Pedidos({ params }) {
                 {pedido?.items?.map((produto, produtoi) => (
                   <li
                     key={produto?.id}
-                    data-isFirst={produtoi == 0}
-                    data-isLast={produtoi == pedido?.items?.length - 1}
-                    className="flex w-full items-center justify-start gap-4 border border-transparent data-[isFirst=false]:border-t-slate-400 data-[isLast=true]:border-b-slate-400"
+                    data-isfirst={produtoi == 0}
+                    data-islast={produtoi == pedido?.items?.length - 1}
+                    className="flex w-full items-center justify-start gap-4 border border-transparent data-[isFirst=false]:border-t-slate-400 data-[islast=true]:border-b-slate-400"
                   >
                     <img
                       className="aspect-square w-20 bg-center"
@@ -93,16 +111,43 @@ export default async function Pedidos({ params }) {
                   R$ {aplicarMascara(pedido.value, "real")}
                 </span>
               </div>
-              <If condition={pedido.status == "PENDING"}>
-                <a
-                  className="w-full rounded-sm bg-blue-500 p-2 text-center text-white"
-                  href={pedido.payment_url}
-                  target="_blank"
-                >
-                  PAGAR
-                </a>
-              </If>
             </div>
+
+            <AlertNotification
+              icon="money"
+              title="STATUS PAGAMENTO"
+              description={PaymentStatus[pedido.status]}
+            />
+
+            <AlertNotification
+              icon="wrench"
+              title="STATUS PRODUÇÃO"
+              description={
+                pedido.status === "PAID"
+                  ? pedido.production_status
+                  : "AGUARDANDO PAGAMENTO"
+              }
+            />
+
+            <AlertNotification
+              icon="paper-plane"
+              title="STATUS ENVIO"
+              description={
+                pedido.status === "PAID"
+                  ? pedido.tracking_status
+                  : "AGUARDANDO PAGAMENTO"
+              }
+            />
+
+            <If condition={pedido.status == "PENDING"}>
+              <a
+                className="w-full rounded-sm bg-blue-500 p-2 text-center text-white"
+                href={pedido.payment_url}
+                target="_blank"
+              >
+                PAGAR
+              </a>
+            </If>
           </li>
         ))}
       </ul>
