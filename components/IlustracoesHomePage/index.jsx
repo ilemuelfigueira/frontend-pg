@@ -57,7 +57,7 @@ const SlideItem = ({
   ...props
 }) => {
   return (
-    <slide-container
+    <div
       {...props}
       style={{
         backgroundImage: `url(${src})`,
@@ -67,16 +67,20 @@ const SlideItem = ({
         className,
       )}
     >
-      <div className="style flex w-full max-w-page-limit flex-col items-start gap-2 p-4 mb-4">
-        <span class="text-white text-4xl md:text-5xl font-bold uppercase">{title}</span>
-        <span class="text-white text-base font-light">{subtitle}</span>
+      <div className="style mb-4 flex w-full max-w-page-limit flex-col items-start gap-2 p-4">
+        <span class="text-4xl font-bold uppercase text-white md:text-5xl">
+          {title}
+        </span>
+        <span class="text-base font-light text-white">{subtitle}</span>
         <Link
           href="/exclusivos/bcca0ca6-09ac-4581-99fe-81ea1a780250"
-          className="rounded-full px-7 py-3 shadow-2xl bg-azul_escuro"
+          className="rounded-full bg-azul_escuro px-7 py-3 shadow-2xl"
         >
-          <span className="text-base font-medium text-white uppercase">{label}</span>
+          <span className="text-base font-medium uppercase text-white">
+            {label}
+          </span>
         </Link>
       </div>
-    </slide-container>
+    </div>
   );
 };

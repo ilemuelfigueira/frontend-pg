@@ -64,7 +64,7 @@ const SlideItem = ({
   ...props
 }) => {
   return (
-    <slide-container
+    <div
       {...props}
       style={{
         backgroundImage: `url(${src})`,
@@ -74,7 +74,7 @@ const SlideItem = ({
         className,
       )}
     >
-      <text-container className="flex h-fit w-full flex-col items-start justify-start gap-4 rounded-tr-xl bg-slate-800/20 p-3">
+      <div className="flex h-fit w-full flex-col items-start justify-start gap-4 rounded-tr-xl bg-slate-800/20 p-3">
         <span className="text-lg font-normal uppercase lg:text-2xl">
           Obsidian
         </span>
@@ -90,7 +90,7 @@ const SlideItem = ({
           Montar
           <i className="pi pi-chevron-right text-[14px]"></i>
         </Link>
-      </text-container>
-    </slide-container>
+      </div>
+    </div>
   );
 };
