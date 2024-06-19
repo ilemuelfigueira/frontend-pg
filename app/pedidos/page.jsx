@@ -140,7 +140,7 @@ export default async function Pedidos({ params }) {
                   cdpedido={pedido.cdpedido}
                   production_status={pedido.production_status}
                 >
-                  <button>
+                  <button className="outline-none">
                     <i className="ph ph-gear text-2xl"></i>
                   </button>
                 </UpdateProductionStatus>
@@ -166,7 +166,7 @@ export default async function Pedidos({ params }) {
                   tracking_status={pedido.tracking_status}
                   tracking_code={pedido.tracking_code}
                 >
-                  <button>
+                  <button className="outline-none">
                     <i className="ph ph-gear text-2xl"></i>
                   </button>
                 </UpdateTrackingStatus>
