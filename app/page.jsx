@@ -69,7 +69,7 @@ export default async function Home() {
             </span>
             <MiraSVG className="hidden w-72 min-w-[200px] md:block md:w-96 lg:w-[40rem]" />
 
-            <MiraMobileSVG className="w-72 min-w-[200px] xs:w-96 md:hidden" />
+            <MiraMobileSVG className="xs:w-96 w-72 min-w-[200px] md:hidden" />
           </div>
 
           <span className="max-w-[650px] text-base">
@@ -125,11 +125,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="flex w-full flex-col items-start justify-center gap-8 bg-[#303030] pt-4">
+      <section className="flex w-full flex-col items-center justify-center gap-8 bg-[#303030] pt-4">
         <span className="w-full text-center text-xl font-semibold text-white md:text-4xl">
           Coleções
         </span>
-        <Colecao />
+        <Colecao className="max-w-page-limit p-4 pb-8" />
       </section>
 
       <DizemComponent />

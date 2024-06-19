@@ -9,9 +9,9 @@ import "swiper/css/autoplay";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
-export const Colecao = () => {
+export const Colecao = ({ ...props }) => {
   return (
-    <colecao-container className="w-full">
+    <div className={twMerge("flex w-full p-10 pb-8", props?.className)}>
       <Swiper
         id="swiper-ilustracoes"
         breakpoints={{
@@ -23,19 +23,18 @@ export const Colecao = () => {
           },
         }}
         spaceBetween={18}
-        autoplay={{ delay: 2500 }}
         mousewheel={false}
         pagination={{ clickable: true }}
-        modules={[Pagination, Autoplay, Mousewheel]}
+        modules={[Pagination, Mousewheel]}
         loop={true}
         zoom={true}
-        className="relative z-10 w-full max-w-page-limit p-4 pb-8"
+        className="relative z-10 w-full"
         style={{
           "--swiper-pagination-color": "rgb(27 68 114 / var(--tw-bg-opacity))",
           "--swiper-pagination-bullet-inactive-color": "#999999",
           "--swiper-pagination-bullet-inactive-opacity": "1",
-          "--swiper-pagination-bullet-size": "10px",
-          "--swiper-pagination-bullet-horizontal-gap": "6px"
+          "--swiper-pagination-bullet-size": "0",
+          "--swiper-pagination-bullet-horizontal-gap": "6px",
         }}
       >
         <SwiperSlide className="z-10">
@@ -51,7 +50,7 @@ export const Colecao = () => {
           <SlideItem label="Comprar" src="/jogatina.jpg" />
         </SwiperSlide>
       </Swiper>
-    </colecao-container>
+    </div>
   );
 };
 
@@ -88,7 +87,7 @@ const SlideItem = ({
           className="flex items-center gap-1 text-center text-base font-semibold uppercase tracking-wide text-cyan-500 outline-none lg:text-lg"
         >
           Montar
-          <i className="pi pi-chevron-right text-[14px]"></i>
+          <i className="ph ph-arrow-right text-2xl"></i>
         </Link>
       </div>
     </div>
