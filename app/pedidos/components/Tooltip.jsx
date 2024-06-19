@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export function Tooltip({ children, ...props }) {
+export function TooltipDemo({ children, ...props }) {
   return (
     <TooltipProvider>
       <Tooltip>
