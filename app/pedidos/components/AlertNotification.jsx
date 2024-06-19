@@ -8,12 +8,16 @@ export function AlertNotification({
   title = "Heads up!",
   description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum eaque eligendi dolorem magni illo consequatur vero suscipit autem sint ducimus! Incidunt laudantium dolorem nulla numquam et error ab excepturi quidem!",
   icon,
+  href = undefined,
+  ...props
 }) {
   return (
-    <Alert>
+    <Alert {...props}>
       {getIcon(icon)}
-      <AlertTitle>{title}</AlertTitle>
-      <AlertDescription className="uppercase">{description}</AlertDescription>
+      <AlertTitle className="w-fit">{title}</AlertTitle>
+      <AlertDescription className="w-fit uppercase">
+        {description}
+      </AlertDescription>
     </Alert>
   );
 }
