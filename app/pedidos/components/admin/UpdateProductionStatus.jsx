@@ -22,6 +22,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useOpen } from "@/hooks/open";
+import { atualizarStatusProducao } from "@/actions/pedido";
+import toast from "react-hot-toast";
 
 const trackingSchema = yup.object().shape({
   production_status: yup
@@ -31,18 +34,32 @@ const trackingSchema = yup.object().shape({
 });
 
 export function UpdateProductionStatus({ children, ...props }) {
+  const { open, openClose } = useOpen();
   const formik = useFormik({
     initialValues: {
       production_status: props["production_status"] ?? undefined,
     },
     validationSchema: trackingSchema,
-    onSubmit: (values) => {
-      console.debug(values);
+    onSubmit: async (values) => {
+      const response = await atualizarStatusProducao({
+        cdpedido: props?.cdpedido,
+        ...values,
+      });
+
+      if (response.error)
+        toast.error(`Tente novamente mais tarde.`, {
+          id: props?.cdpedido,
+        });
+      else
+        toast.success("Sucesso!", {
+          id: props?.cdpedido,
+        });
+      openClose();
     },
   });
   if (props.disabled) return children;
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={openClose}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -91,7 +108,11 @@ export function UpdateProductionStatus({ children, ...props }) {
           </span>
         </p>
         <DialogFooter>
-          <Button onClick={formik.handleSubmit} type="submit">
+          <Button
+            disabled={formik.isSubmitting}
+            onClick={formik.handleSubmit}
+            type="submit"
+          >
             Salvar alterações
           </Button>
         </DialogFooter>

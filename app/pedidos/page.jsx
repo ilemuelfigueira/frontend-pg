@@ -7,7 +7,7 @@ import If from "@/components/If";
 import { readUserOrThrow } from "@/lib/util/supabase";
 import moment from "moment";
 import { AlertNotification } from "./components/AlertNotification";
-import { PaymentStatus } from "./enums";
+import { PaymentStatusEnum, PaymentStatusTranslate } from "./enums";
 import { UpdateTrackingStatus } from "./components/admin/UpdateTrackingStatus";
 import { UpdateProductionStatus } from "./components/admin/UpdateProductionStatus";
 
@@ -120,36 +120,58 @@ export default async function Pedidos({ params }) {
             <AlertNotification
               icon="money"
               title="STATUS PAGAMENTO"
-              description={PaymentStatus[pedido.status]}
+              description={PaymentStatusTranslate[pedido.status]}
             />
 
-            <UpdateProductionStatus disabled={!isAdmin}>
-              <AlertNotification
-                data-isadmin={isAdmin}
-                className="duration-150 data-[isadmin=true]:hover:cursor-pointer data-[isadmin=true]:hover:border-black/5 data-[isadmin=true]:hover:bg-black/5"
-                icon="wrench"
-                title="STATUS PRODUÇÃO"
-                description={
-                  pedido.status === "PAID"
-                    ? pedido.production_status
-                    : "AGUARDANDO PAGAMENTO"
-                }
-              />
-            </UpdateProductionStatus>
+            <AlertNotification
+              data-ispaid={pedido.status === PaymentStatusEnum.PAID}
+              data-isadmin={isAdmin}
+              className="data-[ispaid=false]:hidden"
+              icon="wrench"
+              title="STATUS PRODUÇÃO"
+              description={
+                pedido.status === "PAID"
+                  ? pedido.production_status
+                  : "AGUARDANDO PAGAMENTO"
+              }
+              action={
+                <UpdateProductionStatus
+                  disabled={!isAdmin}
+                  cdpedido={pedido.cdpedido}
+                  production_status={pedido.production_status}
+                >
+                  <button>
+                    <i className="ph ph-gear text-2xl"></i>
+                  </button>
+                </UpdateProductionStatus>
+              }
+            />
 
-            <UpdateTrackingStatus disabled={!isAdmin}>
-              <AlertNotification
-                data-isadmin={isAdmin}
-                className="duration-150 data-[isadmin=true]:hover:cursor-pointer data-[isadmin=true]:hover:border-black/5 data-[isadmin=true]:hover:bg-black/5"
-                icon="paper-plane"
-                title="STATUS ENVIO"
-                description={
-                  pedido.status === "PAID"
-                    ? pedido.tracking_status
-                    : "AGUARDANDO PAGAMENTO"
-                }
-              />
-            </UpdateTrackingStatus>
+            <AlertNotification
+              data-isadmin={isAdmin}
+              data-ispaid={pedido.status === PaymentStatusEnum.PAID}
+              className="data-[ispaid=false]:hidden"
+              icon="paper-plane"
+              title="STATUS ENVIO"
+              description={
+                pedido.status === "PAID"
+                  ? pedido.tracking_status
+                  : "AGUARDANDO PAGAMENTO"
+              }
+              subdescription={pedido.tracking_code}
+              action={
+                <UpdateTrackingStatus
+                  disabled={!isAdmin}
+                  cdpedido={pedido.cdpedido}
+                  tracking_status={pedido.tracking_status}
+                  tracking_code={pedido.tracking_code}
+                >
+                  <button>
+                    <i className="ph ph-gear text-2xl"></i>
+                  </button>
+                </UpdateTrackingStatus>
+              }
+            />
 
             <If condition={pedido.status == "PENDING"}>
               <a

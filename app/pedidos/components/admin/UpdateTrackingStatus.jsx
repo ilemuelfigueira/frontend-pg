@@ -23,6 +23,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { atualizarStatusRastreio } from "@/actions/pedido";
+import toast from "react-hot-toast";
+import { useOpen } from "@/hooks/open";
 
 const trackingSchema = yup.object().shape({
   tracking_status: yup
@@ -37,19 +40,33 @@ const trackingSchema = yup.object().shape({
 });
 
 export function UpdateTrackingStatus({ children, ...props }) {
+  const { open, openClose } = useOpen();
   const formik = useFormik({
     initialValues: {
       tracking_status: props["tracking_status"] ?? undefined,
       tracking_code: props["tracking_code"] ?? undefined,
     },
     validationSchema: trackingSchema,
-    onSubmit: (values) => {
-      console.debug(values);
+    onSubmit: async (values) => {
+      const response = await atualizarStatusRastreio({
+        cdpedido: props?.cdpedido,
+        ...values,
+      });
+
+      if (response.error)
+        toast.error(`Tente novamente mais tarde.`, {
+          id: `production-status-${props?.cdpedido}`,
+        });
+      else
+        toast.success("Sucesso!", {
+          id: `production-status-${props?.cdpedido}`,
+        });
+      openClose();
     },
   });
   if (props.disabled) return children;
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={openClose}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -103,8 +120,10 @@ export function UpdateTrackingStatus({ children, ...props }) {
               }
               id="tracking_code"
               placeholder="Digite um código de rastreio"
-              defaultValue=""
               className="col-span-3"
+              name="tracking_code"
+              onChange={formik.handleChange}
+              value={formik.values.tracking_code}
             />
           </div>
         </div>
@@ -119,9 +138,15 @@ export function UpdateTrackingStatus({ children, ...props }) {
           </span>
         </p>
         <DialogFooter>
-          <Button onClick={formik.handleSubmit} type="submit">
-            Salvar alterações
-          </Button>
+          <DialogTrigger asChild>
+            <Button
+              disabled={formik.isSubmitting}
+              onClick={formik.handleSubmit}
+              type="submit"
+            >
+              Salvar alterações
+            </Button>
+          </DialogTrigger>
         </DialogFooter>
       </DialogContent>
     </Dialog>
