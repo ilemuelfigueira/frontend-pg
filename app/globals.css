@@ -1,4 +1,42 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  html {
+    font-family: var(--font-poppins), system-ui, sans-serif;
+  }
+}
+
+* {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hidden-flex-item {
+  content: "";
+  flex: 1 0 300px;
+  padding: 5px;
+  margin-top: 10px;
+  margin-right: 5px;
+  visibility: hidden;
+}
+
+nextjs-portal {
+  display: none;
+}
+
+slide-container {
+  z-index: 10;
+}
+
+.swiper {
+  z-index: 10;
+}
