@@ -37,7 +37,6 @@ const trackingSchema = yup.object().shape({
 });
 
 export function UpdateTrackingStatus({ children, ...props }) {
-  if (props.disabled) return children;
   const formik = useFormik({
     initialValues: {
       tracking_status: props["tracking_status"] ?? undefined,
@@ -48,6 +47,7 @@ export function UpdateTrackingStatus({ children, ...props }) {
       console.debug(values);
     },
   });
+  if (props.disabled) return children;
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>

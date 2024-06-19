@@ -8,6 +8,8 @@ import { readUserOrThrow } from "@/lib/util/supabase";
 import moment from "moment";
 import { AlertNotification } from "./components/AlertNotification";
 import { PaymentStatus } from "./enums";
+import { UpdateTrackingStatus } from "./components/admin/UpdateTrackingStatus";
+import { UpdateProductionStatus } from "./components/admin/UpdateProductionStatus";
 
 async function loadData(props) {
   const map = new Map();
@@ -43,6 +45,8 @@ async function loadData(props) {
 
 export default async function Pedidos({ params }) {
   const { pedidos, userMetadata } = await loadData({ params });
+
+  const isAdmin = userMetadata.role === "admin";
 
   return (
     <div className="w-full">
@@ -119,25 +123,33 @@ export default async function Pedidos({ params }) {
               description={PaymentStatus[pedido.status]}
             />
 
-            <AlertNotification
-              icon="wrench"
-              title="STATUS PRODUÇÃO"
-              description={
-                pedido.status === "PAID"
-                  ? pedido.production_status
-                  : "AGUARDANDO PAGAMENTO"
-              }
-            />
+            <UpdateProductionStatus disabled={!isAdmin}>
+              <AlertNotification
+                data-isadmin={isAdmin}
+                className="duration-150 data-[isadmin=true]:hover:cursor-pointer data-[isadmin=true]:hover:border-black/5 data-[isadmin=true]:hover:bg-black/5"
+                icon="wrench"
+                title="STATUS PRODUÇÃO"
+                description={
+                  pedido.status === "PAID"
+                    ? pedido.production_status
+                    : "AGUARDANDO PAGAMENTO"
+                }
+              />
+            </UpdateProductionStatus>
 
-            <AlertNotification
-              icon="paper-plane"
-              title="STATUS ENVIO"
-              description={
-                pedido.status === "PAID"
-                  ? pedido.tracking_status
-                  : "AGUARDANDO PAGAMENTO"
-              }
-            />
+            <UpdateTrackingStatus disabled={!isAdmin}>
+              <AlertNotification
+                data-isadmin={isAdmin}
+                className="duration-150 data-[isadmin=true]:hover:cursor-pointer data-[isadmin=true]:hover:border-black/5 data-[isadmin=true]:hover:bg-black/5"
+                icon="paper-plane"
+                title="STATUS ENVIO"
+                description={
+                  pedido.status === "PAID"
+                    ? pedido.tracking_status
+                    : "AGUARDANDO PAGAMENTO"
+                }
+              />
+            </UpdateTrackingStatus>
 
             <If condition={pedido.status == "PENDING"}>
               <a
