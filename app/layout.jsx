@@ -14,6 +14,7 @@ import { readUserOrThrow } from "@/lib/util/supabase";
 import "moment/locale/pt-br";
 import moment from "moment";
 import { Analytics } from "@/components/Analytics";
+import Script from "next/script";
 moment.locale("pt-br");
 
 const poppins = Poppins({
@@ -92,6 +93,7 @@ export default async function RootLayout({ children, params, ...props }) {
   return (
     <html lang="pt-BR" className={`${poppins.variable}`}>
       <Analytics />
+      <Script src="https://unpkg.com/@phosphor-icons/web"></Script>
       <StyledComponentsRegistry>
         <ConfigProvider theme={theme}>
           <body className="w-full max-w-full bg-gray-100">
@@ -109,7 +111,7 @@ export default async function RootLayout({ children, params, ...props }) {
               {children}
             </section>
             <footer className="flex w-full items-start justify-between bg-[#121212] p-10 shadow-md max-md:flex-col max-md:items-start max-md:justify-start max-md:gap-8">
-              <div className="grid grid-cols-1 gap-8 dark:border-gray-800 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+              <div className="xs:grid-cols-2 grid grid-cols-1 gap-8 dark:border-gray-800 sm:grid-cols-3 lg:grid-cols-4">
                 <div>
                   <p className="text-base font-bold text-white dark:text-white">
                     Loja
