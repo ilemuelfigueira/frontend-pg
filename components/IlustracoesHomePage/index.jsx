@@ -68,10 +68,10 @@ const SlideItem = ({
       )}
     >
       <div className="style mb-4 flex w-full max-w-page-limit flex-col items-start gap-2 p-4">
-        <span class="text-4xl font-bold uppercase text-white md:text-5xl">
+        <span className="text-4xl font-bold uppercase text-white md:text-5xl">
           {title}
         </span>
-        <span class="text-base font-light text-white">{subtitle}</span>
+        <span className="text-base font-light text-white">{subtitle}</span>
         <Link
           href="/exclusivos/bcca0ca6-09ac-4581-99fe-81ea1a780250"
           className="rounded-full bg-azul_escuro px-7 py-3 shadow-2xl"

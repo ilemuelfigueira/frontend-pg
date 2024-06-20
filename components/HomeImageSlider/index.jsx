@@ -28,7 +28,7 @@ export default function HomeImageSlider({ ...props }) {
     >
       <section
         id="compre-por-categoria-home"
-        className="w-full bg-white px-4 py-6 dark:bg-[#303030]"
+        className="w-full bg-white p-4 dark:bg-[#303030]"
       >
         <span className="flex w-full justify-center text-lg font-semibold text-black dark:text-white md:text-2xl">
           {props?.title ?? "Título"}

@@ -1,5 +1,4 @@
 import { Colecao } from "@/components/Colecao";
-import { DizemComponent } from "@/components/Dizem";
 import { IlustracoesHomePage } from "@/components/IlustracoesHomePage";
 import { onError } from "@/lib/util/error";
 import { fetcher } from "@/lib/util/fetcher";
@@ -12,6 +11,7 @@ import Link from "next/link";
 import "./globals.css";
 import HomeImageSlider from "@/components/HomeImageSlider";
 import { MiraMobileSVG } from "@/public/home/mira-mobile";
+import Testimonial from "@/components/Testimonial";
 
 async function loadData() {
   const dataMap = new Map();
@@ -132,7 +132,30 @@ export default async function Home() {
         <Colecao className="max-w-page-limit p-4 pb-8" />
       </section>
 
-      <DizemComponent />
+      <Testimonial
+        testimonials={[
+          {
+            source: "The_senna",
+            text: "Os controles da PG são uma obra de arte, são os melhores que eu ja usei em toda a minha vida. Recomendo de olhos fechados! Amo a PG < 3",
+          },
+          {
+            source: "Bichão",
+            text: "Os bichao da PG são uma obra de arte, são os melhores que eu ja usei em toda a minha vida. Recomendo de olhos fechados! Amo a PG < 3",
+          },
+          {
+            source: "Savytzz",
+            text: "Os savytzz da PG são uma obra de arte, são os melhores que eu ja usei em toda a minha vida. Recomendo de olhos fechados! Amo a PG < 3",
+          },
+          {
+            source: "DC_Mago",
+            text: "Os Dc_mago da PG são uma obra de arte, são os melhores que eu ja usei em toda a minha vida. Recomendo de olhos fechados! Amo a PG < 3",
+          },
+          {
+            source: "Neymar",
+            text: "Os Neymar da PG são uma obra de arte, são os melhores que eu ja usei em toda a minha vida. Recomendo de olhos fechados! Amo a PG < 3",
+          },
+        ]}
+      />
 
       <HomeImageSlider
         className="max-md:hidden"

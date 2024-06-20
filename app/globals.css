@@ -33,6 +33,11 @@ nextjs-portal {
   display: none;
 }
 
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: '';
+}
+
 /* slide-container {
   z-index: 10;
 } */
