@@ -1,10 +1,9 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay, Mousewheel } from "swiper/modules";
+import { Mousewheel } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -33,7 +32,7 @@ export const Colecao = ({ ...props }) => {
         spaceBetween={18}
         mousewheel={false}
         pagination={{ clickable: true }}
-        modules={[Pagination, Mousewheel]}
+        modules={[Mousewheel]}
         loop={true}
         zoom={true}
         className="relative z-10 w-full"
@@ -43,6 +42,7 @@ export const Colecao = ({ ...props }) => {
           "--swiper-pagination-bullet-inactive-opacity": "1",
           "--swiper-pagination-bullet-size": "0",
           "--swiper-pagination-bullet-horizontal-gap": "6px",
+          "--swiper-pagination-bullet-display": "hidden",
         }}
       >
         <SwiperSlide className="z-10">
@@ -81,7 +81,7 @@ const SlideItem = ({
         className,
       )}
     >
-      <div className="flex h-fit w-full flex-col items-start justify-start gap-1 rounded-tr-xl bg-slate-800/20 p-2 md:gap-4">
+      <div className="z-20 flex h-fit w-full flex-col items-start justify-start gap-1 rounded-tr-xl bg-slate-800/20 p-2 md:gap-3">
         <span className="text-lg font-normal uppercase lg:text-2xl">
           Obsidian
         </span>
@@ -92,7 +92,7 @@ const SlideItem = ({
 
         <Link
           href="/exclusivos/bcca0ca6-09ac-4581-99fe-81ea1a780250"
-          className="flex items-center gap-1 text-center text-base font-semibold uppercase tracking-wide text-cyan-500 outline-none lg:text-lg"
+          className="flex h-full w-full items-center gap-1 text-center text-base font-semibold uppercase tracking-wide text-white outline-none hover:cursor-pointer hover:text-focus-blue lg:text-lg"
         >
           Montar
           <i className="ph ph-arrow-right text-2xl"></i>
