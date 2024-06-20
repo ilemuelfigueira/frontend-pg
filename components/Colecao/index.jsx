@@ -11,12 +11,20 @@ import { twMerge } from "tailwind-merge";
 
 export const Colecao = ({ ...props }) => {
   return (
-    <div className={twMerge("flex w-full p-10 pb-8", props?.className)}>
+    <div
+      className={twMerge(
+        "flex w-full flex-col items-center justify-start gap-4 p-4",
+        props?.className,
+      )}
+    >
+      <span className="w-full text-center text-xl font-semibold text-white md:text-4xl">
+        Coleções
+      </span>
       <Swiper
         id="swiper-ilustracoes"
         breakpoints={{
           0: {
-            slidesPerView: 2,
+            slidesPerView: 1.2,
           },
           768: {
             slidesPerView: 3,
@@ -73,7 +81,7 @@ const SlideItem = ({
         className,
       )}
     >
-      <div className="flex h-fit w-full flex-col items-start justify-start gap-4 rounded-tr-xl bg-slate-800/20 p-3">
+      <div className="flex h-fit w-full flex-col items-start justify-start gap-1 rounded-tr-xl bg-slate-800/20 p-2 md:gap-4">
         <span className="text-lg font-normal uppercase lg:text-2xl">
           Obsidian
         </span>

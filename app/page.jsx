@@ -125,11 +125,8 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="flex w-full flex-col items-center justify-center gap-8 bg-[#303030] pt-4">
-        <span className="w-full text-center text-xl font-semibold text-white md:text-4xl">
-          Coleções
-        </span>
-        <Colecao className="max-w-page-limit p-4 pb-8" />
+      <section className="flex w-full flex-col items-center justify-center gap-8 bg-[#303030]">
+        <Colecao className="max-w-page-limit p-4" />
       </section>
 
       <Testimonial
