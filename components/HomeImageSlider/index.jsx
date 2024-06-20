@@ -1,24 +1,29 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import "./index.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import { twMerge } from "tailwind-merge";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function HomeImageSlider({ ...props }) {
-  const cols = props?.cols || 3;
-  const galleryRef = useRef(null);
+  const [swiper, setSwiper] = useState(null);
 
-  const [lista, _] = useState(() => {
-    const items = props?.items || [];
+  const router = useRouter();
 
-    let groupedArray = [];
-
-    for (let i = 0; i < items.length; i += cols) {
-      groupedArray.push(items.slice(i, i + cols));
+  const handlePrevClick = useCallback(() => {
+    if (swiper) {
+      swiper.slidePrev();
     }
+  });
 
-    return groupedArray;
+  const handleNextClick = useCallback(() => {
+    if (swiper) {
+      swiper.slideNext();
+    }
   });
 
   return (
@@ -26,130 +31,83 @@ export default function HomeImageSlider({ ...props }) {
       data-mode={props["data-mode"] ?? null}
       className={twMerge("w-full", props?.className)}
     >
-      <section
-        id="compre-por-categoria-home"
-        className="w-full bg-white p-4 dark:bg-[#303030]"
-      >
+      <div className="flex w-full max-w-page-limit flex-col items-center justify-start bg-white p-4 dark:bg-[#303030]">
         <span className="flex w-full justify-center text-lg font-semibold text-black dark:text-white md:text-2xl">
           {props?.title ?? "Título"}
         </span>
-        <div className="gallery-wrap mt-4 flex w-full flex-col items-center justify-start gap-5">
-          <ul
-            // onWheel={(evt) => {
-            //   evt.preventDefault();
-            //   galleryRef.current.scrollLeft += evt.deltaY;
-            //   galleryRef.style.scrollBehavior = 'auto'
-            // }}
-            ref={galleryRef}
-            className="hide-scrollbar flex w-full max-w-page-limit gap-4 overflow-x-scroll p-4"
-          >
-            {lista?.map((items) => (
-              <li
-                key={items}
-                className={twMerge("grid w-full flex-none gap-4")}
+        <Swiper
+          loop
+          breakpoints={{
+            0: {
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 4,
+            },
+          }}
+          onSwiper={setSwiper}
+          spaceBetween={18}
+          modules={[Navigation]}
+          className="my-4 w-full"
+        >
+          {props?.items?.map((item, index) => (
+            <SwiperSlide
+              key={index}
+              onClick={() => {
+                console.debug("resres");
+                router.push(item?.href || "#");
+              }}
+              className="group flex h-full w-full text-center hover:cursor-pointer"
+            >
+              <div
                 style={{
-                  gridTemplateColumns: `repeat(${cols},minmax(0,1fr))`,
+                  backgroundImage: `url(${item.src || "/no-photo.png"})`,
                 }}
-              >
-                {items.map((item, itemindex) => (
-                  <Link
-                    className="relative w-full cursor-pointer"
-                    href={item?.href ? item?.href : ""}
-                    target="_blank"
-                    style={{
-                      pointerEvents: item?.href ? "auto" : "none",
-                    }}
-                    key={item?.src + itemindex}
-                  >
-                    <img
-                      className="aspect-square w-full"
-                      src={item?.src || "/no-photo.png"}
-                    />
-                    <span className="absolute bottom-0 left-0 w-full bg-black/40 pl-1 text-sm text-white md:text-lg">
-                      {item?.label}
-                    </span>
-                  </Link>
-                ))}
-              </li>
-            ))}
-          </ul>
+                className="flex aspect-square w-full flex-col justify-end bg-cover bg-center bg-no-repeat"
+              ></div>
+              <div className="mt-2 w-full text-start text-sm text-black group-hover:text-focus-blue dark:text-white md:text-lg">
+                {item?.label}
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-          <div className="group/button flex items-center gap-4">
-            <button
-              className="outline-none"
-              onClick={() => {
-                if (!galleryRef.current) return;
-
-                const before = galleryRef.current.scrollLeft;
-
-                const pagesQtd = props?.items?.length / cols;
-
-                const pageSize = galleryRef.current.scrollWidth / pagesQtd;
-
-                let newScroll = before - pageSize;
-
-                if (newScroll < 0) newScroll = 0;
-
-                galleryRef.current.scrollTo({
-                  left: newScroll,
-                  behavior: "smooth",
-                });
-              }}
+        <div className="group/button flex items-center gap-4">
+          <button className="focus:!outline-none" onClick={handlePrevClick}>
+            <svg
+              viewBox="0 0 29 29"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="aspect-square w-6 stroke-black dark:stroke-white"
             >
-              <svg
-                viewBox="0 0 29 29"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="aspect-square w-6 stroke-black dark:stroke-white"
-              >
-                <path
-                  d="M17.2831 7.85425L10.875 14.2624L17.2831 20.6705"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <circle cx="14.5" cy="14.5" r="13.25" strokeWidth="2.5" />
-              </svg>
-            </button>
+              <path
+                d="M17.2831 7.85425L10.875 14.2624L17.2831 20.6705"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle cx="14.5" cy="14.5" r="13.25" strokeWidth="2.5" />
+            </svg>
+          </button>
 
-            <button
-              className="outline-none"
-              onClick={() => {
-                if (!galleryRef.current) return;
-
-                const before = galleryRef.current.scrollLeft;
-                const pagesQtd = props?.items?.length / cols;
-                const pageSize = galleryRef.current.scrollWidth / pagesQtd;
-
-                let newScroll = before + pageSize;
-
-                if (newScroll > galleryRef.current.scrollWidth)
-                  newScroll = galleryRef.current.scrollWidth;
-
-                galleryRef.current.scrollTo({
-                  left: newScroll,
-                  behavior: "smooth",
-                });
-              }}
+          <button className="focus:!outline-none" onClick={handleNextClick}>
+            <svg
+              viewBox="0 0 29 29"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="aspect-square w-6 stroke-black dark:stroke-white"
             >
-              <svg
-                viewBox="0 0 29 29"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="aspect-square w-6 stroke-black dark:stroke-white"
-              >
-                <path
-                  d="M12.7708 20.6704L19.179 14.2623L12.7708 7.85412"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <circle cx="15.1875" cy="14.5" r="13.25" strokeWidth="2.5" />
-              </svg>
-            </button>
-          </div>
+              <path
+                d="M12.7708 20.6704L19.179 14.2623L12.7708 7.85412"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle cx="15.1875" cy="14.5" r="13.25" strokeWidth="2.5" />
+            </svg>
+          </button>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
