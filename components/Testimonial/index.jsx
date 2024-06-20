@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,6 +12,8 @@ export const Testimonial = ({ testimonials = [] }) => {
   const [swiperTop, setSwiperTop] = useState(null);
   const [swiperBottom, setSwiperBottom] = useState(null);
 
+  const sliderTopRef = useRef(null);
+
   useEffect(() => {
     if (swiperTop && swiperBottom) {
       swiperTop.controller.control = swiperBottom;
@@ -19,17 +21,15 @@ export const Testimonial = ({ testimonials = [] }) => {
     }
   }, [swiperTop, swiperBottom]);
 
-  const handlePrevClick = () => {
-    if (swiperTop) {
-      swiperTop.slidePrev();
-    }
-  };
+  const handlePrevClick = useCallback(() => {
+    if (!sliderTopRef.current) return;
+    sliderTopRef.current.swiper.slidePrev();
+  }, []);
 
-  const handleNextClick = () => {
-    if (swiperTop) {
-      swiperTop.slideNext();
-    }
-  };
+  const handleNextClick = useCallback(() => {
+    if (!sliderTopRef.current) return;
+    sliderTopRef.current.swiper.slideNext();
+  }, []);
 
   return (
     <div className="relative m-0 flex w-full max-w-page-limit flex-col items-center justify-center overflow-hidden bg-gray-100 p-4">
@@ -45,15 +45,15 @@ export const Testimonial = ({ testimonials = [] }) => {
         O que estão dizendo sobre nós
       </h2>
       <Swiper
+        ref={sliderTopRef}
         onSwiper={setSwiperTop}
-        navigation={{
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        }}
         modules={[Navigation, Controller]}
         className="w-full max-w-2xl overflow-visible"
         spaceBetween={25}
         slidesPerView={1}
+        controller={{
+          control: swiperBottom,
+        }}
         loop
       >
         {testimonials.map((testimonial, index) => (
@@ -61,35 +61,33 @@ export const Testimonial = ({ testimonials = [] }) => {
             <p className="mx-4 mb-2 text-sm italic lg:text-lg">
               “{testimonial.text}”
             </p>
-            <p className="mb-2 text-sm font-semibold text-gray-800 lg:text-lg">
-              -{testimonial.source}
-            </p>
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="hidden">
-        <Swiper
-          onSwiper={setSwiperBottom}
-          modules={[Controller]}
-          className="mt-4 w-full max-w-2xl"
-          spaceBetween={25}
-          slidesPerView={1} // Exibir 3 slides por vez
-          watchSlidesProgress // Atualiza a barra de progresso conforme os slides são arrastados
-          loop
-        >
-          {testimonials.map((testimonial, index) => (
-            <SwiperSlide key={index} className="text-center">
-              <span className="text-gray-600">{testimonial.source}</span>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <Swiper
+        onSwiper={setSwiperBottom}
+        modules={[Controller]}
+        controller={{
+          control: swiperTop,
+        }}
+        className="mt-4 w-full max-w-2xl"
+        spaceBetween={25}
+        slidesPerView={1}
+        watchSlidesProgress
+        loop
+      >
+        {testimonials.map((testimonial, index) => (
+          <SwiperSlide key={index} className="text-center">
+            <span className="text-gray-600">{testimonial.source}</span>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <button
-        className="ph ph-arrow-left absolute left-4 top-1/2 -translate-y-1/2 text-2xl"
+        className="ph ph-caret-left absolute left-4 top-1/2 z-10 -translate-y-1/2 text-2xl md:text-4xl"
         onClick={handlePrevClick}
       ></button>
       <button
-        className="ph ph-arrow-right absolute right-4 top-1/2 -translate-y-1/2 text-2xl"
+        className="ph ph-caret-right absolute right-4 top-1/2 z-10 -translate-y-1/2 text-2xl md:text-4xl"
         onClick={handleNextClick}
       ></button>
     </div>
