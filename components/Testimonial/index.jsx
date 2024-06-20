@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,24 +12,17 @@ export const Testimonial = ({ testimonials = [] }) => {
   const [swiperTop, setSwiperTop] = useState(null);
   const [swiperBottom, setSwiperBottom] = useState(null);
 
-  const sliderTopRef = useRef(null);
-
-  useEffect(() => {
-    if (swiperTop && swiperBottom) {
-      swiperTop.controller.control = swiperBottom;
-      swiperBottom.controller.control = swiperTop;
-    }
-  }, [swiperTop, swiperBottom]);
-
   const handlePrevClick = useCallback(() => {
-    if (!sliderTopRef.current) return;
-    sliderTopRef.current.swiper.slidePrev();
-  }, []);
+    if (swiperTop) {
+      swiperTop.slidePrev();
+    }
+  });
 
   const handleNextClick = useCallback(() => {
-    if (!sliderTopRef.current) return;
-    sliderTopRef.current.swiper.slideNext();
-  }, []);
+    if (swiperTop) {
+      swiperTop.slideNext();
+    }
+  });
 
   return (
     <div className="relative m-0 flex w-full max-w-page-limit flex-col items-center justify-center overflow-hidden bg-gray-100 p-4">
@@ -45,7 +38,6 @@ export const Testimonial = ({ testimonials = [] }) => {
         O que estão dizendo sobre nós
       </h2>
       <Swiper
-        ref={sliderTopRef}
         onSwiper={setSwiperTop}
         modules={[Navigation, Controller]}
         className="w-full max-w-2xl overflow-visible"
@@ -57,7 +49,10 @@ export const Testimonial = ({ testimonials = [] }) => {
         loop
       >
         {testimonials.map((testimonial, index) => (
-          <SwiperSlide key={index} className="overflow-visible p-4 text-center">
+          <SwiperSlide
+            key={index}
+            className="cursor-pointer overflow-visible p-4 text-center"
+          >
             <p className="mx-4 mb-2 text-sm italic lg:text-lg">
               “{testimonial.text}”
             </p>
