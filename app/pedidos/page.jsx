@@ -62,10 +62,10 @@ export default async function Pedidos({ params, searchParams }) {
         {/* <Search searchParams={searchParams} />
         <Order searchParams={searchParams} /> */}
         <div className="md:hidden">
-          <DrawerFilter />
+          <DrawerFilter searchParams={searchParams} />
         </div>
         <div className="max-md:hidden">
-          <DialogFilter />
+          <DialogFilter searchParams={searchParams} />
         </div>
       </div>
       <ul className="mt-4 grid w-full grid-cols-1 gap-4">
