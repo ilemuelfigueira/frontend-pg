@@ -10,6 +10,8 @@ import { AlertNotification } from "./components/AlertNotification";
 import { PaymentStatusEnum, PaymentStatusTranslate } from "./enums";
 import { UpdateTrackingStatus } from "./components/admin/UpdateTrackingStatus";
 import { UpdateProductionStatus } from "./components/admin/UpdateProductionStatus";
+import { DialogFilter } from "./components/DialogFilter";
+import { DrawerFilter } from "./components/DrawerFilter";
 
 async function loadData(props) {
   const map = new Map();
@@ -31,7 +33,9 @@ async function loadData(props) {
 
   const userMetadata = user.user_metadata;
 
-  const pedidos = await serverFetcher("/api/pedidos");
+  const querystring = new URLSearchParams(props?.searchParams ?? {}).toString();
+
+  const pedidos = await serverFetcher("/api/pedidos?" + querystring);
 
   if (pedidos.error) onError(pedidos.error, "Erro ao carregar pedidos");
 
@@ -43,8 +47,8 @@ async function loadData(props) {
   };
 }
 
-export default async function Pedidos({ params }) {
-  const { pedidos, userMetadata } = await loadData({ params });
+export default async function Pedidos({ params, searchParams }) {
+  const { pedidos, userMetadata } = await loadData({ params, searchParams });
 
   const isAdmin = userMetadata.role === "admin";
 
@@ -54,7 +58,17 @@ export default async function Pedidos({ params }) {
         <i className="pi pi-ticket"></i>
         {" PEDIDOS"}
       </span>
-      <ul className="grid w-full grid-cols-1 gap-4">
+      <div className="flex w-full items-center justify-end gap-4">
+        {/* <Search searchParams={searchParams} />
+        <Order searchParams={searchParams} /> */}
+        <div className="md:hidden">
+          <DrawerFilter />
+        </div>
+        <div className="max-md:hidden">
+          <DialogFilter />
+        </div>
+      </div>
+      <ul className="mt-4 grid w-full grid-cols-1 gap-4">
         {pedidos.map((pedido) => (
           <li
             key={pedido.cdpedido}
@@ -117,6 +131,15 @@ export default async function Pedidos({ params }) {
               </div>
             </div>
 
+            {isAdmin ? (
+              <AlertNotification
+                title={`${pedido?.nome} - ${pedido?.email}`}
+                description={pedido?.telefone}
+              />
+            ) : (
+              ""
+            )}
+
             <AlertNotification
               icon="money"
               title="STATUS PAGAMENTO"
@@ -175,7 +198,7 @@ export default async function Pedidos({ params }) {
 
             <If condition={pedido.status == "PENDING"}>
               <a
-                className="w-full rounded-sm bg-blue-500 p-2 text-center text-white"
+                className="hidden w-full rounded-sm bg-blue-500 p-2 text-center text-white"
                 href={pedido.payment_url}
                 target="_blank"
               >
