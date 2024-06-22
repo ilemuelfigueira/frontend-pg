@@ -15,7 +15,7 @@ export function IlustracoesHomePage() {
       id="swiper-ilustracoes"
       spaceBetween={50}
       slidesPerView={1}
-      autoplay={{ delay: 2500 }}
+      autoplay={{ delay: 10000 }}
       mousewheel={false}
       pagination={{ clickable: true }}
       modules={[Pagination, Autoplay, Mousewheel]}
@@ -27,7 +27,7 @@ export function IlustracoesHomePage() {
         "--swiper-pagination-bullet-inactive-color": "#999999",
         "--swiper-pagination-bullet-inactive-opacity": "1",
         "--swiper-pagination-bullet-size": "10px",
-        "--swiper-pagination-bullet-horizontal-gap": "6px"
+        "--swiper-pagination-bullet-horizontal-gap": "6px",
       }}
     >
       <SwiperSlide className="z-10 aspect-video">
