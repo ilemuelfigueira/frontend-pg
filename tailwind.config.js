@@ -11,14 +11,14 @@ module.exports = {
   ],
   prefix: "",
   theme: {
+    screens: {
+      "2xl": "1400px",
+      "xs": "475px",
+      ...defaultTheme.screens,
+    },
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-        xs: "475px",
-        ...defaultTheme.screens,
-      },
     },
     extend: {
       backgroundImage: {

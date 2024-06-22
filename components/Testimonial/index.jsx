@@ -25,7 +25,7 @@ export const Testimonial = ({ testimonials = [] }) => {
   });
 
   return (
-    <div className="relative m-0 flex w-full max-w-page-limit flex-col items-center justify-center overflow-hidden bg-gray-100 p-4">
+    <div className="relative m-0 flex w-full max-w-page-limit flex-col items-center justify-center overflow-hidden bg-gray-100 p-4 py-6">
       <AspasSuperior
         fill="black"
         className="absolute left-4 top-2 hidden h-fit w-8 sm:block sm:w-10 lg:w-14"

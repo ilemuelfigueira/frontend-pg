@@ -121,7 +121,9 @@ export function HeaderNavigator({ user, ...props }) {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [getSearch, setSearch] = useState(searchParams.get("search") || "");
+  const [getSearch, setSearch] = useState(
+    searchParams.get("search-produto") || "",
+  );
 
   const openRegister = useOpen({
     defaultValue: searchParams.get("register") == "true",
@@ -149,6 +151,8 @@ export function HeaderNavigator({ user, ...props }) {
     const params = new URLSearchParams(searchParams.toString());
 
     if (getSearch) params.set("nmproduto", getSearch);
+
+    params.delete("search-produto");
 
     const href = `/produtos?${params.toString()}`;
 
@@ -182,7 +186,7 @@ export function HeaderNavigator({ user, ...props }) {
         {...props}
         data-ishome={pathName == "/"}
         data-searchopen={openSearch.open}
-        className="sticky z-20 top-0 flex h-16 w-screen max-w-full items-center justify-between gap-4 overflow-visible bg-black p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black max-md:data-[searchopen=true]:grid-cols-1 md:data-[ishome=true]:-mb-16"
+        className="sticky top-0 z-20 flex h-16 w-screen max-w-full items-center justify-between gap-4 overflow-visible bg-black p-4 shadow-sm data-[ishome=false]:mb-8 data-[ishome=false]:bg-black max-md:data-[searchopen=true]:grid-cols-1 md:data-[ishome=true]:-mb-16"
       >
         <Link
           href={"/"}
@@ -302,14 +306,16 @@ export function HeaderNavigator({ user, ...props }) {
             data-open={openSearch.open}
             className="relative -mr-2 flex w-full items-center justify-between gap-2 bg-black data-[open=false]:hidden"
           >
-            <Input
+            <input
               ref={searchRef}
-              className="z-10 w-full rounded-full border-focus-blue bg-transparent px-4 py-1 text-sm font-normal text-white placeholder:text-focus-blue"
+              className="z-10 w-full rounded-full border border-focus-blue bg-transparent px-4 py-1 text-sm font-normal text-white outline-none placeholder:text-focus-blue"
               placeholder="Pesquisar"
               value={getSearch}
               onChange={(e) => setSearch(e.target.value)}
               onBlur={openSearch.handleClose}
-              onPressEnter={search}
+              onKeyDown={(event) =>
+                event.key === "Enter" ? search() : undefined
+              }
               enterKeyHint="go"
             />
             <MagnifyingGlass

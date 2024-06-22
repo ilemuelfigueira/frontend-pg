@@ -29,9 +29,9 @@ export default function HomeImageSlider({ ...props }) {
   return (
     <div
       data-mode={props["data-mode"] ?? null}
-      className={twMerge("w-full", props?.className)}
+      className={twMerge("flex w-full justify-center", props?.className)}
     >
-      <div className="flex w-full max-w-page-limit flex-col items-center justify-start bg-white p-4 dark:bg-[#303030]">
+      <div className="flex w-full max-w-page-limit flex-col items-center justify-start gap-4 bg-white px-4 py-6 dark:bg-[#303030]">
         <span className="flex w-full justify-center text-lg font-semibold text-black dark:text-white md:text-2xl">
           {props?.title ?? "Título"}
         </span>

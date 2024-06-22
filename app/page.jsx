@@ -45,7 +45,7 @@ export default async function Home() {
         </span>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
-          <NaoPercaTempoSVG className="w-72 min-w-[200px] lg:w-96" />
+          <NaoPercaTempoSVG className="xs:w-[20rem] xs:h-[20rem] h-[15rem] w-[15rem] shrink-0 md:h-[15rem] md:w-[15rem] lg:h-[20rem] lg:w-[20rem]" />
           <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
               Não perca tempo para atirar
@@ -62,14 +62,14 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="flex w-full flex-col items-center justify-start gap-1 text-azul_escuro lg:flex-row lg:justify-between">
+        <div className="flex w-full flex-col items-center justify-start gap-1 text-azul_escuro">
           <div className="flex flex-col items-center justify-start gap-1">
+            <MiraSVG className="hidden shrink-0 md:block md:h-[30rem] md:w-[37rem]" />
+
+            <MiraMobileSVG className="xs:w-[24rem] xs:h-[24rem] h-[18rem] w-[18rem] min-w-[200px] shrink-0 md:hidden" />
             <span className="text-2xl font-medium">
               Mantenha-se sempre mirando!
             </span>
-            <MiraSVG className="hidden w-72 min-w-[200px] md:block md:w-96 lg:w-[40rem]" />
-
-            <MiraMobileSVG className="xs:w-96 w-72 min-w-[200px] md:hidden" />
           </div>
 
           <span className="max-w-[650px] text-base">
@@ -100,11 +100,11 @@ export default async function Home() {
               diferente.
             </span>
           </div>
-          <AderenciaSVG className="w-72 min-w-[200px] lg:h-96 lg:w-96" />
+          <AderenciaSVG className="xs:w-[19rem] xs:h-[19rem] h-[15rem] w-[15rem] shrink-0 md:h-[15rem] md:w-[15rem] lg:h-[20rem] lg:w-[20rem]" />
         </div>
 
         <div className="flex w-full items-center justify-start gap-9 max-md:flex-col">
-          <PinturaSVG className=" w-72 min-w-[200px] lg:h-96 lg:w-96" />
+          <PinturaSVG className="xs:w-[19rem] xs:h-[19rem] h-[15rem] w-[15rem] shrink-0 md:h-[15rem] md:w-[15rem] lg:h-[20rem] lg:w-[20rem]" />
           <div className="flex max-w-[650px] flex-col items-start gap-1 text-azul_escuro">
             <span className="text-2xl font-medium">
               A pintura é feita para durar!
@@ -126,7 +126,7 @@ export default async function Home() {
       </section>
 
       <section className="flex w-full flex-col items-center justify-center gap-8 bg-[#303030]">
-        <Colecao className="max-w-page-limit p-4" />
+        <Colecao className="max-w-page-limit p-4 py-6" />
       </section>
 
       <Testimonial
