@@ -12,6 +12,7 @@ import { UpdateTrackingStatus } from "./components/admin/UpdateTrackingStatus";
 import { UpdateProductionStatus } from "./components/admin/UpdateProductionStatus";
 import { DialogFilter } from "./components/DialogFilter";
 import { DrawerFilter } from "./components/DrawerFilter";
+import { PaginationPedidos } from "./components/Pagination";
 
 async function loadData(props) {
   const map = new Map();
@@ -59,8 +60,6 @@ export default async function Pedidos({ params, searchParams }) {
         {" PEDIDOS"}
       </span>
       <div className="flex w-full items-center justify-end gap-4">
-        {/* <Search searchParams={searchParams} />
-        <Order searchParams={searchParams} /> */}
         <div className="md:hidden">
           <DrawerFilter searchParams={searchParams} />
         </div>
@@ -208,6 +207,10 @@ export default async function Pedidos({ params, searchParams }) {
           </li>
         ))}
       </ul>
+      <PaginationPedidos
+        totalItems={Number(pedidos[0]?.total)}
+        searchParams={searchParams}
+      />
     </div>
   );
 }

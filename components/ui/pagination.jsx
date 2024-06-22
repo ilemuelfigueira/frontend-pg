@@ -44,7 +44,11 @@ const PaginationLink = ({ className, isActive, size = "icon", ...props }) => (
 );
 PaginationLink.displayName = "PaginationLink";
 
-const PaginationPrevious = ({ className, ...props }) => (
+const PaginationPrevious = ({
+  className,
+  displayName = "Previous",
+  ...props
+}) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
@@ -52,19 +56,19 @@ const PaginationPrevious = ({ className, ...props }) => (
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
-    <span>Previous</span>
+    <span>{displayName}</span>
   </PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
 
-const PaginationNext = ({ className, ...props }) => (
+const PaginationNext = ({ className, displayName = "Next", ...props }) => (
   <PaginationLink
     aria-label="Go to next page"
     size="default"
     className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
-    <span>Next</span>
+    <span>{displayName}</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>
 );
