@@ -16,6 +16,7 @@ import { useOpen } from "@/hooks/open";
 
 export function DialogFilter({ searchParams = {}, children, ...props }) {
   const { open, openClose, handleClose } = useOpen();
+  const orderValue = `${searchParams?.orderBy}-${searchParams?.order}`;
   return (
     <Dialog open={open} onOpenChange={openClose} {...props}>
       <DialogTrigger>
@@ -29,8 +30,16 @@ export function DialogFilter({ searchParams = {}, children, ...props }) {
           </DialogDescription>
         </DialogHeader>
         <div className="flex w-full items-center gap-2 pt-4">
-          <Search className="w-full" searchParams={searchParams} />
-          <Order className="w-full" searchParams={searchParams} />
+          <Search
+            className="w-full"
+            value={searchParams?.search}
+            searchParams={searchParams}
+          />
+          <Order
+            className="w-full"
+            value={orderValue}
+            searchParams={searchParams}
+          />
         </div>
         <DialogFooter>
           <Button onClick={handleClose} type="submit" className="w-full">

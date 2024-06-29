@@ -7,12 +7,13 @@ import If from "@/components/If";
 import { readUserOrThrow } from "@/lib/util/supabase";
 import moment from "moment";
 import { AlertNotification } from "./components/AlertNotification";
-import { PaymentStatusEnum, PaymentStatusTranslate } from "./enums";
+import { PedidoStatusEnum, PaymentStatusTranslate } from "./enums";
 import { UpdateTrackingStatus } from "./components/admin/UpdateTrackingStatus";
 import { UpdateProductionStatus } from "./components/admin/UpdateProductionStatus";
 import { DialogFilter } from "./components/DialogFilter";
 import { DrawerFilter } from "./components/DrawerFilter";
 import { PaginationPedidos } from "./components/Pagination";
+import { PaymentInfo } from "./components/PaymentInfo";
 
 async function loadData(props) {
   const map = new Map();
@@ -130,6 +131,14 @@ export default async function Pedidos({ params, searchParams }) {
               </div>
             </div>
 
+            <PaymentInfo external_reference={pedido?.cdcarrinho} />
+
+            <div className="flex w-full items-center justify-center bg-white p-4">
+              <span className="text-base font-medium md:text-xl">
+                Informações adicionais.
+              </span>
+            </div>
+
             {isAdmin ? (
               <AlertNotification
                 title={`${pedido?.nome} - ${pedido?.email}`}
@@ -146,7 +155,7 @@ export default async function Pedidos({ params, searchParams }) {
             />
 
             <AlertNotification
-              data-ispaid={pedido.status === PaymentStatusEnum.PAID}
+              data-ispaid={pedido.status === PedidoStatusEnum.PAID}
               data-isadmin={isAdmin}
               className="data-[ispaid=false]:hidden"
               icon="wrench"
@@ -171,7 +180,7 @@ export default async function Pedidos({ params, searchParams }) {
 
             <AlertNotification
               data-isadmin={isAdmin}
-              data-ispaid={pedido.status === PaymentStatusEnum.PAID}
+              data-ispaid={pedido.status === PedidoStatusEnum.PAID}
               className="data-[ispaid=false]:hidden"
               icon="paper-plane"
               title="STATUS ENVIO"
@@ -207,10 +216,6 @@ export default async function Pedidos({ params, searchParams }) {
           </li>
         ))}
       </ul>
-      <PaginationPedidos
-        totalItems={Number(pedidos[0]?.total)}
-        searchParams={searchParams}
-      />
     </div>
   );
 }

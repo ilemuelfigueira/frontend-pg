@@ -4,7 +4,7 @@ export const PaymentStatusTranslate = {
   PENDING: "Aguardando pagamento",
 };
 
-export const PaymentStatusEnum = {
+export const PedidoStatusEnum = {
   PAID: "PAID",
   FAILED: "FAILED",
   PENDING: "PENDING",
@@ -22,3 +22,5 @@ export const TrackingStatusEnum = {
   ENTREGUE: "ENTREGUE",
   "PROBLEMA NA ENTREGA": "PROBLEMA NA ENTREGA",
 };
+
+export * from './mercadopago'
