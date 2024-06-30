@@ -1,10 +1,10 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Mousewheel } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/autoplay";
+import "swiper/css/pagination";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
@@ -31,9 +31,8 @@ export const Colecao = ({ ...props }) => {
           },
         }}
         spaceBetween={18}
-        mousewheel={false}
         pagination={{ clickable: true }}
-        modules={[Mousewheel]}
+        modules={[Pagination]}
         loop={true}
         zoom={true}
         className="relative z-10 w-full"
