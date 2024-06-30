@@ -12,14 +12,26 @@ import Image from "next/image";
 
 export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
   return (
-    <div className="mx-11 mt-11 grid grid-cols-2 gap-4">
-      <div className="w-full">
+    <div className="mx-11 mt-11 grid  grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="xs w-full">
         <Swiper
           spaceBetween={16}
           slidesPerView={2}
-          grid={{
-            rows: 2,
-            fill: "row",
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+              grid: {
+                rows: 1,
+              },
+              loop: true,
+            },
+            425: {
+              slidesPerView: 2,
+              grid: {
+                rows: 2,
+                fill: "row",
+              },
+            },
           }}
           mousewheel={true}
           modules={[Mousewheel, Grid]}
