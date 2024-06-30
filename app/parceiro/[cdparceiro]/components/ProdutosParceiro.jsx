@@ -12,7 +12,7 @@ import Image from "next/image";
 
 export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
   return (
-    <div className="mx-11 mt-11 grid  grid-cols-1 gap-4 md:grid-cols-2">
+    <div className="mx-4 my-6 grid grid-cols-1 gap-4 md:mx-11 md:mt-11 md:grid-cols-2">
       <div className="xs w-full">
         <Swiper
           spaceBetween={16}
@@ -62,8 +62,18 @@ export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
         </span>
         <Swiper
           spaceBetween={4}
-          slidesPerView={4}
           mousewheel={true}
+          breakpoints={{
+            0: {
+              slidesPerView: 2,
+            },
+            360: {
+              slidesPerView: 3,
+            },
+            425: {
+              slidesPerView: 4,
+            },
+          }}
           pagination={{
             enabled: false,
           }}
@@ -84,7 +94,7 @@ export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
               />
 
               <div className="flex w-full flex-col gap-1 text-center text-xs">
-                <span className="w-full whitespace-break-spaces">
+                <span className="w-full whitespace-break-spaces font-semibold">
                   {produto?.nmproduto}
                 </span>
                 <span className="text-xs">
@@ -94,8 +104,8 @@ export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
             </SwiperSlide>
           ))}
         </Swiper>
-        <p className="mb-16 text-xs">{produtos[0].deproduto}</p>
-        <div className="flex w-full items-center justify-center gap-12">
+        <p className="mb-6 text-xs md:mb-16">{produtos[0].deproduto}</p>
+        <div className="flex w-full items-center justify-center gap-4 max-xs:flex-col xs:gap-12">
           <Button className="rounded-full" variant="outline">
             Adicionar <i className="ph ph-shopping-cart ml-1 text-xl"></i>
           </Button>
