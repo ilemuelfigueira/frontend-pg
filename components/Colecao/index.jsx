@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
+import Image from "next/image";
 
 export const Colecao = ({ ...props }) => {
   return (
@@ -73,15 +74,18 @@ const SlideItem = ({
   return (
     <div
       {...props}
-      style={{
-        backgroundImage: `url(${src})`,
-      }}
       className={twMerge(
-        "flex aspect-[9/12] h-full w-full items-end overflow-hidden rounded-l-md rounded-br-md rounded-tr-[15%] bg-cover bg-center bg-no-repeat text-white",
+        "relative flex aspect-[9/12] h-full w-full items-end overflow-hidden rounded-l-md rounded-br-md rounded-tr-[15%] bg-cover bg-center bg-no-repeat text-white",
         className,
       )}
     >
-      <div className="z-20 flex h-fit w-full flex-col items-start justify-start gap-1 rounded-tr-xl bg-slate-800/20 p-2 md:gap-3">
+      <Image
+        src={src ?? "/no-photo.png"}
+        width={1280}
+        height={720}
+        className="absolute h-full w-full"
+      />
+      <div className="absolute z-20 flex h-fit w-full flex-col items-start justify-start gap-1 rounded-tr-xl bg-slate-800/20 p-2 md:gap-3">
         <span className="text-lg font-normal uppercase lg:text-2xl">
           Obsidian
         </span>
