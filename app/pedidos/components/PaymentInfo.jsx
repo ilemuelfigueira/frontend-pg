@@ -69,7 +69,7 @@ export async function PaymentInfo({ external_reference }) {
               <strong>Status:</strong> {getTranslatedStatus(payment.status)}
               <br />
               <strong>Valor: </strong>
-              {"R$ " + aplicarMascara(payment.transaction_amount, "real")}
+              {aplicarMascara(payment.transaction_amount, "real")}
             </div>
             <div className="mb-2 w-full">
               <strong>Email do Comprador:</strong> {payment.payer.email} <br />

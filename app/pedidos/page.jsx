@@ -112,7 +112,7 @@ export default async function Pedidos({ params, searchParams }) {
                       <div className="flex items-center gap-2">
                         <span className="font-medium">Valor (unidade):</span>
                         <span>
-                          R${aplicarMascara(produto.unit_price, "real")}
+                          {aplicarMascara(produto.unit_price, "real")}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -126,7 +126,7 @@ export default async function Pedidos({ params, searchParams }) {
               <div>
                 <span className="text-base font-light">Total: </span>
                 <span className="text-green-600">
-                  R$ {aplicarMascara(pedido.value, "real")}
+                  {aplicarMascara(pedido.value, "real")}
                 </span>
               </div>
             </div>

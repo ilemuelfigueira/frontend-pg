@@ -386,7 +386,7 @@ export default function ProdutosPage({ tipos, produtos }) {
         </Modal>
 
         <div className="lg:col-span-3">
-          <ul className="grid grid-cols-2 gap-1 md:gap-4 md:grid-cols-4 lg:grid-cols-5">
+          <ul className="grid grid-cols-2 gap-1 md:grid-cols-4 md:gap-4 lg:grid-cols-5">
             {produtos.items.map((produto) => (
               <li className="bg-white shadow-md" key={produto?.cdproduto}>
                 <Link
@@ -400,7 +400,7 @@ export default function ProdutosPage({ tipos, produtos }) {
                     autoplay={{ delay: 2500 }}
                     modules={[Autoplay, Mousewheel, Pagination]}
                     pagination={{
-                      clickable: true
+                      clickable: true,
                     }}
                     loop={true}
                     className="z-10 aspect-square w-full max-w-full transition duration-500 group-hover:scale-105"
@@ -437,7 +437,7 @@ export default function ProdutosPage({ tipos, produtos }) {
                     <p className="mt-2 block text-xs">
                       {`A partir de `}
                       <strong className="text-base font-semibold">
-                        R$ {aplicarMascara(produto.valorminimo, "real")}
+                        {aplicarMascara(produto.valorminimo, "real")}
                       </strong>
                     </p>
                   </div>

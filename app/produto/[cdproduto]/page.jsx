@@ -4,28 +4,6 @@ import { Comercial } from "./comercial";
 import { Ilustracoes } from "./ilustracoes";
 import { readUserOrThrow } from "@/lib/util/supabase";
 
-// const defaultMetadata = {
-//   title: "PG CUSTOM",
-//   description: "Loja de venda e personalização de controles de videogame",
-//   images: [thumbnail],
-// };
-
-// export const metadata = {
-//   ...defaultMetadata,
-//   twitter: {
-//     ...defaultMetadata,
-//     card: "summary_large_image",
-//     site: "@pgcustomstore",
-//     creator: "@pgcustomstore",
-//   },
-//   openGraph: {
-//     ...defaultMetadata,
-//     type: "website",
-//     url: process.env.NEXT_PUBLIC_DOMAIN,
-//     siteName: "PG CUSTOM",
-//   },
-// };
-
 export async function generateMetadata({ params }, parent) {
   const id = params.cdproduto;
 

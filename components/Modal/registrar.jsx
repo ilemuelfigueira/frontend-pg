@@ -1,4 +1,3 @@
-import { aplicarMascara } from "@/lib/util";
 import {
   At,
   CircleDashed,
@@ -99,7 +98,7 @@ export default function RegistrarModal({
 
         onCancel();
         toast("Verifique sua caixa de email, para confirmar seu acesso.");
-        router.refresh()
+        router.refresh();
       } catch (error) {
         toast.error("Tente novamente mais tarde.");
         formik.setFieldValue("submitError", true);

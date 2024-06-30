@@ -87,7 +87,7 @@ export const Client = ({ ...props }) => {
 
             <Row
               label="Valor"
-              value={`R$ ${aplicarMascara(props.valor, "real")}`}
+              value={`${aplicarMascara(props.valor, "real")}`}
             />
 
             <Row label="Status Pagamento" value={status_pagamento} />
