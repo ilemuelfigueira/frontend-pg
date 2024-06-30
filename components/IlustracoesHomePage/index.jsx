@@ -8,12 +8,13 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
+import Image from "next/image";
 
 export function IlustracoesHomePage() {
   return (
     <Swiper
       id="swiper-ilustracoes"
-      spaceBetween={50}
+      spaceBetween={0}
       slidesPerView={1}
       autoplay={{ delay: 10000 }}
       mousewheel={false}
@@ -39,9 +40,6 @@ export function IlustracoesHomePage() {
       <SwiperSlide className="z-10 aspect-video">
         <SlideItem label="Comprar" src="/dualsense-desfocado.jpg" />
       </SwiperSlide>
-      <SwiperSlide className="z-10 aspect-video">
-        <SlideItem label="Comprar" src="/jogatina.jpg" />
-      </SwiperSlide>
     </Swiper>
   );
 }
@@ -59,15 +57,21 @@ const SlideItem = ({
   return (
     <div
       {...props}
-      style={{
-        backgroundImage: `url(${src})`,
-      }}
+      // style={{
+      //   backgroundImage: `url(${src})`,
+      // }}
       className={twMerge(
-        "flex h-full w-full flex-col items-center justify-end bg-cover bg-center bg-no-repeat",
+        "relative flex h-full w-full flex-col items-center justify-end bg-cover bg-center bg-no-repeat",
         className,
       )}
     >
-      <div className="style mb-4 flex w-full max-w-page-limit flex-col items-start gap-2 p-4">
+      <Image
+        src={src ?? "/no-photo.png"}
+        width={1920}
+        height={1080}
+        className="absolute h-full w-full"
+      />
+      <div className="style absolute mb-4 flex w-full max-w-page-limit flex-col items-start gap-2 p-4">
         <span className="text-4xl font-bold uppercase text-white md:text-5xl">
           {title}
         </span>
