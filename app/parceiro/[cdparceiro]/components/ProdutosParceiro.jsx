@@ -104,9 +104,13 @@ export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
           {nmparceiro} LINHA EXCLUSIVA
         </span>
         <span className="mb-2 w-full text-start text-sm">
-          a partir de{" "}
+          {formik.values["produto"] ? "Valor " : "A partir de "}
           <strong className="text-green-400">
-            {aplicarMascara(999.9, "real")}
+            {aplicarMascara(
+              formik.values["produto"]?.vlproduto ??
+                Math.min(...produtos.map((item) => Number(item.vlproduto))),
+              "real",
+            )}
           </strong>
         </span>
         <Swiper
