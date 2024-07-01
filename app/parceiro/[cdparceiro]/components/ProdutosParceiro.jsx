@@ -41,6 +41,8 @@ export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
 
         if (gotocart) router.push("/carrinho");
       } catch (error) {
+        if (error.message === "Usuário não autenticado")
+          return toast.error(`Autentique-se.`, { id: "produto-parceiro" });
         toast.error("Erro ao adicionar produto no carrinho.", {
           id: "produto-parceiro",
         });
