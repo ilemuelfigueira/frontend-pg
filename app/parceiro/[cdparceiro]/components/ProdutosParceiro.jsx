@@ -9,8 +9,55 @@ import "swiper/css/autoplay";
 import "swiper/css/grid";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { cadastrarPacoteCarrinhoNovo } from "@/actions/carrinho";
+import toast from "react-hot-toast";
+import { useFormik } from "formik";
+
+import * as yup from "yup";
+import { useRouter } from "next/navigation";
 
 export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
+  const router = useRouter();
+
+  const formik = useFormik({
+    initialValues: {
+      produto: undefined,
+      gotocart: false,
+    },
+    validationSchema: yup.object().shape({
+      produto: yup.object().required(),
+      gotocart: yup.boolean().required(),
+    }),
+    onSubmit: async ({ produto, gotocart }) => {
+      try {
+        await cadastrarPacoteCarrinhoNovo({
+          cdproduto: produto?.cdproduto,
+          subprodutos: [],
+        });
+        if (!gotocart)
+          toast.success("Produto adicionado no carrinho.", {
+            id: "produto-parceiro",
+          });
+
+        if (gotocart) router.push("/carrinho");
+      } catch (error) {
+        toast.error("Erro ao adicionar produto no carrinho.", {
+          id: "produto-parceiro",
+        });
+      }
+    },
+  });
+
+  function adicionarCarrinho() {
+    formik.setFieldValue("gotocart", false);
+    formik.handleSubmit();
+  }
+
+  function compreAgora() {
+    formik.setFieldValue("gotocart", true);
+    formik.handleSubmit();
+  }
+
   return (
     <div className="mx-4 my-6 grid grid-cols-1 gap-4 md:mx-11 md:mt-11 md:grid-cols-2">
       <div className="xs w-full">
@@ -38,16 +85,18 @@ export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
           loop={false}
           className="relative z-10 w-full max-w-full flex-1"
         >
-          {[].concat(produtos[0]?.banners).map((banner, index) => (
-            <SwiperSlide key={index} className="">
-              <Image
-                width={1280}
-                height={720}
-                className="!aspect-square rounded-2xl"
-                src={banner ?? "/no-photo.png"}
-              />
-            </SwiperSlide>
-          ))}
+          {(formik.values["produto"]?.banners ?? produtos[0]?.banners).map(
+            (banner, index) => (
+              <SwiperSlide key={index} className="">
+                <Image
+                  width={1280}
+                  height={720}
+                  className="!aspect-square rounded-2xl"
+                  src={banner ?? "/no-photo.png"}
+                />
+              </SwiperSlide>
+            ),
+          )}
         </Swiper>
       </div>
       <div className="flex w-full flex-col items-center justify-start rounded-lg bg-white p-4">
@@ -84,7 +133,11 @@ export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
           {produtos?.map((produto) => (
             <SwiperSlide
               key={produto.cdproduto}
-              className="!flex flex-col gap-2"
+              data-selecionado={
+                produto?.cdproduto === formik.values["produto"]?.cdproduto
+              }
+              className="!flex flex-col gap-2 border border-transparent hover:cursor-pointer data-[selecionado=true]:border-b-blue-400"
+              onClick={() => formik.setFieldValue("produto", produto)}
             >
               <Image
                 src={produto?.banners[0] ?? "/no-photo.png"}
@@ -104,12 +157,27 @@ export function ProdutosParceiro({ nmparceiro = "PARCEIRO", produtos = [] }) {
             </SwiperSlide>
           ))}
         </Swiper>
-        <p className="mb-6 text-xs md:mb-16">{produtos[0].deproduto}</p>
+        <p className="mb-6 text-xs md:mb-16">
+          {formik.values["produto"]?.deproduto ?? produtos[0]?.deproduto}
+        </p>
         <div className="flex w-full items-center justify-center gap-4 max-xs:flex-col xs:gap-12">
-          <Button className="rounded-full" variant="outline">
+          <Button
+            className="rounded-full data-[submitting=true]:animate-pulse"
+            variant="outline"
+            onClick={adicionarCarrinho}
+            data-submitting={formik.isSubmitting}
+            disabled={formik.isSubmitting}
+            type="submit"
+          >
             Adicionar <i className="ph ph-shopping-cart ml-1 text-xl"></i>
           </Button>
-          <Button className="rounded-full bg-blue-800 hover:bg-blue-700">
+          <Button
+            className="rounded-full bg-blue-800 hover:bg-blue-700 data-[submitting=true]:animate-pulse"
+            onClick={compreAgora}
+            data-submitting={formik.isSubmitting}
+            disabled={formik.isSubmitting}
+            type="submit"
+          >
             Comprar agora
           </Button>
         </div>
