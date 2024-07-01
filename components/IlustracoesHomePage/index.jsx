@@ -22,7 +22,7 @@ export function IlustracoesHomePage() {
       modules={[Pagination, Autoplay, Mousewheel]}
       loop={true}
       zoom={true}
-      className="relative z-10 aspect-video w-full max-w-full max-xl:h-[calc(100vh-25vh)] max-lg:h-[calc(100vh-30vh)] max-md:h-[calc(100vh-200px)] xl:h-[calc(100vh-15vh)]"
+      className="relative z-10 aspect-[9/13] w-full max-w-full xs:aspect-square md:aspect-video lg:aspect-[16/8] xl:aspect-[16/7]"
       style={{
         "--swiper-pagination-color": "rgb(27 68 114 / var(--tw-bg-opacity))",
         "--swiper-pagination-bullet-inactive-color": "#999999",
@@ -67,9 +67,9 @@ const SlideItem = ({
     >
       <Image
         src={src ?? "/no-photo.png"}
-        width={1920}
-        height={1080}
-        className="absolute h-full w-full"
+        fill
+        className="absolute h-full w-full bg-cover bg-no-repeat"
+        objectFit="cover"
       />
       <div className="style absolute mb-4 flex w-full max-w-page-limit flex-col items-start gap-2 p-4">
         <span className="text-4xl font-bold uppercase text-white md:text-5xl">
