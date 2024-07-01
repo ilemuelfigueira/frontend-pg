@@ -8,7 +8,6 @@ import Link from "next/link";
 import { floatToBRL } from "@/lib/util/intl";
 import { removerPacoteDoCarrinho } from "@/actions/excluir-pacote-carrinho";
 import toast from "react-hot-toast";
-import { NewText } from "../NewText";
 
 const Arrow = ({
   className = "",
@@ -48,14 +47,15 @@ const Quantidade = ({
       id: "aumentar-quantidade",
     });
 
-    updateCarrinhoPacoteQtd(
-      cdpacote,
-      Number(nuqtdpacote) + 1,
-      router.refresh(),
-    ).then(() => {
-      toast.dismiss("aumentar-quantidade");
-      toast.success("Quantidade aumentada com sucesso");
-    });
+    updateCarrinhoPacoteQtd(cdpacote, Number(nuqtdpacote) + 1, router.refresh())
+      .then(() => {
+        toast.dismiss("aumentar-quantidade");
+        toast.success("Quantidade aumentada com sucesso.");
+      })
+      .catch(() => {
+        toast.dismiss("aumentar-quantidade");
+        toast.error("Erro ao aumentar quantidade.");
+      });
   };
 
   const diminuir = ({ cdpacote, nuqtdpacote }) => {
@@ -67,14 +67,15 @@ const Quantidade = ({
     toast.loading("Diminuindo quantidade do produto", {
       id: "diminuir-quantidade",
     });
-    updateCarrinhoPacoteQtd(
-      cdpacote,
-      Number(nuqtdpacote) - 1,
-      router.refresh(),
-    ).then(() => {
-      toast.dismiss("diminuir-quantidade");
-      toast.success("Quantidade diminuida com sucesso");
-    });
+    updateCarrinhoPacoteQtd(cdpacote, Number(nuqtdpacote) - 1, router.refresh())
+      .then(() => {
+        toast.dismiss("diminuir-quantidade");
+        toast.success("Quantidade diminuida com sucesso");
+      })
+      .catch(() => {
+        toast.dismiss("aumentar-quantidade");
+        toast.error("Erro ao diminuir quantidade.");
+      });
   };
 
   return (
@@ -179,10 +180,15 @@ const RemoverPacote = ({ className, cdpacote }) => {
       id: "remover-produto",
     });
 
-    removerPacoteDoCarrinho(cdpacote, router.refresh()).then(() => {
-      toast.dismiss("remover-produto");
-      toast.success("Produto removido com sucesso");
-    });
+    removerPacoteDoCarrinho(cdpacote, router.refresh())
+      .then(() => {
+        toast.dismiss("remover-produto");
+        toast.success("Produto removido com sucesso.");
+      })
+      .catch(() => {
+        toast.dismiss("remover-produto");
+        toast.error("Erro ao remover produto.");
+      });
   };
   return (
     <span

@@ -1,17 +1,25 @@
 "use server";
 
-import { client } from "@/lib/prisma-client";
+import { fetcher } from "@/lib/util/fetcher";
+import { readUserOrThrow } from "@/lib/util/supabase";
 import { revalidateTag } from "next/cache";
 
 export async function updateCarrinhoPacoteQtd(cdpacote, qtd, cb) {
-  await client.carrinho_pacote.updateMany({
-    data: {
-      nuqtdpacote: qtd,
+  const headers = new Headers();
+  await readUserOrThrow({
+    onOffline: () => {
+      throw new Error("Usuário não autenticado");
     },
-    where: {
-      cdpacote,
+    onSuccess: ({ refresh_token, access_token }) => {
+      headers.append("refresh_token", refresh_token);
+      headers.append("access_token", access_token);
+      headers.append("method", "PATCH");
     },
   });
+
+  const response = await fetcher(`/api/pacotes/${cdpacote}/quantidade/${qtd}`, headers);
+
+  if (response?.error) throw new Error(response?.error)
 
   revalidateTag('/api/carrinhos');
 

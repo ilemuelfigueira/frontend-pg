@@ -1,47 +1,27 @@
 "use server";
 
-import { client } from "@/lib/prisma-client";
-import { createServerSupabaseClient } from "@/lib/util/supabase";
+import { fetcher } from "@/lib/util/fetcher";
+import { readUserOrThrow } from "@/lib/util/supabase";
+import { revalidateTag } from "next/cache";
 
 export async function removerPacoteDoCarrinho(cdpacote, cb) {
-  const supabase = createServerSupabaseClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
-    throw new Error("Usuário não autenticado");
-  }
-
-  await client.$transaction(async (prisma) => {
-    await prisma.pacote_item.deleteMany({
-      where: {
-        cdpacote,
-      },
-    });
-
-    await prisma.pacote_foto.deleteMany({
-      where: {
-        cdpacote,
-      },
-    });
-
-    await prisma.carrinho_pacote.deleteMany({
-      where: {
-        cdpacote,
-        carrinho: {
-          cdusuario: session.user.id,
-          sgcarrinhosituacao: "PEN",
-        },
-      },
-    });
-
-    await prisma.pacote.deleteMany({
-      where: {
-        cdpacote,
-      },
-    });
-    cb;
+  const headers = new Headers();
+  await readUserOrThrow({
+    onOffline: () => {
+      throw new Error("Usuário não autenticado");
+    },
+    onSuccess: ({ refresh_token, access_token }) => {
+      headers.append("refresh_token", refresh_token);
+      headers.append("access_token", access_token);
+      headers.append("method", "DELETE");
+    },
   });
+
+  const response = await fetcher(`/api/pacotes/${cdpacote}`, headers);
+
+  if (response?.error) throw new Error(response?.error)
+
+  revalidateTag('/api/carrinhos');
+
+  cb;
 }
