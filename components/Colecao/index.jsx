@@ -80,9 +80,9 @@ const SlideItem = ({
     >
       <Image
         src={src ?? "/no-photo.png"}
-        width={1280}
-        height={720}
-        className="absolute h-full w-full"
+        fill
+        objectFit="cover"
+        className="absolute h-full w-full bg-cover"
       />
       <div className="absolute z-20 flex h-fit w-full flex-col items-start justify-start gap-1 rounded-tr-xl bg-slate-800/20 p-2 md:gap-3">
         <span className="text-lg font-normal uppercase lg:text-2xl">
