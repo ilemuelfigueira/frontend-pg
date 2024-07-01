@@ -24,3 +24,24 @@ export async function cadastrarPacoteCarrinho({ pacote, items, cdproduto }) {
 
   return response;
 }
+
+export async function cadastrarPacoteCarrinhoNovo({ subprodutos = [], cdproduto }) {
+  const headers = new Headers();
+  await readUserOrThrow({
+    onOffline: () => {
+      throw new Error("Usuário não autenticado");
+    },
+    onSuccess: ({ refresh_token, access_token }) => {
+      headers.append("refresh_token", refresh_token);
+      headers.append("access_token", access_token);
+      headers.append("method", "POST");
+    },
+  });
+
+  const response = await fetcher("/api/pacotes/empacotar", headers, {
+    cdproduto,
+    subprodutos
+  });
+
+  return response;
+}
