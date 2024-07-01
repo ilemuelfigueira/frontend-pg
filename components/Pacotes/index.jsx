@@ -215,38 +215,42 @@ export function Pacotes({ pacotes = [] }) {
     );
   }
   return (
-    <ul className="w-full flex flex-col gap-4">
+    <ul className="flex w-full flex-col gap-4">
       {pacotes.map((pacote) => (
         <li
           key={pacote.cdpacote}
           className="w-full flex-col gap-4 rounded-lg bg-white p-4 shadow-md max-md:rounded-none"
         >
-          <div className="flex w-full justify-start max-md:gap-2 md:gap-4">
-            <ImagemProduto
-              cdpacote={pacote.cdpacote}
-              nmpath={pacote.nmpath}
-              nmproduto={pacote.nmproduto}
-              nmprodutotipo={pacote.nmprodutotipo}
-            />
-            <NomeProduto
-              concat_nmsubprodutotipo={pacote.concat_nmsubprodutotipo.replace(
-                "\\n",
-                "\n",
-              )}
-              nmpathname={pacote.nmpathname}
-              nmproduto={pacote.nmproduto}
-              nmprodutotipo={pacote.nmprodutotipo}
-            />
-            <Quantidade
-              className={"max-md:hidden"}
-              cdpacote={pacote.cdpacote}
-              nuqtdpacote={pacote.nuqtdpacote}
-            />
-            <ValorPacote
-              className={"max-md:hidden"}
-              vlpacote={pacote.vlpacote}
-            />
-            <RemoverPacote cdpacote={pacote.cdpacote} />
+          <div className="flex w-full justify-between">
+            <div className="flex max-md:gap-2 md:gap-4">
+              <ImagemProduto
+                cdpacote={pacote.cdpacote}
+                nmpath={pacote.nmpath}
+                nmproduto={pacote.nmproduto}
+                nmprodutotipo={pacote.nmprodutotipo}
+              />
+              <NomeProduto
+                concat_nmsubprodutotipo={pacote.concat_nmsubprodutotipo.replace(
+                  "\\n",
+                  "\n",
+                )}
+                nmpathname={pacote.nmpathname}
+                nmproduto={pacote.nmproduto}
+                nmprodutotipo={pacote.nmprodutotipo}
+              />
+            </div>
+            <div className="flex shrink-0 max-md:gap-2 md:gap-4">
+              <Quantidade
+                className={"max-md:hidden"}
+                cdpacote={pacote.cdpacote}
+                nuqtdpacote={pacote.nuqtdpacote}
+              />
+              <ValorPacote
+                className={"max-md:hidden"}
+                vlpacote={pacote.vlpacote}
+              />
+              <RemoverPacote cdpacote={pacote.cdpacote} />
+            </div>
           </div>
           <div className="hidden w-full items-center justify-between max-md:flex">
             <ValorPacote vlpacote={pacote.vlpacote} max_md_hide={false} />
