@@ -12,8 +12,8 @@ import { UpdateTrackingStatus } from "./components/admin/UpdateTrackingStatus";
 import { UpdateProductionStatus } from "./components/admin/UpdateProductionStatus";
 import { DialogFilter } from "./components/DialogFilter";
 import { DrawerFilter } from "./components/DrawerFilter";
-import { PaginationPedidos } from "./components/Pagination";
 import { PaymentInfo } from "./components/PaymentInfo";
+import PaginationPedidos from "./components/Pagination";
 
 async function loadData(props) {
   const map = new Map();
@@ -41,7 +41,7 @@ async function loadData(props) {
 
   if (pedidos.error) onError(pedidos.error, "Erro ao carregar pedidos");
 
-  if (pedidos.length == 0) onError("Nenhum pedido encontrado");
+  if (pedidos.length === 0) redirect("/pedidos");
 
   return {
     pedidos,
@@ -69,7 +69,7 @@ export default async function Pedidos({ params, searchParams }) {
         </div>
       </div>
       <ul className="mt-4 grid w-full grid-cols-1 gap-4">
-        {pedidos.map((pedido) => (
+        {pedidos?.map((pedido) => (
           <li
             key={pedido.cdpedido}
             className="flex flex-col items-start justify-start gap-4 rounded-lg bg-gray-300 p-4"
@@ -131,7 +131,11 @@ export default async function Pedidos({ params, searchParams }) {
               </div>
             </div>
 
-            <PaymentInfo external_reference={pedido?.cdcarrinho} />
+            {/* {isAdmin ? (
+              <PaymentInfo external_reference={pedido?.cdcarrinho} />
+            ) : (
+              ""
+            )} */}
 
             <div className="flex w-full items-center justify-center bg-white p-4">
               <span className="text-base font-medium md:text-xl">
@@ -216,6 +220,10 @@ export default async function Pedidos({ params, searchParams }) {
           </li>
         ))}
       </ul>
+      <PaginationPedidos
+        searchParams={searchParams}
+        totalCount={pedidos[0]?.total ?? 0}
+      />
     </div>
   );
 }

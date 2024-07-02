@@ -33,8 +33,6 @@ export async function loadData(external_reference) {
     `/api/payments/${external_reference}/status`,
   );
 
-  console.log(pagamentos, external_reference);
-
   if (pagamentos.error)
     return {
       error: pagamentos.error,

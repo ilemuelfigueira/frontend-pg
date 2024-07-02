@@ -1,106 +1,125 @@
 "use client";
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+import { Button } from "@/components/ui/button";
+import { SelectLimit } from "./SelectLimit";
+import { useFormik } from "formik";
 
-export function PaginationPedidos({ searchParams = {}, totalItems = 0 }) {
-  const page = searchParams.page ? Number(searchParams.page) : 1;
-  const limit = searchParams.limit ? Number(searchParams.limit) : 3;
-  const qtdPages = Number(totalItems) / limit;
+import * as yup from "yup";
 
-  function setPageUrl(value = 1) {
-    const _searchParams = {
-      ...searchParams,
-    };
+const PaginationPedidos = ({ searchParams = {}, totalCount = 0 }) => {
+  const size = parseInt(searchParams["limit"] || 10, 10);
 
-    _searchParams.page = Number(value);
-    _searchParams.limit = Number(limit);
+  const totalPages = Math.ceil(totalCount / size);
 
-    const querystring = new URLSearchParams(_searchParams).toString();
+  const formik = useFormik({
+    initialValues: {
+      page: parseInt(Math.max(searchParams["page"] || 1, 1), 10),
+      limit: parseInt(searchParams.limit ? Number(searchParams["limit"]) : 5),
+    },
+    validationSchema: yup.object().shape({
+      page: yup.number().positive().required(),
+      limit: yup.number().positive().required(),
+    }),
+    onSubmit: async (values) => {
+      const query = new URLSearchParams({
+        ...searchParams,
+        page: values.page,
+        limit: values.limit,
+      }).toString();
 
-    return `/pedidos?${querystring}`;
+      await new Promise((resolve) => {
+        window.location.assign(`/pedidos?${query}`);
+      });
+    },
+  });
+
+  const currentPage = formik.values.page;
+
+  function onPageChange(page = 1) {
+    formik.setFieldValue("page", page);
+    formik.submitForm();
   }
 
-  function getNextPage() {
-    let nextPage = page === qtdPages ? qtdPages : page + 1;
-
-    return setPageUrl(nextPage);
+  function onLimitChange(limit = 5) {
+    formik.setFieldValue("limit", limit);
+    formik.submitForm();
   }
 
-  function getPreviousPage() {
-    let previousPage = page === 1 ? 1 : page - 1;
+  const getVisiblePages = (page, total) => {
+    if (total <= 5) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
 
-    return setPageUrl(previousPage);
-  }
+    if (page <= 3) {
+      return [1, 2, 3, 4, "...", total];
+    }
 
-  const nextPage = getNextPage();
+    if (page >= total - 2) {
+      return [1, "...", total - 3, total - 2, total - 1, total];
+    }
 
-  const previousPage = getPreviousPage();
+    return [1, "...", page - 1, page, page + 1, "...", total];
+  };
 
-  const firstPage = setPageUrl(1);
-
-  const lastPage = setPageUrl(qtdPages);
+  const pages = getVisiblePages(currentPage, totalPages);
 
   return (
-    <div className="my-4 flex w-full items-center justify-end">
-      <Pagination className="m-0 w-fit">
-        <PaginationContent>
-          <PaginationItem
-            data-first={page === 1}
-            className="data-[first=true]:hidden"
+    <nav aria-label="Page navigation" className="my-4 flex justify-end">
+      <SelectLimit
+        value={formik.values.limit}
+        disabled={formik.isSubmitting}
+        onChange={onLimitChange}
+      />
+      <ul className="ml-4 inline-flex items-center -space-x-px">
+        <li>
+          <Button
+            onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
+            className={`ml-0 mr-2 rounded-l-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+              currentPage === 1 ? "cursor-not-allowed" : ""
+            }`}
+            disabled={currentPage === 1 || formik.isSubmitting}
           >
-            <PaginationPrevious displayName="Anterior" href={previousPage} />
-          </PaginationItem>
-          <PaginationItem
-            data-first={page === 1}
-            className="data-[first=false]:hidden"
+            Anterior
+          </Button>
+        </li>
+        {pages.map((page, index) =>
+          page === "..." ? (
+            <li key={index}>
+              <span className="shrink-0 border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500">
+                ...
+              </span>
+            </li>
+          ) : (
+            <li key={page}>
+              <Button
+                onClick={() => onPageChange(page)}
+                className={`shrink-0 border px-3 py-2 leading-tight ${
+                  page === currentPage
+                    ? "border-blue-300 bg-blue-50 text-blue-600 hover:bg-blue-50"
+                    : "border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                }`}
+                type="outline"
+                disabled={formik.isSubmitting}
+              >
+                {page}
+              </Button>
+            </li>
+          ),
+        )}
+        <li>
+          <Button
+            onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+            className={`ml-2 rounded-r-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 ${
+              currentPage === totalPages ? "cursor-not-allowed" : ""
+            }`}
+            disabled={currentPage === totalPages || formik.isSubmitting}
           >
-            Primeira página
-          </PaginationItem>
-          <PaginationItem
-            data-first={page === 1}
-            className="data-[first=true]:hidden"
-          >
-            <PaginationLink href={firstPage}>{1}</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" isActive>
-              {page}
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem
-            data-last={page === qtdPages}
-            className="data-[last=true]:hidden"
-          >
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem
-            data-last={page === qtdPages}
-            className="data-[last=true]:hidden"
-          >
-            <PaginationLink href={lastPage}>{qtdPages}</PaginationLink>
-          </PaginationItem>
-          <PaginationItem
-            data-last={page === qtdPages}
-            className="data-[last=false]:hidden"
-          >
-            Última página
-          </PaginationItem>
-          <PaginationItem
-            data-last={page === qtdPages}
-            className="data-[last=true]:hidden"
-          >
-            <PaginationNext displayName="Próxima" href={nextPage} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    </div>
+            Próxima
+          </Button>
+        </li>
+      </ul>
+    </nav>
   );
-}
+};
+
+export default PaginationPedidos;
